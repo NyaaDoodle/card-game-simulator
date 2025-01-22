@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class DragScript : MonoBehaviour
+public class DragScript : NetworkBehaviour
 {
     private bool isDragging = false;
 
