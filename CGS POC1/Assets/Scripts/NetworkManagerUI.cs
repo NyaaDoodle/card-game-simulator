@@ -7,6 +7,7 @@ public class NetworkManagerUI : MonoBehaviour
     [SerializeField] private Button startHostButton;
     [SerializeField] private Button startServerButton;
     [SerializeField] private Button startClientButton;
+    [SerializeField] private GameObject StaticGameObjectsForTesting;
 
     private void Awake()
     {
@@ -14,16 +15,35 @@ public class NetworkManagerUI : MonoBehaviour
             () =>
                 {
                     NetworkManager.Singleton.StartHost();
+                    doAfterNetworkStart();
                 });
         startServerButton.onClick.AddListener(
             () =>
                 {
                     NetworkManager.Singleton.StartServer();
+                    doAfterNetworkStart();
                 });
         startClientButton.onClick.AddListener(
             () =>
                 {
                     NetworkManager.Singleton.StartClient();
+                    doAfterNetworkStart();
                 });
+    }
+
+    private void doAfterNetworkStart()
+    {
+        activateGame();
+        hideUI();
+    }
+
+    private void activateGame()
+    {
+        StaticGameObjectsForTesting.SetActive(true);
+    }
+
+    private void hideUI()
+    {
+        gameObject.SetActive(false);
     }
 }
