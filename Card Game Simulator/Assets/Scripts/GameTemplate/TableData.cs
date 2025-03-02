@@ -1,9 +1,10 @@
-﻿public class TableData
+﻿using UnityEngine;
+
+public class TableData
 {
     public float Width { get; set; }
     public float Height { get; set; }
-    // Placeholder datatype
-    public int SurfaceImage { get; set; }
+    public Sprite SurfaceImage { get; set; }
 
     public TableData()
     {

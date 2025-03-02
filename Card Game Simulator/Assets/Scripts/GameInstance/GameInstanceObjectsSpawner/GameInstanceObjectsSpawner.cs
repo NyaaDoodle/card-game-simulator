@@ -2,16 +2,9 @@ using UnityEngine;
 
 public class GameInstanceObjectsSpawner : MonoBehaviour
 {
-    [SerializeField]
-    private GameTemplateDataContainer gameTemplateDataContainer;
-    [SerializeField] 
-    private GameObject table;
-    [SerializeField] 
-    private GameObject decks;
-    [SerializeField] 
-    private GameObject cardPlacementLocations;
-    [SerializeField] 
-    private GameObject playerHands;
+    [SerializeField] private GameTemplateDataContainer gameTemplateDataContainer;
+    [SerializeField] private GameInstanceObjectsContainer gameInstanceObjectsContainer;
+    [SerializeField] private GameObject tablePrefab;
 
     void Start()
     {
@@ -23,6 +16,8 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnTable()
     {
+        GameObject table = Instantiate(tablePrefab, gameInstanceObjectsContainer.transform);
+        gameInstanceObjectsContainer.Table = table;
         table.SetActive(true);
         Transform tableTransform = table.transform;
         TableData tableData = gameTemplateDataContainer.TableData;
@@ -31,7 +26,18 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
         tableTransform.localScale = tableScaleVector;
     }
 
-    private void spawnDecks() {}
-    private void spawnCardPlacementLocations() {}
-    private void spawnPlayerHands() {}
+    private void spawnDecks()
+    {
+
+    }
+
+    private void spawnCardPlacementLocations()
+    {
+
+    }
+
+    private void spawnPlayerHands()
+    {
+
+    }
 }

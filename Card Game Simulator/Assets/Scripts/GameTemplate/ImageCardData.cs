@@ -1,5 +1,6 @@
-﻿public class ImageCardData : CardData
+﻿using UnityEngine;
+
+public class ImageCardData : CardData
 {
-    // Placeholder datatype
-    private int FrontImage;
+    private Sprite FrontImage;
 }

@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameTemplateLoader : MonoBehaviour
 {
-    [SerializeField]
-    private GameTemplateDataContainer gameTemplateDataContainer;
+    [SerializeField] private GameTemplateDataContainer gameTemplateDataContainer;
+    [SerializeField] private float testTableWidth;
+    [SerializeField] private float testTableHeight;
 
     void Start()
     {
@@ -19,8 +21,6 @@ public class GameTemplateLoader : MonoBehaviour
     private GameTemplate getTestGameTemplate()
     {
         const string testGameTemplateName = "Test Template";
-        const float testTableWidth = 10;
-        const float testTableHeight = 10;
         TableData testTableData = new TableData(testTableWidth, testTableHeight);
         CardPool testCardPool = getTestCardPool();
         GameTemplate testGameTemplate = new GameTemplate();
