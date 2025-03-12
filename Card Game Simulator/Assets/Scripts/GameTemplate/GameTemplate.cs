@@ -7,6 +7,6 @@ public class GameTemplate
     public TableData TableData { get; set; }
     public CardPool CardPool { get; set; }
     // TODO thinking about and implementing these...
-    //private readonly Dictionary<int, DeckData> deckDataDictionary;
-    //private readonly Dictionary<int, PlacementLocationData> placementLocationDictionary;
+    private readonly Dictionary<int, DeckData> deckDataDictionary;
+    private readonly Dictionary<int, PlacementLocationData> placementLocationDictionary;
 }

@@ -6,6 +6,7 @@ public class GameTemplateLoader : MonoBehaviour
     [SerializeField] private GameTemplateDataContainer gameTemplateDataContainer;
     [SerializeField] private float testTableWidth;
     [SerializeField] private float testTableHeight;
+    [SerializeField] private Sprite testDefaultBackSideSprite;
 
     void Start()
     {
@@ -33,6 +34,9 @@ public class GameTemplateLoader : MonoBehaviour
     private CardPool getTestCardPool()
     {
         // TODO implement
+        CardData twoOfClubsCardData = new CardData();
+        twoOfClubsCardData.FrontSideSprite = Resources.Load<Sprite>("2C");
+        twoOfClubsCardData.BackSideSprite = testDefaultBackSideSprite;
         return null;
     }
 }

@@ -12,6 +12,8 @@ public class CardPool
     public void AddCardData(CardData cardDataToAdd)
     {
         // TODO existence checking
+        int cardId = cardDataDictionary.Count + 1;
+        cardDataToAdd.Id = cardId;
         cardDataDictionary.Add(cardDataToAdd.Id, cardDataToAdd);
     }
 
