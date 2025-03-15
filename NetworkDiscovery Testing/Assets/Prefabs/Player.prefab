@@ -35,11 +35,11 @@ RectTransform:
   - {fileID: 6041907543026925118}
   m_Father: {fileID: 1580032000569398341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -116.00001, y: -490.00003}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 642.1904, y: 92.352295}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &6832788956266794235
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -292,6 +292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8295551917348321172}
+  - component: {fileID: 6308841037895492335}
   m_Layer: 0
   m_Name: Message UI
   m_TagString: Untagged
@@ -315,6 +316,23 @@ Transform:
   - {fileID: 1580032000569398341}
   m_Father: {fileID: 6392060396427655140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6308841037895492335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751450907674410111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce946cacd03e91e44b6f373c43671bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  messageText: {fileID: 5996139752517837765}
+  inputField: {fileID: 1480781074836657588}
 --- !u!1 &1811951428470099590
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +479,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6392060396427655140}
   - component: {fileID: -4614364460758528916}
-  - component: {fileID: 5375605606180015259}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -502,25 +519,6 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &5375605606180015259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2972250248021939079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce946cacd03e91e44b6f373c43671bb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  messageUI: {fileID: 751450907674410111}
-  messageText: {fileID: 5996139752517837765}
-  inputField: {fileID: 1480781074836657588}
-  sendButton: {fileID: 1760478666387780868}
 --- !u!1 &3915403884759597867
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,11 +551,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1580032000569398341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.6874, y: 0}
-  m_SizeDelta: {x: 891.57, y: 326.9468}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 48.084976}
+  m_SizeDelta: {x: 642.19, y: 983.83}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5371085705043648796
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -620,8 +618,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -651,7 +649,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -0.000030517578}
+  m_margin: {x: 10, y: 0, z: 0, w: -0.000030517578}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -883,11 +881,11 @@ RectTransform:
   - {fileID: 6344003938157279656}
   m_Father: {fileID: 1580032000569398341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 329.78, y: -490.00018}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 642.1904, y: 0}
   m_SizeDelta: {x: 249.3717, y: 92.35199}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &5534802507303919820
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -969,7 +967,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8219603859368959337}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6308841037895492335}
+        m_TargetAssemblyTypeName: MessageBehaviour, Assembly-CSharp
+        m_MethodName: Send
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8335484119735758763
 GameObject:
   m_ObjectHideFlags: 0
