@@ -28,15 +28,29 @@ public class GameTemplateLoader : MonoBehaviour
         testGameTemplate.Name = testGameTemplateName;
         testGameTemplate.TableData = testTableData;
         testGameTemplate.CardPool = testCardPool;
+        // TODO implement test decks and placement locations
         return testGameTemplate;
     }
 
     private CardPool getTestCardPool()
     {
-        // TODO implement
+        CardPool testCardPool = new CardPool();
         CardData twoOfClubsCardData = new CardData();
         twoOfClubsCardData.FrontSideSprite = Resources.Load<Sprite>("2C");
         twoOfClubsCardData.BackSideSprite = testDefaultBackSideSprite;
-        return null;
+        testCardPool.AddCardData(twoOfClubsCardData);
+        CardData threeOfClubsCardData = new CardData();
+        threeOfClubsCardData.FrontSideSprite = Resources.Load<Sprite>("3C");
+        threeOfClubsCardData.BackSideSprite = testDefaultBackSideSprite;
+        testCardPool.AddCardData(threeOfClubsCardData);
+        CardData fourOfClubsCardData = new CardData();
+        threeOfClubsCardData.FrontSideSprite = Resources.Load<Sprite>("4C");
+        threeOfClubsCardData.BackSideSprite = testDefaultBackSideSprite;
+        testCardPool.AddCardData(fourOfClubsCardData);
+        CardData fiveOfClubsCardData = new CardData();
+        threeOfClubsCardData.FrontSideSprite = Resources.Load<Sprite>("5C");
+        threeOfClubsCardData.BackSideSprite = testDefaultBackSideSprite;
+        testCardPool.AddCardData(fiveOfClubsCardData);
+        return testCardPool;
     }
 }

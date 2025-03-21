@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.GameTemplate.Exceptions;
+using UnityEngine;
 
 public class CardPool
 {
@@ -9,23 +11,35 @@ public class CardPool
         cardDataDictionary = new Dictionary<int, CardData>();
     }
 
-    public void AddCardData(CardData cardDataToAdd)
+    public int AddCardData(CardData cardDataToAdd)
     {
-        // TODO existence checking
+        // Adds the parameter card data to the card pool, returns the card's ID in the pool.
         int cardId = cardDataDictionary.Count + 1;
         cardDataToAdd.Id = cardId;
-        cardDataDictionary.Add(cardDataToAdd.Id, cardDataToAdd);
+        bool isAddSuccessful = cardDataDictionary.TryAdd(cardDataToAdd.Id, cardDataToAdd);
+        if (!isAddSuccessful)
+        {
+            Debug.Log($"Card with ID {cardDataToAdd.Id} already exists in card pool.");
+            cardId = -1;
+        }
+        return cardId;
     }
 
     public void RemoveCardData(int cardId)
     {
-        // TODO existence checking
         cardDataDictionary.Remove(cardId);
     }
 
     public CardData GetCardData(int cardId)
     {
-        // TODO existence checking
-        return cardDataDictionary[cardId];
+        bool isGetSuccessful = cardDataDictionary.TryGetValue(cardId, out CardData cardData);
+        if (isGetSuccessful)
+        {
+            return cardData;
+        }
+        else
+        {
+            throw new CardNotInCardPoolException();
+        }
     }
 }
