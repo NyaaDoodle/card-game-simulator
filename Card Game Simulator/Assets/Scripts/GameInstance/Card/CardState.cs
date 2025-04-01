@@ -23,6 +23,7 @@ public class CardState : MonoBehaviour
         if (!IsDefined)
         {
             CardData = cardData;
+            setTransformAccordingToCardData();
             OnDefined();
         }
         else
@@ -67,5 +68,10 @@ public class CardState : MonoBehaviour
     protected virtual void OnDefined()
     {
         Defined?.Invoke(this);
+    }
+
+    private void setTransformAccordingToCardData()
+    {
+        this.transform.localPosition = CardData.LocationOnTable;
     }
 }
