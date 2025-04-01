@@ -1,49 +1,108 @@
 using UnityEngine;
-using UnityEngine.UI;
 
+[RequireComponent(typeof(CardState))]
 public class CardDisplay : MonoBehaviour
 {
-    private Image cardBackSideImage;
-    private Image cardFrontSideImage;
+    [SerializeField] private GameObject cardBackSideObject;
+    [SerializeField] private GameObject cardFrontSideObject;
+    private CardState cardState;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool IsDisplayEnabled { get; private set; }
+
+    private const int sortingOrder = 1;
+
     void Start()
     {
-        CardState cardState = GetComponent<CardState>();
+        cardState = GetComponent<CardState>();
+
+        if (cardState.IsDefined)
+        {
+            initializeCardDisplay();
+        }
+        else
+        {
+            cardState.Defined += cardState_OnDefined;
+            IsDisplayEnabled = false;
+        }
+    }
+
+    private void initializeCardDisplay()
+    {
         cardState.Flipped += cardState_OnFlipped;
-        createSidesImageChildren(cardState);
-        changeCardSideDisplay(cardState);
+        cardState.Hidden += cardState_OnHidden;
+        cardState.Shown += cardState_OnShown;
+
+        initializeCardSideObjects();
+        updateViewableCardSide();
+        IsDisplayEnabled = true;
     }
 
-    private void createSidesImageChildren(CardState cardState)
+    private void initializeCardSideObjects()
     {
-        // TODO generalize it, for use with text-only cards and such.
-        const float cardDimensionFactor = 100;
-        float cardWidth = cardState.Width * cardDimensionFactor;
-        float cardHeight = cardState.Height * cardDimensionFactor;
-        Vector2 cardSizeVector = new Vector2(cardWidth, cardHeight);
-
-        GameObject cardBackSide = new GameObject();
-        cardBackSide.AddComponent<Image>();
-        cardBackSide.GetComponent<Image>().sprite = cardState.BackSideSprite;
-        cardBackSide.transform.parent = this.transform;
-        cardBackSide.GetComponent<RectTransform>().sizeDelta = cardSizeVector;
-
-        GameObject cardFrontSide = new GameObject();
-        cardFrontSide.AddComponent<Image>();
-        cardFrontSide.GetComponent<Image>().sprite = cardState.FrontSideSprite;
-        cardFrontSide.GetComponent<RectTransform>().sizeDelta = cardSizeVector;
-        cardFrontSide.transform.parent = this.transform;
+        initializeBackSideObject();
+        initializeFrontSideObject();
     }
 
-    private void changeCardSideDisplay(CardState cardState)
+    private void initializeBackSideObject()
     {
-        cardBackSideImage.enabled = !cardState.IsFaceUp;
-        cardFrontSideImage.enabled = cardState.IsFaceUp;
+        SpriteRenderer spriteRenderer = cardBackSideObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = cardState.BackSideSprite;
+        spriteRenderer.sortingOrder = sortingOrder;
+
+        ResizeSpriteRenderScript resizeSpriteRender = cardBackSideObject.GetComponent<ResizeSpriteRenderScript>();
+        resizeSpriteRender.enabled = true;
+        resizeSpriteRender.Width = cardState.Width ?? 0;
+        resizeSpriteRender.Height = cardState.Height ?? 0;
     }
 
-    private void cardState_OnFlipped(CardState cardState)
+    private void initializeFrontSideObject()
     {
-        changeCardSideDisplay(cardState);
+        SpriteRenderer spriteRenderer = cardFrontSideObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = cardState.FrontSideSprite;
+        spriteRenderer.sortingOrder = sortingOrder;
+
+        ResizeSpriteRenderScript resizeSpriteRender = cardFrontSideObject.GetComponent<ResizeSpriteRenderScript>();
+        resizeSpriteRender.enabled = true;
+        resizeSpriteRender.Width = cardState.Width ?? 0;
+        resizeSpriteRender.Height = cardState.Height ?? 0;
+    }
+
+    private void updateViewableCardSide()
+    {
+        cardBackSideObject.SetActive(!cardState.IsFaceUp);
+        cardFrontSideObject.SetActive(cardState.IsFaceUp);
+    }
+
+    private void enableDisplay()
+    {
+        updateViewableCardSide();
+        IsDisplayEnabled = true;
+    }
+
+    private void disableDisplay()
+    {
+        cardBackSideObject.SetActive(false);
+        cardFrontSideObject.SetActive(false);
+        IsDisplayEnabled = false;
+    }
+
+    private void cardState_OnDefined(CardState calledCardState)
+    {
+        initializeCardDisplay();
+    }
+
+    private void cardState_OnFlipped(CardState calledCardState)
+    {
+        updateViewableCardSide();
+    }
+
+    private void cardState_OnShown(CardState calledCardState)
+    {
+        enableDisplay();
+    }
+
+    private void cardState_OnHidden(CardState calledCardState)
+    {
+        disableDisplay();
     }
 }
