@@ -1,5 +1,22 @@
-﻿public class DummyData
+﻿using Mirror;
+
+public class DummyData
 {
-    public int Id { get; set; }
-    public string Info { get; set; }
+    [SyncVar]
+    private int id;
+
+    [SyncVar]
+    private string info;
+
+    public int Id
+    {
+        get => id;
+        set => id = value;
+    }
+
+    public string Info
+    {
+        get => info;
+        set => info = value;
+    }
 }
