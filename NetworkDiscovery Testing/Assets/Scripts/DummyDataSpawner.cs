@@ -1,30 +1,28 @@
 using System;
 using System.Collections;
+using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
-public class JsonFetchClient : MonoBehaviour
+public class DummyDataSpawner : NetworkBehaviour
 {
+    [SerializeField] private GameObject dummyDataObjectPrefab;
+
     [SerializeField] private string serverName = "localhost";
     [SerializeField] private int port = 8080;
     [SerializeField] private string fetchUri = "/templates";
+    [SerializeField] private int id = 1;
     private string currentRequestUrl = "";
-    private DummyData currentFetchedData = null;
 
-    public string ServerName => serverName;
-    public int Port => port;
-    public string FetchUri => fetchUri;
-    public string LastRequestUrl => currentRequestUrl;
-
-    public event Action<DummyData> DataFetched;
-
-    public void GetData(int id)
+    public override void OnStartServer()
     {
-        StartCoroutine(fetchData(id));
+        base.OnStartServer();
+        StartCoroutine(FetchDataAndSpawnDataObject());
     }
 
-    private IEnumerator fetchData(int id)
+    [Server]
+    private IEnumerator FetchDataAndSpawnDataObject()
     {
         currentRequestUrl = $"http://{serverName}:{port}{fetchUri}/{id}";
         using (UnityWebRequest request = UnityWebRequest.Get(currentRequestUrl))
@@ -35,8 +33,8 @@ public class JsonFetchClient : MonoBehaviour
             {
                 string jsonResponse = request.downloadHandler.text;
                 Debug.Log($"Successfully fetched: {jsonResponse}");
-                currentFetchedData = processJsonData<DummyData>(jsonResponse);
-                OnDataFetched();
+                DummyData fetchedDummyData = parseJsonData<DummyData>(jsonResponse);
+                spawnDummyDataOnNetwork(fetchedDummyData);
             }
             else
             {
@@ -45,13 +43,16 @@ public class JsonFetchClient : MonoBehaviour
         }
     }
 
-    private T processJsonData<T>(string jsonData)
+    private T parseJsonData<T>(string jsonData)
     {
         return JsonConvert.DeserializeObject<T>(jsonData);
     }
 
-    protected virtual void OnDataFetched()
+    [Server]
+    private void spawnDummyDataOnNetwork(DummyData fetchedDummyData)
     {
-        DataFetched?.Invoke(currentFetchedData);
+        GameObject dummyDataGameObject = Instantiate(dummyDataObjectPrefab);
+        dummyDataGameObject.GetComponent<DummyDataObject>().setDummyData(fetchedDummyData);
+        NetworkServer.Spawn(dummyDataGameObject);
     }
 }
