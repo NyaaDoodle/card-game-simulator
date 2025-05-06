@@ -8,23 +8,31 @@ using Newtonsoft.Json;
 public class DummyDataSpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject dummyDataObjectPrefab;
-
-    [SerializeField] private string serverName = "localhost";
-    [SerializeField] private int port = 8080;
-    [SerializeField] private string fetchUri = "/templates";
-    [SerializeField] private int id = 1;
-    private string currentRequestUrl = "";
+    [SerializeField] private BackendConnectionInputFieldsScript inputFieldsObject;
+    private string serverName;
+    private int port;
+    private string fetchUri;
+    private int id;
 
     public override void OnStartServer()
     {
         base.OnStartServer();
+        getInputFieldsValues();
         StartCoroutine(FetchDataAndSpawnDataObject());
+    }
+
+    private void getInputFieldsValues()
+    {
+        serverName = inputFieldsObject.IpText;
+        port = int.Parse(inputFieldsObject.PortText);
+        fetchUri = inputFieldsObject.UriText;
+        id = int.Parse(inputFieldsObject.IdText);
     }
 
     [Server]
     private IEnumerator FetchDataAndSpawnDataObject()
     {
-        currentRequestUrl = $"http://{serverName}:{port}{fetchUri}/{id}";
+        string currentRequestUrl = $"http://{serverName}:{port}{fetchUri}/{id}";
         using (UnityWebRequest request = UnityWebRequest.Get(currentRequestUrl))
         {
             yield return request.SendWebRequest();
