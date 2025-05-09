@@ -34,17 +34,7 @@ public class TableBehaviour : MonoBehaviour
 
     private void recalculateSurfaceScale()
     {
-        resetSurfaceScale();
-        float originalWidth = surfaceSpriteRenderer.bounds.size.x;
-        float newWidth = tableWidth / originalWidth;
-        float originalHeight = surfaceSpriteRenderer.bounds.size.y;
-        float newHeight = tableHeight / originalHeight;
-        surfaceObject.transform.localScale = new Vector3(newWidth, newHeight, 1);
-    }
-
-    private void resetSurfaceScale()
-    {
-        surfaceObject.transform.localScale = Vector3.one;
+        ResizeSprite.RecalculateSpriteScale(surfaceObject, tableWidth, tableHeight);
     }
 
     private void recalculateBorderScale()
@@ -52,6 +42,6 @@ public class TableBehaviour : MonoBehaviour
         const float borderToTableScaleFactor = 1.05f;
         float borderWidth = tableWidth * borderToTableScaleFactor;
         float borderHeight = tableHeight * borderToTableScaleFactor;
-        borderObject.transform.localScale = new Vector3(borderWidth, borderHeight, 1);
+        ResizeSprite.RecalculateSpriteScale(borderObject, borderWidth, borderHeight);
     }
 }

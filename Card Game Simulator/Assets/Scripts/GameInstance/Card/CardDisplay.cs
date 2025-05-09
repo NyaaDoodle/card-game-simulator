@@ -3,106 +3,108 @@ using UnityEngine;
 [RequireComponent(typeof(CardState))]
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject cardBackSideObject;
-    [SerializeField] private GameObject cardFrontSideObject;
-    private CardState cardState;
+    //[SerializeField] private GameObject cardBackSideObject;
+    //[SerializeField] private GameObject cardFrontSideObject;
+    //private CardState cardState;
 
-    public bool IsDisplayEnabled { get; private set; }
+    // TODO it is broken!!
 
-    private const int sortingOrder = 1;
+    //public bool IsDisplayEnabled { get; private set; }
 
-    void Start()
-    {
-        cardState = GetComponent<CardState>();
+    //private const int sortingOrder = 1;
 
-        if (cardState.IsDefined)
-        {
-            initializeCardDisplay();
-        }
-        else
-        {
-            cardState.Defined += cardState_OnDefined;
-            IsDisplayEnabled = false;
-        }
-    }
+    //void Start()
+    //{
+    //    cardState = GetComponent<CardState>();
 
-    private void initializeCardDisplay()
-    {
-        cardState.Flipped += cardState_OnFlipped;
-        cardState.Hidden += cardState_OnHidden;
-        cardState.Shown += cardState_OnShown;
+    //    if (cardState.IsDefined)
+    //    {
+    //        initializeCardDisplay();
+    //    }
+    //    else
+    //    {
+    //        cardState.Defined += cardState_OnDefined;
+    //        IsDisplayEnabled = false;
+    //    }
+    //}
 
-        initializeCardSideObjects();
-        updateViewableCardSide();
-        IsDisplayEnabled = true;
-    }
+    //private void initializeCardDisplay()
+    //{
+    //    cardState.Flipped += cardState_OnFlipped;
+    //    cardState.Hidden += cardState_OnHidden;
+    //    cardState.Shown += cardState_OnShown;
 
-    private void initializeCardSideObjects()
-    {
-        initializeBackSideObject();
-        initializeFrontSideObject();
-    }
+    //    initializeCardSideObjects();
+    //    updateViewableCardSide();
+    //    IsDisplayEnabled = true;
+    //}
 
-    private void initializeBackSideObject()
-    {
-        SpriteRenderer spriteRenderer = cardBackSideObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = cardState.BackSideSprite;
-        spriteRenderer.sortingOrder = sortingOrder;
+    //private void initializeCardSideObjects()
+    //{
+    //    initializeBackSideObject();
+    //    initializeFrontSideObject();
+    //}
 
-        ResizeSpriteRenderScript resizeSpriteRender = cardBackSideObject.GetComponent<ResizeSpriteRenderScript>();
-        resizeSpriteRender.enabled = true;
-        resizeSpriteRender.Width = cardState.Width ?? 0;
-        resizeSpriteRender.Height = cardState.Height ?? 0;
-    }
+    //private void initializeBackSideObject()
+    //{
+    //    SpriteRenderer spriteRenderer = cardBackSideObject.GetComponent<SpriteRenderer>();
+    //    spriteRenderer.sprite = cardState.BackSideSprite;
+    //    spriteRenderer.sortingOrder = sortingOrder;
 
-    private void initializeFrontSideObject()
-    {
-        SpriteRenderer spriteRenderer = cardFrontSideObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = cardState.FrontSideSprite;
-        spriteRenderer.sortingOrder = sortingOrder;
+    //    ResizeSprite resizeSpriteRender = cardBackSideObject.GetComponent<ResizeSprite>();
+    //    //resizeSpriteRender.enabled = true;
+    //    //resizeSpriteRender.Width = cardState.Width ?? 0;
+    //    //resizeSpriteRender.Height = cardState.Height ?? 0;
+    //}
 
-        ResizeSpriteRenderScript resizeSpriteRender = cardFrontSideObject.GetComponent<ResizeSpriteRenderScript>();
-        resizeSpriteRender.enabled = true;
-        resizeSpriteRender.Width = cardState.Width ?? 0;
-        resizeSpriteRender.Height = cardState.Height ?? 0;
-    }
+    //private void initializeFrontSideObject()
+    //{
+    //    SpriteRenderer spriteRenderer = cardFrontSideObject.GetComponent<SpriteRenderer>();
+    //    spriteRenderer.sprite = cardState.FrontSideSprite;
+    //    spriteRenderer.sortingOrder = sortingOrder;
 
-    private void updateViewableCardSide()
-    {
-        cardBackSideObject.SetActive(!cardState.IsFaceUp);
-        cardFrontSideObject.SetActive(cardState.IsFaceUp);
-    }
+    //    ResizeSprite resizeSpriteRender = cardFrontSideObject.GetComponent<ResizeSprite>();
+    //    //resizeSpriteRender.enabled = true;
+    //    //resizeSpriteRender.Width = cardState.Width ?? 0;
+    //    //resizeSpriteRender.Height = cardState.Height ?? 0;
+    //}
 
-    private void enableDisplay()
-    {
-        updateViewableCardSide();
-        IsDisplayEnabled = true;
-    }
+    //private void updateViewableCardSide()
+    //{
+    //    cardBackSideObject.SetActive(!cardState.IsFaceUp);
+    //    cardFrontSideObject.SetActive(cardState.IsFaceUp);
+    //}
 
-    private void disableDisplay()
-    {
-        cardBackSideObject.SetActive(false);
-        cardFrontSideObject.SetActive(false);
-        IsDisplayEnabled = false;
-    }
+    //private void enableDisplay()
+    //{
+    //    updateViewableCardSide();
+    //    IsDisplayEnabled = true;
+    //}
 
-    private void cardState_OnDefined(CardState calledCardState)
-    {
-        initializeCardDisplay();
-    }
+    //private void disableDisplay()
+    //{
+    //    cardBackSideObject.SetActive(false);
+    //    cardFrontSideObject.SetActive(false);
+    //    IsDisplayEnabled = false;
+    //}
 
-    private void cardState_OnFlipped(CardState calledCardState)
-    {
-        updateViewableCardSide();
-    }
+    //private void cardState_OnDefined(CardState calledCardState)
+    //{
+    //    initializeCardDisplay();
+    //}
 
-    private void cardState_OnShown(CardState calledCardState)
-    {
-        enableDisplay();
-    }
+    //private void cardState_OnFlipped(CardState calledCardState)
+    //{
+    //    updateViewableCardSide();
+    //}
 
-    private void cardState_OnHidden(CardState calledCardState)
-    {
-        disableDisplay();
-    }
+    //private void cardState_OnShown(CardState calledCardState)
+    //{
+    //    enableDisplay();
+    //}
+
+    //private void cardState_OnHidden(CardState calledCardState)
+    //{
+    //    disableDisplay();
+    //}
 }
