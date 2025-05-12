@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class CardState : MonoBehaviour
 {
+    [SerializeField] private GameObject frontSideGameObject;
+    [SerializeField] private GameObject backSideGameObject;
     public CardData CardData { get; private set; } = null;
     public bool IsFaceUp { get; private set; } = false;
     public bool IsShown { get; private set; } = false;
-
     public bool IsDefined => CardData != null;
     public float? Width => CardData?.Width;
     public float? Height => CardData?.Height;
+    public GameObject FrontSideGameObject => frontSideGameObject;
+    public GameObject BackSideGameObject => backSideGameObject;
     public Sprite BackSideSprite => CardData?.BackSideSprite;
     public Sprite FrontSideSprite => CardData?.FrontSideSprite;
 
