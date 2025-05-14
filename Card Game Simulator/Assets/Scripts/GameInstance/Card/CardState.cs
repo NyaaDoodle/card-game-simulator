@@ -75,6 +75,6 @@ public class CardState : MonoBehaviour
 
     private void setTransformAccordingToCardData()
     {
-        this.transform.localPosition = CardData.LocationOnTable;
+        //this.transform.localPosition = CardData.LocationOnTable;
     }
 }

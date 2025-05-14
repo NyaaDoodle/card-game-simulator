@@ -1,14 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameTemplateDataContainer : MonoBehaviour
 {
     private GameTemplate currentGameTemplate;
-
     public string Name => currentGameTemplate.Name;
-
     public TableData TableData => currentGameTemplate.TableData;
-
-    public CardPool CardPool => currentGameTemplate.CardPool;
+    public Dictionary<int, CardData> CardPool => currentGameTemplate.CardPool;
 
     void Awake()
     {

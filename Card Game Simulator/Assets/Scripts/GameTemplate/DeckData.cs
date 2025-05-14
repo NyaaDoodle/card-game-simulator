@@ -3,5 +3,7 @@
 public class DeckData
 {
     public int Id { get; set; }
-    public LinkedList<int> Cards { get; set; }
+    
+    // In-order card list
+    public LinkedList<int> CardIds { get; set; }
 }
