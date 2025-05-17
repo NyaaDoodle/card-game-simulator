@@ -13,8 +13,9 @@ public class CardState : MonoBehaviour
     public float? Height => CardData?.Height;
     public GameObject FrontSideGameObject => frontSideGameObject;
     public GameObject BackSideGameObject => backSideGameObject;
-    public Sprite BackSideSprite => CardData?.BackSideSprite;
-    public Sprite FrontSideSprite => CardData?.FrontSideSprite;
+    // TODO turn these to Sprites instead of paths
+    //public Sprite BackSideSprite => CardData?.BackSideSprite;
+    //public Sprite FrontSideSprite => CardData?.FrontSideSprite;
 
     public event Action<CardState> Flipped;
     public event Action<CardState> Hidden;

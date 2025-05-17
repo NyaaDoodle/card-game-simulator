@@ -1,20 +1,19 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameTemplateDataContainer : MonoBehaviour
 {
-    private GameTemplate currentGameTemplate;
-    public string Name => currentGameTemplate.Name;
-    public TableData TableData => currentGameTemplate.TableData;
-    public Dictionary<int, CardData> CardPool => currentGameTemplate.CardPool;
-
-    void Awake()
-    {
-        currentGameTemplate = null;
-    }
+    public GameTemplate CurrentGameTemplate { get; private set; } = null;
+    public event Action<GameTemplate> NewGameTemplateLoaded;
 
     public void ChangeCurrentGameTemplate(GameTemplate newGameTemplate)
     {
-        currentGameTemplate = newGameTemplate;
+        CurrentGameTemplate = newGameTemplate;
+        OnNewGameTemplateLoaded();
+    }
+
+    protected virtual void OnNewGameTemplateLoaded()
+    {
+        NewGameTemplateLoaded?.Invoke(CurrentGameTemplate);
     }
 }

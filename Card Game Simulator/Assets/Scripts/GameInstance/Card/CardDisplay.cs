@@ -44,7 +44,8 @@ public class CardDisplay : MonoBehaviour
     {
         if (!cardState.IsDefined) { return; }
         SpriteRenderer spriteRenderer = cardState.BackSideGameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = cardState.BackSideSprite;
+        // TODO fix according to CardState
+        //spriteRenderer.sprite = cardState.BackSideSprite;
         ResizeSprite.RecalculateSpriteScale(
             cardState.BackSideGameObject,
             cardState.Width.Value,
@@ -55,7 +56,7 @@ public class CardDisplay : MonoBehaviour
     {
         if (!cardState.IsDefined) { return; }
         SpriteRenderer spriteRenderer = cardState.FrontSideGameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = cardState.FrontSideSprite;
+        //spriteRenderer.sprite = cardState.FrontSideSprite;
         ResizeSprite.RecalculateSpriteScale(
             cardState.FrontSideGameObject,
             cardState.Width.Value,
