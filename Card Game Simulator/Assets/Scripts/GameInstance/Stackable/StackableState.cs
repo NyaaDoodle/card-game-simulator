@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BundleState : MonoBehaviour
+public class StackableState : MonoBehaviour
 {
-    public LinkedList<GameObject> Cards { get; } = new LinkedList<GameObject>();
-    public int Id { get; set; }
-    public GameObject TopCard => Cards.First.Value;
+    public LinkedList<GameObject> Cards { get; private set; } = new LinkedList<GameObject>();
+    public GameObject TopCard => Cards.First?.Value;
 
-    public event Action<BundleState> CardsChanged;
+    public event Action<StackableState> CardsChanged;
 
     public void AddCards(ICollection<GameObject> cardsToAdd)
     {

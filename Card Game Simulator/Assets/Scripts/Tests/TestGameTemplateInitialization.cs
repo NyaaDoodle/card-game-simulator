@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class TestGameTemplateInitialization
 {
-    public static float TableWidth = 7f;
-    public static float TableHeight = 7f;
+    public static float TableWidth = 20f;
+    public static float TableHeight = 15f;
     public static string TableSurfaceImageRelativePath = "Standard52/Back_cards-07";
     public static string CardBackSideImageRelativePath = "Standard52/Gray_back";
     public static GameTemplate GetTestTemplate()

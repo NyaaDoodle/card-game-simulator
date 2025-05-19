@@ -13,13 +13,10 @@ public class CardDisplay : MonoBehaviour
 
     void Start()
     {
+        cardState.Defined += cardState_OnDefined;
         if (cardState.IsDefined)
         {
             initializeCardDisplay();
-        }
-        else
-        {
-            cardState.Defined += cardState_OnDefined;
         }
     }
 
@@ -44,23 +41,22 @@ public class CardDisplay : MonoBehaviour
     {
         if (!cardState.IsDefined) { return; }
         SpriteRenderer spriteRenderer = cardState.BackSideGameObject.GetComponent<SpriteRenderer>();
-        // TODO fix according to CardState
-        //spriteRenderer.sprite = cardState.BackSideSprite;
+        spriteRenderer.sprite = cardState.BackSideSprite;
         ResizeSprite.RecalculateSpriteScale(
             cardState.BackSideGameObject,
-            cardState.Width.Value,
-            cardState.Height.Value);
+            cardState.Width ?? 0,
+            cardState.Height ?? 0);
     }
 
     private void initializeFrontSideObject()
     {
         if (!cardState.IsDefined) { return; }
         SpriteRenderer spriteRenderer = cardState.FrontSideGameObject.GetComponent<SpriteRenderer>();
-        //spriteRenderer.sprite = cardState.FrontSideSprite;
+        spriteRenderer.sprite = cardState.FrontSideSprite;
         ResizeSprite.RecalculateSpriteScale(
             cardState.FrontSideGameObject,
-            cardState.Width.Value,
-            cardState.Height.Value);
+            cardState.Width ?? 0,
+            cardState.Height ?? 0);
     }
 
     private void updateViewableCardSide()
@@ -85,7 +81,6 @@ public class CardDisplay : MonoBehaviour
     private void cardState_OnDefined(CardState calledCardState)
     {
         initializeCardDisplay();
-        cardState.Defined -= cardState_OnDefined;
     }
 
     private void cardState_OnFlipped(CardState calledCardState)

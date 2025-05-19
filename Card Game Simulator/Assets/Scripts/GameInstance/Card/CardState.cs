@@ -3,20 +3,25 @@ using UnityEngine;
 
 public class CardState : MonoBehaviour
 {
-    [SerializeField] private GameObject frontSideGameObject;
-    [SerializeField] private GameObject backSideGameObject;
+    // GameObjects attached to Card prefab
+    [field: SerializeField] public GameObject FrontSideGameObject { get; private set; }
+    [field: SerializeField] public GameObject BackSideGameObject { get; private set; }
+
+    // CardData related properties
     public CardData CardData { get; private set; } = null;
-    public bool IsFaceUp { get; private set; } = false;
-    public bool IsShown { get; private set; } = false;
     public bool IsDefined => CardData != null;
+    public int? Id => CardData.Id;
+    public string Name => CardData.Name;
+    public string Description => CardData.Description;
     public float? Width => CardData?.Width;
     public float? Height => CardData?.Height;
-    public GameObject FrontSideGameObject => frontSideGameObject;
-    public GameObject BackSideGameObject => backSideGameObject;
-    // TODO turn these to Sprites instead of paths
-    //public Sprite BackSideSprite => CardData?.BackSideSprite;
-    //public Sprite FrontSideSprite => CardData?.FrontSideSprite;
 
+    public Sprite BackSideSprite { get; private set; } = null;
+    public Sprite FrontSideSprite { get; private set; } = null;
+
+    public bool IsFaceUp { get; private set; } = false;
+    public bool IsShown { get; private set; } = false;
+    
     public event Action<CardState> Flipped;
     public event Action<CardState> Hidden;
     public event Action<CardState> Shown;
@@ -27,7 +32,7 @@ public class CardState : MonoBehaviour
         if (!IsDefined)
         {
             CardData = cardData;
-            setTransformAccordingToCardData();
+            loadCardSprites();
             OnDefined();
         }
         else
@@ -74,8 +79,19 @@ public class CardState : MonoBehaviour
         Defined?.Invoke(this);
     }
 
-    private void setTransformAccordingToCardData()
+    private void loadCardSprites()
     {
-        //this.transform.localPosition = CardData.LocationOnTable;
+        // TODO allow loading outside of Resources folder
+        BackSideSprite = Resources.Load<Sprite>(CardData.BackSideSpritePath);
+        if (BackSideSprite == null)
+        {
+            Debug.LogError($"CardState: Failed to load sprite at {CardData.BackSideSpritePath}");
+        }
+
+        FrontSideSprite = Resources.Load<Sprite>(CardData.FrontSideSpritePath);
+        if (FrontSideSprite == null)
+        {
+            Debug.LogError($"CardState: Failed to load sprite at {CardData.FrontSideSpritePath}");
+        }
     }
 }
