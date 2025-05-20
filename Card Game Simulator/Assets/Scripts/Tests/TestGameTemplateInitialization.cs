@@ -5,7 +5,7 @@ public class TestGameTemplateInitialization
 {
     public static float TableWidth = 20f;
     public static float TableHeight = 15f;
-    public static string TableSurfaceImageRelativePath = "Standard52/Back_cards-07";
+    public static string TableSurfaceImageRelativePath = "TestGameTemplate/Square";
     public static string CardBackSideImageRelativePath = "Standard52/Gray_back";
     public static GameTemplate GetTestTemplate()
     {
@@ -84,7 +84,7 @@ public class TestGameTemplateInitialization
                                                1, new DeckData()
                                                       {
                                                           Id = 1,
-                                                          LocationOnTable = new Tuple<float, float>(3, 3),
+                                                          LocationOnTable = new Tuple<float, float>(4, -3.2f),
                                                           CardIds = new LinkedList<int>(new []{1, 2, 3, 4})
                                                       }
                                            },
@@ -92,7 +92,7 @@ public class TestGameTemplateInitialization
                                                2, new DeckData()
                                                       {
                                                           Id = 2,
-                                                          LocationOnTable = new Tuple<float, float>(-3, -3),
+                                                          LocationOnTable = new Tuple<float, float>(-4, 3.2f),
                                                           CardIds = new LinkedList<int>(new []{3, 4, 5, 6})
                                                       }
                                            }
@@ -103,14 +103,14 @@ public class TestGameTemplateInitialization
                                                 1, new SpaceData()
                                                        {
                                                            Id = 1,
-                                                           LocationOnTable = new Tuple<float, float>(-5, 0)
+                                                           LocationOnTable = new Tuple<float, float>(-1.5f, 0)
                                                        }
                                             },
                                             {
                                                 2, new SpaceData()
                                                        {
                                                            Id = 2,
-                                                           LocationOnTable = new Tuple<float, float>(5, 0)
+                                                           LocationOnTable = new Tuple<float, float>(1.5f, 0)
                                                        }
                                             }
                                         }

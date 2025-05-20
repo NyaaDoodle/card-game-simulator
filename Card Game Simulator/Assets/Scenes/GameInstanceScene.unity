@@ -344,9 +344,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 413062479}
-  - component: {fileID: 413062478}
-  - component: {fileID: 413062480}
+  - component: {fileID: 413062482}
   - component: {fileID: 413062481}
+  - component: {fileID: 413062480}
   m_Layer: 0
   m_Name: GameInstanceState
   m_TagString: Untagged
@@ -354,18 +354,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &413062478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413062477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f359312c2e27ae4180041bf9fa0c20a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &413062479
 Transform:
   m_ObjectHideFlags: 0
@@ -390,9 +378,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 413062477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28dce51989fa9e64bbad164ecdeead02, type: 3}
+  m_Script: {fileID: 11500000, guid: 531386e441948594e996fd963013109b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tablePrefab: {fileID: 4746473040203007996, guid: 5af2b9aaa5886ec4f97dff635499ec04, type: 3}
+  cardPrefab: {fileID: 6788090902936429346, guid: 4df30c40d4dd98041b3b672d1e7d8c44, type: 3}
+  cardDeckPrefab: {fileID: 7560322191658052773, guid: c3a0aa82e2434604e8e9a2d43674c3ca, type: 3}
+  cardSpacePrefab: {fileID: 8509386110946586329, guid: b3966b8580b8e8c4482f67dbd147cac1, type: 3}
+  playerHandPrefab: {fileID: 9012420794430970622, guid: 66cb3153bdda51c4bbdbd3a8c8e2bdc8, type: 3}
 --- !u!114 &413062481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,15 +395,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 413062477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 531386e441948594e996fd963013109b, type: 3}
+  m_Script: {fileID: 11500000, guid: 28dce51989fa9e64bbad164ecdeead02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInstanceState: {fileID: 0}
-  tablePrefab: {fileID: 4746473040203007996, guid: 5af2b9aaa5886ec4f97dff635499ec04, type: 3}
-  cardPrefab: {fileID: 6788090902936429346, guid: 4df30c40d4dd98041b3b672d1e7d8c44, type: 3}
-  cardDeckPrefab: {fileID: 7560322191658052773, guid: c3a0aa82e2434604e8e9a2d43674c3ca, type: 3}
-  cardSpacePrefab: {fileID: 8509386110946586329, guid: b3966b8580b8e8c4482f67dbd147cac1, type: 3}
-  playerHandPrefab: {fileID: 9012420794430970622, guid: 66cb3153bdda51c4bbdbd3a8c8e2bdc8, type: 3}
+--- !u!114 &413062482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413062477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f359312c2e27ae4180041bf9fa0c20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
