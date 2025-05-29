@@ -1,67 +1,117 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(RectTransform))]
 public class TableBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject surfaceObject;
-    [SerializeField] private GameObject borderObject;
-    private SpriteRenderer surfaceSpriteRenderer;
-    private float tableWidth;
-    private float tableHeight;
+    [Header("Table Components")]
+    [SerializeField] private GameObject tableSurface;
+    [SerializeField] private GameObject tableBorder;
+
+    [Header("Border Settings")]
+    [SerializeField] private float borderWidth = 10f;
+    [SerializeField] private Color borderColor = Color.black;
+
+    private TableData tableData;
+    private RectTransform tableRectTransform;
+
+    public TableData TableData => tableData;
 
     public void Awake()
     {
-        surfaceSpriteRenderer = surfaceObject.GetComponent<SpriteRenderer>();
+        tableRectTransform = GetComponent<RectTransform>();
     }
 
-    public void SetTableState(TableData tableData)
+    public void Initialize(TableData data)
     {
-        SetTableSize(tableData.Width, tableData.Height);
-        loadSurfaceSprite(tableData.SurfaceImagePath);
+        tableData = data;
+        updateTableDisplay();
     }
 
-    public void SetTableSize(float width, float height)
+    public Vector2 GetTableSize()
     {
-        tableWidth = width;
-        tableHeight = height;
-        recalculateTableObjectsScale();
+        return tableRectTransform.sizeDelta;
     }
 
-    public void SetSurfaceSprite(Sprite surfaceSprite)
+    public bool IsPositionOnTable(Vector2 positionOnCanvas)
     {
-        surfaceSpriteRenderer.sprite = surfaceSprite;
-        recalculateTableObjectsScale();
+        Vector2 tableSize = GetTableSize();
+        float halfWidth = tableSize.x / 2f;
+        float halfHeight = tableSize.y / 2f;
+        bool isWithinHorizontalTableBounds = positionOnCanvas.x >= -halfWidth && positionOnCanvas.x <= halfWidth;
+        bool isWithinVerticalTableBounds = positionOnCanvas.y >= -halfHeight && positionOnCanvas.y <= halfHeight;
+        return isWithinHorizontalTableBounds && isWithinVerticalTableBounds;
     }
 
-    private void loadSurfaceSprite(string spritePath)
+    private void updateTableDisplay()
     {
-        // TODO allow loading outside of Resources folder
-        Sprite surfaceSprite = Resources.Load<Sprite>(spritePath);
-        if (surfaceSprite != null)
+        if (tableData == null) return;
+        (Vector2 surfaceSize, Vector2 borderSize) = getSurfaceAndBorderSizes();
+        setupTableContainer(borderSize);
+        setupTableSurface(surfaceSize);
+        setupTableBorder(borderSize);
+        loadSurfaceImage();
+    }
+
+    private Tuple<Vector2, Vector2> getSurfaceAndBorderSizes()
+    {
+        Vector2 surfaceSize = new Vector2(
+            tableData.Width * UIConstants.CanvasScaleFactor,
+            tableData.Height * UIConstants.CanvasScaleFactor
+        );
+        Vector2 borderSize = new Vector2(
+            surfaceSize.x + (borderWidth * 2),
+            surfaceSize.y + (borderWidth * 2)
+        );
+        return new Tuple<Vector2, Vector2>(surfaceSize, borderSize);
+    }
+
+    private void setupTableContainer(Vector2 tableSize)
+    {
+        tableRectTransform.sizeDelta = tableSize;
+        tableRectTransform.anchoredPosition = Vector2.zero;
+    }
+
+    private void setupTableSurface(Vector2 surfaceSize)
+    {
+        if (tableSurface != null)
         {
-            SetSurfaceSprite(surfaceSprite);
+            RectTransform rectTransform = tableSurface.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = surfaceSize;
+            rectTransform.anchoredPosition = Vector2.zero;
         }
-        else
+    }
+
+    private void setupTableBorder(Vector2 borderSize)
+    {
+        if (tableBorder != null)
         {
-            Debug.Log($"TableBehavior: Failed to load sprite at {spritePath}");
+            RectTransform rectTransform = tableBorder.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = borderSize;
+            rectTransform.anchoredPosition = Vector2.zero;
+
+            Image borderImage = tableBorder.GetComponent<Image>();
+            borderImage.color = borderColor;
         }
     }
 
-    private void recalculateTableObjectsScale()
+    private void loadSurfaceImage()
     {
-        recalculateSurfaceScale();
-        recalculateBorderScale();
-    }
-
-    private void recalculateSurfaceScale()
-    {
-        ResizeSprite.RecalculateSpriteScale(surfaceObject, tableWidth, tableHeight);
-    }
-
-    private void recalculateBorderScale()
-    {
-        const float borderToTableScaleFactor = 0.1f;
-        float borderWidth = tableWidth + borderToTableScaleFactor;
-        float borderHeight = tableHeight + borderToTableScaleFactor;
-        ResizeSprite.RecalculateSpriteScale(borderObject, borderWidth, borderHeight);
+        Image surfaceImage = tableSurface.GetComponent<Image>();
+        if (surfaceImage != null && !string.IsNullOrEmpty(tableData.SurfaceImagePath))
+        {
+            Sprite surfaceSprite = Resources.Load<Sprite>(tableData.SurfaceImagePath);
+            if (surfaceSprite != null)
+            {
+                surfaceImage.sprite = surfaceSprite;
+            }
+            else
+            {
+                Debug.LogWarning($"Could not load table surface sprite: {tableData.SurfaceImagePath}");
+                // Default to green table color
+                surfaceImage.color = new Color(0.2f, 0.6f, 0.2f, 1f); 
+            }
+        }
     }
 }

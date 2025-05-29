@@ -47,7 +47,7 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
         GameObject tableObject = Instantiate(tablePrefab);
         gameInstanceState.TableObject = tableObject;
         TableBehaviour tableBehaviour = tableObject.GetComponent<TableBehaviour>();
-        tableBehaviour.SetTableState(gameTemplate.TableData);
+        tableBehaviour.Initialize(gameTemplate.TableData);
     }
 
     private void spawnCardDecks()

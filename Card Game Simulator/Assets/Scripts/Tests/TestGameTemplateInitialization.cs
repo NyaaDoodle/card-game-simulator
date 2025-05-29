@@ -5,7 +5,7 @@ public class TestGameTemplateInitialization
 {
     public static float TableWidth = 20f;
     public static float TableHeight = 15f;
-    public static string TableSurfaceImageRelativePath = "TestGameTemplate/Square";
+    public static string TableSurfaceImageRelativePath = "TestGameTemplate/GreenSquare";
     public static string CardBackSideImageRelativePath = "Standard52/Gray_back";
     public static GameTemplate GetTestTemplate()
     {
