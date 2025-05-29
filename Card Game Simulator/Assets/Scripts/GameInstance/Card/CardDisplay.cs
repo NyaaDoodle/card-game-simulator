@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(CardState))]
 [RequireComponent(typeof(CanvasGroup))]
-public class CardDisplay : MonoBehaviour, IPointerClickHandler
+public class CardDisplay : MonoBehaviour
 {
     [Header("Card UI Components")]
     [SerializeField] private GameObject frontSideObject;
@@ -17,10 +17,6 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private CardState cardState;
     private RectTransform rectTransform;
-    private bool isInteractable = true;
-
-    // Interaction Events
-    public event Action<CardDisplay> OnCardClicked;
 
     public bool IsDisplayEnabled { get; private set; } = false;
 
@@ -33,7 +29,6 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         setupCardDisplay();
-        setupInteraction();
     }
 
     private void setupCardDisplay()
@@ -48,36 +43,23 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void subscribeToCardStateEvents()
     {
-        cardState.Defined += OnCardDefined;
-        cardState.Flipped += OnCardFlipped;
-        cardState.Hidden += OnCardHidden;
-        cardState.Shown += OnCardShown;
+        cardState.Defined += onCardDefined;
+        cardState.Flipped += onCardFlipped;
+        cardState.Hidden += onCardHidden;
+        cardState.Shown += onCardShown;
+        cardState.ChangedIsInteractable += onChangedIsInteractable;
     }
 
     void OnDestroy()
     {
         if (cardState != null)
         {
-            cardState.Defined -= OnCardDefined;
-            cardState.Flipped -= OnCardFlipped;
-            cardState.Hidden -= OnCardHidden;
-            cardState.Shown -= OnCardShown;
+            cardState.Defined -= onCardDefined;
+            cardState.Flipped -= onCardFlipped;
+            cardState.Hidden -= onCardHidden;
+            cardState.Shown -= onCardShown;
+            cardState.ChangedIsInteractable -= onChangedIsInteractable;
         }
-    }
-
-    private void setupInteraction()
-    {
-        Button cardButton = cardButtonObject.GetComponent<Button>();
-        if (cardButton != null)
-        {
-            cardButton.onClick.AddListener(HandleCardClick);
-        }
-
-        // Ensure images are raycast targets for interaction
-        //if (frontSideImage != null)
-        //    frontSideImage.raycastTarget = true;
-        //if (backSideImage != null)
-        //    backSideImage.raycastTarget = true;
     }
 
     private void initializeCardDisplay()
@@ -149,61 +131,44 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         IsDisplayEnabled = false;
     }
 
-    public void setInteractable(bool interactable)
+    private void onCardDefined(CardState _)
     {
-        isInteractable = interactable;
+        initializeCardDisplay();
+    }
 
+    private void onCardFlipped(CardState _)
+    {
+        updateVisibleSide();
+    }
+
+    private void onCardHidden(CardState _)
+    {
+        disableDisplay();
+    }
+
+    private void onCardShown(CardState _)
+    {
+        enableDisplay();
+    }
+
+    private void onChangedIsInteractable(CardState _)
+    {
         Button cardButton = cardButtonObject.GetComponent<Button>();
         if (cardButton != null)
         {
-            cardButton.interactable = interactable;
+            cardButton.interactable = cardState.IsInteractable;
         }
 
         updateInteractDisplay();
     }
 
-    public void updateInteractDisplay()
+    private void updateInteractDisplay()
     {
         CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup != null)
         {
-            canvasGroup.alpha = isInteractable ? 1f : nonInteractableCardAlpha;
-            canvasGroup.interactable = isInteractable;
+            canvasGroup.alpha = cardState.IsInteractable ? 1f : nonInteractableCardAlpha;
+            canvasGroup.interactable = cardState.IsInteractable;
         }
-    }
-
-    // UI Event System handlers - These work with New Input System automatically
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (isInteractable)
-        {
-            HandleCardClick();
-        }
-    }
-
-    private void HandleCardClick()
-    {
-        Debug.Log($"Card clicked: {cardState.Name}");
-        OnCardClicked?.Invoke(this);
-    }
-
-    private void OnCardDefined(CardState _)
-    {
-        initializeCardDisplay();
-    }
-
-    private void OnCardFlipped(CardState _)
-    {
-        updateVisibleSide();
-    }
-
-    private void OnCardHidden(CardState _)
-    {
-        disableDisplay();
-    }
-
-    private void OnCardShown(CardState _)
-    {
-        enableDisplay();
     }
 }

@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class CardState : MonoBehaviour
 {
-    // GameObjects attached to Card prefab
-    [field: SerializeField] public GameObject FrontSideGameObject { get; private set; }
-    [field: SerializeField] public GameObject BackSideGameObject { get; private set; }
-
     // CardData related properties
     public CardData CardData { get; private set; } = null;
     public bool IsDefined => CardData != null;
@@ -21,11 +17,13 @@ public class CardState : MonoBehaviour
 
     public bool IsFaceUp { get; private set; } = false;
     public bool IsShown { get; private set; } = false;
-    
+    public bool IsInteractable { get; private set; } = false;
+
     public event Action<CardState> Flipped;
     public event Action<CardState> Hidden;
     public event Action<CardState> Shown;
     public event Action<CardState> Defined;
+    public event Action<CardState> ChangedIsInteractable;
 
     public void SetCardData(CardData cardData)
     {
@@ -59,6 +57,12 @@ public class CardState : MonoBehaviour
         OnShown();
     }
 
+    public void SetInteractable(bool interactable)
+    {
+        IsInteractable = interactable;
+        OnChangedIsInteractable();
+    }
+
     protected virtual void OnFlipped()
     {
         Flipped?.Invoke(this);
@@ -77,6 +81,11 @@ public class CardState : MonoBehaviour
     protected virtual void OnDefined()
     {
         Defined?.Invoke(this);
+    }
+
+    protected virtual void OnChangedIsInteractable()
+    {
+        ChangedIsInteractable?.Invoke(this);
     }
 
     private void loadCardSprites()
