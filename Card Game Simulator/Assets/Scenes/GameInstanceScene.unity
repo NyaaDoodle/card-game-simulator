@@ -457,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &413062479
 Transform:
   m_ObjectHideFlags: 0
@@ -485,11 +485,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531386e441948594e996fd963013109b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tablePrefab: {fileID: 4746473040203007996, guid: 5af2b9aaa5886ec4f97dff635499ec04, type: 3}
-  cardPrefab: {fileID: 6788090902936429346, guid: 4df30c40d4dd98041b3b672d1e7d8c44, type: 3}
-  cardDeckPrefab: {fileID: 7560322191658052773, guid: c3a0aa82e2434604e8e9a2d43674c3ca, type: 3}
-  cardSpacePrefab: {fileID: 8509386110946586329, guid: b3966b8580b8e8c4482f67dbd147cac1, type: 3}
+  tablePrefab: {fileID: 2336760377659461280, guid: 5af2b9aaa5886ec4f97dff635499ec04, type: 3}
+  cardPrefab: {fileID: 1987483734067585005, guid: 4df30c40d4dd98041b3b672d1e7d8c44, type: 3}
+  cardDeckPrefab: {fileID: 2904188027104332980, guid: c3a0aa82e2434604e8e9a2d43674c3ca, type: 3}
+  cardSpacePrefab: {fileID: 3668339091407075166, guid: b3966b8580b8e8c4482f67dbd147cac1, type: 3}
   playerHandPrefab: {fileID: 9012420794430970622, guid: 66cb3153bdda51c4bbdbd3a8c8e2bdc8, type: 3}
+  tableViewContainer: {fileID: 1410364649}
+  handViewContainer: {fileID: 1422442003}
 --- !u!114 &413062481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,7 +531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &436742683
 Transform:
   m_ObjectHideFlags: 0
@@ -939,14 +941,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

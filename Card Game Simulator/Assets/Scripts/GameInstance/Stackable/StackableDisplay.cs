@@ -1,61 +1,50 @@
-using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(StackableState))]
 public class StackableDisplay : MonoBehaviour
 {
     [Header("UI Components")]
-    [SerializeField] private RectTransform cardDisplayArea;
     [SerializeField] private Image backgroundImage;
-    [SerializeField] private Text stackCountText;
+    [SerializeField] private TMP_Text cardCountText;
 
-    [Header("Visual Settings")]
-    [SerializeField] private Vector2 defaultContainerSize = new Vector2(200, 300);
-    [SerializeField] private Color normalColor = Color.white;
-    [SerializeField] private Color highlightColor = Color.yellow;
-
-    [Header("Stack Display")]
-    [SerializeField] private bool showStackCount = false;
+    [Header("Display Settings")]
+    [SerializeField] private float highlightAreaFactor = 1.05f;
 
     private StackableState stackableState;
     private RectTransform stackableRectTransform;
-    private CardDisplay currentTopCardDisplay;
-    private bool isHighlighted = false;
-
-    // Events for interaction
-    public event Action<StackableDisplay> OnStackClicked;
+    private Vector2 originalSize;
+    private GameObject currentTopCardObject;
 
     void Awake()
     {
         stackableState = GetComponent<StackableState>();
         stackableRectTransform = GetComponent<RectTransform>();
-        stackableRectTransform.sizeDelta = defaultContainerSize;
+        originalSize = stackableRectTransform.sizeDelta;
     }
 
     void Start()
     {
-        setupStackableDisplay();
+        stackableState.CardAdded += onCardAdded;
+        stackableState.CardRemoved += onCardRemoved;
+        stackableState.CardsShuffled += onCardsShuffled;
+        stackableState.ChangedIsInteractable += onChangedIsInteractable;
         updateDisplay();
     }
 
-    private void setupStackableDisplay()
+    private void onCardAdded(StackableState _, GameObject cardAdded)
     {
-        stackableState.CardsChanged += onCardsChanged;
-
-        if (backgroundImage != null)
-        {
-            backgroundImage.color = normalColor;
-        }
-
-        if (stackCountText != null)
-        {
-            stackCountText.gameObject.SetActive(showStackCount);
-        }
+        updateDisplay();
     }
 
-    private void onCardsChanged(StackableState _)
+    private void onCardRemoved(StackableState _, GameObject cardRemoved)
+    {
+        cardRemoved.GetComponent<CardState>().HideCard();
+        updateDisplay();
+    }
+
+    private void onCardsShuffled(StackableState _)
     {
         updateDisplay();
     }
@@ -64,77 +53,52 @@ public class StackableDisplay : MonoBehaviour
     {
         updateTopCardDisplay();
         updateStackCount();
-        updateBackgroundColor();
     }
 
     private void updateTopCardDisplay()
     {
-        // Clear current top card display
-        if (currentTopCardDisplay != null)
+        currentTopCardObject = stackableState.TopCard;
+        if (currentTopCardObject != null)
         {
-            Destroy(currentTopCardDisplay.gameObject);
-            currentTopCardDisplay = null;
+            CardState topCardState = currentTopCardObject.GetComponent<CardState>();
+            topCardState.ShowCard();
         }
+        updateRectTransformSize();
+    }
 
-        // Create display for top card if stack has cards
-        if (stackableState.HasCards)
-        {
-            GameObject topCardObj = stackableState.TopCard;
-            if (topCardObj != null)
-            {
-                //CreateTopCardDisplay(topCardObj);
-            }
-        }
+    private void updateRectTransformSize()
+    {
+        Vector2 sizeVectorToSet = currentTopCardObject != null
+                                      ? currentTopCardObject.GetComponent<RectTransform>().sizeDelta
+                                      : originalSize;
+        stackableRectTransform.sizeDelta = sizeVectorToSet * highlightAreaFactor;
     }
 
     private void updateStackCount()
     {
-        if (stackCountText != null && showStackCount)
+        if (cardCountText != null)
         {
             int count = stackableState.CardCount;
-            stackCountText.text = count > 1 ? count.ToString() : "";
-            stackCountText.gameObject.SetActive(count > 1);
+            cardCountText.text = count > 1 ? count.ToString() : "";
+            cardCountText.gameObject.SetActive(count > 1);
         }
     }
 
-    private void updateBackgroundColor()
+    public void onChangedIsInteractable(StackableState _)
     {
-        if (backgroundImage != null)
-        {
-            Color targetColor = isHighlighted ? highlightColor : normalColor;
-            backgroundImage.color = targetColor;
-        }
-    }
-
-    public void SetHighlighted(bool highlighted)
-    {
-        isHighlighted = highlighted;
-        updateBackgroundColor();
-    }
-
-    public void SetInteractable(bool interactable)
-    {
-        // Visual feedback for non-interactable state
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
-
-        canvasGroup.alpha = interactable ? 1f : 0.6f;
-        canvasGroup.interactable = interactable;
-    }
-
-    // UI Event System handlers
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log($"Stack clicked: {name} ({stackableState.CardCount} cards)");
-        OnStackClicked?.Invoke(this);
+        //CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        //canvasGroup.alpha = stackableState.IsInteractable ? 1f : 0.6f;
+        //canvasGroup.interactable = stackableState.IsInteractable;
     }
 
     void OnDestroy()
     {
         if (stackableState != null)
         {
-            stackableState.CardsChanged -= onCardsChanged;
+            stackableState.CardAdded -= onCardAdded;
+            stackableState.CardRemoved -= onCardRemoved;
+            stackableState.CardsShuffled -= onCardsShuffled;
+            stackableState.ChangedIsInteractable -= onChangedIsInteractable;
         }
     }
 }

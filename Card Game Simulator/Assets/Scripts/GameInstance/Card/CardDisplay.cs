@@ -1,18 +1,12 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CardState))]
-[RequireComponent(typeof(CanvasGroup))]
 public class CardDisplay : MonoBehaviour
 {
     [Header("Card UI Components")]
     [SerializeField] private Image frontSideImage;
     [SerializeField] private Image backSideImage;
-
-    [Header("Card Display Settings")]
-    [SerializeField] private float nonInteractableCardAlpha = 0.6f;
 
     private CardState cardState;
 
@@ -44,7 +38,6 @@ public class CardDisplay : MonoBehaviour
         cardState.Flipped += onCardFlipped;
         cardState.Hidden += onCardHidden;
         cardState.Shown += onCardShown;
-        cardState.ChangedIsInteractable += onChangedIsInteractable;
     }
 
     void OnDestroy()
@@ -55,7 +48,6 @@ public class CardDisplay : MonoBehaviour
             cardState.Flipped -= onCardFlipped;
             cardState.Hidden -= onCardHidden;
             cardState.Shown -= onCardShown;
-            cardState.ChangedIsInteractable -= onChangedIsInteractable;
         }
     }
 
@@ -123,20 +115,5 @@ public class CardDisplay : MonoBehaviour
     private void onCardShown(CardState _)
     {
         enableDisplay();
-    }
-
-    private void onChangedIsInteractable(CardState _)
-    {
-        updateInteractDisplay();
-    }
-
-    private void updateInteractDisplay()
-    {
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
-        {
-            canvasGroup.alpha = cardState.IsInteractable ? 1f : nonInteractableCardAlpha;
-            canvasGroup.interactable = cardState.IsInteractable;
-        }
     }
 }

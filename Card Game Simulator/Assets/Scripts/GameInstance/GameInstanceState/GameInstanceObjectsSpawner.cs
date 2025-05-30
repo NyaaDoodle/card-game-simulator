@@ -7,11 +7,16 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
     private GameInstanceState gameInstanceState;
     private GameTemplate gameTemplate;
 
+    [Header("Prefabs to Spawn")]
     [SerializeField] private GameObject tablePrefab;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject cardDeckPrefab;
     [SerializeField] private GameObject cardSpacePrefab;
     [SerializeField] private GameObject playerHandPrefab;
+
+    [Header("UI Containers")]
+    [SerializeField] private RectTransform tableViewContainer;
+    [SerializeField] private RectTransform handViewContainer;
 
     void Awake()
     {
@@ -44,10 +49,13 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnTable()
     {
-        GameObject tableObject = Instantiate(tablePrefab);
+        GameObject tableObject = Instantiate(tablePrefab, tableViewContainer);
         gameInstanceState.TableObject = tableObject;
         TableBehaviour tableBehaviour = tableObject.GetComponent<TableBehaviour>();
         tableBehaviour.Initialize(gameTemplate.TableData);
+
+        RectTransform tableRectTransform = tableObject.GetComponent<RectTransform>();
+        tableRectTransform.anchoredPosition = Vector2.zero;
     }
 
     private void spawnCardDecks()
@@ -60,9 +68,13 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnCardDeck(DeckData deckData)
     {
-        GameObject cardDeckObject = Instantiate(cardDeckPrefab);
+        GameObject cardDeckObject = Instantiate(cardDeckPrefab, tableViewContainer);
         gameInstanceState.CardDeckObjects.Add(cardDeckObject);
         placeObjectAtLocation(cardDeckObject, deckData.LocationOnTable);
+
+        CardDeckBehaviour cardDeckBehaviour = cardDeckObject.GetComponent<CardDeckBehaviour>();
+        cardDeckBehaviour.Initialize(deckData);
+
         StackableState cardDeckStackableState = cardDeckObject.GetComponent<StackableState>();
         spawnCardsOfDeck(cardDeckStackableState, deckData);
     }
@@ -87,16 +99,24 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnCardSpace(SpaceData spaceData)
     {
-        GameObject cardSpaceObject = Instantiate(cardSpacePrefab);
+        GameObject cardSpaceObject = Instantiate(cardSpacePrefab, tableViewContainer);
         gameInstanceState.CardSpaceObjects.Add(cardSpaceObject);
         placeObjectAtLocation(cardSpaceObject, spaceData.LocationOnTable);
+        CardSpaceBehaviour cardSpaceBehaviour = cardSpaceObject.GetComponent<CardSpaceBehaviour>();
+        cardSpaceBehaviour.Initialize(spaceData);
     }
 
     private void placeObjectAtLocation(GameObject gameObject, Tuple<float, float> locationOnTable)
     {
-        float x = locationOnTable.Item1;
-        float y = locationOnTable.Item2;
-        gameObject.transform.localPosition = new Vector3(x, y, 0);
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        if (rectTransform == null)
+        {
+            Debug.LogError($"GameObject {gameObject.name} does not have a RectTransform component");
+            return;
+        }
+        float xOnUI = locationOnTable.Item1 * UIConstants.CanvasScaleFactor;
+        float yOnUI = locationOnTable.Item2 * UIConstants.CanvasScaleFactor;
+        rectTransform.anchoredPosition = new Vector2(xOnUI, yOnUI);
     }
 
     private GameObject spawnCard(CardData cardData)
@@ -111,5 +131,13 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
     private void spawnPlayerHands()
     {
         // TODO implement
+    }
+
+    void OnDestroy()
+    {
+        if (gameInstanceState != null)
+        {
+            gameInstanceState.NewGameTemplateLoaded -= gameTemplateDataContainer_OnNewGameTemplateLoaded;
+        }
     }
 }
