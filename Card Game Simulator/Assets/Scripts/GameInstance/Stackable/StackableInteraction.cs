@@ -36,7 +36,6 @@ public class StackableInteraction : MonoBehaviour
 
     private void handleClick()
     {
-        Debug.Log("test click!");
         OnStackableClick?.Invoke(this);
     }
 
