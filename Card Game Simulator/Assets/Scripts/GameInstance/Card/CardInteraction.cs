@@ -4,9 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CardState))]
-public class CardInteraction : MonoBehaviour, IPointerClickHandler
+public class CardInteraction : MonoBehaviour
 {
-    [SerializeField] private GameObject cardButtonObject;
+    [SerializeField] private Button cardButton;
     private CardState cardState;
 
     public event Action<CardInteraction> OnCardClicked;
@@ -18,34 +18,28 @@ public class CardInteraction : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
+        cardState.ChangedIsInteractable += onChangedIsInteractable;
         setupInteraction();
     }
 
     private void setupInteraction()
     {
-        Button cardButton = cardButtonObject.GetComponent<Button>();
         if (cardButton != null)
         {
             cardButton.onClick.AddListener(HandleCardClick);
-        }
-
-        //if (frontSideImage != null)
-        //    frontSideImage.raycastTarget = true;
-        //if (backSideImage != null)
-        //    backSideImage.raycastTarget = true;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (cardState.IsInteractable)
-        {
-            HandleCardClick();
         }
     }
 
     private void HandleCardClick()
     {
-        Debug.Log($"Card clicked: {cardState.Name}");
         OnCardClicked?.Invoke(this);
+    }
+
+    private void onChangedIsInteractable(CardState _)
+    {
+        if (cardButton != null)
+        {
+            cardButton.interactable = cardState.IsInteractable;
+        }
     }
 }

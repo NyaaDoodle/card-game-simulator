@@ -104,7 +104,7 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
         GameObject cardObject = Instantiate(cardPrefab);
         gameInstanceState.CardObjects.Add(cardObject);
         CardState cardState = cardObject.GetComponent<CardState>();
-        cardState.SetCardData(cardData);
+        cardState.Initialize(cardData);
         return cardObject;
     }
 

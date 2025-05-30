@@ -6,6 +6,8 @@ public class StackableState : MonoBehaviour
 {
     public LinkedList<GameObject> Cards { get; private set; } = new LinkedList<GameObject>();
     public GameObject TopCard => Cards.First?.Value;
+    public bool HasCards => Cards.Count > 0;
+    public int CardCount => Cards.Count;
 
     public event Action<StackableState> CardsChanged;
 
