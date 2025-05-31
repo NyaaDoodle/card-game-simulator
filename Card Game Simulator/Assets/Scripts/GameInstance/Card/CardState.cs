@@ -20,12 +20,14 @@ public class CardState : MonoBehaviour
     // Card State Properties
     public bool IsFaceUp { get; private set; } = false;
     public bool IsShown { get; private set; } = false;
+    public bool IsInteractable { get; private set; } = false;
 
     // Card State Events
     public event Action<CardState> Flipped;
     public event Action<CardState> Hidden;
     public event Action<CardState> Shown;
     public event Action<CardState> Defined;
+    public event Action<CardState> ChangedIsInteractable;
 
     private RectTransform rectTransform;
 
@@ -74,12 +76,29 @@ public class CardState : MonoBehaviour
     {
         IsFaceUp = false;
         IsShown = false;
+        IsInteractable = true;
     }
 
     public void Flip()
     {
         IsFaceUp = !IsFaceUp;
         OnFlipped();
+    }
+
+    public void FlipFaceUp()
+    {
+        if (IsFaceUp != true)
+        {
+            Flip();
+        }
+    }
+
+    public void FlipFaceDown()
+    {
+        if (IsFaceUp == true)
+        {
+            Flip();
+        }
     }
 
     public void HideCard()
@@ -112,6 +131,11 @@ public class CardState : MonoBehaviour
     protected virtual void OnDefined()
     {
         Defined?.Invoke(this);
+    }
+
+    protected virtual void OnChangedIsInteractable()
+    {
+        ChangedIsInteractable?.Invoke(this);
     }
 
     private void loadCardSprites()

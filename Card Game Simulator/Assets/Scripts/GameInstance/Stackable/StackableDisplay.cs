@@ -52,7 +52,7 @@ public class StackableDisplay : MonoBehaviour
     private void updateDisplay()
     {
         updateTopCardDisplay();
-        updateStackCount();
+        //updateStackCount();
     }
 
     private void updateTopCardDisplay()
@@ -60,8 +60,18 @@ public class StackableDisplay : MonoBehaviour
         currentTopCardObject = stackableState.TopCard;
         if (currentTopCardObject != null)
         {
-            CardState topCardState = currentTopCardObject.GetComponent<CardState>();
-            topCardState.ShowCard();
+            foreach (GameObject cardObject in stackableState.Cards)
+            {
+                CardState cardState = cardObject.GetComponent<CardState>();
+                if (cardObject == currentTopCardObject)
+                {
+                    cardState.ShowCard();
+                }
+                else
+                {
+                    cardState.HideCard();
+                }
+            }
         }
         updateRectTransformSize();
     }
@@ -74,15 +84,15 @@ public class StackableDisplay : MonoBehaviour
         stackableRectTransform.sizeDelta = sizeVectorToSet * highlightAreaFactor;
     }
 
-    private void updateStackCount()
-    {
-        if (cardCountText != null)
-        {
-            int count = stackableState.CardCount;
-            cardCountText.text = count > 1 ? count.ToString() : "";
-            cardCountText.gameObject.SetActive(count > 1);
-        }
-    }
+    //private void updateStackCount()
+    //{
+    //    if (cardCountText != null)
+    //    {
+    //        int count = stackableState.CardCount;
+    //        cardCountText.text = count > 1 ? count.ToString() : "";
+    //        cardCountText.gameObject.SetActive(count > 1);
+    //    }
+    //}
 
     public void onChangedIsInteractable(StackableState _)
     {

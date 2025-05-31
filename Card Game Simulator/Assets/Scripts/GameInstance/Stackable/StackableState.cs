@@ -56,6 +56,12 @@ public class StackableState : MonoBehaviour
         return cardDrawn;
     }
 
+    public void FlipTopCard()
+    {
+        if (Cards.Count <= 0) return;
+        TopCard.GetComponent<CardState>().Flip();
+    }
+
     public bool RemoveCard(GameObject card)
     {
         if (Cards.Remove(card))
@@ -133,7 +139,7 @@ public class StackableState : MonoBehaviour
 
     private void setChildIndexOnStackable(RectTransform cardRectTransform)
     {
-        int targetIndex = Mathf.Max(0, stackableRectTransform.childCount - 2);
+        int targetIndex = 1;
         cardRectTransform.SetSiblingIndex(targetIndex);
         placeInteractionButtonAtLastIndex();
     }
@@ -164,4 +170,14 @@ public class StackableState : MonoBehaviour
             cardRectTransform.SetParent(null, true);
         }
     }
+
+    //private void reorderCardChildren()
+    //{
+    //    GameObject[] cardsArray = new GameObject[CardCount];
+    //    Cards.CopyTo(cardsArray, 0);
+    //    for (int i = 0; i < cardsArray.Length; i++)
+    //    {
+    //        cardsArray[i].transform.SetSiblingIndex(i);
+    //    }
+    //}
 }

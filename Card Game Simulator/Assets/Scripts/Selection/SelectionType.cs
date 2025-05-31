@@ -1,7 +1,7 @@
 ﻿public enum SelectionType
 {
     None,
-    Card,
+    PlayerCard,
     Deck,
     Space
 }

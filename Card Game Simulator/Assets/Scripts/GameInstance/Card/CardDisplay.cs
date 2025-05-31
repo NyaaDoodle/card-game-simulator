@@ -10,7 +10,7 @@ public class CardDisplay : MonoBehaviour
 
     private CardState cardState;
 
-    public bool IsDisplayEnabled { get; private set; } = false;
+    public bool IsDisplayEnabled;
 
     void Awake()
     {
@@ -86,8 +86,8 @@ public class CardDisplay : MonoBehaviour
 
     private void enableDisplay()
     {
-        updateVisibleSide();
         IsDisplayEnabled = true;
+        updateVisibleSide();
     }
 
     private void disableDisplay()
