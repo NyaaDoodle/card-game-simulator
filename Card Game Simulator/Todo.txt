@@ -1,0 +1,17 @@
+Todo:
+03.06.25
+- Go over Event System interactions (IClick, IDrag, etc.)
+
+- Card to have CardState, CardDisplay and CardInteraction; 2 images and a botton/Event System related methods
+- Card to have OnClick, so that relevant container of the card can react to it
+- Card containers (Hand, Deck and Space) to have OnSelection, so that SelectionManager can react to it
+- Deck and Space to have Interaction scripts as well (when having to select them when empty)
+- Cards objects will be placed on child order according to their order on Deck/Space
+- Card containers tell the SelectionManager/ActionMenu what options are there for the ActionMenu to make available
+- ActionMenu to appear after item was selected in SelectionManager (maybe an event? maybe SelectionManager calling the ActionMenu?)
+- Highlight on selection, after it has been confirmed by SelectionManager
+- ActionMenu to zoom on the selected object (how to handle with card in hand?)
+- ActionMenu to have an area where player can click "outside" to cancel the selection, and also an 'X' or 'Cancel Selection' button as alternative to cancel selection.
+- MainMenu for chatrooms, score management, settings, and quitting game instance. Hamburger Menu when in Standard View (i.e. no selection at present)
+- If time permits: animations, and dragging and dropping of card from hand to table, and from table to hand
+
