@@ -15,3 +15,5 @@ Todo:
 - MainMenu for chatrooms, score management, settings, and quitting game instance. Hamburger Menu when in Standard View (i.e. no selection at present)
 - If time permits: animations, and dragging and dropping of card from hand to table, and from table to hand
 
+25.07.25
+- Fix bug of increasing cards to pick up increases after every pickup.
