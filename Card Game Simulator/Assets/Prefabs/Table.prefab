@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5462417394611603101}
   - component: {fileID: 8090105533473477414}
+  - component: {fileID: 9140975537283221402}
   m_Layer: 5
   m_Name: Table
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8090105533473477414
 MonoBehaviour:
@@ -50,9 +51,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45788e622724f64f9376a93f80c5576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9140975537283221402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336760377659461280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8680def324ceeb4893c488b01d29a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   tableSurface: {fileID: 4215118687573460734}
   tableBorder: {fileID: 3073470914081083129}
-  borderWidth: 0.5
+  borderWidth: 0.2
   borderColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &3073470914081083129
 GameObject:
@@ -89,7 +102,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &610320916299966419
 CanvasRenderer:
@@ -164,7 +177,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2838350160751861962
 CanvasRenderer:

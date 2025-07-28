@@ -59,8 +59,8 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
     {
         GameObject tableObject = Instantiate(tablePrefab, tableObjectsContainer);
         gameInstanceState.TableObject = tableObject;
-        TableBehaviour tableBehaviour = tableObject.GetComponent<TableBehaviour>();
-        tableBehaviour.Initialize(gameTemplate.TableData);
+        TableState tableState = tableObject.GetComponent<TableState>();
+        tableState.Initialize(gameTemplate.TableData);
 
         RectTransform tableRectTransform = tableObject.GetComponent<RectTransform>();
         tableRectTransform.anchoredPosition = Vector2.zero;
