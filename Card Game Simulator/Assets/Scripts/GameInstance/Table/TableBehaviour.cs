@@ -10,7 +10,7 @@ public class TableBehaviour : MonoBehaviour
     [SerializeField] private GameObject tableBorder;
 
     [Header("Border Settings")]
-    [SerializeField] private float borderWidth = 10f;
+    [SerializeField] private float borderWidth = 0.5f;
     [SerializeField] private Color borderColor = Color.black;
 
     private TableData tableData;

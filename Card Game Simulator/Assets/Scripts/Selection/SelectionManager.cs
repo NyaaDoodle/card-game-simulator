@@ -4,7 +4,6 @@ using UnityEngine;
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private GameObject actionMenuPanel;
-    [SerializeField] private ViewManager viewManager;
 
     public GameObject CurrentSelectedObject { get; private set; }
     public SelectionType CurrentSelectionType { get; private set; } = SelectionType.None;
@@ -15,27 +14,6 @@ public class SelectionManager : MonoBehaviour
 
     public bool HasSelection => CurrentSelectedObject != null;
     public bool IsSelected(GameObject obj) => CurrentSelectedObject == obj;
-
-    void Start()
-    {
-        if (viewManager != null)
-        {
-            viewManager.ViewChanged += onViewChanged;
-        }
-    }
-
-    void OnDestroy()
-    {
-        if (viewManager != null)
-        {
-            viewManager.ViewChanged -= onViewChanged;
-        }
-    }
-
-    private void onViewChanged(SimulatorView oldView, SimulatorView newView)
-    {
-        ClearSelection();
-    }
 
     public void SelectObject(GameObject objectToSelect, SelectionType objectType)
     {

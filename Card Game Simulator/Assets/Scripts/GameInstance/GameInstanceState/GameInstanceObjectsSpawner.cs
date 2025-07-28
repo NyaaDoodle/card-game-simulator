@@ -15,8 +15,8 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
     [SerializeField] private GameObject playerHandPrefab;
 
     [Header("UI Containers")]
-    [SerializeField] private RectTransform tableViewContainer;
-    [SerializeField] private RectTransform handViewContainer;
+    [SerializeField] private RectTransform tableObjectsContainer;
+    [SerializeField] private RectTransform playerHandContainer;
 
     void Awake()
     {
@@ -30,6 +30,14 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
         {
             gameTemplate = gameInstanceState.GameTemplate;
             spawnGameInstanceObjects();
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (gameInstanceState != null)
+        {
+            gameInstanceState.NewGameTemplateLoaded -= gameTemplateDataContainer_OnNewGameTemplateLoaded;
         }
     }
 
@@ -49,7 +57,7 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnTable()
     {
-        GameObject tableObject = Instantiate(tablePrefab, tableViewContainer);
+        GameObject tableObject = Instantiate(tablePrefab, tableObjectsContainer);
         gameInstanceState.TableObject = tableObject;
         TableBehaviour tableBehaviour = tableObject.GetComponent<TableBehaviour>();
         tableBehaviour.Initialize(gameTemplate.TableData);
@@ -68,7 +76,7 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnCardDeck(DeckData deckData)
     {
-        GameObject cardDeckObject = Instantiate(cardDeckPrefab, tableViewContainer);
+        GameObject cardDeckObject = Instantiate(cardDeckPrefab, tableObjectsContainer);
         gameInstanceState.CardDeckObjects.Add(cardDeckObject);
         placeObjectAtLocation(cardDeckObject, deckData.LocationOnTable);
 
@@ -99,7 +107,7 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
 
     private void spawnCardSpace(SpaceData spaceData)
     {
-        GameObject cardSpaceObject = Instantiate(cardSpacePrefab, tableViewContainer);
+        GameObject cardSpaceObject = Instantiate(cardSpacePrefab, tableObjectsContainer);
         gameInstanceState.CardSpaceObjects.Add(cardSpaceObject);
         placeObjectAtLocation(cardSpaceObject, spaceData.LocationOnTable);
         CardSpaceBehaviour cardSpaceBehaviour = cardSpaceObject.GetComponent<CardSpaceBehaviour>();
@@ -131,13 +139,7 @@ public class GameInstanceObjectsSpawner : MonoBehaviour
     private void spawnPlayerHands()
     {
         // TODO implement
-    }
-
-    void OnDestroy()
-    {
-        if (gameInstanceState != null)
-        {
-            gameInstanceState.NewGameTemplateLoaded -= gameTemplateDataContainer_OnNewGameTemplateLoaded;
-        }
+        GameObject playerHand = Instantiate(playerHandPrefab, playerHandContainer);
+        gameInstanceState.PlayerHandObjects.Add(playerHand);
     }
 }

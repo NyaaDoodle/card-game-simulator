@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tableSurface: {fileID: 4215118687573460734}
   tableBorder: {fileID: 3073470914081083129}
-  borderWidth: 10
+  borderWidth: 0.5
   borderColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &3073470914081083129
 GameObject:

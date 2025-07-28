@@ -189,7 +189,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 300}
+  m_SizeDelta: {x: 2, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &204850514811857333
 MonoBehaviour:
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontSideImage: {fileID: 1326503570049626596}
   backSideImage: {fileID: 67432788407940636}
+  IsDisplayEnabled: 0
 --- !u!114 &5385246506248319513
 MonoBehaviour:
   m_ObjectHideFlags: 0

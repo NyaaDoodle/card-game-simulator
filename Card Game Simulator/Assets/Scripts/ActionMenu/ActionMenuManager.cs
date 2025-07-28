@@ -26,7 +26,7 @@ public class ActionMenuManager : MonoBehaviour
 
     private void onSelectionCleared()
     {
-        setActionOptions(null, SelectionType.None);
+        clearActionOptions();
         Deactivate();
     }
 
@@ -64,12 +64,17 @@ public class ActionMenuManager : MonoBehaviour
                     deactivatePlaceCardButton();
                     break;
                 default:
-                    deactivateDrawCardButton();
-                    deactivateFlipCardButton();
-                    deactivatePlaceCardButton();
+                    clearActionOptions();
                     break;
             }
         }
+    }
+
+    private void clearActionOptions()
+    {
+        deactivateDrawCardButton();
+        deactivateFlipCardButton();
+        deactivatePlaceCardButton();
     }
 
     private void activateDrawCardButton(GameObject selectedObject, SelectionType selectionType)
