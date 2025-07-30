@@ -2,11 +2,11 @@
 
 public static class PrefabExtensions
 {
-    public static CardTableDisplay InstantiateCardTableDisplay(this GameObject prefab,
+    public static CardDisplay InstantiateCardDisplay(this GameObject prefab,
                                                           CardState cardState,
                                                           Transform parent)
     {
-        CardTableDisplay cardDisplay = GameObject.Instantiate(prefab, parent).GetComponent<CardTableDisplay>();
+        CardDisplay cardDisplay = GameObject.Instantiate(prefab, parent).GetComponent<CardDisplay>();
         cardDisplay.Setup(cardState);
         return cardDisplay;
     }

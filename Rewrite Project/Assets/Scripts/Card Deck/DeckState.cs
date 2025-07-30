@@ -5,6 +5,6 @@ public class DeckState : StackableState
     public DeckState(DeckData deckData) : base(deckData)
     {
         DeckData = deckData;
-        AddCards(CardUtilities.CreateCards(DeckData.Cards));
+        base.AddCards(CardUtilities.CreateCards(DeckData.Cards));
     }
 }

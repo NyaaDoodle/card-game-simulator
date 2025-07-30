@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardTableDisplay : MonoBehaviour, IPointerClickHandler
+public class CardDisplay : MonoBehaviour, IPointerClickHandler
 {
     [Header("Card Side Images")]
     [SerializeField] private Image backSideImage;
