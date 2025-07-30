@@ -8,79 +8,83 @@ public class DeckAndSpaceSpawnScript : MonoBehaviour
     [SerializeField] private GameObject spacePrefab;
     [SerializeField] private GameObject container;
 
+    public DeckState DeckState { get; private set; }
+    public SpaceState SpaceState { get; private set; }
+    public List<CardData> CardsA { get; private set; }
+    public List<CardData> CardsB { get; private set; }
+
     void Start()
     {
-        List<CardData> cardsA = getTestCardsA();
-        DeckDisplay deckDisplay = spawnTestDeck(cardsA);
+        makeTestCardsA();
+        makeTestCardsB();
+        DeckDisplay deckDisplay = spawnTestDeck(CardsA);
         SpaceDisplay spaceDisplay = spawnTestSpace();
     }
 
-    private List<CardData> getTestCardsA()
+    private void makeTestCardsA()
     {
-        List<CardData> cardsA = new List<CardData>();
-        cardsA.Add(
+        CardsA = new List<CardData>();
+        CardsA.Add(
             new CardData()
                 {
                     Id = 0,
                     BackSideSpritePath = "Standard52/Gray_back",
                     FrontSideSpritePath = "Standard52/2C"
                 });
-        cardsA.Add(
+        CardsA.Add(
             new CardData()
                 {
                     Id = 1,
                     BackSideSpritePath = "Standard52/Green_back",
                     FrontSideSpritePath = "Standard52/3D"
                 });
-        cardsA.Add(
+        CardsA.Add(
             new CardData()
                 {
                     Id = 2,
                     BackSideSpritePath = "Standard52/Red_back",
                     FrontSideSpritePath = "Standard52/4H"
                 });
-        cardsA.Add(
+        CardsA.Add(
             new CardData()
                 {
                     Id = 3,
                     BackSideSpritePath = "Standard52/Yellow_back",
                     FrontSideSpritePath = "Standard52/5S"
                 });
-        return cardsA;
     }
 
-    private List<CardData> getTestCardsB()
+    private void makeTestCardsB()
     {
-        List<CardData> cardsB = new List<CardData>();
-        cardsB.Add(
+        CardsB = new List<CardData>();
+        CardsB.Add(
             new CardData()
                 {
                     Id = 4,
                     BackSideSpritePath = "Standard52/blue_back",
                     FrontSideSpritePath = "Standard52/10S"
                 });
-        cardsB.Add(
+        CardsB.Add(
             new CardData()
                 {
                     Id = 5,
                     BackSideSpritePath = "Standard52/purple_back",
                     FrontSideSpritePath = "Standard52/9D"
                 });
-        cardsB.Add(
+        CardsB.Add(
             new CardData()
                 {
                     Id = 6,
                     BackSideSpritePath = "Standard52/Green_back",
                     FrontSideSpritePath = "Standard52/8C"
                 });
-        cardsB.Add(
+        CardsB.Add(
             new CardData()
                 {
                     Id = 7,
                     BackSideSpritePath = "Standard52/Red_back",
                     FrontSideSpritePath = "Standard52/7H"
                 });
-        return cardsB;
     }
 
     private DeckDisplay spawnTestDeck(List<CardData> cards)
@@ -89,16 +93,16 @@ public class DeckAndSpaceSpawnScript : MonoBehaviour
                                     {
                                         Id = 0, LocationOnTable = new Tuple<float, float>(-2, 0), Cards = cards
                                     };
-        DeckState deckState = new DeckState(deckData);
-        DeckDisplay deckDisplay = deckPrefab.InstantiateDeckDisplay(deckState, container.transform);
+        DeckState = new DeckState(deckData);
+        DeckDisplay deckDisplay = deckPrefab.InstantiateDeckDisplay(DeckState, container.transform);
         return deckDisplay;
     }
 
     private SpaceDisplay spawnTestSpace()
     {
         SpaceData spaceData = new SpaceData() { Id = 0, LocationOnTable = new Tuple<float, float>(2, 0) };
-        SpaceState spaceState = new SpaceState(spaceData);
-        SpaceDisplay spaceDisplay = spacePrefab.InstantiateSpaceDisplay(spaceState, container.transform);
+        SpaceState = new SpaceState(spaceData);
+        SpaceDisplay spaceDisplay = spacePrefab.InstantiateSpaceDisplay(SpaceState, container.transform);
         return spaceDisplay;
     }
 }

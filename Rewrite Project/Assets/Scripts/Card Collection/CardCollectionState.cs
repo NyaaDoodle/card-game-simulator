@@ -15,6 +15,11 @@ public class CardCollectionState
 
     public virtual void AddCard(CardState card, int index)
     {
+        if (card == null)
+        {
+            Debug.LogWarning("Card to be added is null");
+            return;
+        }
         try
         {
             Cards.Insert(index, card);
@@ -71,6 +76,16 @@ public class CardCollectionState
             Debug.LogWarning($"Deletion index {index} is out of bounds in Cards");
         }
         return null;
+    }
+
+    public virtual CardState RemoveCardAtStart()
+    {
+        return RemoveCard(0);
+    }
+
+    public virtual CardState RemoveCardAtEnd()
+    {
+        return RemoveCard(Cards.Count - 1);
     }
 
     protected virtual void OnCardAdded(CardState cardAdded, int index)

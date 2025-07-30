@@ -42,7 +42,8 @@ public class StackableState : CardCollectionState
             Debug.LogWarning("Attempting to draw from an empty deck, returning null!");
             return null;
         }
-        CardState cardDrawn = RemoveCard(0);
+
+        CardState cardDrawn = RemoveCardAtStart();
         return cardDrawn;
     }
 

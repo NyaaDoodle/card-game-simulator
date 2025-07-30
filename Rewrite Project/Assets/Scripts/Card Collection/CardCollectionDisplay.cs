@@ -75,7 +75,7 @@ public class CardCollectionDisplay : MonoBehaviour
             CardDisplay cardDisplay =
                 cardDisplayPrefab.InstantiateCardDisplay(cardState, cardDisplaysContainer.transform);
             CardDisplays.Insert(insertionIndex, cardDisplay);
-            SetCardDisplayHierarchyIndex(cardDisplay, insertionIndex);
+            SetCardDisplayHierarchyReverseIndex(cardDisplay, insertionIndex);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -104,15 +104,17 @@ public class CardCollectionDisplay : MonoBehaviour
 
     protected virtual void DestroyAndRemoveAllCardDisplays()
     {
-        for (int i = 0; i < CardDisplays.Count; i++)
+        while (CardDisplays.Count > 0)
         {
-            DestroyAndRemoveCardDisplay(i);
+            DestroyAndRemoveCardDisplay(0);
         }
     }
 
-    protected virtual void SetCardDisplayHierarchyIndex(CardDisplay cardDisplay, int index)
+    protected virtual void SetCardDisplayHierarchyReverseIndex(CardDisplay cardDisplay, int index)
     {
+        Transform cardDisplaysContainerTransform = cardDisplaysContainer.transform;
+        int reverseIndex = cardDisplaysContainerTransform.childCount - 1 - index;
         Transform cardDisplayTransform = cardDisplay.gameObject.transform;
-        cardDisplayTransform.SetSiblingIndex(index);
+        cardDisplayTransform.SetSiblingIndex(reverseIndex);
     }
 }

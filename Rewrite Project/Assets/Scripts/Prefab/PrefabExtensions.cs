@@ -28,4 +28,13 @@ public static class PrefabExtensions
         spaceDisplay.Setup(spaceState);
         return spaceDisplay;
     }
+
+    public static PlayerHandDisplay InstantiatePlayerHandDisplay(this GameObject prefab,
+                                                       PlayerHandState playerHandState,
+                                                       Transform parent)
+    {
+        PlayerHandDisplay playerHandDisplay = GameObject.Instantiate(prefab, parent).GetComponent<PlayerHandDisplay>();
+        playerHandDisplay.Setup(playerHandState);
+        return playerHandDisplay;
+    }
 }
