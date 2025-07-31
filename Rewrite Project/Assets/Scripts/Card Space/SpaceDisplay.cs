@@ -3,9 +3,9 @@ using UnityEngine.EventSystems;
 
 public class SpaceDisplay : StackableDisplay
 {
-    public SpaceState SpaceState { get; private set; }
+    public Space SpaceState { get; private set; }
 
-    public void Setup(SpaceState spaceState)
+    public void Setup(Space spaceState)
     {
         base.Setup(spaceState);
         SpaceState = spaceState;

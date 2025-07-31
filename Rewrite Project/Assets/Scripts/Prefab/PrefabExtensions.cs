@@ -3,7 +3,7 @@
 public static class PrefabExtensions
 {
     public static CardDisplay InstantiateCardDisplay(this GameObject prefab,
-                                                          CardState cardState,
+                                                          Card cardState,
                                                           Transform parent)
     {
         CardDisplay cardDisplay = GameObject.Instantiate(prefab, parent).GetComponent<CardDisplay>();
@@ -12,7 +12,7 @@ public static class PrefabExtensions
     }
 
     public static DeckDisplay InstantiateDeckDisplay(this GameObject prefab,
-                                                               DeckState deckState,
+                                                               Deck deckState,
                                                                Transform parent)
     {
         DeckDisplay deckDisplay = GameObject.Instantiate(prefab, parent).GetComponent<DeckDisplay>();
@@ -21,7 +21,7 @@ public static class PrefabExtensions
     }
 
     public static SpaceDisplay InstantiateSpaceDisplay(this GameObject prefab,
-                                                     SpaceState spaceState,
+                                                     Space spaceState,
                                                      Transform parent)
     {
         SpaceDisplay spaceDisplay = GameObject.Instantiate(prefab, parent).GetComponent<SpaceDisplay>();
@@ -30,7 +30,7 @@ public static class PrefabExtensions
     }
 
     public static PlayerHandDisplay InstantiatePlayerHandDisplay(this GameObject prefab,
-                                                       PlayerHandState playerHandState,
+                                                       PlayerHand playerHandState,
                                                        Transform parent)
     {
         PlayerHandDisplay playerHandDisplay = GameObject.Instantiate(prefab, parent).GetComponent<PlayerHandDisplay>();

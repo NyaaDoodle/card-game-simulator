@@ -1,14 +1,14 @@
 using System;
 
-public class CardState
+public class Card
 {
     public CardData CardData { get; private set; }
     public bool IsFaceUp { get; private set; }
 
     // Events
-    public event Action<CardState> Flipped;
+    public event Action<Card> Flipped;
 
-    public CardState(CardData cardData)
+    public Card(CardData cardData)
     {
         CardData = cardData;
         IsFaceUp = false;

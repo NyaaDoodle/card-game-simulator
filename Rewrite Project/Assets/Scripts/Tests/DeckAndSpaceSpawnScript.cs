@@ -8,8 +8,8 @@ public class DeckAndSpaceSpawnScript : MonoBehaviour
     [SerializeField] private GameObject spacePrefab;
     [SerializeField] private GameObject container;
 
-    public DeckState DeckState { get; private set; }
-    public SpaceState SpaceState { get; private set; }
+    public Deck DeckState { get; private set; }
+    public Space SpaceState { get; private set; }
     public List<CardData> CardsA { get; private set; }
     public List<CardData> CardsB { get; private set; }
 
@@ -93,7 +93,7 @@ public class DeckAndSpaceSpawnScript : MonoBehaviour
                                     {
                                         Id = 0, LocationOnTable = new Tuple<float, float>(-2, 0), Cards = cards
                                     };
-        DeckState = new DeckState(deckData);
+        DeckState = new Deck(deckData);
         DeckDisplay deckDisplay = deckPrefab.InstantiateDeckDisplay(DeckState, container.transform);
         return deckDisplay;
     }
@@ -101,7 +101,7 @@ public class DeckAndSpaceSpawnScript : MonoBehaviour
     private SpaceDisplay spawnTestSpace()
     {
         SpaceData spaceData = new SpaceData() { Id = 0, LocationOnTable = new Tuple<float, float>(2, 0) };
-        SpaceState = new SpaceState(spaceData);
+        SpaceState = new Space(spaceData);
         SpaceDisplay spaceDisplay = spacePrefab.InstantiateSpaceDisplay(SpaceState, container.transform);
         return spaceDisplay;
     }

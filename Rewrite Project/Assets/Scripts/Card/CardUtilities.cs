@@ -2,12 +2,12 @@
 
 public class CardUtilities
 {
-    public static LinkedList<CardState> CreateCards(ICollection<CardData> cardDataCollection)
+    public static LinkedList<Card> CreateCards(ICollection<CardData> cardDataCollection)
     {
-        LinkedList<CardState> cards = new LinkedList<CardState>();
+        LinkedList<Card> cards = new LinkedList<Card>();
         foreach (CardData cardData in cardDataCollection)
         {
-            CardState card = new CardState(cardData);
+            Card card = new Card(cardData);
             cards.AddLast(card);
         }
         return cards;

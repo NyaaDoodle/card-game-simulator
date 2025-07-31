@@ -8,9 +8,9 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image backSideImage;
     [SerializeField] private Image frontSideImage;
 
-    public CardState CardState { get; private set; }
+    public Card CardState { get; private set; }
 
-    public void Setup(CardState cardState)
+    public void Setup(Card cardState)
     {
         CardState = cardState;
         subscribeToCardStateEvents();
@@ -41,7 +41,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         CardState.Flipped -= onCardFlipped;
     }
 
-    private void onCardFlipped(CardState _)
+    private void onCardFlipped(Card _)
     {
         updateVisibleSide();
     }

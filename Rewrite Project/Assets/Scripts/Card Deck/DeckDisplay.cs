@@ -3,9 +3,9 @@ using UnityEngine.EventSystems;
 
 public class DeckDisplay : StackableDisplay
 {
-    public DeckState DeckState { get; private set; }
+    public Deck DeckState { get; private set; }
 
-    public void Setup(DeckState deckState)
+    public void Setup(Deck deckState)
     {
         base.Setup(deckState);
         DeckState = deckState;

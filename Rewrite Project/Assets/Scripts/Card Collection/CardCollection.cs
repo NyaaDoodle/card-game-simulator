@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardCollectionState
+public class CardCollection
 {
-    public List<CardState> Cards { get; } = new List<CardState>();
+    public List<Card> Cards { get; } = new List<Card>();
 
     // Events
-    public event Action<CardCollectionState, CardState, int> CardAdded;
-    public event Action<CardCollectionState, CardState, int> CardRemoved;
+    public event Action<CardCollection, Card, int> CardAdded;
+    public event Action<CardCollection, Card, int> CardRemoved;
 
     public bool IsEmpty => Cards.Count <= 0;
-    public CardState FirstCard => Cards[0];
+    public Card FirstCard => Cards[0];
 
-    public virtual void AddCard(CardState card, int index)
+    public virtual void AddCard(Card card, int index)
     {
         if (card == null)
         {
@@ -31,25 +31,25 @@ public class CardCollectionState
         OnCardAdded(card, index);
     }
 
-    public virtual void AddCardAtStart(CardState card)
+    public virtual void AddCardAtStart(Card card)
     {
         AddCard(card, 0);
     }
 
-    public virtual void AddCardAtEnd(CardState card)
+    public virtual void AddCardAtEnd(Card card)
     {
         AddCard(card, Cards.Count);
     }
 
-    public virtual void AddCards(ICollection<CardState> cards)
+    public virtual void AddCards(ICollection<Card> cards)
     {
-        foreach (CardState card in cards)
+        foreach (Card card in cards)
         {
             AddCardAtEnd(card);
         }
     }
 
-    public virtual bool RemoveCard(CardState card)
+    public virtual bool RemoveCard(Card card)
     {
         int cardIndex = Cards.IndexOf(card);
         if (cardIndex < 0)
@@ -62,11 +62,11 @@ public class CardCollectionState
         return true;
     }
 
-    public virtual CardState RemoveCard(int index)
+    public virtual Card RemoveCard(int index)
     {
         try
         {
-            CardState card = Cards[index];
+            Card card = Cards[index];
             Cards.RemoveAt(index);
             OnCardRemoved(card, index);
             return card;
@@ -78,22 +78,22 @@ public class CardCollectionState
         return null;
     }
 
-    public virtual CardState RemoveCardAtStart()
+    public virtual Card RemoveCardAtStart()
     {
         return RemoveCard(0);
     }
 
-    public virtual CardState RemoveCardAtEnd()
+    public virtual Card RemoveCardAtEnd()
     {
         return RemoveCard(Cards.Count - 1);
     }
 
-    protected virtual void OnCardAdded(CardState cardAdded, int index)
+    protected virtual void OnCardAdded(Card cardAdded, int index)
     {
         CardAdded?.Invoke(this, cardAdded, index);
     }
 
-    protected virtual void OnCardRemoved(CardState cardRemoved, int index)
+    protected virtual void OnCardRemoved(Card cardRemoved, int index)
     {
         CardRemoved?.Invoke(this, cardRemoved, index);
     }

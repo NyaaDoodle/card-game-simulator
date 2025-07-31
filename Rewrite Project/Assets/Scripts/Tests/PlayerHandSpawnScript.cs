@@ -19,7 +19,7 @@ public class PlayerHandSpawnScript : MonoBehaviour
     [SerializeField] private Button putMoreButton;
     [SerializeField] private Button randomDeckButton;
 
-    private PlayerHandState playerHandState;
+    private PlayerHand playerHandState;
     private PlayerHandDisplay playerHandDisplay;
 
     void Start()
@@ -30,31 +30,31 @@ public class PlayerHandSpawnScript : MonoBehaviour
 
     private void spawnTestPlayer()
     {
-        playerHandState = new PlayerHandState();
+        playerHandState = new PlayerHand();
         playerHandDisplay =
             playerHandPrefab.InstantiatePlayerHandDisplay(playerHandState, playerHandContainer.transform);
     }
 
     private void setupButtons()
     {
-        DeckState deckState = deckAndSpaceSpawnScript.DeckState;
-        SpaceState spaceState = deckAndSpaceSpawnScript.SpaceState;
+        Deck deckState = deckAndSpaceSpawnScript.DeckState;
+        Space spaceState = deckAndSpaceSpawnScript.SpaceState;
         List<CardData> cardsA = deckAndSpaceSpawnScript.CardsA;
-        List<CardState> cardStatesA = new List<CardState>();
+        List<Card> cardStatesA = new List<Card>();
         foreach (CardData cardData in cardsA)
         {
-            cardStatesA.Add(new CardState(cardData));
+            cardStatesA.Add(new Card(cardData));
         }
         List<CardData> cardsB = deckAndSpaceSpawnScript.CardsA;
-        List<CardState> cardStatesB = new List<CardState>();
+        List<Card> cardStatesB = new List<Card>();
         foreach (CardData cardData in cardsB)
         {
-            cardStatesB.Add(new CardState(cardData));
+            cardStatesB.Add(new Card(cardData));
         }
         drawDeckButton.onClick.AddListener(
             () =>
                 {
-                    CardState drawnCard = deckState.DrawCard();
+                    Card drawnCard = deckState.DrawCard();
                     if (drawnCard != null)
                     {
                         playerHandState.AddCard(drawnCard);
@@ -63,7 +63,7 @@ public class PlayerHandSpawnScript : MonoBehaviour
         drawSpaceButton.onClick.AddListener(
             () =>
                 {
-                    CardState drawnCard = spaceState.DrawCard();
+                    Card drawnCard = spaceState.DrawCard();
                     if (drawnCard != null)
                     {
                         playerHandState.AddCard(drawnCard);
@@ -82,7 +82,7 @@ public class PlayerHandSpawnScript : MonoBehaviour
         placeOnDeckButton.onClick.AddListener(
             () =>
                 {
-                    CardState takenCard = playerHandState.RemoveCardAtEnd();
+                    Card takenCard = playerHandState.RemoveCardAtEnd();
                     if (takenCard != null)
                     {
                         deckState.AddCardToTop(takenCard);
@@ -91,7 +91,7 @@ public class PlayerHandSpawnScript : MonoBehaviour
         placeOnSpaceButton.onClick.AddListener(
             () =>
                 {
-                    CardState takenCard = playerHandState.RemoveCardAtEnd();
+                    Card takenCard = playerHandState.RemoveCardAtEnd();
                     if (takenCard != null)
                     {
                         spaceState.AddCardToTop(takenCard);
@@ -116,7 +116,7 @@ public class PlayerHandSpawnScript : MonoBehaviour
         randomDeckButton.onClick.AddListener(
             () =>
                 {
-                    CardState takenCard = deckState.RemoveCard(Random.Range(0, deckState.Cards.Count));
+                    Card takenCard = deckState.RemoveCard(Random.Range(0, deckState.Cards.Count));
                     if (takenCard != null)
                     {
                         playerHandState.AddCard(takenCard);

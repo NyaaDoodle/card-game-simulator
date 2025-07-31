@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(RectTransform))]
 public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 {
-    public StackableState StackableState { get; private set; }
+    public Stackable StackableState { get; private set; }
 
-    public void Setup(StackableState stackableState)
+    public void Setup(Stackable stackableState)
     {
         StackableState = stackableState;
         relocateOnTable();
@@ -58,7 +58,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
         }
     }
 
-    private void onCardsShuffled(StackableState _)
+    private void onCardsShuffled(Stackable _)
     {
         ClearAndSpawnCardDisplays();
     }

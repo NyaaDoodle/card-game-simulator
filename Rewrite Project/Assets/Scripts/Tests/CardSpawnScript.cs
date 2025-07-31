@@ -7,7 +7,7 @@ public class CardSpawnScript : MonoBehaviour
     void Start()
     {
         CardData cardData = new CardData() { Id = 0, BackSideSpritePath = "1", FrontSideSpritePath = "2" };
-        CardState cardState = new CardState(cardData);
+        Card cardState = new Card(cardData);
         CardDisplay cardDisplay = cardDisplayPrefab.InstantiateCardDisplay(cardState, cardContainer);
     }
 }

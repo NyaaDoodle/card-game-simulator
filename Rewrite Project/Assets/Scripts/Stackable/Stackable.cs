@@ -2,40 +2,40 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StackableState : CardCollectionState
+public class Stackable : CardCollection
 {
     public StackableData StackableData { get; private set; }
-    public CardState TopCard => FirstCard;
+    public Card TopCard => FirstCard;
 
     // Events
-    public event Action<StackableState> CardsShuffled;
+    public event Action<Stackable> CardsShuffled;
 
-    public StackableState(StackableData stackableData)
+    public Stackable(StackableData stackableData)
     {
         StackableData = stackableData;
     }
 
-    public void AddCardToTop(CardState card)
+    public void AddCardToTop(Card card)
     {
         card.FlipFaceDown();
         AddCardAtStart(card);
     }
 
-    public void AddCardToBottom(CardState card)
+    public void AddCardToBottom(Card card)
     {
         card.FlipFaceDown();
         AddCardAtEnd(card);
     }
 
-    public override void AddCards(ICollection<CardState> cards)
+    public override void AddCards(ICollection<Card> cards)
     {
-        foreach (CardState card in cards)
+        foreach (Card card in cards)
         {
             AddCardToBottom(card);
         }
     }
 
-    public CardState DrawCard()
+    public Card DrawCard()
     {
         if (IsEmpty)
         {
@@ -43,7 +43,7 @@ public class StackableState : CardCollectionState
             return null;
         }
 
-        CardState cardDrawn = RemoveCardAtStart();
+        Card cardDrawn = RemoveCardAtStart();
         return cardDrawn;
     }
 

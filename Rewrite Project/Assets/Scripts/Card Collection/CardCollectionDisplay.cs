@@ -7,10 +7,10 @@ public class CardCollectionDisplay : MonoBehaviour
     [SerializeField] private GameObject cardDisplaysContainer;
     [SerializeField] private GameObject cardDisplayPrefab;
 
-    public CardCollectionState CardCollectionState { get; private set; }
+    public CardCollection CardCollectionState { get; private set; }
     public List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
 
-    public virtual void Setup(CardCollectionState cardCollectionState)
+    public virtual void Setup(CardCollection cardCollectionState)
     {
         CardCollectionState = cardCollectionState;
         SubscribeToStateEvents();
@@ -47,7 +47,7 @@ public class CardCollectionDisplay : MonoBehaviour
         try
         {
             DestroyAndRemoveAllCardDisplays();
-            foreach (CardState cardState in CardCollectionState.Cards)
+            foreach (Card cardState in CardCollectionState.Cards)
             {
                 CreateAndAddCardDisplayToEnd(cardState);
             }
@@ -58,17 +58,17 @@ public class CardCollectionDisplay : MonoBehaviour
         }
     }
 
-    protected virtual void OnCardAdded(CardCollectionState _, CardState cardState, int index)
+    protected virtual void OnCardAdded(CardCollection _, Card cardState, int index)
     {
         CreateAndAddCardDisplay(cardState, index);
     }
 
-    protected virtual void OnCardRemoved(CardCollectionState _, CardState card, int index)
+    protected virtual void OnCardRemoved(CardCollection _, Card card, int index)
     {
         DestroyAndRemoveCardDisplay(index);
     }
 
-    protected virtual void CreateAndAddCardDisplay(CardState cardState, int insertionIndex)
+    protected virtual void CreateAndAddCardDisplay(Card cardState, int insertionIndex)
     {
         try
         {
@@ -83,7 +83,7 @@ public class CardCollectionDisplay : MonoBehaviour
         }
     }
 
-    protected virtual void CreateAndAddCardDisplayToEnd(CardState cardState)
+    protected virtual void CreateAndAddCardDisplayToEnd(Card cardState)
     {
         CreateAndAddCardDisplay(cardState, CardDisplays.Count);
     }

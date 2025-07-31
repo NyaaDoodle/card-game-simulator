@@ -1,8 +1,8 @@
-public class DeckState : StackableState
+public class Deck : Stackable
 {
     public DeckData DeckData { get; private set; }
 
-    public DeckState(DeckData deckData) : base(deckData)
+    public Deck(DeckData deckData) : base(deckData)
     {
         DeckData = deckData;
         base.AddCards(CardUtilities.CreateCards(DeckData.Cards));
