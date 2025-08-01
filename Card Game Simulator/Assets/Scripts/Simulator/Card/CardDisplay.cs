@@ -8,37 +8,37 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image backSideImage;
     [SerializeField] private Image frontSideImage;
 
-    public Card CardState { get; private set; }
+    public Card Card { get; private set; }
 
-    public void Setup(Card cardState)
+    public void Setup(Card card)
     {
-        CardState = cardState;
-        subscribeToCardStateEvents();
+        Card = card;
+        subscribeToCardEvents();
         loadCardSprites();
         updateVisibleSide();
     }
 
     void OnDestroy()
     {
-        unsubscribeFromCardStateEvents();
+        unsubscribeFromCardEvents();
     }
 
-    private void subscribeToCardStateEvents()
+    private void subscribeToCardEvents()
     {
         if (isCardNotDefined()) return;
-        CardState.Flipped += onCardFlipped;
+        Card.Flipped += onCardFlipped;
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (isCardNotDefined()) return;
-        Debug.Log($"Card {CardState.CardData.Id} clicked");
+        Card.NotifySelection();
     }
 
-    private void unsubscribeFromCardStateEvents()
+    private void unsubscribeFromCardEvents()
     {
-        if (CardState == null) return;
-        CardState.Flipped -= onCardFlipped;
+        if (Card == null) return;
+        Card.Flipped -= onCardFlipped;
     }
 
     private void onCardFlipped(Card _)
@@ -50,7 +50,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     {
         // TODO allow loading outside of Resources folder
         if (isCardNotDefined() || isBackSideImageNotDefined()) return;
-        string backSideSpritePath = CardState.CardData.BackSideSpritePath;
+        string backSideSpritePath = Card.CardData.BackSideSpritePath;
         Sprite backSideSprite = Resources.Load<Sprite>(backSideSpritePath);
         if (backSideSprite != null)
         {
@@ -66,7 +66,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     {
         // TODO allow loading outside of Resources folder
         if (isCardNotDefined() || isFrontSideImageNotDefined()) return;
-        string frontSideSpritePath = CardState.CardData.FrontSideSpritePath;
+        string frontSideSpritePath = Card.CardData.FrontSideSpritePath;
         Sprite frontSideSprite = Resources.Load<Sprite>(frontSideSpritePath);
         if (frontSideSprite != null)
         {
@@ -87,15 +87,15 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     private void updateVisibleSide()
     {
         if (isCardNotDefined() || isFrontSideImageNotDefined() || isBackSideImageNotDefined()) return;
-        frontSideImage.gameObject.SetActive(CardState.IsFaceUp);
-        backSideImage.gameObject.SetActive(!CardState.IsFaceUp);
+        frontSideImage.gameObject.SetActive(Card.IsFaceUp);
+        backSideImage.gameObject.SetActive(!Card.IsFaceUp);
     }
 
     private bool isCardNotDefined()
     {
-        if (CardState == null)
+        if (Card == null)
         {
-            Debug.LogWarning("CardState is null");
+            Debug.LogWarning("Card is null");
             return true;
         }
         return false;

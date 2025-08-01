@@ -7,6 +7,7 @@ public class Card
 
     // Events
     public event Action<Card> Flipped;
+    public event Action<Card> Selected;
 
     public Card(CardData cardData)
     {
@@ -36,8 +37,18 @@ public class Card
         }
     }
 
+    public void NotifySelection()
+    {
+        OnSelected();
+    }
+
     protected virtual void OnFlipped()
     {
         Flipped?.Invoke(this);
+    }
+
+    protected virtual void OnSelected()
+    {
+        Selected?.Invoke(this);
     }
 }

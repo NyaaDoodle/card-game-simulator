@@ -9,6 +9,7 @@ public class Stackable : CardCollection
 
     // Events
     public event Action<Stackable> CardsShuffled;
+    public event Action<Stackable> StackableSelected;
 
     public Stackable(StackableData stackableData)
     {
@@ -69,5 +70,10 @@ public class Stackable : CardCollection
     protected virtual void OnCardsShuffled()
     {
         CardsShuffled?.Invoke(this);
+    }
+
+    protected virtual void OnStackableSelected()
+    {
+        StackableSelected?.Invoke(this);
     }
 }

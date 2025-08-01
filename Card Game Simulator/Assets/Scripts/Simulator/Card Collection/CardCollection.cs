@@ -9,6 +9,7 @@ public class CardCollection
     // Events
     public event Action<CardCollection, Card, int> CardAdded;
     public event Action<CardCollection, Card, int> CardRemoved;
+    public event Action<CardCollection, Card> CardSelected;
 
     public bool IsEmpty => Cards.Count <= 0;
     public Card FirstCard => Cards[0];
@@ -90,11 +91,18 @@ public class CardCollection
 
     protected virtual void OnCardAdded(Card cardAdded, int index)
     {
+        cardAdded.Selected += OnCardSelected;
         CardAdded?.Invoke(this, cardAdded, index);
     }
 
     protected virtual void OnCardRemoved(Card cardRemoved, int index)
     {
+        cardRemoved.Selected -= OnCardSelected;
         CardRemoved?.Invoke(this, cardRemoved, index);
+    }
+
+    protected virtual void OnCardSelected(Card cardSelected)
+    {
+        CardSelected?.Invoke(this, cardSelected);
     }
 }

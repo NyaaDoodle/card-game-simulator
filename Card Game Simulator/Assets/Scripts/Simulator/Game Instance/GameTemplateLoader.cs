@@ -1,23 +1,12 @@
-using UnityEngine;
-
-[RequireComponent(typeof(GameInstanceState))]
-public class GameTemplateLoader : MonoBehaviour
+public class GameTemplateLoader
 {
-    //private GameInstanceState gameInstanceState;
+    public GameTemplate LoadGameTemplate() {
+        // PLACEHOLDER
+        return loadTestGameTemplate();
+    }
 
-    //void Awake()
-    //{
-    //    gameInstanceState = GetComponent<GameInstanceState>();
-    //}
-
-    //void Start()
-    //{
-    //    loadTestGameTemplate();
-    //}
-
-    //private void loadTestGameTemplate()
-    //{
-    //    GameTemplate testGameTemplate = TestGameTemplateInitialization.GetTestTemplate();
-    //    gameInstanceState.ChangeGameTemplate(testGameTemplate);
-    //}
+    private GameTemplate loadTestGameTemplate()
+    {
+        return new TestGameTemplateInitialization().TestGameTemplate;
+    }
 }

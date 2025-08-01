@@ -3,117 +3,149 @@ using System.Collections.Generic;
 
 public class TestGameTemplateInitialization
 {
-    //public static float TableWidth = 20f;
-    //public static float TableHeight = 15f;
-    //public static string TableSurfaceImageRelativePath = "TestGameTemplate/GreenSquare";
-    //public static string CardBackSideImageRelativePath = "Standard52/Gray_back";
-    //public static GameTemplate GetTestTemplate()
-    //{
-    //    return new GameTemplate()
-    //               {
-    //                   Id = 1,
-    //                   Name = "Test Game Template",
-    //                   Description = "Testing",
-    //                   TableData =
-    //                       new TableData()
-    //                           {
-    //                               Width = TableWidth,
-    //                               Height = TableHeight,
-    //                               SurfaceImagePath = TableSurfaceImageRelativePath
-    //                           },
-    //                   CardPool = new Dictionary<int, CardData>()
-    //                                  {
-    //                                      {
-    //                                          1,
-    //                                          new CardData()
-    //                                              {
-    //                                                  Id = 1,
-    //                                                  FrontSideSpritePath = "Standard52/2C",
-    //                                                  BackSideSpritePath = CardBackSideImageRelativePath
-    //                                              }
-    //                                      },
-    //                                      {
-    //                                          2,
-    //                                          new CardData()
-    //                                              {
-    //                                                  Id = 2,
-    //                                                  FrontSideSpritePath = "Standard52/3S",
-    //                                                  BackSideSpritePath = CardBackSideImageRelativePath
-    //                                              }
-    //                                      },
-    //                                      {
-    //                                          3,
-    //                                          new CardData()
-    //                                              {
-    //                                                  Id = 3,
-    //                                                  FrontSideSpritePath = "Standard52/4H",
-    //                                                  BackSideSpritePath = CardBackSideImageRelativePath
-    //                                              }
-    //                                      },
-    //                                      {
-    //                                          4,
-    //                                          new CardData()
-    //                                              {
-    //                                                  Id = 4,
-    //                                                  FrontSideSpritePath = "Standard52/5D",
-    //                                                  BackSideSpritePath = CardBackSideImageRelativePath
-    //                                              }
-    //                                      },
-    //                                      {
-    //                                          5,
-    //                                          new CardData()
-    //                                              {
-    //                                                  Id = 5,
-    //                                                  FrontSideSpritePath = "Standard52/6C",
-    //                                                  BackSideSpritePath = CardBackSideImageRelativePath
-    //                                              }
-    //                                      },
-    //                                      {
-    //                                          6,
-    //                                          new CardData()
-    //                                              {
-    //                                                  Id = 6,
-    //                                                  FrontSideSpritePath = "Standard52/7D",
-    //                                                  BackSideSpritePath = CardBackSideImageRelativePath
-    //                                              }
-    //                                      }
-    //                                  },
-    //                   DecksData = new Dictionary<int, DeckData>()
-    //                                   {
-    //                                       {
-    //                                           1, new DeckData()
-    //                                                  {
-    //                                                      Id = 1,
-    //                                                      LocationOnTable = new Tuple<float, float>(4, -3.2f),
-    //                                                      CardIds = new LinkedList<int>(new []{1, 2, 3, 4})
-    //                                                  }
-    //                                       },
-    //                                       {
-    //                                           2, new DeckData()
-    //                                                  {
-    //                                                      Id = 2,
-    //                                                      LocationOnTable = new Tuple<float, float>(-4, 3.2f),
-    //                                                      CardIds = new LinkedList<int>(new []{3, 4, 5, 6})
-    //                                                  }
-    //                                       }
-    //                                   },
-    //                   SpacesData = new Dictionary<int, SpaceData>()
-    //                                    {
-    //                                        {
-    //                                            1, new SpaceData()
-    //                                                   {
-    //                                                       Id = 1,
-    //                                                       LocationOnTable = new Tuple<float, float>(-1.5f, 0)
-    //                                                   }
-    //                                        },
-    //                                        {
-    //                                            2, new SpaceData()
-    //                                                   {
-    //                                                       Id = 2,
-    //                                                       LocationOnTable = new Tuple<float, float>(1.5f, 0)
-    //                                                   }
-    //                                        }
-    //                                    }
-    //               };
-    //}
+    public GameTemplate TestGameTemplate { get; private set; }
+    private const int id = 0;
+    private const string name = "Test Game Template";
+    private const string description = "Testing";
+    private readonly TableData tableData = new TableData();
+    private readonly List<CardData> cardDataListA = new List<CardData>();
+    private readonly List<CardData> cardDataListB = new List<CardData>();
+    private readonly DeckData deckDataA = new DeckData();
+    private readonly SpaceData spaceDataA = new SpaceData();
+    private readonly Dictionary<int, CardData> cardPool = new Dictionary<int, CardData>();
+    private readonly Dictionary<int, DeckData> decksData = new Dictionary<int, DeckData>();
+    private readonly Dictionary<int, SpaceData> spacesData = new Dictionary<int, SpaceData>();
+
+    public TestGameTemplateInitialization()
+    {
+        makeTableData();
+        makeCardDataListA();
+        makeCardDataListB();
+        makeCardPool();
+        makeDeckDataA();
+        makeDecksData();
+        makeSpaceDataA();
+        makeSpacesData();
+        makeTestTemplate();
+    }
+
+    private void makeTestTemplate()
+    {
+        TestGameTemplate = new GameTemplate()
+                               {
+                                   Id = id,
+                                   Name = name,
+                                   Description = description,
+                                   TableData = tableData,
+                                   CardPool = cardPool,
+                                   DecksData = decksData,
+                                   SpacesData = spacesData
+                               };
+    }
+
+    private void makeTableData()
+    {
+        tableData.Width = 20;
+        tableData.Height = 15;
+        tableData.SurfaceImagePath = "TestGameTemplate/GreenSquare";
+    }
+
+    private void makeCardDataListA()
+    {
+        cardDataListA.Add(
+            new CardData()
+                {
+                    Id = 0,
+                    BackSideSpritePath = "Standard52/Gray_back",
+                    FrontSideSpritePath = "Standard52/2C"
+                });
+        cardDataListA.Add(
+            new CardData()
+                {
+                    Id = 1,
+                    BackSideSpritePath = "Standard52/Green_back",
+                    FrontSideSpritePath = "Standard52/3D"
+                });
+        cardDataListA.Add(
+            new CardData()
+                {
+                    Id = 2,
+                    BackSideSpritePath = "Standard52/Red_back",
+                    FrontSideSpritePath = "Standard52/4H"
+                });
+        cardDataListA.Add(
+            new CardData()
+                {
+                    Id = 3,
+                    BackSideSpritePath = "Standard52/Yellow_back",
+                    FrontSideSpritePath = "Standard52/5S"
+                });
+    }
+
+    private void makeCardDataListB()
+    {
+        cardDataListB.Add(
+            new CardData()
+                {
+                    Id = 4,
+                    BackSideSpritePath = "Standard52/blue_back",
+                    FrontSideSpritePath = "Standard52/10S"
+                });
+        cardDataListB.Add(
+            new CardData()
+                {
+                    Id = 5,
+                    BackSideSpritePath = "Standard52/purple_back",
+                    FrontSideSpritePath = "Standard52/9D"
+                });
+        cardDataListB.Add(
+            new CardData()
+                {
+                    Id = 6,
+                    BackSideSpritePath = "Standard52/Green_back",
+                    FrontSideSpritePath = "Standard52/8C"
+                });
+        cardDataListB.Add(
+            new CardData()
+                {
+                    Id = 7,
+                    BackSideSpritePath = "Standard52/Red_back",
+                    FrontSideSpritePath = "Standard52/7H"
+                });
+    }
+
+    private void makeCardPool()
+    {
+        foreach (CardData cardData in cardDataListA)
+        {
+            cardPool.Add(cardData.Id, cardData);
+        }
+        foreach (CardData cardData in cardDataListB)
+        {
+            cardPool.Add(cardData.Id, cardData);
+        }
+    }
+
+    private void makeDeckDataA()
+    {
+        deckDataA.Id = 0;
+        deckDataA.LocationOnTable = new Tuple<float, float>(-2, 0);
+        deckDataA.Cards = cardDataListA;
+    }
+
+    private void makeSpaceDataA()
+    {
+        spaceDataA.Id = 0;
+        spaceDataA.LocationOnTable = new Tuple<float, float>(2, 0);
+    }
+
+    private void makeDecksData()
+    {
+        decksData.Add(deckDataA.Id, deckDataA);
+    }
+
+    private void makeSpacesData()
+    {
+        spacesData.Add(spaceDataA.Id, spaceDataA);
+    }
 }

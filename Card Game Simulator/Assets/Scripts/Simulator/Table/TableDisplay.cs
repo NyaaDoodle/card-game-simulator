@@ -1,134 +1,73 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-[RequireComponent(typeof(TableState))]
 public class TableDisplay : MonoBehaviour
 {
-    //[Header("Table Components")]
-    //[SerializeField] private GameObject tableSurface;
-    //[SerializeField] private GameObject tableBorder;
+    [Header("Table Components")]
+    [SerializeField] private GameObject tableSurface;
 
-    //[Header("Border Settings")]
-    //[SerializeField] private float borderWidth;
-    //[SerializeField] private Color borderColor;
+    public Table Table { get; private set; }
 
-    //private TableState tableState;
-    //private TableData tableData;
+    public void Setup(Table table)
+    {
+        Table = table;
+        if (Table != null)
+        {
+            updateTableDisplay();
+        }
+    }
 
-    //void Awake()
-    //{
-    //    tableState = GetComponent<TableState>();
-    //}
+    private void updateTableDisplay()
+    {
+        if (Table == null)
+        {
+            Debug.LogError("Table is null when attempting to update table display");
+            return;
+        }
+        resizeTable();
+        loadSurfaceImage();
+    }
 
-    //void Start()
-    //{
-    //    tableState.TableDataChanged += onTableDataChanged;
-    //    if (tableState.TableData != null)
-    //    {
-    //        tableData = tableState.TableData;
-    //        updateTableDisplay();
-    //    }
-    //}
+    private void resizeTable()
+    {
+        Vector2 tableSize = new Vector2(
+            Table.TableData.Width,
+            Table.TableData.Height
+        );
+        gameObject.GetComponent<RectTransform>().sizeDelta = tableSize;
+    }
 
-    //void OnDestroy()
-    //{
-    //    tableState.TableDataChanged -= onTableDataChanged;
-    //}
+    private void loadSurfaceImage()
+    {
+        if (tableSurface == null)
+        {
+            Debug.LogError("Table surface object is null");
+            return;
+        }
 
-    //private void onTableDataChanged(TableData newTableData)
-    //{
-    //    tableData = newTableData;
-    //    updateTableDisplay();
-    //}
+        Image surfaceImage = tableSurface.GetComponent<Image>();
+        if (surfaceImage == null)
+        {
+            Debug.LogError("Surface image object doesn't contain Image component");
+            return;
+        }
 
-    //private void updateTableDisplay()
-    //{
-    //    if (tableData == null)
-    //    {
-    //        Debug.LogError("Table data is null when attempting to update table display");
-    //        return;
-    //    }
-    //    (Vector2 surfaceSize, Vector2 borderSize) = getSurfaceAndBorderSizes();
-    //    setupTableContainer(borderSize);
-    //    setupTableSurface(surfaceSize);
-    //    setupTableBorder(borderSize);
-    //    loadSurfaceImage();
-    //}
+        if (string.IsNullOrEmpty(Table.TableData.SurfaceImagePath))
+        {
+            Debug.LogWarning("Surface image path is empty or null");
+        }
 
-    //private Tuple<Vector2, Vector2> getSurfaceAndBorderSizes()
-    //{
-    //    Vector2 surfaceSize = new Vector2(
-    //        tableData.Width,
-    //        tableData.Height
-    //    );
-    //    Vector2 borderSize = new Vector2(
-    //        surfaceSize.x + (borderWidth * 2),
-    //        surfaceSize.y + (borderWidth * 2)
-    //    );
-    //    return new Tuple<Vector2, Vector2>(surfaceSize, borderSize);
-    //}
-
-    //private void setupTableContainer(Vector2 tableSize)
-    //{
-    //    UIUtilities.ResizeAndCenterAnchor(this.gameObject, tableSize);
-    //}
-
-    //private void setupTableSurface(Vector2 surfaceSize)
-    //{
-    //    if (tableSurface == null)
-    //    {
-    //        Debug.LogError("Table surface object is null");
-    //        return;
-    //    }
-
-    //    UIUtilities.ResizeAndCenterAnchor(tableSurface, surfaceSize);
-    //}
-
-    //private void setupTableBorder(Vector2 borderSize)
-    //{
-    //    if (tableBorder == null)
-    //    {
-    //        Debug.LogError("Table border object is null");
-    //        return;
-    //    }
-
-    //    UIUtilities.ResizeAndCenterAnchor(tableBorder, borderSize);
-    //    Image borderImage = tableBorder.GetComponent<Image>();
-    //    borderImage.color = borderColor;
-    //}
-
-    //private void loadSurfaceImage()
-    //{
-    //    if (tableSurface == null)
-    //    {
-    //        Debug.LogError("Table surface object is null");
-    //        return;
-    //    }
-
-    //    Image surfaceImage = tableSurface.GetComponent<Image>();
-    //    if (surfaceImage == null)
-    //    {
-    //        Debug.LogError("Surface image object doesn't contain Image component");
-    //        return;
-    //    }
-
-    //    if (string.IsNullOrEmpty(tableData.SurfaceImagePath))
-    //    {
-    //        Debug.LogWarning("Surface image path is empty or null");
-    //    }
-
-    //    // TODO implement loading images from the game template folder
-    //    Sprite surfaceSprite = Resources.Load<Sprite>(tableData.SurfaceImagePath);
-    //    if (surfaceSprite != null)
-    //    {
-    //        surfaceImage.sprite = surfaceSprite;
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning($"Could not load table surface sprite in path: {tableData.SurfaceImagePath}");
-    //        surfaceImage.color = Color.green;
-    //    }
-    //}
+        // TODO implement loading images from the game template folder
+        Sprite surfaceSprite = Resources.Load<Sprite>(Table.TableData.SurfaceImagePath);
+        if (surfaceSprite != null)
+        {
+            surfaceImage.sprite = surfaceSprite;
+        }
+        else
+        {
+            Debug.LogWarning($"Could not load table surface sprite in path: {Table.TableData.SurfaceImagePath}");
+            surfaceImage.color = Color.green;
+        }
+    }
 }
