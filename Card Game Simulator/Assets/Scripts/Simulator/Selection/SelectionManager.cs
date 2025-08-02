@@ -4,7 +4,6 @@ public class SelectionManager
 {
     private GameInstance gameInstance;
     private Tuple<CardCollection, Card> selectedSource;
-    private PlayerAction selectedPlayerAction;
     private CardCollection selectedDestination;
 
     public SelectionManager(GameInstance gameInstance)

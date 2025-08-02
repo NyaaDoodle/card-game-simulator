@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 2013035532503422201}
   - component: {fileID: 7346543360946397220}
   - component: {fileID: 4203652895470061414}
-  - component: {fileID: 6069270729292706872}
   m_Layer: 5
   m_Name: Interaction Menu Base
   m_TagString: Untagged
@@ -152,17 +151,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6069270729292706872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7401402936289664484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6439d06c2dfdbe94c8601e8d782ff42c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuItemButtonPrefab: {fileID: 916414193987848724, guid: 4383ef922833c2a44a608116e2a5ff40, type: 3}
-  menuItemContainer: {fileID: 0}
