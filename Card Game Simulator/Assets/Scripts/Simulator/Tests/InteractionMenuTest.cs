@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class InteractionMenuTest : MonoBehaviour
 {
-    [SerializeField] private UIManager uiManager;
+    [SerializeField] private InteractionMenuManager uiManager;
     [SerializeField] private Button showMenuButton;
     void Start()
     {

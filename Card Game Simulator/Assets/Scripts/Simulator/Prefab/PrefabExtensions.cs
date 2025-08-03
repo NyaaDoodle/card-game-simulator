@@ -38,12 +38,53 @@ public static class PrefabExtensions
         return playerHandDisplay;
     }
 
-    public static TableDisplay InstantiateTableDisplay(this GameObject prefab,
-                                                                 Table table,
+    public static CardSelectionMenu InstantiateCardSelectionMenu(this GameObject prefab,
+                                                                 CardCollection cardCollection,
                                                                  Transform parent)
+    {
+        CardSelectionMenu cardSelectionMenu = GameObject.Instantiate(prefab, parent).GetComponent<CardSelectionMenu>();
+        cardSelectionMenu.Setup(cardCollection);
+        return cardSelectionMenu;
+    }
+
+    public static TableDisplay InstantiateTableDisplay(this GameObject prefab,
+                                                       Table table,
+                                                       Transform parent)
     {
         TableDisplay tableDisplay = GameObject.Instantiate(prefab, parent).GetComponent<TableDisplay>();
         tableDisplay.Setup(table);
         return tableDisplay;
+    }
+
+    public static DeckMenu InstantiateDeckMenu(this GameObject prefab,
+                                                       Deck deck,
+                                                       Transform parent)
+    {
+        DeckMenu deckMenu = GameObject.Instantiate(prefab, parent).GetComponent<DeckMenu>();
+        deckMenu.Setup(deck);
+        return deckMenu;
+    }
+
+    public static InstanceMenu InstantiateInstanceMenu(this GameObject prefab,
+                                                       Transform parent)
+    {
+        InstanceMenu instanceMenu = GameObject.Instantiate(prefab, parent).GetComponent<InstanceMenu>();
+        return instanceMenu;
+    }
+
+    public static PlacingCardMenu InstantiatePlacingCardMenu(this GameObject prefab,
+                                                             Transform parent)
+    {
+        PlacingCardMenu placingCardMenu = GameObject.Instantiate(prefab, parent).GetComponent<PlacingCardMenu>();
+        return placingCardMenu;
+    }
+
+    public static SpaceMenu InstantiateSpaceMenu(this GameObject prefab,
+                                                       Space space,
+                                                       Transform parent)
+    {
+        SpaceMenu spaceMenu = GameObject.Instantiate(prefab, parent).GetComponent<SpaceMenu>();
+        spaceMenu.Setup(space);
+        return spaceMenu;
     }
 }

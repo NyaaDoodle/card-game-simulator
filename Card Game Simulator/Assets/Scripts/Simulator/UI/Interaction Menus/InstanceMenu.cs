@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-public class InstanceMenu : MonoBehaviour
+public class InstanceMenu : InteractionMenu
 {
     public Button ManageScoresButton;
     public Button LeaveGameButton;
-    public Button CancelSelectionButton;
 }

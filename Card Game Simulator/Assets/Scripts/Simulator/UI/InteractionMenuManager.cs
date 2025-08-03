@@ -2,15 +2,16 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class InteractionMenuManager : MonoBehaviour
 {
     [SerializeField] private RectTransform interactionMenuObject;
     [SerializeField] private RectTransform interactionMenuItemsContainer;
+    [SerializeField] private Button cancelSelectionArea;
     [SerializeField] private GameObject deckMenuItemsPrefab;
     [SerializeField] private GameObject spaceMenuItemsPrefab;
-    [SerializeField] private GameObject CardSelectionMenuItemsPrefab;
-    [SerializeField] private GameObject PlacingCardMenuItemsPrefab;
-    [SerializeField] private GameObject mainMenuItemsPrefab;
+    [SerializeField] private GameObject cardSelectionMenuItemsPrefab;
+    [SerializeField] private GameObject placingCardMenuItemsPrefab;
+    [SerializeField] private GameObject instanceMenuItemsPrefab;
 
     private GameObject currentMenuItemsObject = null;
 
@@ -24,36 +25,58 @@ public class UIManager : MonoBehaviour
     public event Action SelectedFaceUp;
     public event Action SelectedFaceDown;
 
+    void Start()
+    {
+        cancelSelectionArea.onClick.AddListener(OnCancelled);
+    }
+
     public void ShowDeckActionMenu(Deck deck)
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
+        DeckMenu deckMenu = deckMenuItemsPrefab.InstantiateDeckMenu(deck, interactionMenuItemsContainer);
+        currentMenuItemsObject = deckMenu.gameObject;
+        addDeckMenuItemListeners(deckMenu);
     }
 
     public void ShowSpaceActionMenu(Space space)
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
+        SpaceMenu spaceMenu = spaceMenuItemsPrefab.InstantiateSpaceMenu(space, interactionMenuItemsContainer);
+        currentMenuItemsObject = spaceMenu.gameObject;
+        addSpaceMenuItemListeners(spaceMenu);
     }
 
     public void ShowCardSelectionActionMenu(CardCollection sourceCardCollection)
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
+        CardSelectionMenu cardSelectionMenu =
+            cardSelectionMenuItemsPrefab.InstantiateCardSelectionMenu(
+                sourceCardCollection,
+                interactionMenuItemsContainer);
+        currentMenuItemsObject = cardSelectionMenu.gameObject;
+        addCardSelectionMenuItemListeners(cardSelectionMenu);
     }
 
-    public void ShowPlacingCardMenuItems(Card card)
+    public void ShowPlacingCardMenuItems()
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
+        PlacingCardMenu placingCardMenu =
+            placingCardMenuItemsPrefab.InstantiatePlacingCardMenu(interactionMenuItemsContainer);
+        currentMenuItemsObject = placingCardMenu.gameObject;
+        addPlacingCardMenuItemListeners(placingCardMenu);
     }
 
     public void ShowInstanceMenu()
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
-        currentMenuItemsObject = Instantiate(mainMenuItemsPrefab, interactionMenuItemsContainer);
-        addInstanceMenuItemListeners();
+        InstanceMenu instanceMenu = instanceMenuItemsPrefab.InstantiateInstanceMenu(interactionMenuItemsContainer);
+        currentMenuItemsObject = instanceMenu.gameObject;
+        addInstanceMenuItemListeners(instanceMenu);
     }
 
     public void CloseMenu()
@@ -64,63 +87,94 @@ public class UIManager : MonoBehaviour
 
     protected virtual void OnCancelled()
     {
+        if (currentMenuItemsObject == null) return;
         Cancelled?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedDrawCard()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedDrawCard?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedFlipCard()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedFlipCard?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedShuffle()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedShuffle?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedSearch()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedSearch?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedPlaceCard()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedPlaceCard?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedFaceUp()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedFaceUp?.Invoke();
         CloseMenu();
     }
 
     protected virtual void OnSelectedFaceDown()
     {
+        if (currentMenuItemsObject == null) return;
         SelectedFaceDown?.Invoke();
         CloseMenu();
     }
 
-    private void addInstanceMenuItemListeners()
+    private void addInstanceMenuItemListeners(InstanceMenu instanceMenu)
     {
-        InstanceMenu instanceMenu = currentMenuItemsObject.GetComponent<InstanceMenu>();
-        if (instanceMenu == null)
-        {
-            Debug.LogError("Menu doesn't contain InstanceMenu component");
-            return;
-        }
         instanceMenu.ManageScoresButton.onClick.AddListener(() => Debug.Log("Score management not implemented"));
         instanceMenu.LeaveGameButton.onClick.AddListener(quitApplication);
         setCancelSelectionButton(instanceMenu.CancelSelectionButton);
+    }
+
+    private void addPlacingCardMenuItemListeners(PlacingCardMenu placingCardMenu)
+    {
+        placingCardMenu.FaceUpButton.onClick.AddListener(OnSelectedFaceUp);
+        placingCardMenu.FaceDownButton.onClick.AddListener(OnSelectedFaceDown);
+        setCancelSelectionButton(placingCardMenu.CancelSelectionButton);
+    }
+
+    private void addCardSelectionMenuItemListeners(CardSelectionMenu cardSelectionMenu)
+    {
+        cardSelectionMenu.PlaceCardButton.onClick.AddListener(OnSelectedPlaceCard);
+        setCancelSelectionButton(cardSelectionMenu.CancelSelectionButton);
+    }
+
+    private void addSpaceMenuItemListeners(SpaceMenu spaceMenu)
+    {
+        spaceMenu.DrawCardButton.onClick.AddListener(OnSelectedDrawCard);
+        spaceMenu.FlipCardButton.onClick.AddListener(OnSelectedFlipCard);
+        setCancelSelectionButton(spaceMenu.CancelSelectionButton);
+    }
+
+    private void addDeckMenuItemListeners(DeckMenu deckMenu)
+    {
+        deckMenu.DrawCardButton.onClick.AddListener(OnSelectedDrawCard);
+        deckMenu.FlipCardButton.onClick.AddListener(OnSelectedFlipCard);
+        deckMenu.ShuffleDeckButton.onClick.AddListener(OnSelectedShuffle);
+        deckMenu.SearchDeckButton.onClick.AddListener(OnSelectedSearch);
+        setCancelSelectionButton(deckMenu.CancelSelectionButton);
     }
 
     private void destroyCurrentMenuItemsObject()
