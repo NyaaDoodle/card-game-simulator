@@ -11,6 +11,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
     {
         StackableState = stackableState;
         relocateOnTable();
+        rotateOnTable();
         base.Setup(stackableState);
     }
 
@@ -27,6 +28,19 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
             float x = StackableState.StackableData.LocationOnTable.Item1;
             float y = StackableState.StackableData.LocationOnTable.Item2;
             rectTransform.anchoredPosition = new Vector2(x, y);
+        }
+        catch (NullReferenceException)
+        {
+            Debug.LogWarning("StackableState is null");
+        }
+    }
+
+    private void rotateOnTable()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        try
+        {
+            rectTransform.Rotate(0, 0, StackableState.StackableData.Rotation);
         }
         catch (NullReferenceException)
         {

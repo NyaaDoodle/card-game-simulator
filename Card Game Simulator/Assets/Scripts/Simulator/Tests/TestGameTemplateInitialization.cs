@@ -10,8 +10,6 @@ public class TestGameTemplateInitialization
     private readonly TableData tableData = new TableData();
     private readonly List<CardData> cardDataListA = new List<CardData>();
     private readonly List<CardData> cardDataListB = new List<CardData>();
-    private readonly DeckData deckDataA = new DeckData();
-    private readonly SpaceData spaceDataA = new SpaceData();
     private readonly Dictionary<int, CardData> cardPool = new Dictionary<int, CardData>();
     private readonly Dictionary<int, DeckData> decksData = new Dictionary<int, DeckData>();
     private readonly Dictionary<int, SpaceData> spacesData = new Dictionary<int, SpaceData>();
@@ -22,9 +20,7 @@ public class TestGameTemplateInitialization
         makeCardDataListA();
         makeCardDataListB();
         makeCardPool();
-        makeDeckDataA();
         makeDecksData();
-        makeSpaceDataA();
         makeSpacesData();
         makeTestTemplate();
     }
@@ -47,7 +43,7 @@ public class TestGameTemplateInitialization
     {
         tableData.Width = 20;
         tableData.Height = 15;
-        tableData.SurfaceImagePath = "TestGameTemplate/GreenSquare";
+        tableData.SurfaceImagePath = "TestGameTemplate/SimpleGreen";
     }
 
     private void makeCardDataListA()
@@ -126,26 +122,22 @@ public class TestGameTemplateInitialization
         }
     }
 
-    private void makeDeckDataA()
-    {
-        deckDataA.Id = 0;
-        deckDataA.LocationOnTable = new Tuple<float, float>(-2, 0);
-        deckDataA.Cards = cardDataListA;
-    }
-
-    private void makeSpaceDataA()
-    {
-        spaceDataA.Id = 0;
-        spaceDataA.LocationOnTable = new Tuple<float, float>(2, 0);
-    }
-
     private void makeDecksData()
     {
-        decksData.Add(deckDataA.Id, deckDataA);
+        decksData.Add(
+            0,
+            new DeckData() { Id = 0, LocationOnTable = new Tuple<float, float>(5, -3.25f), Cards = cardDataListA });
+        decksData.Add(
+            1,
+            new DeckData() { Id = 0, LocationOnTable = new Tuple<float, float>(-5, 3.25f), Cards = cardDataListA });
     }
 
     private void makeSpacesData()
     {
-        spacesData.Add(spaceDataA.Id, spaceDataA);
+        spacesData.Add(0, new SpaceData() { Id = 0, LocationOnTable = new Tuple<float, float>(0, 0) });
+        spacesData.Add(1, new SpaceData() { Id = 1, LocationOnTable = new Tuple<float, float>(2.5f, 0) });
+        spacesData.Add(2, new SpaceData() { Id = 2, LocationOnTable = new Tuple<float, float>(5, 0) });
+        spacesData.Add(3, new SpaceData() { Id = 3, LocationOnTable = new Tuple<float, float>(-2.5f, 0) });
+        spacesData.Add(4, new SpaceData() { Id = 4, LocationOnTable = new Tuple<float, float>(-5, 0) });
     }
 }
