@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
-
-public class DeckDisplay : StackableDisplay
+﻿public class DeckDisplay : StackableDisplay
 {
     public Deck DeckState { get; private set; }
 
@@ -9,11 +6,5 @@ public class DeckDisplay : StackableDisplay
     {
         base.Setup(deckState);
         DeckState = deckState;
-    }
-
-    public override void OnPointerClick(PointerEventData pointerEventData)
-    {
-        if (DeckState == null) return;
-        Debug.Log($"Deck {DeckState.DeckData.Id} clicked");
     }
 }

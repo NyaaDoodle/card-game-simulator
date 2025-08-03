@@ -16,6 +16,9 @@ public class GameInstanceManager : MonoBehaviour
     [SerializeField] private RectTransform tableObjectsContainer;
     [SerializeField] private RectTransform playerHandContainer;
 
+    [Header("Managers")]
+    [SerializeField] private SelectionManager selectionManager;
+
     private readonly GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
     private readonly GameInstanceLoader gameInstanceLoader = new GameInstanceLoader();
 
@@ -23,6 +26,7 @@ public class GameInstanceManager : MonoBehaviour
     { 
         loadGameTemplate();
         loadGameInstance();
+        setupSelectionManager();
     }
 
     private void loadGameTemplate()
@@ -48,5 +52,11 @@ public class GameInstanceManager : MonoBehaviour
                        TableObjectsContainer = tableObjectsContainer,
                        PlayerHandContainer = playerHandContainer
                    };
+    }
+
+    private void setupSelectionManager()
+    {
+        Player localPlayer = GameInstance.Players[0];
+        selectionManager.Setup(GameInstance, localPlayer);
     }
 }

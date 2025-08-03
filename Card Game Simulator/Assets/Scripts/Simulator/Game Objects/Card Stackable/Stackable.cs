@@ -76,4 +76,9 @@ public class Stackable : CardCollection
     {
         StackableSelected?.Invoke(this);
     }
+
+    public void NotifySelection()
+    {
+        OnStackableSelected();
+    }
 }

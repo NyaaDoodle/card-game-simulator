@@ -50,7 +50,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
     {
         try
         {
-            Debug.Log($"Stackable {StackableState.StackableData.Id} clicked");
+            StackableState.NotifySelection();
         }
         catch (NullReferenceException)
         {

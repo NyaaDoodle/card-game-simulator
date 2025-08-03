@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6987132535268978840}
   - component: {fileID: 8569414381097126514}
   - component: {fileID: 5478312128281639474}
+  - component: {fileID: 6094742534962101034}
   m_Layer: 5
-  m_Name: Hamburger Menu
+  m_Name: Hamburger Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,3 +121,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6094742534962101034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302619452442298451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a92ff817213374fa4e972ea44fe8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 5478312128281639474}
+  interactionMenuManager: {fileID: 0}
