@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InteractionMenuManager : MonoBehaviour
@@ -144,7 +145,7 @@ public class InteractionMenuManager : MonoBehaviour
     private void addInstanceMenuItemListeners(InstanceMenu instanceMenu)
     {
         instanceMenu.ManageScoresButton.onClick.AddListener(() => Debug.Log("Score management not implemented"));
-        instanceMenu.LeaveGameButton.onClick.AddListener(quitApplication);
+        instanceMenu.LeaveGameButton.onClick.AddListener(returnToMainMenu);
         setCancelSelectionButton(instanceMenu.CancelSelectionButton);
     }
 
@@ -201,13 +202,8 @@ public class InteractionMenuManager : MonoBehaviour
         cancelSelectionButton.onClick.AddListener(OnCancelled);
     }
 
-    private void quitApplication()
+    private void returnToMainMenu()
     {
-        #if UNITY_STANDALONE
-            Application.Quit();
-        #endif
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        SceneManager.LoadScene("Main Menu Scene");
     }
 }

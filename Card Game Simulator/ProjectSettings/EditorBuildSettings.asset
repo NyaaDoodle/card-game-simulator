@@ -6,7 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameInstanceScene.unity
+    path: Assets/Scenes/Main Menu Scene.unity
+    guid: e42159fc9be72cd4aa57663c11139773
+  - enabled: 0
+    path: Assets/Scenes/New Game Instance Menu Scene.unity
+    guid: 6003422e834920c44b5b1926aad0fead
+  - enabled: 0
+    path: Assets/Scenes/Join Game Instance Menu Scene.unity
+    guid: 8c20a15d6f48bb74ead9a57011dc75d8
+  - enabled: 0
+    path: Assets/Scenes/Card Game Creator Scene.unity
+    guid: 71a4e56ed5a956642a0371598111b41c
+  - enabled: 0
+    path: Assets/Scenes/Options Menu Scene.unity
+    guid: a265d930820417243aeec213e6620148
+  - enabled: 1
+    path: Assets/Scenes/Game Instance Scene.unity
     guid: dea2cb9a69bf7a54b8f728ffa9843fce
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

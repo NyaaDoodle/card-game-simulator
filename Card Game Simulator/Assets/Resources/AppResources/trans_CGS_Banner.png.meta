@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 71868bf5920a8d041a10955f790dbaab
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7165687317688323229
+    second: trans_CGS_Banner_0
+  - first:
+      213: 2709276922252099078
+    second: trans_CGS_Banner_1
+  - first:
+      213: 7099968372411327520
+    second: trans_CGS_Banner_2
+  - first:
+      213: 38484308360818063
+    second: trans_CGS_Banner_3
+  - first:
+      213: 1706921271941793132
+    second: trans_CGS_Banner_4
+  - first:
+      213: -977606985050083919
+    second: trans_CGS_Banner_5
+  - first:
+      213: 7976027039076844253
+    second: trans_CGS_Banner_6
+  - first:
+      213: -2565903412281044501
+    second: trans_CGS_Banner_7
+  - first:
+      213: -3634613466732803983
+    second: trans_CGS_Banner_8
+  - first:
+      213: 8675691361194772345
+    second: trans_CGS_Banner_9
+  - first:
+      213: 8202541465132925958
+    second: trans_CGS_Banner_10
+  - first:
+      213: -8579434154349771608
+    second: trans_CGS_Banner_11
+  - first:
+      213: 7255078342120269483
+    second: trans_CGS_Banner_12
+  - first:
+      213: -2145573457239383748
+    second: trans_CGS_Banner_13
+  - first:
+      213: 5112115252395091676
+    second: trans_CGS_Banner_14
+  - first:
+      213: 390038289056435079
+    second: trans_CGS_Banner_15
+  - first:
+      213: 3863846880132129981
+    second: trans_CGS_Banner_16
+  - first:
+      213: 5363327646633027687
+    second: trans_CGS_Banner_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: trans_CGS_Banner_0
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 153
+        width: 639
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9c855666a2a17360800000000000000
+      internalID: 7165687317688323229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_1
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 357
+        width: 105
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60efff4a109499520800000000000000
+      internalID: 2709276922252099078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_2
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 359
+        width: 117
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024e5121e97288260800000000000000
+      internalID: 7099968372411327520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_3
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 360
+        width: 101
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8de5494649b88000800000000000000
+      internalID: 38484308360818063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_4
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 360
+        width: 107
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6506a96ad330b710800000000000000
+      internalID: 1706921271941793132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_5
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 358
+        width: 111
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bd262e60a7de62f0800000000000000
+      internalID: -977606985050083919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_6
+      rect:
+        serializedVersion: 2
+        x: 1552
+        y: 359
+        width: 115
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2061f455a80be60800000000000000
+      internalID: 7976027039076844253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_7
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 360
+        width: 138
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be19607f074146cd0800000000000000
+      internalID: -2565903412281044501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_8
+      rect:
+        serializedVersion: 2
+        x: 1838
+        y: 360
+        width: 82
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1784a8b1f424f8dc0800000000000000
+      internalID: -3634613466732803983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_9
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 165
+        width: 97
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97780f4c35f366870800000000000000
+      internalID: 8675691361194772345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_10
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 168
+        width: 33
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60409ace00845d170800000000000000
+      internalID: 8202541465132925958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_11
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 169
+        width: 137
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a4c028a71abfe880800000000000000
+      internalID: -8579434154349771608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_12
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 165
+        width: 104
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba665b720573fa460800000000000000
+      internalID: 7255078342120269483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_13
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 167
+        width: 82
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c316db1fe446932e0800000000000000
+      internalID: -2145573457239383748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_14
+      rect:
+        serializedVersion: 2
+        x: 1467
+        y: 167
+        width: 118
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd6add5acb1e1f640800000000000000
+      internalID: 5112115252395091676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_15
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 167
+        width: 98
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b8204e1c1b96500800000000000000
+      internalID: 390038289056435079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_16
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 165
+        width: 115
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db4e6c414442f9530800000000000000
+      internalID: 3863846880132129981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Banner_17
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 167
+        width: 102
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 768e797141e5e6a40800000000000000
+      internalID: 5363327646633027687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      trans_CGS_Banner_0: 7165687317688323229
+      trans_CGS_Banner_1: 2709276922252099078
+      trans_CGS_Banner_10: 8202541465132925958
+      trans_CGS_Banner_11: -8579434154349771608
+      trans_CGS_Banner_12: 7255078342120269483
+      trans_CGS_Banner_13: -2145573457239383748
+      trans_CGS_Banner_14: 5112115252395091676
+      trans_CGS_Banner_15: 390038289056435079
+      trans_CGS_Banner_16: 3863846880132129981
+      trans_CGS_Banner_17: 5363327646633027687
+      trans_CGS_Banner_2: 7099968372411327520
+      trans_CGS_Banner_3: 38484308360818063
+      trans_CGS_Banner_4: 1706921271941793132
+      trans_CGS_Banner_5: -977606985050083919
+      trans_CGS_Banner_6: 7976027039076844253
+      trans_CGS_Banner_7: -2565903412281044501
+      trans_CGS_Banner_8: -3634613466732803983
+      trans_CGS_Banner_9: 8675691361194772345
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

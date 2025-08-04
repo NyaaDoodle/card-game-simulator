@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 99b0593ca3ebc8a4cbfedaa2aaee615a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2520129259432107663
+    second: trans_CGS_Logo_0
+  - first:
+      213: 2817011179077108934
+    second: trans_CGS_Logo_1
+  - first:
+      213: 1990145500642794636
+    second: trans_CGS_Logo_2
+  - first:
+      213: 7597635480180973651
+    second: trans_CGS_Logo_3
+  - first:
+      213: -3537776596711723575
+    second: trans_CGS_Logo_4
+  - first:
+      213: -3242439743105979625
+    second: trans_CGS_Logo_5
+  - first:
+      213: -1719002699578816082
+    second: trans_CGS_Logo_6
+  - first:
+      213: 2710351139106098060
+    second: trans_CGS_Logo_7
+  - first:
+      213: 6654961544193679378
+    second: trans_CGS_Logo_8
+  - first:
+      213: 2224217152906278190
+    second: trans_CGS_Logo_9
+  - first:
+      213: -7738675274664040514
+    second: trans_CGS_Logo_10
+  - first:
+      213: 4006567158220035713
+    second: trans_CGS_Logo_11
+  - first:
+      213: -97174733399940880
+    second: trans_CGS_Logo_12
+  - first:
+      213: -1339235800725843413
+    second: trans_CGS_Logo_13
+  - first:
+      213: -1261906854753221874
+    second: trans_CGS_Logo_14
+  - first:
+      213: 5774397935578662825
+    second: trans_CGS_Logo_15
+  - first:
+      213: -2806587574883565897
+    second: trans_CGS_Logo_16
+  - first:
+      213: 63026535980918761
+    second: trans_CGS_Logo_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: trans_CGS_Logo_0
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 487
+        width: 639
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1712b7f6ac3b60dd0800000000000000
+      internalID: -2520129259432107663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_1
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 320
+        width: 84
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c402310eb8081720800000000000000
+      internalID: 2817011179077108934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_2
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 321
+        width: 93
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8cd721e9ca6e9b10800000000000000
+      internalID: 1990145500642794636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_3
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 322
+        width: 81
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35067191739307960800000000000000
+      internalID: 7597635480180973651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_4
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 322
+        width: 85
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cdae42edea47eec0800000000000000
+      internalID: -3537776596711723575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_5
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 320
+        width: 88
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71b2f8a9b3a8003d0800000000000000
+      internalID: -3242439743105979625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_6
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 321
+        width: 92
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea9caa30720e428e0800000000000000
+      internalID: -1719002699578816082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_7
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 322
+        width: 110
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8b8efe300a1d9520800000000000000
+      internalID: 2710351139106098060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_8
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 322
+        width: 65
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 210ac83d34c2b5c50800000000000000
+      internalID: 6654961544193679378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_9
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 167
+        width: 77
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e253f4657b10ede10800000000000000
+      internalID: 2224217152906278190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_10
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 169
+        width: 26
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb72d85c6d3ba9490800000000000000
+      internalID: -7738675274664040514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_11
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 170
+        width: 108
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 186937a4a9f2a9730800000000000000
+      internalID: 4006567158220035713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_12
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 167
+        width: 82
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f0ad864814c6aef0800000000000000
+      internalID: -97174733399940880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_13
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 169
+        width: 66
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b22104382241a6de0800000000000000
+      internalID: -1339235800725843413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_14
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 169
+        width: 94
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e03cdc6c66ecc7ee0800000000000000
+      internalID: -1261906854753221874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_15
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 169
+        width: 78
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a74aed0458c22050800000000000000
+      internalID: 5774397935578662825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_16
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 167
+        width: 91
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7be3a08787ffc09d0800000000000000
+      internalID: -2806587574883565897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trans_CGS_Logo_17
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 169
+        width: 82
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e7e090fc4aefd000800000000000000
+      internalID: 63026535980918761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      trans_CGS_Logo_0: -2520129259432107663
+      trans_CGS_Logo_1: 2817011179077108934
+      trans_CGS_Logo_10: -7738675274664040514
+      trans_CGS_Logo_11: 4006567158220035713
+      trans_CGS_Logo_12: -97174733399940880
+      trans_CGS_Logo_13: -1339235800725843413
+      trans_CGS_Logo_14: -1261906854753221874
+      trans_CGS_Logo_15: 5774397935578662825
+      trans_CGS_Logo_16: -2806587574883565897
+      trans_CGS_Logo_17: 63026535980918761
+      trans_CGS_Logo_2: 1990145500642794636
+      trans_CGS_Logo_3: 7597635480180973651
+      trans_CGS_Logo_4: -3537776596711723575
+      trans_CGS_Logo_5: -3242439743105979625
+      trans_CGS_Logo_6: -1719002699578816082
+      trans_CGS_Logo_7: 2710351139106098060
+      trans_CGS_Logo_8: 6654961544193679378
+      trans_CGS_Logo_9: 2224217152906278190
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
