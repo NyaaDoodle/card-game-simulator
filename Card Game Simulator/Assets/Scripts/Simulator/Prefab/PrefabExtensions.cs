@@ -17,6 +17,7 @@ public static class PrefabExtensions
                                                                Transform parent)
     {
         DeckDisplay deckDisplay = GameObject.Instantiate(prefab, parent).GetComponent<DeckDisplay>();
+        NetworkServer.Spawn(deckDisplay.gameObject);
         deckDisplay.Setup(deck);
         return deckDisplay;
     }
@@ -26,6 +27,7 @@ public static class PrefabExtensions
                                                      Transform parent)
     {
         SpaceDisplay spaceDisplay = GameObject.Instantiate(prefab, parent).GetComponent<SpaceDisplay>();
+        NetworkServer.Spawn(spaceDisplay.gameObject);
         spaceDisplay.Setup(space);
         return spaceDisplay;
     }

@@ -51,7 +51,7 @@ public class GameInstanceLoader
         DeckDisplay deckDisplay = PrefabReferences.Instance.CardDeckPrefab.InstantiateDeckDisplay(
             deck,
             ContainerReferences.Instance.TableObjectsContainer);
-        NetworkServer.Spawn(deckDisplay.gameObject);
+        
         DeckDisplays.Add(deckDisplay);
     }
 
@@ -70,7 +70,6 @@ public class GameInstanceLoader
         SpaceDisplay spaceDisplay = PrefabReferences.Instance.CardSpacePrefab.InstantiateSpaceDisplay(
             space,
             ContainerReferences.Instance.TableObjectsContainer);
-        NetworkServer.Spawn(spaceDisplay.gameObject);
         SpaceDisplays.Add(spaceDisplay);
     }
 
