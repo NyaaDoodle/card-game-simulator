@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Mirror;
+using UnityEngine;
 
-public class GameInstanceManager : MonoBehaviour
+public class GameInstanceManager : NetworkBehaviour
 {
     public GameInstance GameInstance { get; private set; }
     public GameTemplate GameTemplate { get; private set; }
