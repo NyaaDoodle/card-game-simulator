@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Mirror;
+using UnityEngine;
 
 public static class PrefabExtensions
 {
@@ -47,11 +48,10 @@ public static class PrefabExtensions
         return cardSelectionMenu;
     }
 
-    public static TableDisplay InstantiateTableDisplay(this GameObject prefab,
-                                                       Table table,
-                                                       Transform parent)
+    public static TableDisplay InstantiateTableDisplay(this GameObject prefab, Table table)
     {
-        TableDisplay tableDisplay = GameObject.Instantiate(prefab, parent).GetComponent<TableDisplay>();
+        TableDisplay tableDisplay = GameObject.Instantiate(prefab).GetComponent<TableDisplay>();
+        NetworkServer.Spawn(tableDisplay.gameObject);
         tableDisplay.Setup(table);
         return tableDisplay;
     }

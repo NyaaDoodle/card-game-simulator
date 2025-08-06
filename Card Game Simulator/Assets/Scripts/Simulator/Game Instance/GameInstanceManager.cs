@@ -23,11 +23,18 @@ public class GameInstanceManager : NetworkBehaviour
     private readonly GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
     private readonly GameInstanceLoader gameInstanceLoader = new GameInstanceLoader();
 
-    void Start()
-    { 
+    public override void OnStartServer()
+    {
         loadGameTemplate();
         loadGameInstance();
         setupSelectionManager();
+    }
+
+    public override void OnStopServer()
+    {
+        gameInstanceLoader.DespawnLeftoverObjects();
+        GameInstance = null;
+        GameTemplate = null;
     }
 
     private void loadGameTemplate()
@@ -37,22 +44,7 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void loadGameInstance()
     {
-        SpawnPrefabSetup spawnPrefabSetup = getSpawnPrefabSetup();
-        GameInstance = gameInstanceLoader.LoadGameInstance(GameTemplate, spawnPrefabSetup);
-    }
-
-    private SpawnPrefabSetup getSpawnPrefabSetup()
-    {
-        return new SpawnPrefabSetup()
-                   {
-                       TablePrefab = tablePrefab,
-                       DeckPrefab = deckPrefab,
-                       SpacePrefab = spacePrefab,
-                       PlayerHandPrefab = playerHandPrefab,
-                       TableContainer = tableContainer,
-                       TableObjectsContainer = tableObjectsContainer,
-                       PlayerHandContainer = playerHandContainer
-                   };
+        GameInstance = gameInstanceLoader.LoadGameInstance(GameTemplate);
     }
 
     private void setupSelectionManager()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 public class GameInstanceLoader
@@ -10,12 +11,10 @@ public class GameInstanceLoader
 
     private GameInstance gameInstance;
     private GameTemplate gameTemplate;
-    private SpawnPrefabSetup spawnPrefabSetup;
 
-    public GameInstance LoadGameInstance(GameTemplate inputGameTemplate, SpawnPrefabSetup inputSpawnPrefabSetup)
+    public GameInstance LoadGameInstance(GameTemplate gameTemplate)
     {
-        gameTemplate = inputGameTemplate;
-        spawnPrefabSetup = inputSpawnPrefabSetup;
+        this.gameTemplate = gameTemplate;
         gameInstance = new GameInstance(gameTemplate);
         spawnObjects();
         return gameInstance;
@@ -33,8 +32,7 @@ public class GameInstanceLoader
     {
         Table table = new Table(gameTemplate.TableData);
         gameInstance.Table = table;
-        TableDisplay tableDisplay =
-            spawnPrefabSetup.TablePrefab.InstantiateTableDisplay(table, spawnPrefabSetup.TableContainer);
+        TableDisplay tableDisplay = PrefabReferences.Instance.TablePrefab.InstantiateTableDisplay(table);
         TableDisplay = tableDisplay;
     }
 
@@ -50,8 +48,10 @@ public class GameInstanceLoader
     {
         Deck deck = new Deck(deckData);
         gameInstance.Decks.Add(deck);
-        DeckDisplay deckDisplay =
-            spawnPrefabSetup.DeckPrefab.InstantiateDeckDisplay(deck, spawnPrefabSetup.TableObjectsContainer);
+        DeckDisplay deckDisplay = PrefabReferences.Instance.CardDeckPrefab.InstantiateDeckDisplay(
+            deck,
+            ContainerReferences.Instance.TableObjectsContainer);
+        NetworkServer.Spawn(deckDisplay.gameObject);
         DeckDisplays.Add(deckDisplay);
     }
 
@@ -67,8 +67,10 @@ public class GameInstanceLoader
     {
         Space space = new Space(spaceData);
         gameInstance.Spaces.Add(space);
-        SpaceDisplay spaceDisplay =
-            spawnPrefabSetup.SpacePrefab.InstantiateSpaceDisplay(space, spawnPrefabSetup.TableObjectsContainer);
+        SpaceDisplay spaceDisplay = PrefabReferences.Instance.CardSpacePrefab.InstantiateSpaceDisplay(
+            space,
+            ContainerReferences.Instance.TableObjectsContainer);
+        NetworkServer.Spawn(spaceDisplay.gameObject);
         SpaceDisplays.Add(spaceDisplay);
     }
 
@@ -77,29 +79,29 @@ public class GameInstanceLoader
         // TODO implement
         Player player = new Player(new PlayerHand());
         gameInstance.Players.Add(player);
-        PlayerHandDisplay playerHandDisplay = spawnPrefabSetup.PlayerHandPrefab.InstantiatePlayerHandDisplay(
+        PlayerHandDisplay playerHandDisplay = PrefabReferences.Instance.PlayerHandPrefab.InstantiatePlayerHandDisplay(
             player.PlayerHand,
-            spawnPrefabSetup.PlayerHandContainer);
+            ContainerReferences.Instance.PlayerHandContainer);
         PlayerHandDisplays.Add(playerHandDisplay);
     }
 
     public void DespawnLeftoverObjects()
     {
-        GameObject.Destroy(TableDisplay);
+        GameObject.Destroy(TableDisplay.gameObject);
 
         foreach (DeckDisplay deckDisplay in DeckDisplays)
         {
-            GameObject.Destroy(deckDisplay);
+            GameObject.Destroy(deckDisplay.gameObject);
         }
 
         foreach (SpaceDisplay spaceDisplay in SpaceDisplays)
         {
-            GameObject.Destroy(spaceDisplay);
+            GameObject.Destroy(spaceDisplay.gameObject);
         }
 
         foreach (PlayerHandDisplay playerHandDisplay in PlayerHandDisplays)
         {
-            GameObject.Destroy(playerHandDisplay);
+            GameObject.Destroy(playerHandDisplay.gameObject);
         }
     }
 }

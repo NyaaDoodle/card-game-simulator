@@ -7,7 +7,7 @@ public class TestGameTemplateInitialization
     private const int id = 0;
     private const string name = "Test Game Template";
     private const string description = "Testing";
-    private readonly TableData tableData = new TableData();
+    private TableData tableData = new TableData();
     private readonly List<CardData> cardDataListA = new List<CardData>();
     private readonly List<CardData> cardDataListB = new List<CardData>();
     private readonly Dictionary<int, CardData> cardPool = new Dictionary<int, CardData>();
