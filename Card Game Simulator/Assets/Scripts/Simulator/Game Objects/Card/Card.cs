@@ -1,13 +1,9 @@
 using System;
 
-public class Card
+public readonly struct Card : IEquatable<Card>
 {
-    public CardData CardData { get; private set; }
-    public bool IsFaceUp { get; private set; }
-
-    // Events
-    public event Action<Card> Flipped;
-    public event Action<Card> Selected;
+    public CardData CardData { get; }
+    public bool IsFaceUp { get; }
 
     public Card(CardData cardData)
     {
@@ -15,40 +11,19 @@ public class Card
         IsFaceUp = false;
     }
 
-    public void Flip()
+    public bool Equals(Card other) => other.CardData == this.CardData && other.IsFaceUp == this.IsFaceUp;
+
+    public override bool Equals(object obj) => obj is Card card && Equals(card);
+
+    public override int GetHashCode() => HashCode.Combine(CardData, IsFaceUp);
+
+    public static bool operator ==(Card card1, Card card2)
     {
-        IsFaceUp = !IsFaceUp;
-        OnFlipped();
+        return card1.Equals(card2);
     }
 
-    public void FlipFaceUp()
+    public static bool operator !=(Card card1, Card card2)
     {
-        if (!IsFaceUp)
-        {
-            Flip();
-        }
-    }
-
-    public void FlipFaceDown()
-    {
-        if (IsFaceUp)
-        {
-            Flip();
-        }
-    }
-
-    public void NotifySelection()
-    {
-        OnSelected();
-    }
-
-    protected virtual void OnFlipped()
-    {
-        Flipped?.Invoke(this);
-    }
-
-    protected virtual void OnSelected()
-    {
-        Selected?.Invoke(this);
+        return !card1.Equals(card2);
     }
 }
