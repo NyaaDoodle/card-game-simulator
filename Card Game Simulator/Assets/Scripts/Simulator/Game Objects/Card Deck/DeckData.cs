@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-public readonly struct DeckData : IEquatable<DeckData>
+public readonly struct DeckData : IStackableData, IEquatable<DeckData>
 {
     public int Id { get; }
     public string Name { get; }

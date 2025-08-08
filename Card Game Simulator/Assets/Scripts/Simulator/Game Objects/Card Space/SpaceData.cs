@@ -1,6 +1,6 @@
 using System;
 
-public readonly struct SpaceData : IEquatable<SpaceData>
+public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
 {
     public int Id { get; }
     public string Name { get; }

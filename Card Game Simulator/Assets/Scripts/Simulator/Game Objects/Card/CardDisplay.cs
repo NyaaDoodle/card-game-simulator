@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,52 +10,37 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image frontSideImage;
 
     public Card Card { get; private set; }
+    public event Action<Card> Selected;
+    private bool isBackSideSpriteLoaded = false;
+    private bool isFrontSideSpriteLoaded = false;
 
-    public void Setup(Card card)
+    public void UpdateCard(Card card)
     {
         Card = card;
-        subscribeToCardEvents();
         loadCardSprites();
         updateVisibleSide();
     }
 
-    void OnDestroy()
-    {
-        unsubscribeFromCardEvents();
-    }
-
-    private void subscribeToCardEvents()
-    {
-        if (isCardNotDefined()) return;
-        Card.Flipped += onCardFlipped;
-    }
-
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (isCardNotDefined()) return;
-        Card.NotifySelection();
+        OnSelected();
     }
 
-    private void unsubscribeFromCardEvents()
+    protected virtual void OnSelected()
     {
-        if (Card == null) return;
-        Card.Flipped -= onCardFlipped;
-    }
-
-    private void onCardFlipped(Card _)
-    {
-        updateVisibleSide();
+        Selected?.Invoke(Card);
     }
 
     private void loadBackSideSprite()
     {
         // TODO allow loading outside of Resources folder
-        if (isCardNotDefined() || isBackSideImageNotDefined()) return;
+        if (isBackSideSpriteLoaded || isBackSideImageNotDefined()) return;
         string backSideSpritePath = Card.CardData.BackSideSpritePath;
         Sprite backSideSprite = Resources.Load<Sprite>(backSideSpritePath);
         if (backSideSprite != null)
         {
             backSideImage.sprite = backSideSprite;
+            isBackSideSpriteLoaded = true;
         }
         else
         {
@@ -65,12 +51,13 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     private void loadFrontSideSprite()
     {
         // TODO allow loading outside of Resources folder
-        if (isCardNotDefined() || isFrontSideImageNotDefined()) return;
+        if (isFrontSideSpriteLoaded || isFrontSideImageNotDefined()) return;
         string frontSideSpritePath = Card.CardData.FrontSideSpritePath;
         Sprite frontSideSprite = Resources.Load<Sprite>(frontSideSpritePath);
         if (frontSideSprite != null)
         {
             frontSideImage.sprite = frontSideSprite;
+            isFrontSideSpriteLoaded = true;
         }
         else
         {
@@ -86,19 +73,9 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void updateVisibleSide()
     {
-        if (isCardNotDefined() || isFrontSideImageNotDefined() || isBackSideImageNotDefined()) return;
+        if (isFrontSideImageNotDefined() || isBackSideImageNotDefined()) return;
         frontSideImage.gameObject.SetActive(Card.IsFaceUp);
         backSideImage.gameObject.SetActive(!Card.IsFaceUp);
-    }
-
-    private bool isCardNotDefined()
-    {
-        if (Card == null)
-        {
-            Debug.LogWarning("Card is null");
-            return true;
-        }
-        return false;
     }
 
     private bool isBackSideImageNotDefined()

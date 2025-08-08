@@ -4,11 +4,28 @@ public readonly struct Card : IEquatable<Card>
 {
     public CardData CardData { get; }
     public bool IsFaceUp { get; }
+    public float Rotation { get; }
 
-    public Card(CardData cardData)
+    public Card(CardData cardData, bool isFaceUp, float rotation)
     {
         CardData = cardData;
-        IsFaceUp = false;
+        IsFaceUp = isFaceUp;
+        Rotation = rotation;
+    }
+
+    public Card Flipped()
+    {
+        return new Card(this.CardData, !this.IsFaceUp, this.Rotation);
+    }
+
+    public Card FaceDown()
+    {
+        return new Card(this.CardData, false, this.Rotation);
+    }
+
+    public Card FaceUp()
+    {
+        return new Card(this.CardData, true, this.Rotation);
     }
 
     public bool Equals(Card other) => other.CardData == this.CardData && other.IsFaceUp == this.IsFaceUp;

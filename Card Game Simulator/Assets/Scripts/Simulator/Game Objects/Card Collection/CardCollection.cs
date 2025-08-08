@@ -1,48 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class CardCollection
+public class CardCollection : NetworkBehaviour
 {
-    public List<Card> Cards { get; } = new List<Card>();
+    private readonly SyncList<Card> cards = new SyncList<Card>();
 
     // Events
     public event Action<CardCollection, Card, int> CardAdded;
     public event Action<CardCollection, Card, int> CardRemoved;
     public event Action<CardCollection, Card> CardSelected;
+    public event Action<CardCollection> CardsCleared;
 
-    public bool IsEmpty => Cards.Count <= 0;
-    public Card FirstCard => Cards[0];
+    public SyncList<Card> Cards => cards;
+    public bool IsEmpty => cards.Count <= 0;
+    public Card FirstCard => cards[0];
 
+    public override void OnStartClient()
+    {
+        cards.OnAdd += OnCardsItemAdded;
+        cards.OnInsert += OnCardsItemInserted;
+        cards.OnSet += OnCardsItemSet;
+        cards.OnRemove += OnCardsItemRemoved;
+        cards.OnClear += OnCardsCleared;
+    }
+
+    public override void OnStopClient()
+    {
+        cards.OnAdd -= OnCardsItemAdded;
+        cards.OnInsert -= OnCardsItemInserted;
+        cards.OnSet -= OnCardsItemSet;
+        cards.OnRemove -= OnCardsItemRemoved;
+        cards.OnClear -= OnCardsCleared;
+    }
+
+    protected virtual void OnCardsItemAdded(int index)
+    {
+        // When a card is added to the end of cards, using Add()
+        OnCardAdded(cards[index], index);
+    }
+
+    protected virtual void OnCardsItemInserted(int index)
+    {
+        // When a card is inserted/added at index in cards, using Insert()
+        OnCardAdded(cards[index], index);
+    }
+
+    protected virtual void OnCardsItemSet(int index, Card oldCard)
+    {
+        // When a card is replaced at index in cards, using [], gives the old/replaced card
+        OnCardRemoved(oldCard, index);
+        OnCardAdded(cards[index], index);
+    }
+
+    protected virtual void OnCardsItemRemoved(int index, Card oldCard)
+    {
+        // When a card is removed at index in cards, using Remove(), gives the removed card
+        OnCardRemoved(oldCard, index);
+    }
+
+    protected virtual void OnCardsCleared()
+    {
+        // When cards is cleared, using Clear()
+        CardsCleared?.Invoke(this);
+    }
+
+    protected virtual void OnCardAdded(Card cardAdded, int index)
+    {
+        CardAdded?.Invoke(this, cardAdded, index);
+    }
+
+    protected virtual void OnCardRemoved(Card cardRemoved, int index)
+    {
+        CardRemoved?.Invoke(this, cardRemoved, index);
+    }
+
+    protected virtual void OnCardSelected(Card cardSelected)
+    {
+        CardSelected?.Invoke(this, cardSelected);
+    }
+
+
+    [Server]
     public virtual void AddCard(Card card, int index)
     {
-        if (card == null)
-        {
-            Debug.LogWarning("Card to be added is null");
-            return;
-        }
         try
         {
-            Cards.Insert(index, card);
+            cards.Insert(index, card);
         }
         catch (ArgumentOutOfRangeException)
         {
             Debug.LogWarning($"Insertion index {index} is out of bounds in Cards");
         }
-        OnCardAdded(card, index);
     }
 
+    [Server]
     public virtual void AddCardAtStart(Card card)
     {
         AddCard(card, 0);
     }
 
+    [Server]
     public virtual void AddCardAtEnd(Card card)
     {
-        AddCard(card, Cards.Count);
+        AddCard(card, cards.Count);
     }
 
-    public virtual void AddCards(ICollection<Card> cards)
+    [Server]
+    public virtual void AddCards(IEnumerable<Card> cards)
     {
         foreach (Card card in cards)
         {
@@ -50,59 +116,62 @@ public class CardCollection
         }
     }
 
+    [Server]
     public virtual bool RemoveCard(Card card)
     {
-        int cardIndex = Cards.IndexOf(card);
+        int cardIndex = cards.IndexOf(card);
         if (cardIndex < 0)
         {
             Debug.LogWarning("Specified card for deletion was not found");
             return false;
         }
-        Cards.RemoveAt(cardIndex);
-        OnCardRemoved(card, cardIndex);
+        cards.RemoveAt(cardIndex);
         return true;
     }
 
+    [Server]
     public virtual Card RemoveCard(int index)
     {
         try
         {
-            Card card = Cards[index];
-            Cards.RemoveAt(index);
-            OnCardRemoved(card, index);
+            Card card = cards[index];
+            cards.RemoveAt(index);
             return card;
         }
         catch (ArgumentOutOfRangeException)
         {
             Debug.LogWarning($"Deletion index {index} is out of bounds in Cards");
         }
-        return null;
+        return new Card();
     }
 
+    [Server]
     public virtual Card RemoveCardAtStart()
     {
         return RemoveCard(0);
     }
 
+    [Server]
     public virtual Card RemoveCardAtEnd()
     {
-        return RemoveCard(Cards.Count - 1);
+        return RemoveCard(cards.Count - 1);
     }
 
-    protected virtual void OnCardAdded(Card cardAdded, int index)
+    [Server]
+    public virtual void FlipCard(int index)
     {
-        cardAdded.Selected += OnCardSelected;
-        CardAdded?.Invoke(this, cardAdded, index);
+        try
+        {
+            cards[index] = cards[index].Flipped();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Debug.LogWarning($"Index {index} is out of bounds in Cards");
+        }
     }
 
-    protected virtual void OnCardRemoved(Card cardRemoved, int index)
+    public virtual void FlipCardAtStart()
     {
-        cardRemoved.Selected -= OnCardSelected;
-        CardRemoved?.Invoke(this, cardRemoved, index);
-    }
-
-    protected virtual void OnCardSelected(Card cardSelected)
-    {
-        CardSelected?.Invoke(this, cardSelected);
+        FlipCard(0);
     }
 }

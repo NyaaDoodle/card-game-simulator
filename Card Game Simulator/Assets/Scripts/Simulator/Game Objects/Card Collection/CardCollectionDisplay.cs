@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class CardCollectionDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject cardDisplaysContainer;
-    [SerializeField] private GameObject cardDisplayPrefab;
+    [SerializeField] private RectTransform cardDisplaysContainer;
+    protected CardCollection CardCollection { get; private set; }
+    protected List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
 
-    public CardCollection CardCollectionState { get; private set; }
-    public List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
-
-    public virtual void Setup(CardCollection cardCollectionState)
+    public virtual void Setup(CardCollection cardCollection)
     {
-        CardCollectionState = cardCollectionState;
+        CardCollection = cardCollection;
         SubscribeToStateEvents();
-        ClearAndSpawnCardDisplays();
+        RefreshCardDisplays();
     }
 
     void OnDestroy()
@@ -26,54 +24,60 @@ public class CardCollectionDisplay : MonoBehaviour
     {
         try
         {
-            CardCollectionState.CardAdded += OnCardAdded;
-            CardCollectionState.CardRemoved += OnCardRemoved;
+            CardCollection.CardAdded += OnCardAdded;
+            CardCollection.CardRemoved += OnCardRemoved;
+            CardCollection.CardsCleared += OnCardsCleared;
         }
         catch (NullReferenceException)
         {
-            Debug.LogWarning("CardCollectionState is null");
+            Debug.LogWarning("CardCollection is null");
         }
     }
 
     protected virtual void UnsubscribeFromStateEvents()
     {
-        if (CardCollectionState == null) return;
-        CardCollectionState.CardAdded -= OnCardAdded;
-        CardCollectionState.CardRemoved -= OnCardRemoved;
+        if (CardCollection == null) return;
+        CardCollection.CardAdded -= OnCardAdded;
+        CardCollection.CardRemoved -= OnCardRemoved;
     }
 
-    protected virtual void ClearAndSpawnCardDisplays()
+    protected virtual void RefreshCardDisplays()
     {
         try
         {
-            DestroyAndRemoveAllCardDisplays();
-            foreach (Card cardState in CardCollectionState.Cards)
+            ClearCardDisplays();
+            foreach (Card card in CardCollection.Cards)
             {
-                CreateAndAddCardDisplayToEnd(cardState);
+                AddCardDisplayToEnd(card);
             }
         }
         catch (NullReferenceException)
         {
-            Debug.LogWarning("CardCollectionState is null");
+            Debug.LogWarning("CardCollection is null");
         }
     }
 
     protected virtual void OnCardAdded(CardCollection _, Card cardState, int index)
     {
-        CreateAndAddCardDisplay(cardState, index);
+        AddCardDisplay(cardState, index);
     }
 
     protected virtual void OnCardRemoved(CardCollection _, Card card, int index)
     {
-        DestroyAndRemoveCardDisplay(index);
+        RemoveCardDisplay(index);
     }
 
-    protected virtual void CreateAndAddCardDisplay(Card cardState, int insertionIndex)
+    protected virtual void OnCardsCleared(CardCollection _)
+    {
+        ClearCardDisplays();
+    }
+
+    protected virtual void AddCardDisplay(Card card, int insertionIndex)
     {
         try
         {
             CardDisplay cardDisplay =
-                cardDisplayPrefab.InstantiateCardDisplay(cardState, cardDisplaysContainer.transform);
+                PrefabReferences.Instance.CardTableDisplayPrefab.InstantiateCardDisplay(card, cardDisplaysContainer.transform);
             CardDisplays.Insert(insertionIndex, cardDisplay);
             SetCardDisplayHierarchyReverseIndex(cardDisplay, insertionIndex);
         }
@@ -83,30 +87,30 @@ public class CardCollectionDisplay : MonoBehaviour
         }
     }
 
-    protected virtual void CreateAndAddCardDisplayToEnd(Card cardState)
+    protected virtual void AddCardDisplayToEnd(Card card)
     {
-        CreateAndAddCardDisplay(cardState, CardDisplays.Count);
+        AddCardDisplay(card, CardDisplays.Count);
     }
 
-    protected virtual void DestroyAndRemoveCardDisplay(int deletionIndex)
+    protected virtual void RemoveCardDisplay(int removalIndex)
     {
         try
         {
-            CardDisplay cardDisplay = CardDisplays[deletionIndex];
-            CardDisplays.RemoveAt(deletionIndex);
+            CardDisplay cardDisplay = CardDisplays[removalIndex];
+            CardDisplays.RemoveAt(removalIndex);
             Destroy(cardDisplay.gameObject);
         }
         catch (ArgumentOutOfRangeException)
         {
-            Debug.LogWarning($"Deletion index {deletionIndex} is out of bounds in CardDisplays");
+            Debug.LogWarning($"Removal index {removalIndex} is out of bounds in CardDisplays");
         }
     }
 
-    protected virtual void DestroyAndRemoveAllCardDisplays()
+    protected virtual void ClearCardDisplays()
     {
         while (CardDisplays.Count > 0)
         {
-            DestroyAndRemoveCardDisplay(0);
+            RemoveCardDisplay(0);
         }
     }
 
