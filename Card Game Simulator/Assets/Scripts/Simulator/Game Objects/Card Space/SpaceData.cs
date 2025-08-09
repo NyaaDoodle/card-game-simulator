@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 
 public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
 {
@@ -8,6 +9,7 @@ public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
     public float TableYCoordinate { get; }
     public float Rotation { get; }
 
+    [JsonConstructor]
     public SpaceData(
         int id,
         string name,
@@ -20,6 +22,18 @@ public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
         TableXCoordinate = tableXCoordinate;
         TableYCoordinate = tableYCoordinate;
         Rotation = rotation;
+    }
+
+    public SpaceData(
+        int id,
+        float tableXCoordinate,
+        float tableYCoordinate)
+    {
+        Id = id;
+        Name = "";
+        TableXCoordinate = tableXCoordinate;
+        TableYCoordinate = tableYCoordinate;
+        Rotation = 0;
     }
 
     public bool Equals(SpaceData other)

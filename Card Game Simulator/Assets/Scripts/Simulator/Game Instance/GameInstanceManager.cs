@@ -1,10 +1,11 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using UnityEngine;
 
 public class GameInstanceManager : NetworkBehaviour
 {
     public GameInstance GameInstance { get; private set; }
-    public GameTemplate GameTemplate { get; private set; }
+    public GameTemplate? GameTemplate { get; private set; }
 
     [Header("Spawn Prefabs")]
     [SerializeField] private GameObject tablePrefab;
@@ -44,7 +45,14 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void loadGameInstance()
     {
-        GameInstance = gameInstanceLoader.LoadGameInstance(GameTemplate);
+        try
+        {
+            GameInstance = gameInstanceLoader.LoadGameInstance(GameTemplate.Value);
+        }
+        catch (NullReferenceException)
+        {
+            Debug.LogError("GameTemplate is null");
+        }
     }
 
     private void setupSelectionManager()

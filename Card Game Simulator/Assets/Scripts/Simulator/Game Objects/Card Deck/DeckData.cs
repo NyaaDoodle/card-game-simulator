@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 public readonly struct DeckData : IStackableData, IEquatable<DeckData>
 {
@@ -8,15 +9,16 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
     public float TableXCoordinate { get; }
     public float TableYCoordinate { get; }
     public float Rotation { get; }
-    public Card[] StartingCards { get; }
+    public CardData[] StartingCards { get; }
 
+    [JsonConstructor]
     public DeckData(
         int id,
         string name,
         float tableXCoordinate,
         float tableYCoordinate,
         float rotation,
-        Card[] startingCards)
+        CardData[] startingCards)
     {
         Id = id;
         Name = name;
@@ -24,6 +26,33 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         TableYCoordinate = tableYCoordinate;
         Rotation = rotation;
         StartingCards = startingCards;
+    }
+
+    public DeckData(
+        int id,
+        float tableXCoordinate,
+        float tableYCoordinate,
+        CardData[] startingCards)
+    {
+        Id = id;
+        Name = "";
+        TableXCoordinate = tableXCoordinate;
+        TableYCoordinate = tableYCoordinate;
+        Rotation = 0;
+        StartingCards = startingCards;
+    }
+
+    public DeckData(
+        int id,
+        float tableXCoordinate,
+        float tableYCoordinate)
+    {
+        Id = id;
+        Name = "";
+        TableXCoordinate = tableXCoordinate;
+        TableYCoordinate = tableYCoordinate;
+        Rotation = 0;
+        StartingCards = Array.Empty<CardData>();
     }
 
     public bool Equals(DeckData other)
@@ -50,9 +79,9 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         
         if (StartingCards != null)
         {
-            foreach (Card card in StartingCards)
+            foreach (CardData cardData in StartingCards)
             {
-                hashCode.Add(card);
+                hashCode.Add(cardData);
             }
         }
         

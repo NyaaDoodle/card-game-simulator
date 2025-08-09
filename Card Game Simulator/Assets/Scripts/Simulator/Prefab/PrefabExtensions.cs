@@ -33,11 +33,11 @@ public static class PrefabExtensions
     }
 
     public static PlayerHandDisplay InstantiatePlayerHandDisplay(this GameObject prefab,
-                                                       PlayerHand playerHand,
+                                                       Player player,
                                                        Transform parent)
     {
         PlayerHandDisplay playerHandDisplay = GameObject.Instantiate(prefab, parent).GetComponent<PlayerHandDisplay>();
-        playerHandDisplay.Setup(playerHand);
+        playerHandDisplay.Setup(player);
         return playerHandDisplay;
     }
 

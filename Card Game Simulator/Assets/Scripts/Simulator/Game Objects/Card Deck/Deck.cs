@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Deck : Stackable
 {
     public DeckData DeckData { get; private set; }
@@ -11,6 +13,11 @@ public class Deck : Stackable
     private void addStartingCards()
     {
         if (DeckData != null) return;
-        base.AddCards(DeckData.StartingCards);
+        List<Card> startingCards = new List<Card>();
+        foreach (CardData cardData in DeckData.StartingCards)
+        {
+            startingCards.Add(new Card(cardData));
+        }
+        base.AddCards(startingCards);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 public readonly struct TableData : IEquatable<TableData>
 {
@@ -6,6 +7,7 @@ public readonly struct TableData : IEquatable<TableData>
     public float Height { get; }
     public string SurfaceImagePath { get; }
 
+    [JsonConstructor]
     public TableData(float width, float height, string surfaceImagePath)
     {
         Width = width;

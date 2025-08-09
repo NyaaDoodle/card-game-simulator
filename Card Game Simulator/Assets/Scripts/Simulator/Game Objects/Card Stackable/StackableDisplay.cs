@@ -7,6 +7,8 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 {
     public Stackable Stackable { get; private set; }
 
+    public event Action<Stackable> StackableSelected;
+
     public void Setup(Stackable stackableState)
     {
         Stackable = stackableState;
@@ -42,7 +44,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
             Debug.LogWarning("Stackable is null");
         }
     }
-    
+
     protected override void SubscribeToStateEvents()
     {
         base.SubscribeToStateEvents();
@@ -57,18 +59,16 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     public virtual void OnPointerClick(PointerEventData pointerEventData)
     {
-        try
-        {
-            Stackable.NotifySelection();
-        }
-        catch (NullReferenceException)
-        {
-            Debug.LogWarning("Stackable is null");
-        }
+        OnStackableSelected();
     }
 
     private void onCardsShuffled(Stackable _)
     {
         RefreshCardDisplays();
+    }
+    
+    protected virtual void OnStackableSelected()
+    {
+        StackableSelected?.Invoke(Stackable);
     }
 }

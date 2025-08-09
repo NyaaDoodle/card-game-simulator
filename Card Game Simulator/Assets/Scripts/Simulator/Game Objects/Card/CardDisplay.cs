@@ -11,10 +11,8 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     public Card Card { get; private set; }
     public event Action<Card> Selected;
-    private bool isBackSideSpriteLoaded = false;
-    private bool isFrontSideSpriteLoaded = false;
 
-    public void UpdateCard(Card card)
+    public void Setup(Card card)
     {
         Card = card;
         loadCardSprites();
@@ -34,13 +32,12 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     private void loadBackSideSprite()
     {
         // TODO allow loading outside of Resources folder
-        if (isBackSideSpriteLoaded || isBackSideImageNotDefined()) return;
+        if (isBackSideImageNotDefined()) return;
         string backSideSpritePath = Card.CardData.BackSideSpritePath;
         Sprite backSideSprite = Resources.Load<Sprite>(backSideSpritePath);
         if (backSideSprite != null)
         {
             backSideImage.sprite = backSideSprite;
-            isBackSideSpriteLoaded = true;
         }
         else
         {
@@ -51,13 +48,12 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     private void loadFrontSideSprite()
     {
         // TODO allow loading outside of Resources folder
-        if (isFrontSideSpriteLoaded || isFrontSideImageNotDefined()) return;
+        if (isFrontSideImageNotDefined()) return;
         string frontSideSpritePath = Card.CardData.FrontSideSpritePath;
         Sprite frontSideSprite = Resources.Load<Sprite>(frontSideSpritePath);
         if (frontSideSprite != null)
         {
             frontSideImage.sprite = frontSideSprite;
-            isFrontSideSpriteLoaded = true;
         }
         else
         {

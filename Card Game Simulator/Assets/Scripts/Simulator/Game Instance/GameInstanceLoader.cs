@@ -15,7 +15,7 @@ public class GameInstanceLoader
     public GameInstance LoadGameInstance(GameTemplate gameTemplate)
     {
         this.gameTemplate = gameTemplate;
-        gameInstance = new GameInstance(gameTemplate);
+        gameInstance = new GameInstance();
         spawnObjects();
         return gameInstance;
     }

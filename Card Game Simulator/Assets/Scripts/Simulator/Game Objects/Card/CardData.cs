@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 
 public readonly struct CardData : IEquatable<CardData>
 {
@@ -10,6 +11,7 @@ public readonly struct CardData : IEquatable<CardData>
     public string BackSideSpritePath { get; }
     public string FrontSideSpritePath { get; }
 
+    [JsonConstructor]
     public CardData(
         int id,
         string name,
@@ -24,6 +26,17 @@ public readonly struct CardData : IEquatable<CardData>
         Description = description;
         Width = width;
         Height = height;
+        BackSideSpritePath = backSideSpritePath;
+        FrontSideSpritePath = frontSideSpritePath;
+    }
+
+    public CardData(int id, string backSideSpritePath, string frontSideSpritePath)
+    {
+        Id = id;
+        Name = "";
+        Description = "";
+        Width = 2;
+        Height = 3;
         BackSideSpritePath = backSideSpritePath;
         FrontSideSpritePath = frontSideSpritePath;
     }

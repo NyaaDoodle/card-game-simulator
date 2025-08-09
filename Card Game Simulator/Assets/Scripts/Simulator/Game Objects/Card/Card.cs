@@ -13,6 +13,20 @@ public readonly struct Card : IEquatable<Card>
         Rotation = rotation;
     }
 
+    public Card(CardData cardData, bool isFaceUp)
+    {
+        CardData = cardData;
+        IsFaceUp = isFaceUp;
+        Rotation = 0;
+    }
+
+    public Card(CardData cardData)
+    {
+        CardData = cardData;
+        IsFaceUp = false;
+        Rotation = 0;
+    }
+
     public Card Flipped()
     {
         return new Card(this.CardData, !this.IsFaceUp, this.Rotation);
