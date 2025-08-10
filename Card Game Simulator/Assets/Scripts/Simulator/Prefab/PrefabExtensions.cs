@@ -3,6 +3,18 @@ using UnityEngine;
 
 public static class PrefabExtensions
 {
+    public static Player InstantiatePlayer(this GameObject prefab, NetworkConnectionToClient conn, string playerName)
+    {
+        int startingScore = 0;
+        GameObject playerGameObject = GameObject.Instantiate(prefab);
+        Player player = playerGameObject.GetComponent<Player>();
+        player.Setup(conn.connectionId, playerName, startingScore);
+        PlayerHand playerHand = playerGameObject.GetComponent<PlayerHand>();
+        playerGameObject.GetComponent<PlayerHandDisplay>().Setup(playerHand);
+        NetworkServer.AddPlayerForConnection(conn, playerGameObject);
+        return player;
+    }
+
     public static CardDisplay InstantiateCardDisplay(this GameObject prefab,
                                                           Card card,
                                                           Transform parent)
@@ -12,79 +24,69 @@ public static class PrefabExtensions
         return cardDisplay;
     }
 
-    public static DeckDisplay InstantiateDeckDisplay(this GameObject prefab,
-                                                               Deck deck,
-                                                               Transform parent)
+    public static Table InstantiateTable(this GameObject prefab, TableData tableData)
     {
-        DeckDisplay deckDisplay = GameObject.Instantiate(prefab, parent).GetComponent<DeckDisplay>();
-        NetworkServer.Spawn(deckDisplay.gameObject);
-        deckDisplay.Setup(deck);
-        return deckDisplay;
+        GameObject tableGameObject = GameObject.Instantiate(prefab);
+        NetworkServer.Spawn(tableGameObject);
+        Table table = tableGameObject.GetComponent<Table>();
+        table.Setup(tableData);
+        tableGameObject.GetComponent<TableDisplay>().Setup(table);
+        return table;
     }
 
-    public static SpaceDisplay InstantiateSpaceDisplay(this GameObject prefab,
-                                                     Space space,
-                                                     Transform parent)
+    public static Deck InstantiateDeck(this GameObject prefab, DeckData deckData)
     {
-        SpaceDisplay spaceDisplay = GameObject.Instantiate(prefab, parent).GetComponent<SpaceDisplay>();
-        NetworkServer.Spawn(spaceDisplay.gameObject);
-        spaceDisplay.Setup(space);
-        return spaceDisplay;
+        GameObject deckGameObject = GameObject.Instantiate(prefab);
+        NetworkServer.Spawn(deckGameObject);
+        Deck deck = deckGameObject.GetComponent<Deck>();
+        deck.Setup(deckData);
+        deckGameObject.GetComponent<DeckDisplay>().Setup(deck);
+        return deck;
     }
 
-    public static PlayerHandDisplay InstantiatePlayerHandDisplay(this GameObject prefab,
-                                                       Player player,
-                                                       Transform parent)
+    public static Space InstantiateSpace(this GameObject prefab, SpaceData spaceData)
     {
-        PlayerHandDisplay playerHandDisplay = GameObject.Instantiate(prefab, parent).GetComponent<PlayerHandDisplay>();
-        playerHandDisplay.Setup(player);
-        return playerHandDisplay;
+        GameObject spaceGameObject = GameObject.Instantiate(prefab);
+        NetworkServer.Spawn(spaceGameObject);
+        Space space = spaceGameObject.GetComponent<Space>();
+        space.Setup(spaceData);
+        spaceGameObject.GetComponent<SpaceDisplay>().Setup(space);
+        return space;
     }
 
-    public static CardSelectionMenu InstantiateCardSelectionMenu(this GameObject prefab,
-                                                                 CardCollection cardCollection,
-                                                                 Transform parent)
+    public static CardSelectionMenu InstantiateCardSelectionMenu(this GameObject prefab, CardCollection cardCollection)
     {
+        Transform parent = ContainerReferences.Instance.InteractionMenuItemsContainer;
         CardSelectionMenu cardSelectionMenu = GameObject.Instantiate(prefab, parent).GetComponent<CardSelectionMenu>();
         cardSelectionMenu.Setup(cardCollection);
         return cardSelectionMenu;
     }
 
-    public static TableDisplay InstantiateTableDisplay(this GameObject prefab, Table table)
+    public static DeckMenu InstantiateDeckMenu(this GameObject prefab, Deck deck)
     {
-        TableDisplay tableDisplay = GameObject.Instantiate(prefab).GetComponent<TableDisplay>();
-        NetworkServer.Spawn(tableDisplay.gameObject);
-        tableDisplay.Setup(table);
-        return tableDisplay;
-    }
-
-    public static DeckMenu InstantiateDeckMenu(this GameObject prefab,
-                                                       Deck deck,
-                                                       Transform parent)
-    {
+        Transform parent = ContainerReferences.Instance.InteractionMenuItemsContainer;
         DeckMenu deckMenu = GameObject.Instantiate(prefab, parent).GetComponent<DeckMenu>();
         deckMenu.Setup(deck);
         return deckMenu;
     }
 
-    public static InstanceMenu InstantiateInstanceMenu(this GameObject prefab,
-                                                       Transform parent)
+    public static InstanceMenu InstantiateInstanceMenu(this GameObject prefab)
     {
+        Transform parent = ContainerReferences.Instance.InteractionMenuItemsContainer;
         InstanceMenu instanceMenu = GameObject.Instantiate(prefab, parent).GetComponent<InstanceMenu>();
         return instanceMenu;
     }
 
-    public static PlacingCardMenu InstantiatePlacingCardMenu(this GameObject prefab,
-                                                             Transform parent)
+    public static PlacingCardMenu InstantiatePlacingCardMenu(this GameObject prefab)
     {
+        Transform parent = ContainerReferences.Instance.InteractionMenuItemsContainer;
         PlacingCardMenu placingCardMenu = GameObject.Instantiate(prefab, parent).GetComponent<PlacingCardMenu>();
         return placingCardMenu;
     }
 
-    public static SpaceMenu InstantiateSpaceMenu(this GameObject prefab,
-                                                       Space space,
-                                                       Transform parent)
+    public static SpaceMenu InstantiateSpaceMenu(this GameObject prefab, Space space)
     {
+        Transform parent = ContainerReferences.Instance.InteractionMenuItemsContainer;
         SpaceMenu spaceMenu = GameObject.Instantiate(prefab, parent).GetComponent<SpaceMenu>();
         spaceMenu.Setup(space);
         return spaceMenu;

@@ -1,4 +1,5 @@
 using System;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,7 +36,7 @@ public class InteractionMenuManager : MonoBehaviour
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
-        DeckMenu deckMenu = deckMenuItemsPrefab.InstantiateDeckMenu(deck, interactionMenuItemsContainer);
+        DeckMenu deckMenu = deckMenuItemsPrefab.InstantiateDeckMenu(deck);
         currentMenuItemsObject = deckMenu.gameObject;
         addDeckMenuItemListeners(deckMenu);
     }
@@ -44,7 +45,7 @@ public class InteractionMenuManager : MonoBehaviour
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
-        SpaceMenu spaceMenu = spaceMenuItemsPrefab.InstantiateSpaceMenu(space, interactionMenuItemsContainer);
+        SpaceMenu spaceMenu = spaceMenuItemsPrefab.InstantiateSpaceMenu(space);
         currentMenuItemsObject = spaceMenu.gameObject;
         addSpaceMenuItemListeners(spaceMenu);
     }
@@ -54,9 +55,7 @@ public class InteractionMenuManager : MonoBehaviour
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         CardSelectionMenu cardSelectionMenu =
-            cardSelectionMenuItemsPrefab.InstantiateCardSelectionMenu(
-                sourceCardCollection,
-                interactionMenuItemsContainer);
+            cardSelectionMenuItemsPrefab.InstantiateCardSelectionMenu(sourceCardCollection);
         currentMenuItemsObject = cardSelectionMenu.gameObject;
         addCardSelectionMenuItemListeners(cardSelectionMenu);
     }
@@ -66,7 +65,7 @@ public class InteractionMenuManager : MonoBehaviour
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         PlacingCardMenu placingCardMenu =
-            placingCardMenuItemsPrefab.InstantiatePlacingCardMenu(interactionMenuItemsContainer);
+            placingCardMenuItemsPrefab.InstantiatePlacingCardMenu();
         currentMenuItemsObject = placingCardMenu.gameObject;
         addPlacingCardMenuItemListeners(placingCardMenu);
     }
@@ -75,7 +74,7 @@ public class InteractionMenuManager : MonoBehaviour
     {
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
-        InstanceMenu instanceMenu = instanceMenuItemsPrefab.InstantiateInstanceMenu(interactionMenuItemsContainer);
+        InstanceMenu instanceMenu = instanceMenuItemsPrefab.InstantiateInstanceMenu();
         currentMenuItemsObject = instanceMenu.gameObject;
         addInstanceMenuItemListeners(instanceMenu);
     }
@@ -204,6 +203,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void returnToMainMenu()
     {
+        NetworkManager.singleton.StopClient();
         SceneManager.LoadScene("Main Menu Scene");
     }
 }

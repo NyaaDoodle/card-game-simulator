@@ -1,63 +1,122 @@
-﻿using System;
 using Mirror;
-using UnityEngine;
 
 public class GameInstanceManager : NetworkBehaviour
 {
-    public GameInstance GameInstance { get; private set; }
-    public GameTemplate? GameTemplate { get; private set; }
+    [SyncVar] private GameTemplate gameTemplate;
+    [SyncVar] private Table table;
+    public readonly SyncList<Deck> Decks = new SyncList<Deck>();
+    public readonly SyncList<Space> Spaces = new SyncList<Space>();
+    public readonly SyncDictionary<int, Player> Players = new SyncDictionary<int, Player>();
 
-    [Header("Spawn Prefabs")]
-    [SerializeField] private GameObject tablePrefab;
-    [SerializeField] private GameObject deckPrefab;
-    [SerializeField] private GameObject spacePrefab;
-    [SerializeField] private GameObject playerHandPrefab;
-
-    [Header("Containers")]
-    [SerializeField] private RectTransform tableContainer;
-    [SerializeField] private RectTransform tableObjectsContainer;
-    [SerializeField] private RectTransform playerHandContainer;
-
-    [Header("Managers")]
-    [SerializeField] private SelectionManager selectionManager;
-
-    private readonly GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
-    private readonly GameInstanceLoader gameInstanceLoader = new GameInstanceLoader();
+    public Table Table => table;
+    public GameTemplate GameTemplate => gameTemplate;
+    public Player LocalPlayer { get; private set; }
 
     public override void OnStartServer()
     {
         loadGameTemplate();
-        loadGameInstance();
-        setupSelectionManager();
+        spawnGameObjects();
     }
 
     public override void OnStopServer()
     {
-        gameInstanceLoader.DespawnLeftoverObjects();
-        GameInstance = null;
-        GameTemplate = null;
+        despawnGameObjects();
+    }
+
+    public void AddPlayer(NetworkConnectionToClient conn)
+    {
+        Player clientPlayer = PrefabReferences.Instance.PlayerPrefab.InstantiatePlayer(conn, "Player");
+        Players.Add(clientPlayer.Id, clientPlayer);
+        onPlayerAdd(conn);
+    }
+
+    public void RemovePlayer(NetworkConnectionToClient conn)
+    {
+        if (Players.TryGetValue(conn.connectionId, out Player player))
+        {
+            Destroy(player.gameObject);
+            Players.Remove(conn.connectionId);
+            onPlayerRemoved(conn);
+        }
+    }
+
+    private void onPlayerAdd(NetworkConnectionToClient target)
+    {
+        LocalPlayer = Players[target.connectionId];
+        ManagerReferences.Instance.SelectionManager.Setup(LocalPlayer);
+    }
+
+    private void onPlayerRemoved(NetworkConnectionToClient target)
+    {
+        LocalPlayer = null;
     }
 
     private void loadGameTemplate()
     {
-        GameTemplate = gameTemplateLoader.LoadGameTemplate();
+        GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
+        gameTemplate = gameTemplateLoader.LoadGameTemplate();
     }
 
-    private void loadGameInstance()
+    private void spawnGameObjects()
     {
-        try
+        spawnTable();
+        spawnDecks();
+        spawnSpaces();
+    }
+
+    private void spawnTable()
+    {
+        table = PrefabReferences.Instance.TablePrefab.InstantiateTable(GameTemplate.TableData);
+    }
+
+    private void spawnDecks()
+    {
+        foreach (DeckData deckData in GameTemplate.DecksData.Values)
         {
-            GameInstance = gameInstanceLoader.LoadGameInstance(GameTemplate.Value);
-        }
-        catch (NullReferenceException)
-        {
-            Debug.LogError("GameTemplate is null");
+            spawnDeck(deckData);
         }
     }
 
-    private void setupSelectionManager()
+    private void spawnDeck(DeckData deckData)
     {
-        Player localPlayer = GameInstance.Players[0];
-        selectionManager.Setup(GameInstance, localPlayer);
+        Deck deck = PrefabReferences.Instance.CardDeckPrefab.InstantiateDeck(deckData);
+        Decks.Add(deck);
+    }
+
+    private void spawnSpaces()
+    {
+        foreach (SpaceData spaceData in GameTemplate.SpacesData.Values)
+        {
+            spawnSpace(spaceData);
+        }
+    }
+
+    private void spawnSpace(SpaceData spaceData)
+    {
+        Space space = PrefabReferences.Instance.CardSpacePrefab.InstantiateSpace(spaceData);
+        Spaces.Add(space);
+    }
+
+    private void despawnGameObjects()
+    {
+        if (Table != null)
+        {
+            Destroy(Table.gameObject);
+        }
+        
+        foreach (Deck deck in Decks)
+        {
+            Destroy(deck.gameObject);
+        }
+
+        foreach (Space space in Spaces)
+        {
+            Destroy(space.gameObject);
+        }
+
+        foreach (Player player in Players.Values)
+        {
+            Destroy(player.gameObject);
+        }
     }
 }

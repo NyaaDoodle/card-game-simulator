@@ -8,6 +8,17 @@ public class Stackable : CardCollection
     // Events
     public event Action<Stackable> CardsShuffled;
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        attachToTableObjectsContainer();
+    }
+
+    private void attachToTableObjectsContainer()
+    {
+        gameObject.transform.SetParent(ContainerReferences.Instance.TableObjectsContainer, false);
+    }
+
     public virtual void Setup(IStackableData stackableData)
     {
         StackableData = stackableData;

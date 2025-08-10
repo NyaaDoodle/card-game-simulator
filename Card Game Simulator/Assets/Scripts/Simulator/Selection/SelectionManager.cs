@@ -8,20 +8,22 @@ public class SelectionManager : MonoBehaviour
     private SelectionItem sourceSelection = new SelectionItem();
     private SelectionItem destinationSelection = new SelectionItem();
     private Player player;
+    private GameInstanceManager gameInstanceManager;
 
-    public void Setup(GameInstance gameInstance, Player player)
+    public void Setup(Player player)
     {
         this.player = player;
-        subscribeToGameObjectsSelectionEvents(gameInstance);
+        gameInstanceManager = ManagerReferences.Instance.GameInstanceManager;
+        subscribeToGameObjectsSelectionEvents();
         subscribeToInteractionMenuSelectionEvents();
     }
 
-    private void subscribeToGameObjectsSelectionEvents(GameInstance gameInstance)
+    private void subscribeToGameObjectsSelectionEvents()
     {
-        if (gameInstance == null) return;
-        subscribeToDeckSelectionEvents(gameInstance.Decks);
-        subscribeToSpaceSelectionEvents(gameInstance.Spaces);
-        subscribeToPlayerHandSelectionEvents(gameInstance.Players);
+        if (gameInstanceManager == null) return;
+        subscribeToDeckSelectionEvents(gameInstanceManager.Decks);
+        subscribeToSpaceSelectionEvents(gameInstanceManager.Spaces);
+        subscribeToPlayerHandSelectionEvents();
     }
 
     private void subscribeToInteractionMenuSelectionEvents()
@@ -37,31 +39,30 @@ public class SelectionManager : MonoBehaviour
         interactionMenuManager.SelectedFaceDown += onInteractiveMenuSelectedFaceDown;
     }
 
-    private void subscribeToDeckSelectionEvents(List<Deck> decks)
+    private void subscribeToDeckSelectionEvents(IEnumerable<Deck> decks)
     {
         foreach (Deck deck in decks)
         {
             deck.CardSelected += onStackableCardSelected;
-            deck.StackableSelected += onStackableSelfSelected;
+            DeckDisplay deckDisplay = deck.GetComponent<DeckDisplay>();
+            deckDisplay.StackableSelected += onStackableSelfSelected;
         }
     }
 
-    private void subscribeToSpaceSelectionEvents(List<Space> spaces)
+    private void subscribeToSpaceSelectionEvents(IEnumerable<Space> spaces)
     {
         foreach (Space space in spaces)
         {
             space.CardSelected += onStackableCardSelected;
-            space.StackableSelected += onStackableSelfSelected;
+            SpaceDisplay spaceDisplay = space.GetComponent<SpaceDisplay>();
+            spaceDisplay.StackableSelected += onStackableSelfSelected;
         }
     }
 
-    private void subscribeToPlayerHandSelectionEvents(List<Player> players)
+    private void subscribeToPlayerHandSelectionEvents()
     {
-        foreach (Player player in players)
-        {
-            PlayerHand playerHand = player.PlayerHand;
-            playerHand.CardSelected += onPlayerHandCardSelected;
-        }
+        PlayerHand playerHand = player.GetComponent<PlayerHand>();
+        playerHand.CardSelected += onPlayerHandCardSelected;
     }
 
     private void onStackableCardSelected(CardCollection cardCollection, Card card)
@@ -148,8 +149,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
         {
-            Card drawnCard = stackable.DrawCard();
-            player.PlayerHand.AddCard(drawnCard);
+            player.CmdDrawCard(stackable);
         }
         cancelSelections();
     }
@@ -158,7 +158,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
         {
-            stackable.FlipTopCard();
+            player.CmdFlipCard(stackable);
         }
         cancelSelections();
     }
@@ -167,7 +167,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
-            stackable.Shuffle();
+            player.CmdShuffleStackable(stackable);
         }
         cancelSelections();
     }
@@ -188,36 +188,26 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedFaceUp()
     {
-        if (placeCard())
+        if (sourceSelection.SelectedCardCollection is PlayerHand playerHand && sourceSelection.SelectedCard != null
+                                                                            && destinationSelection
+                                                                                    .SelectedCardCollection is Stackable
+                                                                                stackable && !playerHand.IsEmpty)
         {
-            sourceSelection.SelectedCard.FlipFaceUp();
+            player.CmdPlaceCardFaceUp(sourceSelection.SelectedCard.Value, stackable);
         }
         cancelSelections();
     }
 
     private void onInteractiveMenuSelectedFaceDown()
     {
-        if (placeCard())
-        {
-            sourceSelection.SelectedCard.FlipFaceDown();
-        }
-        cancelSelections();
-    }
-
-    private bool placeCard()
-    {
         if (sourceSelection.SelectedCardCollection is PlayerHand playerHand && sourceSelection.SelectedCard != null
                                                                             && destinationSelection
                                                                                     .SelectedCardCollection is Stackable
                                                                                 stackable && !playerHand.IsEmpty)
         {
-            if (playerHand.RemoveCard(sourceSelection.SelectedCard))
-            {
-                stackable.AddCardToTop(sourceSelection.SelectedCard);
-                return true;
-            }
+            player.CmdPlaceCardFaceDown(sourceSelection.SelectedCard.Value, stackable);
         }
-        return false;
+        cancelSelections();
     }
 
     private void cancelSelections()

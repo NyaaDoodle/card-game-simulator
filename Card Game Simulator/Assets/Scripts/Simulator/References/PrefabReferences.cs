@@ -8,9 +8,7 @@ public class PrefabReferences : MonoBehaviour
     public GameObject CardDeckPrefab;
     public GameObject CardSpacePrefab;
     public GameObject PlayerPrefab;
-    public GameObject PlayerHandPrefab;
     public GameObject CardTableDisplayPrefab;
-    public GameObject CardHandDisplayPrefab;
 
     void Awake()
     {

@@ -3,36 +3,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-public class TableDisplay : NetworkBehaviour
+public class TableDisplay : MonoBehaviour
 {
     [Header("Table Components")]
     [SerializeField] private GameObject tableSurface;
 
-    [SyncVar(hook = nameof(onTableChanged))] private Table table;
-
-    public override void OnStartClient()
-    {
-        attachToTableContainer();
-    }
+    public Table Table { get; private set; }
 
     [Server]
     public void Setup(Table table)
     {
-        Debug.Log("Reached Setup");
-        this.table = table;
-    }
-
-    private void onTableChanged(Table oldValue, Table newValue)
-    {
-        Debug.Log("Reached onTableChanged");
-        Debug.Log($"{table.TableData.Width}, {table.TableData.Height}, {table.TableData.SurfaceImagePath}");
+        Table = table;
         updateTableDisplay();
     }
 
     private void updateTableDisplay()
     {
-        Debug.Log("Reached updateTableDisplay");
-        if (table == null)
+        if (Table == null)
         {
             Debug.LogError("Table is null when attempting to update table display");
             return;
@@ -41,24 +28,17 @@ public class TableDisplay : NetworkBehaviour
         loadSurfaceImage();
     }
 
-    private void attachToTableContainer()
-    {
-        gameObject.transform.SetParent(ContainerReferences.Instance.TableContainer, false);
-    }
-
     private void resizeTable()
     {
-        Debug.Log("Reached resizeTable");
         Vector2 tableSize = new Vector2(
-            table.TableData.Width,
-            table.TableData.Height
+            Table.TableData.Width,
+            Table.TableData.Height
         );
         gameObject.GetComponent<RectTransform>().sizeDelta = tableSize;
     }
 
     private void loadSurfaceImage()
     {
-        Debug.Log("Reached loadSurfaceImage");
         if (tableSurface == null)
         {
             Debug.LogError("Table surface object is null");
@@ -72,20 +52,20 @@ public class TableDisplay : NetworkBehaviour
             return;
         }
 
-        if (string.IsNullOrEmpty(table.TableData.SurfaceImagePath))
+        if (string.IsNullOrEmpty(Table.TableData.SurfaceImagePath))
         {
             Debug.LogWarning("Surface image path is empty or null");
         }
 
         // TODO implement loading images from the game template folder
-        Sprite surfaceSprite = Resources.Load<Sprite>(table.TableData.SurfaceImagePath);
+        Sprite surfaceSprite = Resources.Load<Sprite>(Table.TableData.SurfaceImagePath);
         if (surfaceSprite != null)
         {
             surfaceImage.sprite = surfaceSprite;
         }
         else
         {
-            Debug.LogWarning($"Could not load table surface sprite in path: {table.TableData.SurfaceImagePath}");
+            Debug.LogWarning($"Could not load table surface sprite in path: {Table.TableData.SurfaceImagePath}");
             surfaceImage.color = Color.green;
         }
     }

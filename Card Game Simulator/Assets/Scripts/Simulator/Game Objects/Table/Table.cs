@@ -1,27 +1,23 @@
-using System;
+using Mirror;
 
-public readonly struct Table : IEquatable<Table>
-{ 
-    public TableData TableData { get; }
+public class Table : NetworkBehaviour
+{
+    [SyncVar] private TableData tableData;
 
-    public Table(TableData tableData)
+    public TableData TableData => tableData;
+
+    public void Setup(TableData tableData)
     {
-        TableData = tableData;
+        this.tableData = tableData;
     }
 
-    public bool Equals(Table other) => other.TableData == this.TableData;
-
-    public override bool Equals(object obj) => obj is Table table && Equals(table);
-
-    public override int GetHashCode() => TableData.GetHashCode();
-
-    public static bool operator ==(Table table1, Table table2)
+    public override void OnStartClient()
     {
-        return table1.Equals(table2);
+        attachToTableContainer();
     }
 
-    public static bool operator !=(Table table1, Table table2)
+    private void attachToTableContainer()
     {
-        return !table1.Equals(table2);
+        gameObject.transform.SetParent(ContainerReferences.Instance.TableContainer, false);
     }
 }

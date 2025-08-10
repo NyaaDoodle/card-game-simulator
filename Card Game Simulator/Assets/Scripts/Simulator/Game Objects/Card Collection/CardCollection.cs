@@ -170,8 +170,24 @@ public class CardCollection : NetworkBehaviour
         }
     }
 
-    public virtual void FlipCardAtStart()
+    public virtual void FlipFirstCard()
     {
         FlipCard(0);
+    }
+
+    public virtual void FlipFirstCardFaceUp()
+    {
+        if (Cards.Count > 0 && FirstCard.IsFaceUp == false)
+        {
+            FlipFirstCard();
+        }
+    }
+
+    public virtual void FlipFirstCardFaceDown()
+    {
+        if (Cards.Count > 0 && FirstCard.IsFaceUp == true)
+        {
+            FlipFirstCard();
+        }
     }
 }
