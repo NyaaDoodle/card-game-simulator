@@ -2,34 +2,17 @@
 
 public class SimulatorNetworkManager : NetworkManager
 {
-    public override void OnStartServer()
+    public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        base.OnStartServer();
-        NetworkServer.RegisterHandler<PlayerCreationRequestMessage>(onPlayerCreationRequestMessage);
-        NetworkServer.RegisterHandler<PlayerDeletionRequestMessage>(onPlayerDeletionRequestMessage);
+        TraceLogger.LogMethod();
+        base.OnServerReady(conn);
+        ManagerReferences.Instance.PlayerManager.AddPlayer(conn);
     }
 
-    public override void OnClientConnect()
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        base.OnClientConnect();
-        NetworkClient.Send(new PlayerCreationRequestMessage());
-    }
-
-    public override void OnClientDisconnect()
-    {
-        NetworkClient.Send(new PlayerDeletionRequestMessage());
-        base.OnClientDisconnect();
-    }
-
-    [Server]
-    private void onPlayerCreationRequestMessage(NetworkConnectionToClient conn, PlayerCreationRequestMessage _)
-    {
-        ManagerReferences.Instance.GameInstanceManager.AddPlayer(conn);
-    }
-
-    [Server]
-    private void onPlayerDeletionRequestMessage(NetworkConnectionToClient conn, PlayerDeletionRequestMessage _)
-    {
-        ManagerReferences.Instance.GameInstanceManager.RemovePlayer(conn);
+        TraceLogger.LogMethod();
+        ManagerReferences.Instance.PlayerManager.RemovePlayer(conn);
+        base.OnServerDisconnect(conn);
     }
 }

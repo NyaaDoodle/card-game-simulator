@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Mirror;
 using UnityEngine;
 
@@ -170,6 +171,36 @@ public class CardCollection : NetworkBehaviour
         }
     }
 
+    public virtual void FlipCardFaceUp(int index)
+    {
+        try
+        {
+            if (!cards[index].IsFaceUp)
+            {
+                cards[index] = cards[index].Flipped();
+            }
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Debug.LogWarning($"Index {index} is out of bounds in Cards");
+        }
+    }
+
+    public virtual void FlipCardFaceDown(int index)
+    {
+        try
+        {
+            if (cards[index].IsFaceUp)
+            {
+                cards[index] = cards[index].Flipped();
+            }
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Debug.LogWarning($"Index {index} is out of bounds in Cards");
+        }
+    }
+
     public virtual void FlipFirstCard()
     {
         FlipCard(0);
@@ -177,17 +208,22 @@ public class CardCollection : NetworkBehaviour
 
     public virtual void FlipFirstCardFaceUp()
     {
-        if (Cards.Count > 0 && FirstCard.IsFaceUp == false)
-        {
-            FlipFirstCard();
-        }
+        FlipCardFaceUp(0);
     }
 
     public virtual void FlipFirstCardFaceDown()
     {
-        if (Cards.Count > 0 && FirstCard.IsFaceUp == true)
+        FlipCardFaceDown(0);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        foreach (Card card in cards)
         {
-            FlipFirstCard();
+            stringBuilder.AppendLine(card.ToString());
+            stringBuilder.AppendLine();
         }
+        return stringBuilder.ToString();
     }
 }

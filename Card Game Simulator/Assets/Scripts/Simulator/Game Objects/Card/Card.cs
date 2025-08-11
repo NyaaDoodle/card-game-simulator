@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public readonly struct Card : IEquatable<Card>
 {
@@ -56,5 +57,14 @@ public readonly struct Card : IEquatable<Card>
     public static bool operator !=(Card card1, Card card2)
     {
         return !card1.Equals(card2);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine(CardData.ToString());
+        stringBuilder.AppendLine($"IsFaceUp: {IsFaceUp}");
+        stringBuilder.AppendLine($"Rotation: {Rotation}");
+        return stringBuilder.ToString();
     }
 }

@@ -195,3 +195,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDisplaysContainer: {fileID: 5944580503162870811}
+  cardDisplayPrefab: {fileID: 5259222247787883666, guid: 4bba00f0f18c68c4a94599ce0cdde842, type: 3}

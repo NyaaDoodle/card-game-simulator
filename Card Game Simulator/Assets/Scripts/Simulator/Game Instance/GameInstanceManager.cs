@@ -1,19 +1,17 @@
+using System.Collections.Generic;
 using Mirror;
 
 public class GameInstanceManager : NetworkBehaviour
 {
-    [SyncVar] private GameTemplate gameTemplate;
-    [SyncVar] private Table table;
-    public readonly SyncList<Deck> Decks = new SyncList<Deck>();
-    public readonly SyncList<Space> Spaces = new SyncList<Space>();
-    public readonly SyncDictionary<int, Player> Players = new SyncDictionary<int, Player>();
-
-    public Table Table => table;
-    public GameTemplate GameTemplate => gameTemplate;
-    public Player LocalPlayer { get; private set; }
+    public GameTemplate GameTemplate { get; private set; }
+    public Table Table { get; private set; }
+    public readonly List<Deck> Decks = new List<Deck>();
+    public readonly List<Space> Spaces = new List<Space>();
 
     public override void OnStartServer()
     {
+        TraceLogger.LogMethod();
+        base.OnStartServer();
         loadGameTemplate();
         spawnGameObjects();
     }
@@ -21,40 +19,13 @@ public class GameInstanceManager : NetworkBehaviour
     public override void OnStopServer()
     {
         despawnGameObjects();
-    }
-
-    public void AddPlayer(NetworkConnectionToClient conn)
-    {
-        Player clientPlayer = PrefabReferences.Instance.PlayerPrefab.InstantiatePlayer(conn, "Player");
-        Players.Add(clientPlayer.Id, clientPlayer);
-        onPlayerAdd(conn);
-    }
-
-    public void RemovePlayer(NetworkConnectionToClient conn)
-    {
-        if (Players.TryGetValue(conn.connectionId, out Player player))
-        {
-            Destroy(player.gameObject);
-            Players.Remove(conn.connectionId);
-            onPlayerRemoved(conn);
-        }
-    }
-
-    private void onPlayerAdd(NetworkConnectionToClient target)
-    {
-        LocalPlayer = Players[target.connectionId];
-        ManagerReferences.Instance.SelectionManager.Setup(LocalPlayer);
-    }
-
-    private void onPlayerRemoved(NetworkConnectionToClient target)
-    {
-        LocalPlayer = null;
+        base.OnStopServer();
     }
 
     private void loadGameTemplate()
     {
         GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
-        gameTemplate = gameTemplateLoader.LoadGameTemplate();
+        GameTemplate = gameTemplateLoader.LoadGameTemplate();
     }
 
     private void spawnGameObjects()
@@ -66,7 +37,7 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnTable()
     {
-        table = PrefabReferences.Instance.TablePrefab.InstantiateTable(GameTemplate.TableData);
+        Table = PrefabReferences.Instance.TablePrefab.InstantiateTable(GameTemplate.TableData);
     }
 
     private void spawnDecks()
@@ -112,11 +83,6 @@ public class GameInstanceManager : NetworkBehaviour
         foreach (Space space in Spaces)
         {
             Destroy(space.gameObject);
-        }
-
-        foreach (Player player in Players.Values)
-        {
-            Destroy(player.gameObject);
         }
     }
 }

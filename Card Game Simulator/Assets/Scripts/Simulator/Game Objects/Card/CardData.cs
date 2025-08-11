@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Newtonsoft.Json;
 
 public readonly struct CardData : IEquatable<CardData>
@@ -62,5 +63,18 @@ public readonly struct CardData : IEquatable<CardData>
     public static bool operator !=(CardData cardData1, CardData cardData2)
     {
         return !cardData1.Equals(cardData2);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"Id: {Id}");
+        stringBuilder.AppendLine($"Name: {Name}");
+        stringBuilder.AppendLine($"Description: {Description}");
+        stringBuilder.AppendLine($"Width: {Width}");
+        stringBuilder.AppendLine($"Height: {Height}");
+        stringBuilder.AppendLine($"BackSideSpritePath: {BackSideSpritePath}");
+        stringBuilder.AppendLine($"FrontSideSpritePath: {FrontSideSpritePath}");
+        return stringBuilder.ToString();
     }
 }

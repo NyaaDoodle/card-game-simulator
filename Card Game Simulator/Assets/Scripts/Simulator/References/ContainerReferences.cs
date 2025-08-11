@@ -7,6 +7,7 @@ public class ContainerReferences : MonoBehaviour
     public RectTransform TableContainer;
     public RectTransform TableObjectsContainer;
     public RectTransform PlayerHandContainer;
+    public RectTransform InteractionMenuContainer;
     public RectTransform InteractionMenuItemsContainer;
 
     void Awake()

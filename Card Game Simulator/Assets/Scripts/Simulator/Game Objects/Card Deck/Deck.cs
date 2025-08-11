@@ -8,11 +8,11 @@ public class Deck : Stackable
     {
         DeckData = deckData;
         base.Setup(deckData);
+        addStartingCards();
     }
 
     private void addStartingCards()
     {
-        if (DeckData != null) return;
         List<Card> startingCards = new List<Card>();
         foreach (CardData cardData in DeckData.StartingCards)
         {

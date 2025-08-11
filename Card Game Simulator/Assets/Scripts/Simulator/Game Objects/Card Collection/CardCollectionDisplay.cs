@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardCollectionDisplay : MonoBehaviour
 {
     [SerializeField] private RectTransform cardDisplaysContainer;
+    [SerializeField] private GameObject cardDisplayPrefab;
     protected CardCollection CardCollection { get; private set; }
     protected List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
     public event Action<CardCollection, Card> CardSelected;
@@ -77,8 +78,7 @@ public class CardCollectionDisplay : MonoBehaviour
     {
         try
         {
-            CardDisplay cardDisplay =
-                PrefabReferences.Instance.CardTableDisplayPrefab.InstantiateCardDisplay(card, cardDisplaysContainer.transform);
+            CardDisplay cardDisplay = cardDisplayPrefab.InstantiateCardDisplay(card, cardDisplaysContainer.transform);
             CardDisplays.Insert(insertionIndex, cardDisplay);
             SetCardDisplayHierarchyReverseIndex(cardDisplay, insertionIndex);
             subscribeToCardSelected(cardDisplay);
