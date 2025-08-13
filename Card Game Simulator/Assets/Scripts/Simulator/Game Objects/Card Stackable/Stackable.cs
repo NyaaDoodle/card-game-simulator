@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public class Stackable : CardCollection
 {
@@ -24,16 +25,10 @@ public class Stackable : CardCollection
         StackableData = stackableData;
     }
 
-    public override void AddCardAtStart(Card card)
+    public override void AddCard(Card card, int index)
     {
         card = card.FaceDown();
-        base.AddCardAtStart(card);
-    }
-
-    public override void AddCardAtEnd(Card card)
-    {
-        card = card.FaceDown();
-        base.AddCardAtEnd(card);
+        base.AddCard(card, index);
     }
 
     public void Shuffle()
@@ -52,5 +47,13 @@ public class Stackable : CardCollection
     protected virtual void OnCardsShuffled()
     {
         CardsShuffled?.Invoke(this);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"StackableData {StackableData.ToString()}");
+        stringBuilder.AppendLine(base.ToString());
+        return stringBuilder.ToString();
     }
 }

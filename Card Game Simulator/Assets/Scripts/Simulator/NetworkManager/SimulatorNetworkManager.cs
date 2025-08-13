@@ -6,13 +6,11 @@ public class SimulatorNetworkManager : NetworkManager
     {
         TraceLogger.LogMethod();
         base.OnServerReady(conn);
-        ManagerReferences.Instance.PlayerManager.AddPlayer(conn);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         TraceLogger.LogMethod();
-        ManagerReferences.Instance.PlayerManager.RemovePlayer(conn);
         base.OnServerDisconnect(conn);
     }
 }

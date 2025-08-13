@@ -3,18 +3,6 @@ using UnityEngine;
 
 public static class PrefabExtensions
 {
-    public static Player InstantiatePlayer(this GameObject prefab, NetworkConnectionToClient conn, string playerName)
-    {
-        int startingScore = 0;
-        GameObject playerGameObject = GameObject.Instantiate(prefab);
-        Player player = playerGameObject.GetComponent<Player>();
-        player.Setup(conn.connectionId, playerName, startingScore);
-        PlayerHand playerHand = playerGameObject.GetComponent<PlayerHand>();
-        playerGameObject.GetComponent<PlayerHandDisplay>().Setup(playerHand);
-        NetworkServer.AddPlayerForConnection(conn, playerGameObject);
-        return player;
-    }
-
     public static CardDisplay InstantiateCardDisplay(this GameObject prefab,
                                                           Card card,
                                                           Transform parent)

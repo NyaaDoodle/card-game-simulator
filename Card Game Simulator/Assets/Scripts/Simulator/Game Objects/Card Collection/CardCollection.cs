@@ -11,7 +11,6 @@ public class CardCollection : NetworkBehaviour
     // Events
     public event Action<CardCollection, Card, int> CardAdded;
     public event Action<CardCollection, Card, int> CardRemoved;
-    public event Action<CardCollection, Card> CardSelected;
     public event Action<CardCollection> CardsCleared;
 
     public SyncList<Card> Cards => cards;
@@ -76,12 +75,6 @@ public class CardCollection : NetworkBehaviour
     {
         CardRemoved?.Invoke(this, cardRemoved, index);
     }
-
-    protected virtual void OnCardSelected(Card cardSelected)
-    {
-        CardSelected?.Invoke(this, cardSelected);
-    }
-
 
     [Server]
     public virtual void AddCard(Card card, int index)

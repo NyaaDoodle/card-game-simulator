@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerHandDisplay : CardCollectionDisplay
 {
@@ -9,9 +10,9 @@ public class PlayerHandDisplay : CardCollectionDisplay
 
     public PlayerHand PlayerHand { get; private set; }
 
-    public void Setup(PlayerHand playerHand)
+    private void Awake()
     {
-        PlayerHand = playerHand;
+        PlayerHand = GetComponent<PlayerHand>();
         base.Setup(PlayerHand);
     }
 

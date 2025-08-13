@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Newtonsoft.Json;
 
 public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
@@ -60,5 +61,16 @@ public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
     public static bool operator !=(SpaceData spaceData1, SpaceData spaceData2)
     {
         return !spaceData1.Equals(spaceData2);
+    }
+    
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"Id: {Id}");
+        stringBuilder.AppendLine($"Name: {Name}");
+        stringBuilder.AppendLine($"TableXCoordinate: {TableXCoordinate}");
+        stringBuilder.AppendLine($"TableYCoordinate: {TableYCoordinate}");
+        stringBuilder.AppendLine($"Rotation: {Rotation}");
+        return stringBuilder.ToString();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using Newtonsoft.Json;
 
 public readonly struct DeckData : IStackableData, IEquatable<DeckData>
@@ -96,5 +97,21 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
     public static bool operator !=(DeckData deckData1, DeckData deckData2)
     {
         return !deckData1.Equals(deckData2);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"Id: {Id}");
+        stringBuilder.AppendLine($"Name: {Name}");
+        stringBuilder.AppendLine($"TableXCoordinate: {TableXCoordinate}");
+        stringBuilder.AppendLine($"TableYCoordinate: {TableYCoordinate}");
+        stringBuilder.AppendLine($"Rotation: {Rotation}");
+        stringBuilder.AppendLine($"StartingCards:");
+        foreach (CardData cardData in StartingCards)
+        {
+            stringBuilder.AppendLine(cardData.ToString());
+        }
+        return stringBuilder.ToString();
     }
 }

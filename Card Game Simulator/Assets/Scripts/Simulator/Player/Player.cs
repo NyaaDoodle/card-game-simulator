@@ -1,57 +1,21 @@
-﻿using Mirror;
+﻿using System;
+using System.Text;
+using Mirror;
 
 public class Player : NetworkBehaviour
 {
-    [SyncVar] private int id;
-    [SyncVar] private new string name = "Player";
-    [SyncVar] private int score = 0;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int Score { get; set; }
 
-    public int Id
+    public override string ToString()
     {
-        get
-        {
-            return id;
-        }
-        private set
-        {
-            id = value;
-        }
-    }
-
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-        private set
-        {
-            name = value;
-        }
-    }
-
-    public int Score
-    {
-        get
-        {
-            return score;
-        }
-        private set
-        {
-            score = value;
-        }
-    }
-
-    public void Setup(int id, string name, int startingScore)
-    {
-        Id = id;
-        Name = name;
-        Score = startingScore;
-    }
-
-    public void SetScore(int newScore)
-    {
-        Score = newScore;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("Player");
+        stringBuilder.AppendLine($"Id: {Id}");
+        stringBuilder.AppendLine($"Name: {Name}");
+        stringBuilder.AppendLine($"Score: {Score}");
+        return stringBuilder.ToString();
     }
 
     [Command]
@@ -74,15 +38,16 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSearchDeck(Deck deck)
-    {
-
-    }
+    public void CmdSearchDeck(Deck deck) {}
 
     [Command]
     public void CmdPlaceCardFaceUp(Card cardToPlace, Stackable destinationStackable)
     {
+        TraceLogger.LogMethod();
+        TraceLogger.LogVariable(nameof(cardToPlace), cardToPlace);
+        TraceLogger.LogVariable(nameof(destinationStackable), destinationStackable);
         PlayerHand playerHand = GetComponent<PlayerHand>();
+        TraceLogger.LogVariable(nameof(playerHand), playerHand);
         if (playerHand.RemoveCard(cardToPlace))
         {
             destinationStackable.AddCardAtStart(cardToPlace);
@@ -93,7 +58,11 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdPlaceCardFaceDown(Card cardToPlace, Stackable destinationStackable)
     {
+        TraceLogger.LogMethod();
+        TraceLogger.LogVariable(nameof(cardToPlace), cardToPlace);
+        TraceLogger.LogVariable(nameof(destinationStackable), destinationStackable);
         PlayerHand playerHand = GetComponent<PlayerHand>();
+        TraceLogger.LogVariable(nameof(playerHand), playerHand);
         if (playerHand.RemoveCard(cardToPlace))
         {
             destinationStackable.AddCardAtStart(cardToPlace);

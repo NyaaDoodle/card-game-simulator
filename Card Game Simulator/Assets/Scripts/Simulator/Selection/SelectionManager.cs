@@ -43,8 +43,8 @@ public class SelectionManager : MonoBehaviour
     {
         foreach (Deck deck in decks)
         {
-            deck.CardSelected += onStackableCardSelected;
             DeckDisplay deckDisplay = deck.GetComponent<DeckDisplay>();
+            deckDisplay.CardSelected += onStackableCardSelected;
             deckDisplay.StackableSelected += onStackableSelfSelected;
         }
     }
@@ -53,16 +53,16 @@ public class SelectionManager : MonoBehaviour
     {
         foreach (Space space in spaces)
         {
-            space.CardSelected += onStackableCardSelected;
             SpaceDisplay spaceDisplay = space.GetComponent<SpaceDisplay>();
+            spaceDisplay.CardSelected += onStackableCardSelected;
             spaceDisplay.StackableSelected += onStackableSelfSelected;
         }
     }
 
     private void subscribeToPlayerHandSelectionEvents()
     {
-        PlayerHand playerHand = player.GetComponent<PlayerHand>();
-        playerHand.CardSelected += onPlayerHandCardSelected;
+        PlayerHandDisplay playerHandDisplay = player.GetComponent<PlayerHandDisplay>();
+        playerHandDisplay.CardSelected += onPlayerHandCardSelected;
     }
 
     private void onStackableCardSelected(CardCollection cardCollection, Card card)
@@ -183,11 +183,15 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedPlaceCard()
     {
-
+        // TODO add popup message informing user that they need to select a deck/space to place the card
     }
 
     private void onInteractiveMenuSelectedFaceUp()
     {
+        TraceLogger.LogMethod();
+        TraceLogger.LogVariable("playerName", sourceSelection.SelectedCardCollection);
+        TraceLogger.LogVariable("selectedCard", sourceSelection.SelectedCardCollection);
+        TraceLogger.LogVariable("stackable", destinationSelection.SelectedCardCollection);
         if (sourceSelection.SelectedCardCollection is PlayerHand playerHand && sourceSelection.SelectedCard != null
                                                                             && destinationSelection
                                                                                     .SelectedCardCollection is Stackable
@@ -200,6 +204,10 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedFaceDown()
     {
+        TraceLogger.LogMethod();
+        TraceLogger.LogVariable("playerName", sourceSelection.SelectedCardCollection);
+        TraceLogger.LogVariable("selectedCard", sourceSelection.SelectedCardCollection);
+        TraceLogger.LogVariable("stackable", destinationSelection.SelectedCardCollection);
         if (sourceSelection.SelectedCardCollection is PlayerHand playerHand && sourceSelection.SelectedCard != null
                                                                             && destinationSelection
                                                                                     .SelectedCardCollection is Stackable

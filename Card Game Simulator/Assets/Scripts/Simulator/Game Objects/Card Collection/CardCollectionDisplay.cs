@@ -41,6 +41,7 @@ public class CardCollectionDisplay : MonoBehaviour
         if (CardCollection == null) return;
         CardCollection.CardAdded -= OnCardAdded;
         CardCollection.CardRemoved -= OnCardRemoved;
+        CardCollection.CardsCleared -= OnCardsCleared;
     }
 
     protected virtual void RefreshCardDisplays()

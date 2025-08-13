@@ -6,6 +6,7 @@ public class LoggingManager : MonoBehaviour
     [SerializeField] private bool isLogVariableEnabled;
     [SerializeField] private bool isLogListEnabled;
     [SerializeField] private bool isLogDictionaryEnabled;
+    [SerializeField] private bool isGeneralLogEnabled;
 
     void Start()
     {
@@ -23,5 +24,6 @@ public class LoggingManager : MonoBehaviour
         TraceLogger.IsLogVariableEnabled = isLogVariableEnabled;
         TraceLogger.IsLogListEnabled = isLogListEnabled;
         TraceLogger.IsLogDictionaryEnabled = isLogDictionaryEnabled;
+        TraceLogger.IsGeneralLogEnabled = isGeneralLogEnabled;
     }
 }

@@ -10,6 +10,7 @@ public static class TraceLogger
     public static bool IsLogVariableEnabled { get; set; }
     public static bool IsLogListEnabled { get; set; }
     public static bool IsLogDictionaryEnabled { get; set; }
+    public static bool IsGeneralLogEnabled { get; set; }
 
     public static void LogMethod(
         [CallerMemberName] string memberName = "",
@@ -33,7 +34,7 @@ public static class TraceLogger
         stringBuilder.AppendLine($"{listName}:");
         foreach (T member in list)
         {
-            stringBuilder.AppendLine(member.ToString());
+            stringBuilder.AppendLine(valueOrElseNullString(member));
             stringBuilder.AppendLine();
         }
         Debug.Log(stringBuilder.ToString());
@@ -46,9 +47,22 @@ public static class TraceLogger
         stringBuilder.AppendLine($"{dictionaryName}:");
         foreach (KeyValuePair<K, V> pair in dictionary)
         {
-            stringBuilder.AppendLine($"{pair.Key.ToString()} => {pair.Value.ToString()}");
+            stringBuilder.AppendLine($"{valueOrElseNullString(pair.Key)} => {valueOrElseNullString(pair.Value)}");
             stringBuilder.AppendLine();
         }
         Debug.Log(stringBuilder.ToString());
     }
+    
+    public static void Log(string message)
+    {
+        if (!IsGeneralLogEnabled) return;
+        Debug.Log(message);
+    }
+
+    private static string valueOrElseNullString<T>(T value)
+    {
+        return value != null ? value.ToString() : "null";
+    }
+
+    
 }
