@@ -965,11 +965,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def6df6a6b0464d46aecf877aba32204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLogMethodEnabled: 1
-  isLogVariableEnabled: 1
-  isLogListEnabled: 1
-  isLogDictionaryEnabled: 1
-  isGeneralLogEnabled: 1
+  isLogMethodEnabled: 0
+  isLogVariableEnabled: 0
+  isLogListEnabled: 0
+  isLogDictionaryEnabled: 0
+  isGeneralLogEnabled: 0
 --- !u!1 &1218734494
 GameObject:
   m_ObjectHideFlags: 0

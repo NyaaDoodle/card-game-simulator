@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class CardCollectionDisplay : MonoBehaviour
+[RequireComponent(typeof(CardCollection))]
+public class CardCollectionDisplay : NetworkBehaviour
 {
     [SerializeField] private RectTransform cardDisplaysContainer;
     [SerializeField] private GameObject cardDisplayPrefab;
-    protected CardCollection CardCollection { get; private set; }
+    protected CardCollection cardCollection;
     protected List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
     public event Action<CardCollection, Card> CardSelected;
 
-    public virtual void Setup(CardCollection cardCollection)
+    public override void OnStartClient()
     {
-        CardCollection = cardCollection;
+        base.OnStartClient();
+        SetCardCollection();
         SubscribeToStateEvents();
         RefreshCardDisplays();
+    }
+
+    protected virtual void SetCardCollection()
+    {
+        cardCollection = GetComponent<CardCollection>();
     }
 
     void OnDestroy()
@@ -26,9 +34,9 @@ public class CardCollectionDisplay : MonoBehaviour
     {
         try
         {
-            CardCollection.CardAdded += OnCardAdded;
-            CardCollection.CardRemoved += OnCardRemoved;
-            CardCollection.CardsCleared += OnCardsCleared;
+            cardCollection.CardAdded += OnCardAdded;
+            cardCollection.CardRemoved += OnCardRemoved;
+            cardCollection.CardsCleared += OnCardsCleared;
         }
         catch (NullReferenceException)
         {
@@ -38,10 +46,10 @@ public class CardCollectionDisplay : MonoBehaviour
 
     protected virtual void UnsubscribeFromStateEvents()
     {
-        if (CardCollection == null) return;
-        CardCollection.CardAdded -= OnCardAdded;
-        CardCollection.CardRemoved -= OnCardRemoved;
-        CardCollection.CardsCleared -= OnCardsCleared;
+        if (cardCollection == null) return;
+        cardCollection.CardAdded -= OnCardAdded;
+        cardCollection.CardRemoved -= OnCardRemoved;
+        cardCollection.CardsCleared -= OnCardsCleared;
     }
 
     protected virtual void RefreshCardDisplays()
@@ -49,7 +57,7 @@ public class CardCollectionDisplay : MonoBehaviour
         try
         {
             ClearCardDisplays();
-            foreach (Card card in CardCollection.Cards)
+            foreach (Card card in cardCollection.Cards)
             {
                 AddCardDisplayToEnd(card);
             }
@@ -138,6 +146,6 @@ public class CardCollectionDisplay : MonoBehaviour
 
     protected virtual void OnCardSelected(Card card)
     {
-        CardSelected?.Invoke(CardCollection, card);
+        CardSelected?.Invoke(cardCollection, card);
     }
 }

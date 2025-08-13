@@ -1,10 +1,14 @@
-﻿public class DeckDisplay : StackableDisplay
-{
-    public Deck DeckState { get; private set; }
+﻿using UnityEngine;
 
-    public void Setup(Deck deckState)
+[RequireComponent(typeof(Deck))]
+public class DeckDisplay : StackableDisplay
+{
+    protected Deck deck;
+
+    protected override void SetCardCollection()
     {
-        base.Setup(deckState);
-        DeckState = deckState;
+        deck = GetComponent<Deck>();
+        stackable = deck;
+        cardCollection = deck;
     }
 }

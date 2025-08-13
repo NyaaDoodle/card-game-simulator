@@ -6,6 +6,7 @@ public class Table : NetworkBehaviour
 
     public TableData TableData => tableData;
 
+    [Server]
     public void Setup(TableData tableData)
     {
         this.tableData = tableData;

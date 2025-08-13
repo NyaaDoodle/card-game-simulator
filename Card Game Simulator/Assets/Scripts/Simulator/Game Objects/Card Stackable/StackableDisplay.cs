@@ -3,27 +3,33 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(RectTransform))]
+[RequireComponent(typeof(Stackable))]
 public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 {
-    public Stackable Stackable { get; private set; }
-
+    protected Stackable stackable;
     public event Action<Stackable> StackableSelected;
 
-    public void Setup(Stackable stackableState)
+    public override void OnStartClient()
     {
-        Stackable = stackableState;
+        base.OnStartClient();
         relocateOnTable();
         rotateOnTable();
-        base.Setup(stackableState);
+    }
+
+    protected override void SetCardCollection()
+    {
+        stackable = GetComponent<Stackable>();
+        cardCollection = stackable;
     }
 
     private void relocateOnTable()
     {
+        Debug.Log(stackable.ToString() ?? "null");
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
-            float x = Stackable.StackableData.TableXCoordinate;
-            float y = Stackable.StackableData.TableYCoordinate;
+            float x = stackable.StackableData.TableXCoordinate;
+            float y = stackable.StackableData.TableYCoordinate;
             rectTransform.anchoredPosition = new Vector2(x, y);
         }
         catch (NullReferenceException)
@@ -37,7 +43,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
-            rectTransform.Rotate(0, 0, Stackable.StackableData.Rotation);
+            rectTransform.Rotate(0, 0, stackable.StackableData.Rotation);
         }
         catch (NullReferenceException)
         {
@@ -48,13 +54,13 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
     protected override void SubscribeToStateEvents()
     {
         base.SubscribeToStateEvents();
-        Stackable.CardsShuffled += onCardsShuffled;
+        stackable.CardsShuffled += onCardsShuffled;
     }
 
     protected override void UnsubscribeFromStateEvents()
     {
         base.UnsubscribeFromStateEvents();
-        Stackable.CardsShuffled -= onCardsShuffled;
+        stackable.CardsShuffled -= onCardsShuffled;
     }
 
     public virtual void OnPointerClick(PointerEventData pointerEventData)
@@ -69,6 +75,6 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
     
     protected virtual void OnStackableSelected()
     {
-        StackableSelected?.Invoke(Stackable);
+        StackableSelected?.Invoke(stackable);
     }
 }

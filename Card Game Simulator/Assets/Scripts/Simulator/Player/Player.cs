@@ -1,12 +1,47 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Mirror;
 
 public class Player : NetworkBehaviour
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int Score { get; set; }
+    [SyncVar] private int id;
+    [SyncVar] private new string name;
+    [SyncVar] private int score;
+    
+    public int Id
+    {
+        get
+        {
+            return id;
+        }
+        set
+        {
+            id = value;
+        }
+    }
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+    }
+
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            score = value;
+        }
+    }
 
     public override string ToString()
     {
@@ -16,6 +51,12 @@ public class Player : NetworkBehaviour
         stringBuilder.AppendLine($"Name: {Name}");
         stringBuilder.AppendLine($"Score: {Score}");
         return stringBuilder.ToString();
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        ManagerReferences.Instance.SelectionManager.Setup(this);
     }
 
     [Command]

@@ -1,10 +1,14 @@
-﻿public class SpaceDisplay : StackableDisplay
-{
-    public Space SpaceState { get; private set; }
+﻿using UnityEngine;
 
-    public void Setup(Space spaceState)
+[RequireComponent(typeof(Space))]
+public class SpaceDisplay : StackableDisplay
+{
+    protected Space space;
+
+    protected override void SetCardCollection()
     {
-        base.Setup(spaceState);
-        SpaceState = spaceState;
+        space = GetComponent<Space>();
+        stackable = space;
+        cardCollection = space;
     }
 }

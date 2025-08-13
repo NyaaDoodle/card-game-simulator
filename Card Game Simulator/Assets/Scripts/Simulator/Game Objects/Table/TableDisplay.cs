@@ -3,27 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-public class TableDisplay : MonoBehaviour
+public class TableDisplay : NetworkBehaviour
 {
     [Header("Table Components")]
     [SerializeField] private GameObject tableSurface;
+    private Table table;
 
-    public Table Table { get; private set; }
-
-    [Server]
-    public void Setup(Table table)
+    public override void OnStartClient()
     {
-        Table = table;
+        base.OnStartClient();
+        table = GetComponent<Table>();
         updateTableDisplay();
     }
 
     private void updateTableDisplay()
     {
-        if (Table == null)
-        {
-            Debug.LogError("Table is null when attempting to update table display");
-            return;
-        }
         resizeTable();
         loadSurfaceImage();
     }
@@ -31,8 +25,8 @@ public class TableDisplay : MonoBehaviour
     private void resizeTable()
     {
         Vector2 tableSize = new Vector2(
-            Table.TableData.Width,
-            Table.TableData.Height
+            table.TableData.Width,
+            table.TableData.Height
         );
         gameObject.GetComponent<RectTransform>().sizeDelta = tableSize;
     }
@@ -52,20 +46,21 @@ public class TableDisplay : MonoBehaviour
             return;
         }
 
-        if (string.IsNullOrEmpty(Table.TableData.SurfaceImagePath))
+        string imagePath = table.TableData.SurfaceImagePath;
+        if (string.IsNullOrEmpty(imagePath))
         {
             Debug.LogWarning("Surface image path is empty or null");
         }
 
         // TODO implement loading images from the game template folder
-        Sprite surfaceSprite = Resources.Load<Sprite>(Table.TableData.SurfaceImagePath);
+        Sprite surfaceSprite = Resources.Load<Sprite>(imagePath);
         if (surfaceSprite != null)
         {
             surfaceImage.sprite = surfaceSprite;
         }
         else
         {
-            Debug.LogWarning($"Could not load table surface sprite in path: {Table.TableData.SurfaceImagePath}");
+            Debug.LogWarning($"Could not load table surface sprite in path: {imagePath}");
             surfaceImage.color = Color.green;
         }
     }

@@ -18,7 +18,6 @@ public static class PrefabExtensions
         NetworkServer.Spawn(tableGameObject);
         Table table = tableGameObject.GetComponent<Table>();
         table.Setup(tableData);
-        tableGameObject.GetComponent<TableDisplay>().Setup(table);
         return table;
     }
 
@@ -28,7 +27,6 @@ public static class PrefabExtensions
         NetworkServer.Spawn(deckGameObject);
         Deck deck = deckGameObject.GetComponent<Deck>();
         deck.Setup(deckData);
-        deckGameObject.GetComponent<DeckDisplay>().Setup(deck);
         return deck;
     }
 
@@ -38,7 +36,6 @@ public static class PrefabExtensions
         NetworkServer.Spawn(spaceGameObject);
         Space space = spaceGameObject.GetComponent<Space>();
         space.Setup(spaceData);
-        spaceGameObject.GetComponent<SpaceDisplay>().Setup(space);
         return space;
     }
 

@@ -8,12 +8,12 @@ public class PlayerHandDisplay : CardCollectionDisplay
     [SerializeField] private float cardHorizontalSpacing = 150;
     [SerializeField] private float cardVerticalSpacing = 100;
 
-    public PlayerHand PlayerHand { get; private set; }
+    protected PlayerHand playerHand;
 
-    private void Awake()
+    protected override void SetCardCollection()
     {
-        PlayerHand = GetComponent<PlayerHand>();
-        base.Setup(PlayerHand);
+        playerHand = GetComponent<PlayerHand>();
+        cardCollection = playerHand;
     }
 
     protected override void OnCardAdded(CardCollection _, Card cardState, int index)
