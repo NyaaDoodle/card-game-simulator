@@ -6,30 +6,30 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Stackable))]
 public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 {
-    protected Stackable stackable;
+    public Stackable Stackable => (Stackable)CardCollection;
     public event Action<Stackable> StackableSelected;
-
-    public override void OnStartClient()
+    protected override void OnReady(CardCollection _)
     {
-        base.OnStartClient();
+        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        base.OnReady(_);
         relocateOnTable();
         rotateOnTable();
     }
 
     protected override void SetCardCollection()
     {
-        stackable = GetComponent<Stackable>();
-        cardCollection = stackable;
+        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        CardCollection = GetComponent<Stackable>();
     }
 
     private void relocateOnTable()
     {
-        Debug.Log(stackable != null ? stackable.ToString() : "null");
+        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
-            float x = stackable.StackableData.TableXCoordinate;
-            float y = stackable.StackableData.TableYCoordinate;
+            float x = Stackable.StackableData.TableXCoordinate;
+            float y = Stackable.StackableData.TableYCoordinate;
             rectTransform.anchoredPosition = new Vector2(x, y);
         }
         catch (NullReferenceException)
@@ -40,10 +40,11 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     private void rotateOnTable()
     {
+        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
-            rectTransform.Rotate(0, 0, stackable.StackableData.Rotation);
+            rectTransform.Rotate(0, 0, Stackable.StackableData.Rotation);
         }
         catch (NullReferenceException)
         {
@@ -51,30 +52,15 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
         }
     }
 
-    protected override void SubscribeToStateEvents()
-    {
-        base.SubscribeToStateEvents();
-        stackable.CardsShuffled += onCardsShuffled;
-    }
-
-    protected override void UnsubscribeFromStateEvents()
-    {
-        base.UnsubscribeFromStateEvents();
-        stackable.CardsShuffled -= onCardsShuffled;
-    }
-
     public virtual void OnPointerClick(PointerEventData pointerEventData)
     {
+        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
         OnStackableSelected();
-    }
-
-    private void onCardsShuffled(Stackable _)
-    {
-        RefreshCardDisplays();
     }
     
     protected virtual void OnStackableSelected()
     {
-        StackableSelected?.Invoke(stackable);
+        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        StackableSelected?.Invoke(Stackable);
     }
 }

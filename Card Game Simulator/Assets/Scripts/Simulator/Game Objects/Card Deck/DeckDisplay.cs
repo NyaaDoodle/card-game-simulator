@@ -3,12 +3,11 @@
 [RequireComponent(typeof(Deck))]
 public class DeckDisplay : StackableDisplay
 {
-    protected Deck deck;
+    public Deck Deck => (Deck)CardCollection;
 
     protected override void SetCardCollection()
     {
-        deck = GetComponent<Deck>();
-        stackable = deck;
-        cardCollection = deck;
+        LoggerReferences.Instance.DeckDisplayLogger.LogMethod();
+        CardCollection = GetComponent<Deck>();
     }
 }

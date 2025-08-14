@@ -4,32 +4,29 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 
-public static class TraceLogger
+[System.Serializable]
+public class TraceLogger
 {
-    public static bool IsLogMethodEnabled { get; set; }
-    public static bool IsLogVariableEnabled { get; set; }
-    public static bool IsLogListEnabled { get; set; }
-    public static bool IsLogDictionaryEnabled { get; set; }
-    public static bool IsGeneralLogEnabled { get; set; }
+    public bool IsEnabled;
 
-    public static void LogMethod(
+    public void LogMethod(
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0)
     {
-        if (!IsLogMethodEnabled) return;
+        if (!IsEnabled) return;
         Debug.Log($"{memberName} ; {Path.GetFileName(filePath)} at line {lineNumber}");
     }
 
-    public static void LogVariable<T>(string variableName, T value)
+    public void LogVariable<T>(string variableName, T value)
     {
-        if (!IsLogVariableEnabled) return;
+        if (!IsEnabled) return;
         Debug.Log($"{variableName}: {(value != null ? value.ToString() : "null")}");
     }
 
-    public static void LogList<T>(string listName, IList<T> list)
+    public void LogList<T>(string listName, IList<T> list)
     {
-        if (!IsLogListEnabled) return;
+        if (!IsEnabled) return;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine($"{listName}:");
         foreach (T member in list)
@@ -40,9 +37,9 @@ public static class TraceLogger
         Debug.Log(stringBuilder.ToString());
     }
 
-    public static void LogDictionary<K, V>(string dictionaryName, IDictionary<K, V> dictionary)
+    public void LogDictionary<K, V>(string dictionaryName, IDictionary<K, V> dictionary)
     {
-        if (!IsLogDictionaryEnabled) return;
+        if (!IsEnabled) return;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine($"{dictionaryName}:");
         foreach (KeyValuePair<K, V> pair in dictionary)
@@ -52,17 +49,9 @@ public static class TraceLogger
         }
         Debug.Log(stringBuilder.ToString());
     }
-    
-    public static void Log(string message)
-    {
-        if (!IsGeneralLogEnabled) return;
-        Debug.Log(message);
-    }
 
     private static string valueOrElseNullString<T>(T value)
     {
         return value != null ? value.ToString() : "null";
     }
-
-    
 }

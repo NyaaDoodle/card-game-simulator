@@ -11,6 +11,7 @@ public class TableDisplay : NetworkBehaviour
 
     public override void OnStartClient()
     {
+        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
         base.OnStartClient();
         table = GetComponent<Table>();
         updateTableDisplay();
@@ -18,12 +19,14 @@ public class TableDisplay : NetworkBehaviour
 
     private void updateTableDisplay()
     {
+        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
         resizeTable();
         loadSurfaceImage();
     }
 
     private void resizeTable()
     {
+        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
         Vector2 tableSize = new Vector2(
             table.TableData.Width,
             table.TableData.Height
@@ -33,6 +36,7 @@ public class TableDisplay : NetworkBehaviour
 
     private void loadSurfaceImage()
     {
+        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
         if (tableSurface == null)
         {
             Debug.LogError("Table surface object is null");

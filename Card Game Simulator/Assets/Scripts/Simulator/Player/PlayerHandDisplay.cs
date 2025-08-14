@@ -8,28 +8,38 @@ public class PlayerHandDisplay : CardCollectionDisplay
     [SerializeField] private float cardHorizontalSpacing = 150;
     [SerializeField] private float cardVerticalSpacing = 100;
 
-    protected PlayerHand playerHand;
+    public PlayerHand PlayerHand => (PlayerHand)CardCollection;
 
     protected override void SetCardCollection()
     {
-        playerHand = GetComponent<PlayerHand>();
-        cardCollection = playerHand;
+        LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
+        CardCollection = GetComponent<PlayerHand>();
+    }
+
+    protected override void OnReady(CardCollection _)
+    {
+        LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
+        base.OnReady(_);
+        updateHandVisuals();
     }
 
     protected override void OnCardAdded(CardCollection _, Card cardState, int index)
     {
+        LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
         base.OnCardAdded(_, cardState, index);
         updateHandVisuals();
     }
 
     protected override void OnCardRemoved(CardCollection _, Card card, int index)
     {
+        LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
         base.OnCardRemoved(_, card, index);
         updateHandVisuals();
     }
 
     private void updateHandVisuals()
     {
+        LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
         int cardCount = CardDisplays.Count;
         for (int i = 0; i < cardCount; i++)
         {

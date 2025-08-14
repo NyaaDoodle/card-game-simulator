@@ -1,10 +1,9 @@
 public class Space : Stackable
 {
-    public SpaceData SpaceData { get; private set; }
-
+    public SpaceData SpaceData => (SpaceData)StackableData;
     public void Setup(SpaceData spaceData)
     {
-        SpaceData = spaceData;
+        LoggerReferences.Instance.SpaceLogger.LogMethod();
         base.Setup(spaceData);
     }
 }

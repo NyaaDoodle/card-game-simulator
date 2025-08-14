@@ -68,6 +68,7 @@ public readonly struct CardData : IEquatable<CardData>
     public override string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("CardData");
         stringBuilder.AppendLine($"Id: {Id}");
         stringBuilder.AppendLine($"Name: {Name}");
         stringBuilder.AppendLine($"Description: {Description}");

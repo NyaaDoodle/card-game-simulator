@@ -8,35 +8,45 @@ public class CardCollectionDisplay : NetworkBehaviour
 {
     [SerializeField] private RectTransform cardDisplaysContainer;
     [SerializeField] private GameObject cardDisplayPrefab;
-    protected CardCollection cardCollection;
+    public CardCollection CardCollection { get; protected set; }
     protected List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
     public event Action<CardCollection, Card> CardSelected;
 
-    public override void OnStartClient()
+    protected virtual void Awake()
     {
-        base.OnStartClient();
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         SetCardCollection();
-        SubscribeToStateEvents();
+        SubscribeToCardCollectionEvents();
+        CardCollection.Ready += OnReady;
+    }
+
+    protected virtual void OnReady(CardCollection _)
+    {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         RefreshCardDisplays();
     }
 
-    protected virtual void SetCardCollection()
+    protected virtual void OnDestroy()
     {
-        cardCollection = GetComponent<CardCollection>();
-    }
-
-    void OnDestroy()
-    {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
+        ClearCardDisplays();
         UnsubscribeFromStateEvents();
     }
-
-    protected virtual void SubscribeToStateEvents()
+    
+    protected virtual void SetCardCollection()
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();;
+        CardCollection = GetComponent<CardCollection>();
+    }
+
+    protected virtual void SubscribeToCardCollectionEvents()
+    {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         try
         {
-            cardCollection.CardAdded += OnCardAdded;
-            cardCollection.CardRemoved += OnCardRemoved;
-            cardCollection.CardsCleared += OnCardsCleared;
+            CardCollection.CardAdded += OnCardAdded;
+            CardCollection.CardRemoved += OnCardRemoved;
+            CardCollection.CardsCleared += OnCardsCleared;
         }
         catch (NullReferenceException)
         {
@@ -46,18 +56,20 @@ public class CardCollectionDisplay : NetworkBehaviour
 
     protected virtual void UnsubscribeFromStateEvents()
     {
-        if (cardCollection == null) return;
-        cardCollection.CardAdded -= OnCardAdded;
-        cardCollection.CardRemoved -= OnCardRemoved;
-        cardCollection.CardsCleared -= OnCardsCleared;
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
+        if (CardCollection == null) return;
+        CardCollection.CardAdded -= OnCardAdded;
+        CardCollection.CardRemoved -= OnCardRemoved;
+        CardCollection.CardsCleared -= OnCardsCleared;
     }
 
     protected virtual void RefreshCardDisplays()
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         try
         {
             ClearCardDisplays();
-            foreach (Card card in cardCollection.Cards)
+            foreach (Card card in CardCollection.Cards)
             {
                 AddCardDisplayToEnd(card);
             }
@@ -70,21 +82,25 @@ public class CardCollectionDisplay : NetworkBehaviour
 
     protected virtual void OnCardAdded(CardCollection _, Card cardState, int index)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         AddCardDisplay(cardState, index);
     }
 
     protected virtual void OnCardRemoved(CardCollection _, Card card, int index)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         RemoveCardDisplay(index);
     }
 
     protected virtual void OnCardsCleared(CardCollection _)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         ClearCardDisplays();
     }
 
     protected virtual void AddCardDisplay(Card card, int insertionIndex)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         try
         {
             CardDisplay cardDisplay = cardDisplayPrefab.InstantiateCardDisplay(card, cardDisplaysContainer.transform);
@@ -100,11 +116,13 @@ public class CardCollectionDisplay : NetworkBehaviour
 
     protected virtual void AddCardDisplayToEnd(Card card)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         AddCardDisplay(card, CardDisplays.Count);
     }
 
     protected virtual void RemoveCardDisplay(int removalIndex)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         try
         {
             CardDisplay cardDisplay = CardDisplays[removalIndex];
@@ -120,6 +138,7 @@ public class CardCollectionDisplay : NetworkBehaviour
 
     protected virtual void ClearCardDisplays()
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         while (CardDisplays.Count > 0)
         {
             RemoveCardDisplay(0);
@@ -128,6 +147,7 @@ public class CardCollectionDisplay : NetworkBehaviour
 
     protected virtual void SetCardDisplayHierarchyReverseIndex(CardDisplay cardDisplay, int index)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         Transform cardDisplaysContainerTransform = cardDisplaysContainer.transform;
         int reverseIndex = cardDisplaysContainerTransform.childCount - 1 - index;
         Transform cardDisplayTransform = cardDisplay.gameObject.transform;
@@ -136,16 +156,19 @@ public class CardCollectionDisplay : NetworkBehaviour
 
     private void subscribeToCardSelected(CardDisplay cardDisplay)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         cardDisplay.Selected += OnCardSelected;
     }
 
     private void unsubscribeFromCardSelected(CardDisplay cardDisplay)
     {
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         cardDisplay.Selected -= OnCardSelected;
     }
 
     protected virtual void OnCardSelected(Card card)
     {
-        CardSelected?.Invoke(cardCollection, card);
+        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
+        CardSelected?.Invoke(CardCollection, card);
     }
 }

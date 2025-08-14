@@ -55,6 +55,7 @@ public class Player : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
         base.OnStartLocalPlayer();
         ManagerReferences.Instance.SelectionManager.Setup(this);
     }
@@ -62,6 +63,7 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdDrawCard(Stackable stackable)
     {
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
         Card drawnCard = stackable.RemoveCardAtStart();
         GetComponent<PlayerHand>().AddCardAtStart(drawnCard);
     }
@@ -69,26 +71,28 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdFlipCard(Stackable stackable)
     {
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
         stackable.FlipFirstCard();
     }
 
     [Command]
     public void CmdShuffleStackable(Stackable stackable)
     {
-        stackable.Shuffle();
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        stackable.ShuffleCards();
     }
 
     [Command]
-    public void CmdSearchDeck(Deck deck) {}
+    public void CmdSearchDeck(Deck deck)
+    {
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
+    }
 
     [Command]
     public void CmdPlaceCardFaceUp(Card cardToPlace, Stackable destinationStackable)
     {
-        TraceLogger.LogMethod();
-        TraceLogger.LogVariable(nameof(cardToPlace), cardToPlace);
-        TraceLogger.LogVariable(nameof(destinationStackable), destinationStackable);
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
         PlayerHand playerHand = GetComponent<PlayerHand>();
-        TraceLogger.LogVariable(nameof(playerHand), playerHand);
         if (playerHand.RemoveCard(cardToPlace))
         {
             destinationStackable.AddCardAtStart(cardToPlace);
@@ -99,11 +103,8 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdPlaceCardFaceDown(Card cardToPlace, Stackable destinationStackable)
     {
-        TraceLogger.LogMethod();
-        TraceLogger.LogVariable(nameof(cardToPlace), cardToPlace);
-        TraceLogger.LogVariable(nameof(destinationStackable), destinationStackable);
+        LoggerReferences.Instance.PlayerLogger.LogMethod();
         PlayerHand playerHand = GetComponent<PlayerHand>();
-        TraceLogger.LogVariable(nameof(playerHand), playerHand);
         if (playerHand.RemoveCard(cardToPlace))
         {
             destinationStackable.AddCardAtStart(cardToPlace);

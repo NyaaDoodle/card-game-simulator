@@ -9,16 +9,19 @@ public class Table : NetworkBehaviour
     [Server]
     public void Setup(TableData tableData)
     {
+        LoggerReferences.Instance.TableLogger.LogMethod();
         this.tableData = tableData;
     }
 
     public override void OnStartClient()
     {
+        LoggerReferences.Instance.TableLogger.LogMethod();
         attachToTableContainer();
     }
 
     private void attachToTableContainer()
     {
+        LoggerReferences.Instance.TableLogger.LogMethod();
         gameObject.transform.SetParent(ContainerReferences.Instance.TableContainer, false);
     }
 }

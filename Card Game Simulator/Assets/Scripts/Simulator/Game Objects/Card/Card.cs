@@ -63,6 +63,7 @@ public readonly struct Card : IEquatable<Card>
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine(CardData.ToString());
+        stringBuilder.AppendLine("Card");
         stringBuilder.AppendLine($"IsFaceUp: {IsFaceUp}");
         stringBuilder.AppendLine($"Rotation: {Rotation}");
         return stringBuilder.ToString();

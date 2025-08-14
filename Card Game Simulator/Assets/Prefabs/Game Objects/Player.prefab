@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
-  syncMode: 0
+  syncMode: 1
   syncInterval: 0
 --- !u!114 &2975897367823669188
 MonoBehaviour:
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
-  syncMode: 0
+  syncMode: 1
   syncInterval: 0
 --- !u!114 &5073072344132678662
 MonoBehaviour:
@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0ce90450f79914386f0041f3c6f784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   cardDisplaysContainer: {fileID: 1830261150822611508}
   cardDisplayPrefab: {fileID: 9038285559676621850, guid: 51386dae6235ac948abb9046215c7a6f, type: 3}
   fanSpreadFactor: -10

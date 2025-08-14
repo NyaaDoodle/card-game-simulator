@@ -1,58 +1,43 @@
 using System;
 using System.Text;
+using Mirror;
 
 public class Stackable : CardCollection
 {
-    public IStackableData StackableData { get; private set; }
-    public Card TopCard => FirstCard;
+    [SyncVar] private IStackableData stackableData;
 
-    // Events
-    public event Action<Stackable> CardsShuffled;
+    public IStackableData StackableData => stackableData;
 
     public override void OnStartClient()
     {
+        LoggerReferences.Instance.StackableLogger.LogMethod();
         base.OnStartClient();
         attachToTableObjectsContainer();
     }
 
     private void attachToTableObjectsContainer()
     {
+        LoggerReferences.Instance.StackableLogger.LogMethod();
         gameObject.transform.SetParent(ContainerReferences.Instance.TableObjectsContainer, false);
     }
 
     public virtual void Setup(IStackableData stackableData)
     {
-        StackableData = stackableData;
+        LoggerReferences.Instance.StackableLogger.LogMethod();
+        this.stackableData = stackableData;
     }
 
     public override void AddCard(Card card, int index)
     {
+        LoggerReferences.Instance.StackableLogger.LogMethod();
         card = card.FaceDown();
         base.AddCard(card, index);
-    }
-
-    public void Shuffle()
-    {
-        if (Cards.Count <= 1) return;
-
-        for (int i = Cards.Count - 1; i > 0; i--)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, i + 1);
-            (Cards[i], Cards[randomIndex]) = (Cards[randomIndex], Cards[i]);
-        }
-
-        OnCardsShuffled();
-    }
-
-    protected virtual void OnCardsShuffled()
-    {
-        CardsShuffled?.Invoke(this);
     }
 
     public override string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine($"StackableData {StackableData.ToString()}");
+        stringBuilder.AppendLine(stackableData != null ? stackableData.ToString() : "null");
         stringBuilder.AppendLine(base.ToString());
         return stringBuilder.ToString();
     }

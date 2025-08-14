@@ -3,12 +3,11 @@
 [RequireComponent(typeof(Space))]
 public class SpaceDisplay : StackableDisplay
 {
-    protected Space space;
+    public Space Space => (Space)CardCollection;
 
     protected override void SetCardCollection()
     {
-        space = GetComponent<Space>();
-        stackable = space;
-        cardCollection = space;
+        LoggerReferences.Instance.SpaceDisplayLogger.LogMethod();
+        CardCollection = GetComponent<Space>();
     }
 }

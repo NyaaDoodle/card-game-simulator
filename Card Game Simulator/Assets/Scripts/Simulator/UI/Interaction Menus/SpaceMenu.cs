@@ -9,12 +9,14 @@ public class SpaceMenu : InteractionMenu
 
     public void Setup(Space space)
     {
+        LoggerReferences.Instance.InteractionMenuLogger.LogMethod();
         this.space = space;
         setupButtons();
     }
 
     private void setupButtons()
     {
+        LoggerReferences.Instance.InteractionMenuLogger.LogMethod();
         DrawCardButton.gameObject.SetActive(isAbleToDrawCard());
         FlipCardButton.gameObject.SetActive(isAbleToFlipCard());
     }
