@@ -24,7 +24,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     private void relocateOnTable()
     {
-        Debug.Log(stackable.ToString() ?? "null");
+        Debug.Log(stackable != null ? stackable.ToString() : "null");
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
