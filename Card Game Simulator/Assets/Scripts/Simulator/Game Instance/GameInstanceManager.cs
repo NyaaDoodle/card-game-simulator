@@ -1,13 +1,21 @@
 using System.Collections.Generic;
 using Mirror;
+using UnityEngine;
 
 public class GameInstanceManager : NetworkBehaviour
 {
+    // Network-synced objects
     [SyncVar] private Table table;
     private readonly SyncList<Deck> decks = new SyncList<Deck>();
     private readonly SyncList<Space> spaces = new SyncList<Space>();
+    
+    // Client-local objects
+    public TableDisplay TableDisplay { get; private set; }
+    public List<DeckDisplay> DeckDisplays { get; } = new List<DeckDisplay>();
+    public List<SpaceDisplay> SpaceDisplays { get; } = new List<SpaceDisplay>();
+    public PlayerHandDisplay LocalPlayerHandDisplay { get; private set; }
 
-    public GameTemplate GameTemplate { get; private set; }
+    public GameTemplate GameTemplate { get; private set; } // TODO synchronize on the network
     public Table Table
     {
         get
@@ -31,6 +39,25 @@ public class GameInstanceManager : NetworkBehaviour
         base.OnStartServer();
         loadGameTemplate();
         spawnGameObjects();
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        
+    }
+
+    void Start()
+    {
+        if (!isClient) return;
+        spawnDisplayObjects();
+    }
+
+    public override void OnStopClient()
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        despawnDisplayObjects();
+        base.OnStopClient();
     }
 
     public override void OnStopServer()
@@ -60,6 +87,12 @@ public class GameInstanceManager : NetworkBehaviour
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
         Table = PrefabReferences.Instance.TablePrefab.InstantiateTable(GameTemplate.TableData);
     }
+    
+    private void spawnTableDisplay()
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        TableDisplay = PrefabReferences.Instance.TableDisplayPrefab.InstantiateTableDisplay(Table);
+    }
 
     private void spawnDecks()
     {
@@ -73,7 +106,7 @@ public class GameInstanceManager : NetworkBehaviour
     private void spawnDeck(DeckData deckData)
     {
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
-        Deck deck = PrefabReferences.Instance.CardDeckPrefab.InstantiateDeck(deckData);
+        Deck deck = PrefabReferences.Instance.DeckPrefab.InstantiateDeck(deckData);
         Decks.Add(deck);
     }
 
@@ -89,7 +122,7 @@ public class GameInstanceManager : NetworkBehaviour
     private void spawnSpace(SpaceData spaceData)
     {
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
-        Space space = PrefabReferences.Instance.CardSpacePrefab.InstantiateSpace(spaceData);
+        Space space = PrefabReferences.Instance.SpacePrefab.InstantiateSpace(spaceData);
         Spaces.Add(space);
     }
 
@@ -103,12 +136,56 @@ public class GameInstanceManager : NetworkBehaviour
         
         foreach (Deck deck in Decks)
         {
-            Destroy(deck.gameObject);
+            if (deck != null)
+            {
+                Destroy(deck.gameObject);
+            }
         }
 
         foreach (Space space in Spaces)
         {
-            Destroy(space.gameObject);
+            if (space != null)
+            {
+                Destroy(space.gameObject);
+            }
+        }
+    }
+
+    private void spawnDisplayObjects()
+    {
+        if (Table != null)
+        {
+            spawnTableDisplay();
+        }
+    }
+
+    private void despawnDisplayObjects()
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        if (TableDisplay != null)
+        {
+            Destroy(TableDisplay.gameObject);
+        }
+
+        foreach (DeckDisplay deckDisplay in DeckDisplays)
+        {
+            if (deckDisplay != null)
+            {
+                Destroy(deckDisplay.gameObject);
+            }
+        }
+        
+        foreach (SpaceDisplay spaceDisplay in SpaceDisplays)
+        {
+            if (spaceDisplay != null)
+            {
+                Destroy(spaceDisplay.gameObject);
+            }
+        }
+
+        if (LocalPlayerHandDisplay != null)
+        {
+            Destroy(LocalPlayerHandDisplay.gameObject);
         }
     }
 }

@@ -1,19 +1,16 @@
-﻿using Mirror;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-public class TableDisplay : NetworkBehaviour
+public class TableDisplay : MonoBehaviour
 {
-    [Header("Table Components")]
     [SerializeField] private GameObject tableSurface;
-    private Table table;
+    public Table Table { get; private set; }
 
-    public override void OnStartClient()
+    public void Setup(Table table)
     {
         LoggerReferences.Instance.TableDisplayLogger.LogMethod();
-        base.OnStartClient();
-        table = GetComponent<Table>();
+        Table = table;
         updateTableDisplay();
     }
 
@@ -28,8 +25,8 @@ public class TableDisplay : NetworkBehaviour
     {
         LoggerReferences.Instance.TableDisplayLogger.LogMethod();
         Vector2 tableSize = new Vector2(
-            table.TableData.Width,
-            table.TableData.Height
+            Table.TableData.Width,
+            Table.TableData.Height
         );
         gameObject.GetComponent<RectTransform>().sizeDelta = tableSize;
     }
@@ -50,7 +47,7 @@ public class TableDisplay : NetworkBehaviour
             return;
         }
 
-        string imagePath = table.TableData.SurfaceImagePath;
+        string imagePath = Table.TableData.SurfaceImagePath;
         if (string.IsNullOrEmpty(imagePath))
         {
             Debug.LogWarning("Surface image path is empty or null");

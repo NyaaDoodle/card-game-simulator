@@ -5,10 +5,13 @@ public class PrefabReferences : MonoBehaviour
     public static PrefabReferences Instance { get; private set; }
 
     public GameObject TablePrefab;
-    public GameObject CardDeckPrefab;
-    public GameObject CardSpacePrefab;
+    public GameObject TableDisplayPrefab;
+    public GameObject DeckPrefab;
+    public GameObject DeckDisplayPrefab;
+    public GameObject SpacePrefab;
+    public GameObject SpaceDisplayPrefab;
     public GameObject PlayerPrefab;
-    public GameObject CardTableDisplayPrefab;
+    public GameObject PlayerHandDisplayPrefab;
 
     void Awake()
     {

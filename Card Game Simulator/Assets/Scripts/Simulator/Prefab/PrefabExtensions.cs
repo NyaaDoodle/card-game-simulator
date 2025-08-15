@@ -23,6 +23,15 @@ public static class PrefabExtensions
         return table;
     }
 
+    public static TableDisplay InstantiateTableDisplay(this GameObject prefab, Table table)
+    {
+        LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
+        Transform parent = ContainerReferences.Instance.TableContainer;
+        TableDisplay tableDisplay = GameObject.Instantiate(prefab, parent).GetComponent<TableDisplay>();
+        tableDisplay.Setup(table);
+        return tableDisplay;
+    }
+
     public static Deck InstantiateDeck(this GameObject prefab, DeckData deckData)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
