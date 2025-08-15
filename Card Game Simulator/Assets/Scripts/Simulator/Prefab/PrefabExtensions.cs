@@ -43,6 +43,15 @@ public static class PrefabExtensions
         return space;
     }
 
+    public static PlayerHandDisplay InstantiatePlayerHandDisplay(this GameObject prefab, PlayerHand playerHand)
+    {
+        LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
+        Transform parent = ContainerReferences.Instance.PlayerHandContainer;
+        PlayerHandDisplay playerHandDisplay = GameObject.Instantiate(prefab, parent).GetComponent<PlayerHandDisplay>();
+        //playerHandDisplay.Setup(playerHand);
+        return playerHandDisplay;
+    }
+
     public static CardSelectionMenu InstantiateCardSelectionMenu(this GameObject prefab, CardCollection cardCollection)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();

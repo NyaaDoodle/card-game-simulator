@@ -4,7 +4,7 @@ using Mirror;
 using UnityEngine;
 
 [RequireComponent(typeof(CardCollection))]
-public class CardCollectionDisplay : NetworkBehaviour
+public class CardCollectionDisplay : MonoBehaviour
 {
     [SerializeField] private RectTransform cardDisplaysContainer;
     [SerializeField] private GameObject cardDisplayPrefab;
@@ -17,7 +17,6 @@ public class CardCollectionDisplay : NetworkBehaviour
         LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         SetCardCollection();
         SubscribeToCardCollectionEvents();
-        CardCollection.Ready += OnReady;
     }
 
     protected virtual void OnReady(CardCollection _)
@@ -44,6 +43,7 @@ public class CardCollectionDisplay : NetworkBehaviour
         LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         try
         {
+            CardCollection.Ready += OnReady;
             CardCollection.CardAdded += OnCardAdded;
             CardCollection.CardRemoved += OnCardRemoved;
             CardCollection.CardsCleared += OnCardsCleared;
@@ -58,6 +58,7 @@ public class CardCollectionDisplay : NetworkBehaviour
     {
         LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         if (CardCollection == null) return;
+        CardCollection.Ready -= OnReady;
         CardCollection.CardAdded -= OnCardAdded;
         CardCollection.CardRemoved -= OnCardRemoved;
         CardCollection.CardsCleared -= OnCardsCleared;

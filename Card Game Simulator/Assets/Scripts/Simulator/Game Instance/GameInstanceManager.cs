@@ -3,10 +3,27 @@ using Mirror;
 
 public class GameInstanceManager : NetworkBehaviour
 {
+    [SyncVar] private Table table;
+    private readonly SyncList<Deck> decks = new SyncList<Deck>();
+    private readonly SyncList<Space> spaces = new SyncList<Space>();
+
     public GameTemplate GameTemplate { get; private set; }
-    public Table Table { get; private set; }
-    public readonly List<Deck> Decks = new List<Deck>();
-    public readonly List<Space> Spaces = new List<Space>();
+    public Table Table
+    {
+        get
+        {
+            return table;
+        }
+        private set
+        {
+            table = value;
+        }
+    }
+
+    public IList<Deck> Decks => decks;
+
+    public IList<Space> Spaces => spaces;
+    
 
     public override void OnStartServer()
     {

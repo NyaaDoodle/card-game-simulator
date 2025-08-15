@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Newtonsoft.Json;
 
 public readonly struct TableData : IEquatable<TableData>
@@ -30,5 +31,15 @@ public readonly struct TableData : IEquatable<TableData>
     public static bool operator !=(TableData tableData1, TableData tableData2)
     {
         return !tableData1.Equals(tableData2);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine("TableData");
+        stringBuilder.AppendLine($"Width {Width}");
+        stringBuilder.AppendLine($"Height: {Height}");
+        stringBuilder.AppendLine($"SurfaceImagePath: {SurfaceImagePath}");
+        return stringBuilder.ToString();
     }
 }
