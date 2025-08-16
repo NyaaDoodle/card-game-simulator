@@ -8,19 +8,6 @@ public class Stackable : CardCollection
 
     public IStackableData StackableData => stackableData;
 
-    public override void OnStartClient()
-    {
-        LoggerReferences.Instance.StackableLogger.LogMethod();
-        base.OnStartClient();
-        attachToTableObjectsContainer();
-    }
-
-    private void attachToTableObjectsContainer()
-    {
-        LoggerReferences.Instance.StackableLogger.LogMethod();
-        gameObject.transform.SetParent(ContainerReferences.Instance.TableObjectsContainer, false);
-    }
-
     public virtual void Setup(IStackableData stackableData)
     {
         LoggerReferences.Instance.StackableLogger.LogMethod();

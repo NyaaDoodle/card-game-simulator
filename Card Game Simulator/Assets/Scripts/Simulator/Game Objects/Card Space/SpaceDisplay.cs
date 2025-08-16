@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Space))]
 public class SpaceDisplay : StackableDisplay
 {
     public Space Space => (Space)CardCollection;
 
-    protected override void SetCardCollection()
+    public virtual void Setup(Space space)
     {
         LoggerReferences.Instance.SpaceDisplayLogger.LogMethod();
-        CardCollection = GetComponent<Space>();
+        base.Setup(space);
     }
 }

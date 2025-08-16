@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Mirror;
-using UnityEngine;
 
 public class GameInstanceManager : NetworkBehaviour
 {
+    public GameTemplate GameTemplate { get; private set; } // Not synchronized on the network
+    
     // Network-synced objects
     [SyncVar] private Table table;
     private readonly SyncList<Deck> decks = new SyncList<Deck>();
@@ -13,9 +14,7 @@ public class GameInstanceManager : NetworkBehaviour
     public TableDisplay TableDisplay { get; private set; }
     public List<DeckDisplay> DeckDisplays { get; } = new List<DeckDisplay>();
     public List<SpaceDisplay> SpaceDisplays { get; } = new List<SpaceDisplay>();
-    public PlayerHandDisplay LocalPlayerHandDisplay { get; private set; }
-
-    public GameTemplate GameTemplate { get; private set; } // TODO synchronize on the network
+    
     public Table Table
     {
         get
@@ -39,12 +38,6 @@ public class GameInstanceManager : NetworkBehaviour
         base.OnStartServer();
         loadGameTemplate();
         spawnGameObjects();
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        
     }
 
     void Start()
@@ -85,13 +78,16 @@ public class GameInstanceManager : NetworkBehaviour
     private void spawnTable()
     {
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
-        Table = PrefabReferences.Instance.TablePrefab.InstantiateTable(GameTemplate.TableData);
+        Table = PrefabExtensions.InstantiateTable(GameTemplate.TableData);
     }
     
     private void spawnTableDisplay()
     {
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
-        TableDisplay = PrefabReferences.Instance.TableDisplayPrefab.InstantiateTableDisplay(Table);
+        if (Table != null)
+        {
+            TableDisplay = PrefabExtensions.InstantiateTableDisplay(Table);
+        }
     }
 
     private void spawnDecks()
@@ -103,11 +99,27 @@ public class GameInstanceManager : NetworkBehaviour
         }
     }
 
+    private void spawnDeckDisplays()
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        foreach (Deck deck in Decks)
+        {
+            spawnDeckDisplay(deck);
+        }
+    }
+
     private void spawnDeck(DeckData deckData)
     {
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
-        Deck deck = PrefabReferences.Instance.DeckPrefab.InstantiateDeck(deckData);
+        Deck deck = PrefabExtensions.InstantiateDeck(deckData);
         Decks.Add(deck);
+    }
+
+    private void spawnDeckDisplay(Deck deck)
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        DeckDisplay deckDisplay = PrefabExtensions.InstantiateDeckDisplay(deck);
+        DeckDisplays.Add(deckDisplay);
     }
 
     private void spawnSpaces()
@@ -119,11 +131,27 @@ public class GameInstanceManager : NetworkBehaviour
         }
     }
 
+    private void spawnSpaceDisplays()
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        foreach (Space space in Spaces)
+        {
+            spawnSpaceDisplay(space);
+        }
+    }
+
     private void spawnSpace(SpaceData spaceData)
     {
         LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
-        Space space = PrefabReferences.Instance.SpacePrefab.InstantiateSpace(spaceData);
+        Space space = PrefabExtensions.InstantiateSpace(spaceData);
         Spaces.Add(space);
+    }
+
+    private void spawnSpaceDisplay(Space space)
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        SpaceDisplay spaceDisplay = PrefabExtensions.InstantiateSpaceDisplay(space);
+        SpaceDisplays.Add(spaceDisplay);
     }
 
     private void despawnGameObjects()
@@ -153,10 +181,10 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnDisplayObjects()
     {
-        if (Table != null)
-        {
-            spawnTableDisplay();
-        }
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        spawnTableDisplay();
+        spawnDeckDisplays();
+        spawnSpaceDisplays();
     }
 
     private void despawnDisplayObjects()
@@ -181,11 +209,6 @@ public class GameInstanceManager : NetworkBehaviour
             {
                 Destroy(spaceDisplay.gameObject);
             }
-        }
-
-        if (LocalPlayerHandDisplay != null)
-        {
-            Destroy(LocalPlayerHandDisplay.gameObject);
         }
     }
 }

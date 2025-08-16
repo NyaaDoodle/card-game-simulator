@@ -9,7 +9,6 @@ public class CardCollection : NetworkBehaviour
     private readonly SyncList<Card> cards = new SyncList<Card>();
 
     // Events
-    public event Action<CardCollection> Ready;
     public event Action<CardCollection, Card, int> CardAdded;
     public event Action<CardCollection, Card, int> CardRemoved;
     public event Action<CardCollection> CardsCleared;
@@ -22,7 +21,6 @@ public class CardCollection : NetworkBehaviour
     {
         LoggerReferences.Instance.CardCollectionLogger.LogMethod();
         SubscribeToCardsEvents();
-        OnReady();
     }
 
     public override void OnStopClient()
@@ -49,12 +47,6 @@ public class CardCollection : NetworkBehaviour
         cards.OnSet -= OnCardsItemSet;
         cards.OnRemove -= OnCardsItemRemoved;
         cards.OnClear -= OnCardsCleared;
-    }
-
-    protected virtual void OnReady()
-    {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
-        Ready?.Invoke(this);
     }
 
     protected virtual void OnCardsItemAdded(int index)

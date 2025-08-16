@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-[RequireComponent(typeof(CardCollection))]
 public class CardCollectionDisplay : MonoBehaviour
 {
     [SerializeField] private RectTransform cardDisplaysContainer;
     [SerializeField] private GameObject cardDisplayPrefab;
-    public CardCollection CardCollection { get; protected set; }
+    public CardCollection CardCollection { get; private set; }
     protected List<CardDisplay> CardDisplays { get; } = new List<CardDisplay>();
     public event Action<CardCollection, Card> CardSelected;
 
-    protected virtual void Awake()
+    public virtual void Setup(CardCollection cardCollection)
     {
         LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
-        SetCardCollection();
+        CardCollection = cardCollection;
         SubscribeToCardCollectionEvents();
-    }
-
-    protected virtual void OnReady(CardCollection _)
-    {
-        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         RefreshCardDisplays();
     }
 
@@ -31,19 +25,12 @@ public class CardCollectionDisplay : MonoBehaviour
         ClearCardDisplays();
         UnsubscribeFromStateEvents();
     }
-    
-    protected virtual void SetCardCollection()
-    {
-        LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();;
-        CardCollection = GetComponent<CardCollection>();
-    }
 
     protected virtual void SubscribeToCardCollectionEvents()
     {
         LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         try
         {
-            CardCollection.Ready += OnReady;
             CardCollection.CardAdded += OnCardAdded;
             CardCollection.CardRemoved += OnCardRemoved;
             CardCollection.CardsCleared += OnCardsCleared;
@@ -58,7 +45,6 @@ public class CardCollectionDisplay : MonoBehaviour
     {
         LoggerReferences.Instance.CardCollectionDisplayLogger.LogMethod();
         if (CardCollection == null) return;
-        CardCollection.Ready -= OnReady;
         CardCollection.CardAdded -= OnCardAdded;
         CardCollection.CardRemoved -= OnCardRemoved;
         CardCollection.CardsCleared -= OnCardsCleared;

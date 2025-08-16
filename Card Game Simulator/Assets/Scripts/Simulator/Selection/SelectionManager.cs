@@ -8,13 +8,11 @@ public class SelectionManager : MonoBehaviour
     private SelectionItem sourceSelection = new SelectionItem();
     private SelectionItem destinationSelection = new SelectionItem();
     private Player player;
-    private GameInstanceManager gameInstanceManager;
 
-    public void Setup(Player player)
+    public void Setup()
     {
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
-        this.player = player;
-        gameInstanceManager = ManagerReferences.Instance.GameInstanceManager;
+        player = ManagerReferences.Instance.PlayerManager.LocalPlayer;
         subscribeToGameObjectsSelectionEvents();
         subscribeToInteractionMenuSelectionEvents();
     }
@@ -22,10 +20,9 @@ public class SelectionManager : MonoBehaviour
     private void subscribeToGameObjectsSelectionEvents()
     {
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
-        if (gameInstanceManager == null) return;
-        subscribeToDeckSelectionEvents(gameInstanceManager.Decks);
-        subscribeToSpaceSelectionEvents(gameInstanceManager.Spaces);
-        subscribeToPlayerHandSelectionEvents();
+        subscribeToDeckSelectionEvents(ManagerReferences.Instance.GameInstanceManager.DeckDisplays);
+        subscribeToSpaceSelectionEvents(ManagerReferences.Instance.GameInstanceManager.SpaceDisplays);
+        subscribeToPlayerHandSelectionEvents(ManagerReferences.Instance.PlayerManager.LocalPlayerHandDisplay);
     }
 
     private void subscribeToInteractionMenuSelectionEvents()
@@ -42,33 +39,30 @@ public class SelectionManager : MonoBehaviour
         interactionMenuManager.SelectedFaceDown += onInteractiveMenuSelectedFaceDown;
     }
 
-    private void subscribeToDeckSelectionEvents(IEnumerable<Deck> decks)
+    private void subscribeToDeckSelectionEvents(IEnumerable<DeckDisplay> deckDisplays)
     {
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
-        foreach (Deck deck in decks)
+        foreach (DeckDisplay deckDisplay in deckDisplays)
         {
-            DeckDisplay deckDisplay = deck.GetComponent<DeckDisplay>();
             deckDisplay.CardSelected += onStackableCardSelected;
             deckDisplay.StackableSelected += onStackableSelfSelected;
         }
     }
 
-    private void subscribeToSpaceSelectionEvents(IEnumerable<Space> spaces)
+    private void subscribeToSpaceSelectionEvents(IEnumerable<SpaceDisplay> spaceDisplays)
     {
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
-        foreach (Space space in spaces)
+        foreach (SpaceDisplay spaceDisplay in spaceDisplays)
         {
-            SpaceDisplay spaceDisplay = space.GetComponent<SpaceDisplay>();
             spaceDisplay.CardSelected += onStackableCardSelected;
             spaceDisplay.StackableSelected += onStackableSelfSelected;
         }
     }
 
-    private void subscribeToPlayerHandSelectionEvents()
+    private void subscribeToPlayerHandSelectionEvents(PlayerHandDisplay localPlayerHandDisplay)
     {
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
-        PlayerHandDisplay playerHandDisplay = player.GetComponent<PlayerHandDisplay>();
-        playerHandDisplay.CardSelected += onPlayerHandCardSelected;
+        localPlayerHandDisplay.CardSelected += onPlayerHandCardSelected;
     }
 
     private void onStackableCardSelected(CardCollection cardCollection, Card card)

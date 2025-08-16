@@ -3,9 +3,7 @@ using UnityEngine;
 
 public static class PrefabExtensions
 {
-    public static CardDisplay InstantiateCardDisplay(this GameObject prefab,
-                                                          Card card,
-                                                          Transform parent)
+    public static CardDisplay InstantiateCardDisplay(this GameObject prefab, Card card, Transform parent)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
         CardDisplay cardDisplay = GameObject.Instantiate(prefab, parent).GetComponent<CardDisplay>();
@@ -13,51 +11,83 @@ public static class PrefabExtensions
         return cardDisplay;
     }
 
-    public static Table InstantiateTable(this GameObject prefab, TableData tableData)
+    public static Table InstantiateTable(TableData tableData)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
-        GameObject tableGameObject = GameObject.Instantiate(prefab);
+        GameObject tableGameObject = GameObject.Instantiate(PrefabReferences.Instance.TablePrefab);
         NetworkServer.Spawn(tableGameObject);
         Table table = tableGameObject.GetComponent<Table>();
         table.Setup(tableData);
         return table;
     }
 
-    public static TableDisplay InstantiateTableDisplay(this GameObject prefab, Table table)
+    public static TableDisplay InstantiateTableDisplay(Table table)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
         Transform parent = ContainerReferences.Instance.TableContainer;
-        TableDisplay tableDisplay = GameObject.Instantiate(prefab, parent).GetComponent<TableDisplay>();
+        TableDisplay tableDisplay = GameObject.Instantiate(PrefabReferences.Instance.TableDisplayPrefab, parent)
+            .GetComponent<TableDisplay>();
         tableDisplay.Setup(table);
         return tableDisplay;
     }
 
-    public static Deck InstantiateDeck(this GameObject prefab, DeckData deckData)
+    public static Deck InstantiateDeck(DeckData deckData)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
-        GameObject deckGameObject = GameObject.Instantiate(prefab);
+        GameObject deckGameObject = GameObject.Instantiate(PrefabReferences.Instance.DeckPrefab);
         NetworkServer.Spawn(deckGameObject);
         Deck deck = deckGameObject.GetComponent<Deck>();
         deck.Setup(deckData);
         return deck;
     }
 
-    public static Space InstantiateSpace(this GameObject prefab, SpaceData spaceData)
+    public static DeckDisplay InstantiateDeckDisplay(Deck deck)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
-        GameObject spaceGameObject = GameObject.Instantiate(prefab);
+        Transform parent = ContainerReferences.Instance.TableObjectsContainer;
+        DeckDisplay deckDisplay = GameObject.Instantiate(PrefabReferences.Instance.DeckDisplayPrefab, parent)
+            .GetComponent<DeckDisplay>();
+        deckDisplay.Setup(deck);
+        return deckDisplay;
+    }
+
+    public static Space InstantiateSpace(SpaceData spaceData)
+    {
+        LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
+        GameObject spaceGameObject = GameObject.Instantiate(PrefabReferences.Instance.SpacePrefab);
         NetworkServer.Spawn(spaceGameObject);
         Space space = spaceGameObject.GetComponent<Space>();
         space.Setup(spaceData);
         return space;
     }
+    
+    public static SpaceDisplay InstantiateSpaceDisplay(Space space)
+    {
+        LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
+        Transform parent = ContainerReferences.Instance.TableObjectsContainer;
+        SpaceDisplay spaceDisplay = GameObject.Instantiate(PrefabReferences.Instance.SpaceDisplayPrefab, parent)
+            .GetComponent<SpaceDisplay>();
+        spaceDisplay.Setup(space);
+        return spaceDisplay;
+    }
 
-    public static PlayerHandDisplay InstantiatePlayerHandDisplay(this GameObject prefab, PlayerHand playerHand)
+    public static Player InstantiatePlayer(NetworkConnectionToClient clientConnection)
+    {
+        const string defaultPlayerName = "Player";
+        LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
+        Player player = GameObject.Instantiate(PrefabReferences.Instance.PlayerPrefab).GetComponent<Player>();
+        player.Setup(clientConnection.connectionId, defaultPlayerName);
+        NetworkServer.AddPlayerForConnection(clientConnection, player.gameObject);
+        return player;
+    }
+
+    public static PlayerHandDisplay InstantiatePlayerHandDisplay(PlayerHand playerHand)
     {
         LoggerReferences.Instance.PrefabExtensionsLogger.LogMethod();
         Transform parent = ContainerReferences.Instance.PlayerHandContainer;
-        PlayerHandDisplay playerHandDisplay = GameObject.Instantiate(prefab, parent).GetComponent<PlayerHandDisplay>();
-        //playerHandDisplay.Setup(playerHand);
+        PlayerHandDisplay playerHandDisplay = GameObject
+            .Instantiate(PrefabReferences.Instance.PlayerHandDisplayPrefab, parent).GetComponent<PlayerHandDisplay>();
+        playerHandDisplay.Setup(playerHand);
         return playerHandDisplay;
     }
 

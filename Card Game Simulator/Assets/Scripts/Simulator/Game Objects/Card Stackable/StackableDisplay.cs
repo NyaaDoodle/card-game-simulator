@@ -3,24 +3,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(RectTransform))]
-[RequireComponent(typeof(Stackable))]
 public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 {
     public Stackable Stackable => (Stackable)CardCollection;
     public event Action<Stackable> StackableSelected;
-    protected override void OnReady(CardCollection _)
+
+    public virtual void Setup(Stackable stackable)
     {
         LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
-        base.OnReady(_);
+        base.Setup(stackable);
         relocateOnTable();
         rotateOnTable();
-    }
-
-    protected override void SetCardCollection()
-    {
-        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
-        CardCollection = GetComponent<Stackable>();
-    }
+    } 
 
     private void relocateOnTable()
     {

@@ -11,16 +11,10 @@ public class PlayerHandDisplay : CardCollectionDisplay
 
     public PlayerHand PlayerHand => (PlayerHand)CardCollection;
 
-    protected override void SetCardCollection()
+    public virtual void Setup(PlayerHand playerHand)
     {
         LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
-        CardCollection = GetComponent<PlayerHand>();
-    }
-
-    protected override void OnReady(CardCollection _)
-    {
-        LoggerReferences.Instance.PlayerHandDisplayLogger.LogMethod();
-        base.OnReady(_);
+        base.Setup(playerHand);
         updateHandVisuals();
     }
 

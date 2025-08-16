@@ -43,6 +43,20 @@ public class Player : NetworkBehaviour
         }
     }
 
+    public void Setup(int id, string name, int startingScore)
+    {
+        this.id = id;
+        this.name = name;
+        this.score = startingScore;
+    }
+
+    public void Setup(int id, string name)
+    {
+        this.id = id;
+        this.name = name;
+        this.score = 0;
+    }
+
     public override string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -51,13 +65,6 @@ public class Player : NetworkBehaviour
         stringBuilder.AppendLine($"Name: {Name}");
         stringBuilder.AppendLine($"Score: {Score}");
         return stringBuilder.ToString();
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
-        base.OnStartLocalPlayer();
-        ManagerReferences.Instance.SelectionManager.Setup(this);
     }
 
     [Command]

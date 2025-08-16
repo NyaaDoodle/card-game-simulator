@@ -31,13 +31,14 @@ public class LoggerReferences : MonoBehaviour
 
     public TraceLogger TableDisplayLogger = new TraceLogger();
 
-    public TraceLogger SimulatorNetworkManager = new TraceLogger();
+    public TraceLogger SimulatorNetworkManagerLogger = new TraceLogger();
 
     public TraceLogger PlayerLogger = new TraceLogger();
 
     public TraceLogger PlayerHandLogger = new TraceLogger();
 
     public TraceLogger PlayerHandDisplayLogger = new TraceLogger();
+    public TraceLogger PlayerManagerLogger = new TraceLogger();
 
     public TraceLogger PrefabExtensionsLogger = new TraceLogger();
 

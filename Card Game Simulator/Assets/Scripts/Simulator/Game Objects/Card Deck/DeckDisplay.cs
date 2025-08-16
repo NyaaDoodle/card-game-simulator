@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-
-[RequireComponent(typeof(Deck))]
-public class DeckDisplay : StackableDisplay
+﻿public class DeckDisplay : StackableDisplay
 {
     public Deck Deck => (Deck)CardCollection;
 
-    protected override void SetCardCollection()
+    public virtual void Setup(Deck deck)
     {
         LoggerReferences.Instance.DeckDisplayLogger.LogMethod();
-        CardCollection = GetComponent<Deck>();
+        base.Setup(deck);
     }
 }
