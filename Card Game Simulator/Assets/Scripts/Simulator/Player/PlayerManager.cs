@@ -57,11 +57,10 @@ public class PlayerManager : NetworkBehaviour
             Destroy(LocalPlayerHandDisplay.gameObject);
         }
     }
-
-    [Client]
+    
     private void setupSelectionManager()
     {
         LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
-        ManagerReferences.Instance.SelectionManager.Setup();
+        ManagerReferences.Instance.SelectionManager.SetupPlayerHandEvents();
     }
 }

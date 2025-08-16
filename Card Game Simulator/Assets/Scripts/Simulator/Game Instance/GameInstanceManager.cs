@@ -44,6 +44,7 @@ public class GameInstanceManager : NetworkBehaviour
     {
         if (!isClient) return;
         spawnDisplayObjects();
+        setupSelectionManager();
     }
 
     public override void OnStopClient()
@@ -210,5 +211,11 @@ public class GameInstanceManager : NetworkBehaviour
                 Destroy(spaceDisplay.gameObject);
             }
         }
+    }
+
+    private void setupSelectionManager()
+    {
+        LoggerReferences.Instance.GameInstanceManagerLogger.LogMethod();
+        ManagerReferences.Instance.SelectionManager.SetupGameObjectEvents();
     }
 }

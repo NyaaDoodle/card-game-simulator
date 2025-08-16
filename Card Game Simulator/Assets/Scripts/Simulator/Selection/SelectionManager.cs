@@ -8,13 +8,33 @@ public class SelectionManager : MonoBehaviour
     private SelectionItem sourceSelection = new SelectionItem();
     private SelectionItem destinationSelection = new SelectionItem();
     private Player player;
+    private bool isGameObjectsSet;
+    private bool isPlayerSet;
 
-    public void Setup()
+    public void SetupGameObjectEvents()
+    {
+        LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
+        subscribeToGameObjectsSelectionEvents();
+        isGameObjectsSet = true;
+        checkIfGameObjectsAndPlayerAreSet();
+    }
+
+    public void SetupPlayerHandEvents()
     {
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
         player = ManagerReferences.Instance.PlayerManager.LocalPlayer;
-        subscribeToGameObjectsSelectionEvents();
-        subscribeToInteractionMenuSelectionEvents();
+        subscribeToPlayerHandSelectionEvents(ManagerReferences.Instance.PlayerManager.LocalPlayerHandDisplay);
+        isPlayerSet = true;
+        checkIfGameObjectsAndPlayerAreSet();
+    }
+
+    private void checkIfGameObjectsAndPlayerAreSet()
+    {
+        LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
+        if (isGameObjectsSet && isPlayerSet)
+        {
+            subscribeToInteractionMenuSelectionEvents();
+        }
     }
 
     private void subscribeToGameObjectsSelectionEvents()
@@ -22,7 +42,6 @@ public class SelectionManager : MonoBehaviour
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
         subscribeToDeckSelectionEvents(ManagerReferences.Instance.GameInstanceManager.DeckDisplays);
         subscribeToSpaceSelectionEvents(ManagerReferences.Instance.GameInstanceManager.SpaceDisplays);
-        subscribeToPlayerHandSelectionEvents(ManagerReferences.Instance.PlayerManager.LocalPlayerHandDisplay);
     }
 
     private void subscribeToInteractionMenuSelectionEvents()
@@ -44,6 +63,7 @@ public class SelectionManager : MonoBehaviour
         LoggerReferences.Instance.SelectionManagerLogger.LogMethod();
         foreach (DeckDisplay deckDisplay in deckDisplays)
         {
+            Debug.Log(deckDisplay.ToString());
             deckDisplay.CardSelected += onStackableCardSelected;
             deckDisplay.StackableSelected += onStackableSelfSelected;
         }
