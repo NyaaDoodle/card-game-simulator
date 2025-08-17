@@ -6,7 +6,7 @@ public class SpaceDisplay : StackableDisplay
 
     public virtual void Setup(Space space)
     {
-        LoggerReferences.Instance.SpaceDisplayLogger.LogMethod();
+        LoggingManager.Instance.SpaceDisplayLogger.LogMethod();
         base.Setup(space);
     }
 }

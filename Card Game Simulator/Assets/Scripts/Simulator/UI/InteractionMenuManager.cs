@@ -29,13 +29,13 @@ public class InteractionMenuManager : MonoBehaviour
 
     void Start()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         cancelSelectionArea.onClick.AddListener(OnCancelled);
     }
 
     public void ShowDeckActionMenu(Deck deck)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         DeckMenu deckMenu = deckMenuItemsPrefab.InstantiateDeckMenu(deck);
@@ -45,7 +45,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     public void ShowSpaceActionMenu(Space space)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         SpaceMenu spaceMenu = spaceMenuItemsPrefab.InstantiateSpaceMenu(space);
@@ -55,7 +55,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     public void ShowCardSelectionActionMenu(CardCollection sourceCardCollection)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         CardSelectionMenu cardSelectionMenu =
@@ -66,7 +66,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     public void ShowPlacingCardMenuItems()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         PlacingCardMenu placingCardMenu =
@@ -77,7 +77,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     public void ShowInstanceMenu()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         destroyCurrentMenuItemsObject();
         showInteractionMenu();
         InstanceMenu instanceMenu = instanceMenuItemsPrefab.InstantiateInstanceMenu();
@@ -87,14 +87,14 @@ public class InteractionMenuManager : MonoBehaviour
 
     public void CloseMenu()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         hideInteractionMenu();
         destroyCurrentMenuItemsObject();
     }
 
     protected virtual void OnCancelled()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         Cancelled?.Invoke();
         CloseMenu();
@@ -102,7 +102,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedDrawCard()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedDrawCard?.Invoke();
         CloseMenu();
@@ -110,7 +110,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedFlipCard()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedFlipCard?.Invoke();
         CloseMenu();
@@ -118,7 +118,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedShuffle()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedShuffle?.Invoke();
         CloseMenu();
@@ -126,7 +126,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedSearch()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedSearch?.Invoke();
         CloseMenu();
@@ -134,7 +134,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedPlaceCard()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedPlaceCard?.Invoke();
         CloseMenu();
@@ -142,7 +142,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedFaceUp()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedFaceUp?.Invoke();
         CloseMenu();
@@ -150,7 +150,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     protected virtual void OnSelectedFaceDown()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject == null) return;
         SelectedFaceDown?.Invoke();
         CloseMenu();
@@ -158,7 +158,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void addInstanceMenuItemListeners(InstanceMenu instanceMenu)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         instanceMenu.ManageScoresButton.onClick.AddListener(() => Debug.Log("Score management not implemented"));
         instanceMenu.LeaveGameButton.onClick.AddListener(returnToMainMenu);
         setCancelSelectionButton(instanceMenu.CancelSelectionButton);
@@ -166,7 +166,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void addPlacingCardMenuItemListeners(PlacingCardMenu placingCardMenu)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         placingCardMenu.FaceUpButton.onClick.AddListener(OnSelectedFaceUp);
         placingCardMenu.FaceDownButton.onClick.AddListener(OnSelectedFaceDown);
         setCancelSelectionButton(placingCardMenu.CancelSelectionButton);
@@ -174,14 +174,14 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void addCardSelectionMenuItemListeners(CardSelectionMenu cardSelectionMenu)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         cardSelectionMenu.PlaceCardButton.onClick.AddListener(OnSelectedPlaceCard);
         setCancelSelectionButton(cardSelectionMenu.CancelSelectionButton);
     }
 
     private void addSpaceMenuItemListeners(SpaceMenu spaceMenu)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         spaceMenu.DrawCardButton.onClick.AddListener(OnSelectedDrawCard);
         spaceMenu.FlipCardButton.onClick.AddListener(OnSelectedFlipCard);
         setCancelSelectionButton(spaceMenu.CancelSelectionButton);
@@ -189,7 +189,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void addDeckMenuItemListeners(DeckMenu deckMenu)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         deckMenu.DrawCardButton.onClick.AddListener(OnSelectedDrawCard);
         deckMenu.FlipCardButton.onClick.AddListener(OnSelectedFlipCard);
         deckMenu.ShuffleDeckButton.onClick.AddListener(OnSelectedShuffle);
@@ -199,7 +199,7 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void destroyCurrentMenuItemsObject()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         if (currentMenuItemsObject != null)
         {
             Destroy(currentMenuItemsObject);
@@ -209,26 +209,25 @@ public class InteractionMenuManager : MonoBehaviour
 
     private void showInteractionMenu()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         interactionMenuObject.gameObject.SetActive(true);
     }
 
     private void hideInteractionMenu()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         interactionMenuObject.gameObject.SetActive(false);
     }
 
     private void setCancelSelectionButton(Button cancelSelectionButton)
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
         cancelSelectionButton.onClick.AddListener(OnCancelled);
     }
 
     private void returnToMainMenu()
     {
-        LoggerReferences.Instance.InteractionMenuManagerLogger.LogMethod();
-        NetworkManager.singleton.StopClient();
-        SceneManager.LoadScene("Main Menu Scene");
+        LoggingManager.Instance.InteractionMenuManagerLogger.LogMethod();
+        SimulatorNetworkManager.singleton.StopGame();
     }
 }

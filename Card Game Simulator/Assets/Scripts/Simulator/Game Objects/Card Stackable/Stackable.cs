@@ -10,13 +10,13 @@ public class Stackable : CardCollection
 
     public virtual void Setup(IStackableData stackableData)
     {
-        LoggerReferences.Instance.StackableLogger.LogMethod();
+        LoggingManager.Instance.StackableLogger.LogMethod();
         this.stackableData = stackableData;
     }
 
     public override void AddCard(Card card, int index)
     {
-        LoggerReferences.Instance.StackableLogger.LogMethod();
+        LoggingManager.Instance.StackableLogger.LogMethod();
         card = card.FaceDown();
         base.AddCard(card, index);
     }

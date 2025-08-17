@@ -19,19 +19,19 @@ public class CardCollection : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         SubscribeToCardsEvents();
     }
 
     public override void OnStopClient()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         UnsubscribeFromCardsEvents();
     }
 
     protected virtual void SubscribeToCardsEvents()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         cards.OnAdd += OnCardsItemAdded;
         cards.OnInsert += OnCardsItemInserted;
         cards.OnSet += OnCardsItemSet;
@@ -41,7 +41,7 @@ public class CardCollection : NetworkBehaviour
 
     protected virtual void UnsubscribeFromCardsEvents()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         cards.OnAdd -= OnCardsItemAdded;
         cards.OnInsert -= OnCardsItemInserted;
         cards.OnSet -= OnCardsItemSet;
@@ -52,21 +52,21 @@ public class CardCollection : NetworkBehaviour
     protected virtual void OnCardsItemAdded(int index)
     {
         // When a card is added to the end of cards, using Add()
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         OnCardAdded(cards[index], index);
     }
 
     protected virtual void OnCardsItemInserted(int index)
     {
         // When a card is inserted/added at index in cards, using Insert()
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         OnCardAdded(cards[index], index);
     }
 
     protected virtual void OnCardsItemSet(int index, Card oldCard)
     {
         // When a card is replaced at index in cards, using [], gives the old/replaced card
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         OnCardRemoved(oldCard, index);
         OnCardAdded(cards[index], index);
     }
@@ -74,33 +74,33 @@ public class CardCollection : NetworkBehaviour
     protected virtual void OnCardsItemRemoved(int index, Card oldCard)
     {
         // When a card is removed at index in cards, using Remove(), gives the removed card
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         OnCardRemoved(oldCard, index);
     }
 
     protected virtual void OnCardsCleared()
     {
         // When cards is cleared, using Clear()
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         CardsCleared?.Invoke(this);
     }
 
     protected virtual void OnCardAdded(Card cardAdded, int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         CardAdded?.Invoke(this, cardAdded, index);
     }
 
     protected virtual void OnCardRemoved(Card cardRemoved, int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         CardRemoved?.Invoke(this, cardRemoved, index);
     }
 
     [Server]
     public virtual void AddCard(Card card, int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         try
         {
             cards.Insert(index, card);
@@ -114,21 +114,21 @@ public class CardCollection : NetworkBehaviour
     [Server]
     public virtual void AddCardAtStart(Card card)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         AddCard(card, 0);
     }
 
     [Server]
     public virtual void AddCardAtEnd(Card card)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         AddCard(card, cards.Count);
     }
 
     [Server]
     public virtual void AddCards(IEnumerable<Card> cardsToAdd)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         foreach (Card card in cardsToAdd)
         {
             AddCardAtEnd(card);
@@ -138,7 +138,7 @@ public class CardCollection : NetworkBehaviour
     [Server]
     public virtual bool RemoveCard(Card card)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         int cardIndex = cards.IndexOf(card);
         if (cardIndex < 0)
         {
@@ -152,7 +152,7 @@ public class CardCollection : NetworkBehaviour
     [Server]
     public virtual Card RemoveCard(int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         try
         {
             Card card = cards[index];
@@ -169,21 +169,21 @@ public class CardCollection : NetworkBehaviour
     [Server]
     public virtual Card RemoveCardAtStart()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         return RemoveCard(0);
     }
 
     [Server]
     public virtual Card RemoveCardAtEnd()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         return RemoveCard(cards.Count - 1);
     }
 
     [Server]
     public virtual void FlipCard(int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         try
         {
             cards[index] = cards[index].Flipped();
@@ -196,7 +196,7 @@ public class CardCollection : NetworkBehaviour
 
     public virtual void FlipCardFaceUp(int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         try
         {
             if (!cards[index].IsFaceUp)
@@ -212,7 +212,7 @@ public class CardCollection : NetworkBehaviour
 
     public virtual void FlipCardFaceDown(int index)
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         try
         {
             if (cards[index].IsFaceUp)
@@ -228,25 +228,25 @@ public class CardCollection : NetworkBehaviour
 
     public virtual void FlipFirstCard()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         FlipCard(0);
     }
 
     public virtual void FlipFirstCardFaceUp()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         FlipCardFaceUp(0);
     }
 
     public virtual void FlipFirstCardFaceDown()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         FlipCardFaceDown(0);
     }
 
     public virtual void ShuffleCards()
     {
-        LoggerReferences.Instance.CardCollectionLogger.LogMethod();
+        LoggingManager.Instance.CardCollectionLogger.LogMethod();
         if (Cards.Count <= 1) return;
 
         for (int i = Cards.Count - 1; i > 0; i--)

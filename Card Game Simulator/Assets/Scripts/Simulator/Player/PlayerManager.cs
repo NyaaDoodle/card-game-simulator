@@ -8,7 +8,7 @@ public class PlayerManager : NetworkBehaviour
 
     public override void OnStopClient()
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         despawnPlayerHandDisplay();
         LocalPlayer = null;
         base.OnStopClient();
@@ -17,14 +17,14 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void AddPlayer(NetworkConnectionToClient clientConnection)
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         spawnPlayer(clientConnection);
     }
 
     [Server]
     private void spawnPlayer(NetworkConnectionToClient clientConnection)
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         Player player = PrefabExtensions.InstantiatePlayer(clientConnection);
         TargetPostPlayerSpawn(clientConnection, player.gameObject);
     }
@@ -32,7 +32,7 @@ public class PlayerManager : NetworkBehaviour
     [TargetRpc]
     private void TargetPostPlayerSpawn(NetworkConnectionToClient targetConnection, GameObject playerGameObject)
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         LocalPlayer = playerGameObject.GetComponent<Player>();
         spawnPlayerHandDisplay();
         setupSelectionManager();
@@ -41,7 +41,7 @@ public class PlayerManager : NetworkBehaviour
     [Client]
     private void spawnPlayerHandDisplay()
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         if (LocalPlayer != null)
         {
             PlayerHand playerHand = LocalPlayer.GetComponent<PlayerHand>();
@@ -51,7 +51,7 @@ public class PlayerManager : NetworkBehaviour
     
     private void despawnPlayerHandDisplay()
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         if (LocalPlayerHandDisplay != null)
         {
             Destroy(LocalPlayerHandDisplay.gameObject);
@@ -60,7 +60,7 @@ public class PlayerManager : NetworkBehaviour
     
     private void setupSelectionManager()
     {
-        LoggerReferences.Instance.PlayerManagerLogger.LogMethod();
+        LoggingManager.Instance.PlayerManagerLogger.LogMethod();
         ManagerReferences.Instance.SelectionManager.SetupPlayerHandEvents();
     }
 }

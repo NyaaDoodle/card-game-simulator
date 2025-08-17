@@ -14,7 +14,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     public void Setup(Card card)
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         Card = card;
         loadCardSprites();
         updateVisibleSide();
@@ -22,19 +22,19 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         OnSelected();
     }
 
     protected virtual void OnSelected()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         Selected?.Invoke(Card);
     }
 
     private void loadBackSideSprite()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         // TODO allow loading outside of Resources folder
         if (isBackSideImageNotDefined()) return;
         string backSideSpritePath = Card.CardData.BackSideSpritePath;
@@ -51,7 +51,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void loadFrontSideSprite()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         // TODO allow loading outside of Resources folder
         if (isFrontSideImageNotDefined()) return;
         string frontSideSpritePath = Card.CardData.FrontSideSpritePath;
@@ -68,14 +68,14 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void loadCardSprites()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         loadBackSideSprite();
         loadFrontSideSprite();
     }
 
     private void updateVisibleSide()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         if (isFrontSideImageNotDefined() || isBackSideImageNotDefined()) return;
         frontSideImage.gameObject.SetActive(Card.IsFaceUp);
         backSideImage.gameObject.SetActive(!Card.IsFaceUp);
@@ -83,7 +83,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private bool isBackSideImageNotDefined()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         if (backSideImage == null)
         {
             Debug.LogWarning("BackSideImage is null");
@@ -94,7 +94,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private bool isFrontSideImageNotDefined()
     {
-        LoggerReferences.Instance.CardDisplayLogger.LogMethod();
+        LoggingManager.Instance.CardDisplayLogger.LogMethod();
         if (frontSideImage == null)
         {
             Debug.LogWarning("FrontSideImage is null");

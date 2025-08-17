@@ -70,7 +70,7 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdDrawCard(Stackable stackable)
     {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        LoggingManager.Instance.PlayerLogger.LogMethod();
         Card drawnCard = stackable.RemoveCardAtStart();
         GetComponent<PlayerHand>().AddCardAtStart(drawnCard);
     }
@@ -78,27 +78,27 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdFlipCard(Stackable stackable)
     {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        LoggingManager.Instance.PlayerLogger.LogMethod();
         stackable.FlipFirstCard();
     }
 
     [Command]
     public void CmdShuffleStackable(Stackable stackable)
     {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        LoggingManager.Instance.PlayerLogger.LogMethod();
         stackable.ShuffleCards();
     }
 
     [Command]
     public void CmdSearchDeck(Deck deck)
     {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        LoggingManager.Instance.PlayerLogger.LogMethod();
     }
 
     [Command]
     public void CmdPlaceCardFaceUp(Card cardToPlace, Stackable destinationStackable)
     {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        LoggingManager.Instance.PlayerLogger.LogMethod();
         PlayerHand playerHand = GetComponent<PlayerHand>();
         if (playerHand.RemoveCard(cardToPlace))
         {
@@ -110,7 +110,7 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdPlaceCardFaceDown(Card cardToPlace, Stackable destinationStackable)
     {
-        LoggerReferences.Instance.PlayerLogger.LogMethod();
+        LoggingManager.Instance.PlayerLogger.LogMethod();
         PlayerHand playerHand = GetComponent<PlayerHand>();
         if (playerHand.RemoveCard(cardToPlace))
         {

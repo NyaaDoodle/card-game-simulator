@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-public class LoggerReferences : MonoBehaviour
+public class LoggingManager : MonoBehaviour
 {
-    public static LoggerReferences Instance { get; private set; }
+    public static LoggingManager Instance { get; private set; }
 
     public TraceLogger GameInstanceManagerLogger = new TraceLogger();
 
@@ -53,6 +53,7 @@ public class LoggerReferences : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

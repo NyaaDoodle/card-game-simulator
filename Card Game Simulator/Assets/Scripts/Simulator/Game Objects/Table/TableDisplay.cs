@@ -9,21 +9,21 @@ public class TableDisplay : MonoBehaviour
 
     public void Setup(Table table)
     {
-        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
+        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         Table = table;
         updateTableDisplay();
     }
 
     private void updateTableDisplay()
     {
-        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
+        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         resizeTable();
         loadSurfaceImage();
     }
 
     private void resizeTable()
     {
-        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
+        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         Vector2 tableSize = new Vector2(
             Table.TableData.Width,
             Table.TableData.Height
@@ -33,7 +33,7 @@ public class TableDisplay : MonoBehaviour
 
     private void loadSurfaceImage()
     {
-        LoggerReferences.Instance.TableDisplayLogger.LogMethod();
+        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         if (tableSurface == null)
         {
             Debug.LogError("Table surface object is null");

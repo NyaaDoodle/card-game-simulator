@@ -10,7 +10,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     public virtual void Setup(Stackable stackable)
     {
-        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        LoggingManager.Instance.StackableDisplayLogger.LogMethod();
         base.Setup(stackable);
         relocateOnTable();
         rotateOnTable();
@@ -18,7 +18,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     private void relocateOnTable()
     {
-        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        LoggingManager.Instance.StackableDisplayLogger.LogMethod();
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
@@ -34,7 +34,7 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     private void rotateOnTable()
     {
-        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        LoggingManager.Instance.StackableDisplayLogger.LogMethod();
         RectTransform rectTransform = GetComponent<RectTransform>();
         try
         {
@@ -48,13 +48,13 @@ public class StackableDisplay : CardCollectionDisplay, IPointerClickHandler
 
     public virtual void OnPointerClick(PointerEventData pointerEventData)
     {
-        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        LoggingManager.Instance.StackableDisplayLogger.LogMethod();
         OnStackableSelected();
     }
     
     protected virtual void OnStackableSelected()
     {
-        LoggerReferences.Instance.StackableDisplayLogger.LogMethod();
+        LoggingManager.Instance.StackableDisplayLogger.LogMethod();
         StackableSelected?.Invoke(Stackable);
     }
 }

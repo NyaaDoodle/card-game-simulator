@@ -8,14 +8,14 @@ public class CardSelectionMenu : InteractionMenu
 
     public void Setup(CardCollection cardCollection)
     {
-        LoggerReferences.Instance.InteractionMenuLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuLogger.LogMethod();
         this.cardCollection = cardCollection;
         setupButtons();
     }
 
     private void setupButtons()
     {
-        LoggerReferences.Instance.InteractionMenuLogger.LogMethod();
+        LoggingManager.Instance.InteractionMenuLogger.LogMethod();
         PlaceCardButton.gameObject.SetActive(isAbleToPlaceCard());
     }
 

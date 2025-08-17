@@ -2,17 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using Mirror.Discovery;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
 */
 
-public class #SCRIPTNAME# : NetworkManager
+[RequireComponent(typeof(NetworkDiscovery))]
+public class SimulatorNetworkManager : NetworkManager
 {
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
-    public static new #SCRIPTNAME# singleton => (#SCRIPTNAME#)NetworkManager.singleton;
+    public static new SimulatorNetworkManager singleton => (SimulatorNetworkManager)NetworkManager.singleton;
+    public NetworkDiscovery NetworkDiscovery { get; private set; }
 
     /// <summary>
     /// Runs on both Server and Client
@@ -21,8 +24,48 @@ public class #SCRIPTNAME# : NetworkManager
     public override void Awake()
     {
         base.Awake();
+        initializeNetworkDiscovery();
+    }
+    
+    private void initializeNetworkDiscovery()
+    {
+        NetworkDiscovery = GetComponent<NetworkDiscovery>();
+    }
+    
+    public void HostGame()
+    {
+        StartHost();
+        NetworkDiscovery.AdvertiseServer();
     }
 
+    public void JoinGame(ServerResponse info)
+    {
+        NetworkDiscovery.StopDiscovery();
+        StartClient(info.uri);
+    }
+
+    public void StopGame()
+    {
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            StopHost();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            StopClient();
+        }
+    }
+
+    public void ActivateGameDiscovery()
+    {
+        NetworkDiscovery.StartDiscovery();
+    }
+
+    public void DeactivateGameDiscovery()
+    {
+        NetworkDiscovery.StopDiscovery();
+    }
+    
     #region Unity Callbacks
 
     public override void OnValidate()
@@ -131,7 +174,9 @@ public class #SCRIPTNAME# : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
+        LoggingManager.Instance.SimulatorNetworkManagerLogger.LogMethod();
         base.OnServerReady(conn);
+        ManagerReferences.Instance.PlayerManager.AddPlayer(conn);
     }
 
     /// <summary>

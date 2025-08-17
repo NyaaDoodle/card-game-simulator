@@ -4,7 +4,7 @@
 
     public virtual void Setup(Deck deck)
     {
-        LoggerReferences.Instance.DeckDisplayLogger.LogMethod();
+        LoggingManager.Instance.DeckDisplayLogger.LogMethod();
         base.Setup(deck);
     }
 }

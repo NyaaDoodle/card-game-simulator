@@ -5,15 +5,26 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private RectTransform startMenu;
     [SerializeField] private RectTransform cardGameCreatorMenu;
+    [SerializeField] private RectTransform newGameInstanceMenu;
+    [SerializeField] private RectTransform joinGameInstanceMenu;
+
+    void Start()
+    {
+        GoToStartMenu();
+    }
 
     public void GoToNewGameInstanceMenu()
     {
-        SceneManager.LoadScene("Game Instance Scene");
+        closeAllMenus();
+        openNewGameInstanceMenu();
+        //
     }
 
     public void GoToJoinGameInstanceMenu()
     {
-        Debug.Log("Join Game menu not implemented");
+        closeAllMenus();
+        openJoinGameInstanceMenu();
+        //Debug.Log("Join Game menu not implemented");
     }
 
     public void GoToCardGameCreator()
@@ -27,7 +38,7 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Options menu not implemented");
     }
 
-    public void BackToStartMenu()
+    public void GoToStartMenu()
     {
         closeAllMenus();
         openStartMenu();
@@ -47,6 +58,8 @@ public class MainMenuManager : MonoBehaviour
     private void closeOtherMenus()
     {
         closeCardGameCreatorMenu();
+        closeNewGameInstanceMenu();
+        closeJoinGameInstanceMenu();
     }
 
     private void closeAllMenus()
@@ -60,6 +73,16 @@ public class MainMenuManager : MonoBehaviour
         cardGameCreatorMenu.gameObject.SetActive(false);
     }
 
+    private void closeNewGameInstanceMenu()
+    {
+        newGameInstanceMenu.gameObject.SetActive(false);
+    }
+
+    private void closeJoinGameInstanceMenu()
+    {
+        joinGameInstanceMenu.gameObject.SetActive(false);
+    }
+
     private void openCardGameCreatorMenu()
     {
         cardGameCreatorMenu.gameObject.SetActive(true);
@@ -68,6 +91,16 @@ public class MainMenuManager : MonoBehaviour
     private void openStartMenu()
     {
         startMenu.gameObject.SetActive(true);
+    }
+
+    private void openNewGameInstanceMenu()
+    {
+        newGameInstanceMenu.gameObject.SetActive(true);
+    }
+
+    private void openJoinGameInstanceMenu()
+    {
+        joinGameInstanceMenu.gameObject.SetActive(true);
     }
 
     private void closeStartMenu()
