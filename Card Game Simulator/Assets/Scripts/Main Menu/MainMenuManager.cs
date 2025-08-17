@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private RectTransform startMenu;
-    [SerializeField] private RectTransform cardGameCreatorMenu;
-    [SerializeField] private RectTransform newGameInstanceMenu;
-    [SerializeField] private RectTransform joinGameInstanceMenu;
+    [SerializeField] private CardGameCreatorMenuManager cardGameCreatorMenu;
+    [SerializeField] private NewGameInstanceMenuManager newGameInstanceMenu;
+    [SerializeField] private JoinGameInstanceMenuManager joinGameInstanceMenu;
 
     void Start()
     {
@@ -17,14 +17,12 @@ public class MainMenuManager : MonoBehaviour
     {
         closeAllMenus();
         openNewGameInstanceMenu();
-        //
     }
 
     public void GoToJoinGameInstanceMenu()
     {
         closeAllMenus();
         openJoinGameInstanceMenu();
-        //Debug.Log("Join Game menu not implemented");
     }
 
     public void GoToCardGameCreator()
@@ -80,6 +78,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void closeJoinGameInstanceMenu()
     {
+        joinGameInstanceMenu.StopGameInstanceSearch();
         joinGameInstanceMenu.gameObject.SetActive(false);
     }
 

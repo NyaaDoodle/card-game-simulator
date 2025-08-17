@@ -1,8 +1,16 @@
+using System.Collections.Generic;
 using Mirror.Discovery;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JoinGameInstanceMenuManager : MonoBehaviour
 {
+    [SerializeField] private RectTransform buttonContentContainer;
+    [SerializeField] private Button joinGameInstanceButtonPrefab;
+    private List<long> serverIdList = new List<long>();
+    private List<Button> joinGameInstanceButtonInstances = new List<Button>();
+    
     private void OnEnable()
     {
         StartGameInstanceSearch();
@@ -23,10 +31,38 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
     {
         SimulatorNetworkManager.singleton.DeactivateGameDiscovery();
         SimulatorNetworkManager.singleton.NetworkDiscovery.OnServerFound.RemoveListener(onServerFound);
+        serverIdList.Clear();
+        clearJoinGameInstanceButtons();
     }
 
     private void onServerFound(ServerResponse info)
     {
-        SimulatorNetworkManager.singleton.JoinGame(info);
+        Debug.Log($"Found server {info.serverId} at {info.uri}");
+        spawnJoinGameInstanceButton(info);
+    }
+
+    private void spawnJoinGameInstanceButton(ServerResponse info)
+    {
+        if (!serverIdList.Contains(info.serverId))
+        {
+            serverIdList.Add(info.serverId);
+            Button joinGameInstanceButton = Instantiate(joinGameInstanceButtonPrefab, buttonContentContainer).GetComponent<Button>();
+            joinGameInstanceButtonInstances.Add(joinGameInstanceButton);
+            TMP_Text joinGameInstanceButtonText = joinGameInstanceButton.GetComponentInChildren<TMP_Text>();
+            joinGameInstanceButtonText.text = info.uri.ToString();
+            joinGameInstanceButton.onClick.AddListener(() =>
+                {
+                    StopGameInstanceSearch();
+                    SimulatorNetworkManager.singleton.JoinGame(info);
+                });
+        }
+    }
+
+    private void clearJoinGameInstanceButtons()
+    {
+        foreach (Button button in joinGameInstanceButtonInstances)
+        {
+            Destroy(button);
+        }
     }
 }

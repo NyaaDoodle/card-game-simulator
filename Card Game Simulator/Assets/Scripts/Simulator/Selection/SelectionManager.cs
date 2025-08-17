@@ -44,6 +44,13 @@ public class SelectionManager : MonoBehaviour
         subscribeToSpaceSelectionEvents(ManagerReferences.Instance.GameInstanceManager.SpaceDisplays);
     }
 
+    private void unsubscribeFromGameObjectsSelectionEvents()
+    {
+        unsubscribeFromDeckSelectionEvents(ManagerReferences.Instance.GameInstanceManager.DeckDisplays);
+        unsubscribeFromSpaceSelectionEvents(ManagerReferences.Instance.GameInstanceManager.SpaceDisplays);
+        
+    }
+
     private void subscribeToInteractionMenuSelectionEvents()
     {
         LoggingManager.Instance.SelectionManagerLogger.LogMethod();
@@ -58,24 +65,60 @@ public class SelectionManager : MonoBehaviour
         interactionMenuManager.SelectedFaceDown += onInteractiveMenuSelectedFaceDown;
     }
 
+    private void unsubscribeFromInteractionMenuSelectionEvents()
+    {
+        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
+        if (interactionMenuManager == null) return;interactionMenuManager.Cancelled += onInteractiveMenuCancelled;
+        interactionMenuManager.SelectedDrawCard -= onInteractiveMenuSelectedDrawCard;
+        interactionMenuManager.SelectedFlipCard -= onInteractiveMenuSelectedFlipCard;
+        interactionMenuManager.SelectedSearch -= onInteractiveMenuSelectedSearch;
+        interactionMenuManager.SelectedShuffle -= onInteractiveMenuSelectedShuffle;
+        interactionMenuManager.SelectedPlaceCard -= onInteractiveMenuSelectedPlaceCard;
+        interactionMenuManager.SelectedFaceUp -= onInteractiveMenuSelectedFaceUp;
+        interactionMenuManager.SelectedFaceDown -= onInteractiveMenuSelectedFaceDown;
+    }
+
     private void subscribeToDeckSelectionEvents(IEnumerable<DeckDisplay> deckDisplays)
     {
         LoggingManager.Instance.SelectionManagerLogger.LogMethod();
+        if (deckDisplays == null) return;
         foreach (DeckDisplay deckDisplay in deckDisplays)
         {
-            Debug.Log(deckDisplay.ToString());
             deckDisplay.CardSelected += onStackableCardSelected;
             deckDisplay.StackableSelected += onStackableSelfSelected;
+        }
+    }
+    
+    private void unsubscribeFromDeckSelectionEvents(IEnumerable<DeckDisplay> deckDisplays)
+    {
+        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
+        if (deckDisplays == null) return;
+        foreach (DeckDisplay deckDisplay in deckDisplays)
+        {
+            deckDisplay.CardSelected -= onStackableCardSelected;
+            deckDisplay.StackableSelected -= onStackableSelfSelected;
         }
     }
 
     private void subscribeToSpaceSelectionEvents(IEnumerable<SpaceDisplay> spaceDisplays)
     {
         LoggingManager.Instance.SelectionManagerLogger.LogMethod();
+        if (spaceDisplays == null) return;
         foreach (SpaceDisplay spaceDisplay in spaceDisplays)
         {
             spaceDisplay.CardSelected += onStackableCardSelected;
             spaceDisplay.StackableSelected += onStackableSelfSelected;
+        }
+    }
+    
+    private void unsubscribeFromSpaceSelectionEvents(IEnumerable<SpaceDisplay> spaceDisplays)
+    {
+        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
+        if (spaceDisplays == null) return;
+        foreach (SpaceDisplay spaceDisplay in spaceDisplays)
+        {
+            spaceDisplay.CardSelected -= onStackableCardSelected;
+            spaceDisplay.StackableSelected -= onStackableSelfSelected;
         }
     }
 
@@ -248,5 +291,14 @@ public class SelectionManager : MonoBehaviour
         LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         sourceSelection.SetEmpty();
         destinationSelection.SetEmpty();
+    }
+
+    private void OnDestroy()
+    {
+        unsubscribeFromGameObjectsSelectionEvents();
+        unsubscribeFromInteractionMenuSelectionEvents();
+        isGameObjectsSet = false;
+        player = null;
+        isPlayerSet = false;
     }
 }
