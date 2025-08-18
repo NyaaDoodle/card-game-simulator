@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private RectTransform startMenu;
-    [SerializeField] private CardGameCreatorMenuManager cardGameCreatorMenu;
     [SerializeField] private NewGameInstanceMenuManager newGameInstanceMenu;
     [SerializeField] private JoinGameInstanceMenuManager joinGameInstanceMenu;
 
@@ -28,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
     public void GoToCardGameCreator()
     {
         closeAllMenus();
-        openCardGameCreatorMenu();
+        SceneManager.LoadScene("Card Game Creator");
     }
 
     public void GoToOptionsMenu()
@@ -55,7 +54,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void closeOtherMenus()
     {
-        closeCardGameCreatorMenu();
         closeNewGameInstanceMenu();
         closeJoinGameInstanceMenu();
     }
@@ -64,11 +62,6 @@ public class MainMenuManager : MonoBehaviour
     {
         closeOtherMenus();
         closeStartMenu();
-    }
-
-    private void closeCardGameCreatorMenu()
-    {
-        cardGameCreatorMenu.gameObject.SetActive(false);
     }
 
     private void closeNewGameInstanceMenu()
@@ -80,11 +73,6 @@ public class MainMenuManager : MonoBehaviour
     {
         joinGameInstanceMenu.StopGameInstanceSearch();
         joinGameInstanceMenu.gameObject.SetActive(false);
-    }
-
-    private void openCardGameCreatorMenu()
-    {
-        cardGameCreatorMenu.gameObject.SetActive(true);
     }
 
     private void openStartMenu()
