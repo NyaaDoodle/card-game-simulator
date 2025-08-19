@@ -4,7 +4,10 @@ using Newtonsoft.Json;
 
 public readonly struct CardData : IEquatable<CardData>
 {
-    public int Id { get; }
+    private const float defaultWidth = 2f;
+    private const float defaultHeight = 3f;
+    
+    public string Id { get; }
     public string Name { get; }
     public string Description { get; }
     public float Width { get; }
@@ -14,7 +17,7 @@ public readonly struct CardData : IEquatable<CardData>
 
     [JsonConstructor]
     public CardData(
-        int id,
+        string id,
         string name,
         string description,
         float width,
@@ -31,13 +34,24 @@ public readonly struct CardData : IEquatable<CardData>
         FrontSideSpritePath = frontSideSpritePath;
     }
 
-    public CardData(int id, string backSideSpritePath, string frontSideSpritePath)
+    public CardData(string id, string name, string description, string backSideSpritePath, string frontSideSpritePath)
     {
         Id = id;
-        Name = "";
-        Description = "";
-        Width = 2;
-        Height = 3;
+        Name = name;
+        Description = description;
+        Width = defaultWidth;
+        Height = defaultHeight;
+        BackSideSpritePath = backSideSpritePath;
+        FrontSideSpritePath = frontSideSpritePath;
+    }
+
+    public CardData(string name, string description, string backSideSpritePath, string frontSideSpritePath)
+    {
+        Id = Guid.NewGuid().ToString();
+        Name = name;
+        Description = description;
+        Width = defaultWidth;
+        Height = defaultHeight;
         BackSideSpritePath = backSideSpritePath;
         FrontSideSpritePath = frontSideSpritePath;
     }

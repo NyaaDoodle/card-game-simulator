@@ -50,6 +50,12 @@ public class TraceLogger
         Debug.Log(stringBuilder.ToString());
     }
 
+    public void Log(string message)
+    {
+        if (!IsEnabled) return;
+        Debug.Log(message);
+    }
+
     private static string valueOrElseNullString<T>(T value)
     {
         return value != null ? value.ToString() : "null";

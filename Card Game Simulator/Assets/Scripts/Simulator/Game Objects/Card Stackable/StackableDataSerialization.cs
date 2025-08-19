@@ -10,7 +10,7 @@ public static class StackableDataSerialization
         if (StackableData is DeckData deckData)
         {
             writer.WriteByte(DECK_DATA);
-            writer.WriteInt(deckData.Id);
+            writer.WriteString(deckData.Id);
             writer.WriteString(deckData.Name);
             writer.WriteFloat(deckData.TableXCoordinate);
             writer.WriteFloat(deckData.TableYCoordinate);
@@ -20,7 +20,7 @@ public static class StackableDataSerialization
         else if (StackableData is SpaceData spaceData)
         {
             writer.WriteByte(SPACE_DATA);
-            writer.WriteInt(spaceData.Id);
+            writer.WriteString(spaceData.Id);
             writer.WriteString(spaceData.Name);
             writer.WriteFloat(spaceData.TableXCoordinate);
             writer.WriteFloat(spaceData.TableYCoordinate);
@@ -31,7 +31,7 @@ public static class StackableDataSerialization
     public static IStackableData ReadStackableData(this NetworkReader reader)
     {
         byte type = reader.ReadByte();
-        int id = reader.ReadInt();
+        string id = reader.ReadString();
         string name = reader.ReadString();
         float x = reader.ReadFloat();
         float y = reader.ReadFloat();

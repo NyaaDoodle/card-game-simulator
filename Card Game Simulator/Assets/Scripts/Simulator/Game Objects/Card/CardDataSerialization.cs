@@ -4,7 +4,7 @@ public static class CardDataSerialization
 {
     public static void WriteCardData(this NetworkWriter writer, CardData cardData)
     {
-        writer.WriteInt(cardData.Id);
+        writer.WriteString(cardData.Id);
         writer.WriteString(cardData.Name);
         writer.WriteString(cardData.Description);
         writer.WriteFloat(cardData.Width);
@@ -15,7 +15,7 @@ public static class CardDataSerialization
 
     public static CardData ReadCardData(this NetworkReader reader)
     {
-        int id = reader.ReadInt();
+        string id = reader.ReadString();
         string name = reader.ReadString();
         string description = reader.ReadString();
         float width = reader.ReadFloat();

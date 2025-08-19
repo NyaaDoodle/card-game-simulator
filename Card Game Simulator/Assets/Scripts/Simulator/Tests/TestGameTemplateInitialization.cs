@@ -3,21 +3,16 @@
 public class TestGameTemplateInitialization
 {
     public GameTemplate TestGameTemplate { get; private set; }
-    private const int id = 0;
-    private const string name = "Test Game Template";
-    private const string description = "Testing";
-    private TableData tableData = new TableData();
-    private readonly List<CardData> cardDataListA = new List<CardData>();
-    private readonly List<CardData> cardDataListB = new List<CardData>();
-    private readonly Dictionary<int, CardData> cardPool = new Dictionary<int, CardData>();
-    private readonly Dictionary<int, DeckData> decksData = new Dictionary<int, DeckData>();
-    private readonly Dictionary<int, SpaceData> spacesData = new Dictionary<int, SpaceData>();
+    private GameTemplateDetails gameTemplateDetails;
+    private TableData tableData;
+    private CardData[] cardPool;
+    private DeckData[] decksData;
+    private SpaceData[] spacesData;
 
     public TestGameTemplateInitialization()
     {
+        makeGameTemplateDetails();
         makeTableData();
-        makeCardDataListA();
-        makeCardDataListB();
         makeCardPool();
         makeDecksData();
         makeSpacesData();
@@ -26,7 +21,16 @@ public class TestGameTemplateInitialization
 
     private void makeTestTemplate()
     {
-        TestGameTemplate = new GameTemplate(id, name, description, tableData, cardPool, decksData, spacesData);
+        TestGameTemplate = new GameTemplate(gameTemplateDetails, tableData, cardPool, decksData, spacesData);
+    }
+
+    private void makeGameTemplateDetails()
+    {
+        gameTemplateDetails = new GameTemplateDetails(
+            "Test Game Template",
+            "Melanie Sverdlov",
+            "Test Game Template",
+            "");
     }
 
     private void makeTableData()
@@ -34,46 +38,36 @@ public class TestGameTemplateInitialization
         tableData = new TableData(20, 15, "TestGameTemplate/SimpleGreen");
     }
 
-    private void makeCardDataListA()
-    {
-        cardDataListA.Add(new CardData(0, "Standard52/Gray_back", "Standard52/2C"));
-        cardDataListA.Add(new CardData(1, "Standard52/Green_back", "Standard52/3D"));
-        cardDataListA.Add(new CardData(2, "Standard52/Red_back", "Standard52/4H"));
-        cardDataListA.Add(new CardData(3, "Standard52/Yellow_back", "Standard52/5S"));
-    }
-
-    private void makeCardDataListB()
-    {
-        cardDataListB.Add(new CardData(4, "Standard52/blue_back", "Standard52/10S"));
-        cardDataListB.Add(new CardData(5, "Standard52/purple_back", "Standard52/9D"));
-        cardDataListB.Add(new CardData(6, "Standard52/Green_back", "Standard52/8C"));
-        cardDataListB.Add(new CardData(7, "Standard52/Red_back", "Standard52/7H"));
-    }
-
     private void makeCardPool()
     {
-        foreach (CardData cardData in cardDataListA)
-        {
-            cardPool.Add(cardData.Id, cardData);
-        }
-        foreach (CardData cardData in cardDataListB)
-        {
-            cardPool.Add(cardData.Id, cardData);
-        }
+        List<CardData> cardDataList = new List<CardData>();
+        cardDataList.Add(new CardData("2C", "2C", "Standard52/Gray_back", "Standard52/2C"));
+        cardDataList.Add(new CardData("3D", "3D", "Standard52/Green_back", "Standard52/3D"));
+        cardDataList.Add(new CardData("4H", "4H", "Standard52/Red_back", "Standard52/4H"));
+        cardDataList.Add(new CardData("5S", "5S", "Standard52/Yellow_back", "Standard52/5S"));
+        cardDataList.Add(new CardData("10S", "10S", "Standard52/blue_back", "Standard52/10S"));
+        cardDataList.Add(new CardData("9D", "9D", "Standard52/purple_back", "Standard52/9D"));
+        cardDataList.Add(new CardData("8C", "8C", "Standard52/Green_back", "Standard52/8C"));
+        cardDataList.Add(new CardData("7H", "7H", "Standard52/Red_back", "Standard52/7H"));
+        cardPool = cardDataList.ToArray();
     }
 
     private void makeDecksData()
     {
-        decksData.Add(0, new DeckData(0, 5, -3.25f, cardDataListA.ToArray()));
-        decksData.Add(1, new DeckData(0, -5, 3.25f, cardDataListA.ToArray()));
+        List<DeckData> deckDataList = new List<DeckData>();
+        deckDataList.Add(new DeckData("Deck 1", 5, -3.25f, 0, cardPool));
+        deckDataList.Add(new DeckData("Deck 2", -5, 3.25f, 0, cardPool));
+        decksData = deckDataList.ToArray();
     }
 
     private void makeSpacesData()
     {
-        spacesData.Add(0, new SpaceData(0, 0, 0));
-        spacesData.Add(1, new SpaceData(1, 2.5f, 0));
-        spacesData.Add(2, new SpaceData(2, 5, 0));
-        spacesData.Add(3, new SpaceData(3, -2.5f, 0));
-        spacesData.Add(4, new SpaceData(4, -5, 0));
+        List<SpaceData> spaceDataList = new List<SpaceData>();
+        spaceDataList.Add(new SpaceData("Space 1", 0, 0, 0));
+        spaceDataList.Add(new SpaceData("Space 2", 2.5f, 0, 0));
+        spaceDataList.Add(new SpaceData("Space 3", 5, 0, 0));
+        spaceDataList.Add(new SpaceData("Space 4", -2.5f, 0, 0));
+        spaceDataList.Add(new SpaceData("Space 5", -5, 0, 0));
+        spacesData = spaceDataList.ToArray();
     }
 }

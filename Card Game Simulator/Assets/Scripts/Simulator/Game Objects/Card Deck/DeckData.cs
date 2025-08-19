@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 public readonly struct DeckData : IStackableData, IEquatable<DeckData>
 {
-    public int Id { get; }
+    public string Id { get; }
     public string Name { get; }
     public float TableXCoordinate { get; }
     public float TableYCoordinate { get; }
@@ -14,7 +14,7 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
 
     [JsonConstructor]
     public DeckData(
-        int id,
+        string id,
         string name,
         float tableXCoordinate,
         float tableYCoordinate,
@@ -30,30 +30,18 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
     }
 
     public DeckData(
-        int id,
+        string name,
         float tableXCoordinate,
         float tableYCoordinate,
+        float rotation,
         CardData[] startingCards)
     {
-        Id = id;
-        Name = "";
+        Id = Guid.NewGuid().ToString();
+        Name = name;
         TableXCoordinate = tableXCoordinate;
         TableYCoordinate = tableYCoordinate;
-        Rotation = 0;
+        Rotation = rotation;
         StartingCards = startingCards;
-    }
-
-    public DeckData(
-        int id,
-        float tableXCoordinate,
-        float tableYCoordinate)
-    {
-        Id = id;
-        Name = "";
-        TableXCoordinate = tableXCoordinate;
-        TableYCoordinate = tableYCoordinate;
-        Rotation = 0;
-        StartingCards = Array.Empty<CardData>();
     }
 
     public bool Equals(DeckData other)
@@ -108,9 +96,16 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         stringBuilder.AppendLine($"TableYCoordinate: {TableYCoordinate}");
         stringBuilder.AppendLine($"Rotation: {Rotation}");
         stringBuilder.AppendLine($"StartingCards:");
-        foreach (CardData cardData in StartingCards)
+        if (StartingCards != null)
         {
-            stringBuilder.AppendLine(cardData.ToString());
+            foreach (CardData cardData in StartingCards)
+            {
+                stringBuilder.AppendLine(cardData.ToString());
+            }
+        }
+        else
+        {
+            stringBuilder.AppendLine("null");
         }
         return stringBuilder.ToString();
     }

@@ -94,7 +94,7 @@ public class GameInstanceManager : NetworkBehaviour
     private void spawnDecks()
     {
         LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
-        foreach (DeckData deckData in GameTemplate.DecksData.Values)
+        foreach (DeckData deckData in GameTemplate.DecksData)
         {
             spawnDeck(deckData);
         }
@@ -126,7 +126,7 @@ public class GameInstanceManager : NetworkBehaviour
     private void spawnSpaces()
     {
         LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
-        foreach (SpaceData spaceData in GameTemplate.SpacesData.Values)
+        foreach (SpaceData spaceData in GameTemplate.SpacesData)
         {
             spawnSpace(spaceData);
         }
