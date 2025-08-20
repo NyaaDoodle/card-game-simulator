@@ -12,8 +12,8 @@ public readonly struct CardData : IEquatable<CardData>
     public string Description { get; }
     public float Width { get; }
     public float Height { get; }
-    public string BackSideSpritePath { get; }
-    public string FrontSideSpritePath { get; }
+    public ImageAssetReference BackSideImageReference { get; }
+    public ImageAssetReference FrontSideImageReference { get; }
 
     [JsonConstructor]
     public CardData(
@@ -22,52 +22,61 @@ public readonly struct CardData : IEquatable<CardData>
         string description,
         float width,
         float height,
-        string backSideSpritePath,
-        string frontSideSpritePath)
+        ImageAssetReference backSideImageReference,
+        ImageAssetReference frontSideImageReference)
     {
         Id = id;
         Name = name;
         Description = description;
         Width = width;
         Height = height;
-        BackSideSpritePath = backSideSpritePath;
-        FrontSideSpritePath = frontSideSpritePath;
+        BackSideImageReference = backSideImageReference;
+        FrontSideImageReference = frontSideImageReference;
     }
 
-    public CardData(string id, string name, string description, string backSideSpritePath, string frontSideSpritePath)
+    public CardData(
+        string id,
+        string name,
+        string description,
+        ImageAssetReference backSideImageReference,
+        ImageAssetReference frontSideImageReference)
     {
         Id = id;
         Name = name;
         Description = description;
         Width = defaultWidth;
         Height = defaultHeight;
-        BackSideSpritePath = backSideSpritePath;
-        FrontSideSpritePath = frontSideSpritePath;
+        BackSideImageReference = backSideImageReference;
+        FrontSideImageReference = frontSideImageReference;
     }
 
-    public CardData(string name, string description, string backSideSpritePath, string frontSideSpritePath)
+    public CardData(
+        string name,
+        string description,
+        ImageAssetReference backSideImageReference,
+        ImageAssetReference frontSideImageReference)
     {
         Id = Guid.NewGuid().ToString();
         Name = name;
         Description = description;
         Width = defaultWidth;
         Height = defaultHeight;
-        BackSideSpritePath = backSideSpritePath;
-        FrontSideSpritePath = frontSideSpritePath;
+        BackSideImageReference = backSideImageReference;
+        FrontSideImageReference = frontSideImageReference;
     }
 
     public bool Equals(CardData other)
     {
         return other.Id == this.Id && other.Name == this.Name && other.Description == this.Description
                && other.Width == this.Width && other.Height == this.Height
-               && other.BackSideSpritePath == this.BackSideSpritePath
-               && other.FrontSideSpritePath == this.FrontSideSpritePath;
+               && other.BackSideImageReference == this.BackSideImageReference
+               && other.FrontSideImageReference == this.FrontSideImageReference;
     } 
 
     public override bool Equals(object obj) => obj is CardData cardData && Equals(cardData);
 
     public override int GetHashCode() =>
-        HashCode.Combine(Id, Name, Description, Width, Height, BackSideSpritePath, FrontSideSpritePath);
+        HashCode.Combine(Id, Name, Description, Width, Height, BackSideImageReference, FrontSideImageReference);
 
     public static bool operator ==(CardData cardData1, CardData cardData2)
     {
@@ -88,8 +97,8 @@ public readonly struct CardData : IEquatable<CardData>
         stringBuilder.AppendLine($"Description: {Description}");
         stringBuilder.AppendLine($"Width: {Width}");
         stringBuilder.AppendLine($"Height: {Height}");
-        stringBuilder.AppendLine($"BackSideSpritePath: {BackSideSpritePath}");
-        stringBuilder.AppendLine($"FrontSideSpritePath: {FrontSideSpritePath}");
+        stringBuilder.AppendLine($"BackSideImageReference: {BackSideImageReference}");
+        stringBuilder.AppendLine($"FrontSideImageReference: {FrontSideImageReference}");
         return stringBuilder.ToString();
     }
 }

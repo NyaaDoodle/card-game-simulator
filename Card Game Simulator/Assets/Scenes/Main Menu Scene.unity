@@ -481,6 +481,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162911018}
   m_CullTransparentMesh: 1
+--- !u!1 &172419785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172419786}
+  - component: {fileID: 172419787}
+  m_Layer: 0
+  m_Name: Data Directories Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172419786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172419785}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172419787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172419785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660c00a0b586432b8f2ace4048d6773f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &174532227
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,6 +614,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8851151f203c5dc4a97632bf9d43b2c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &181012368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181012369}
+  - component: {fileID: 181012370}
+  m_Layer: 0
+  m_Name: Game Template Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &181012369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181012368}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &181012370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181012368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28dce51989fa9e64bbad164ecdeead02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &217554555
@@ -1072,7 +1160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457379757}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1636,50 +1724,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1659743003}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &819999996
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 819999998}
-  - component: {fileID: 819999997}
-  m_Layer: 0
-  m_Name: Game Template Saver Loader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &819999997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819999996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 024e7eba72a86c3448714d374faccff1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &819999998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819999996}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848146005
@@ -3823,7 +3867,7 @@ GameObject:
   - component: {fileID: 1659743003}
   - component: {fileID: 1659743004}
   m_Layer: 0
-  m_Name: TestGameTemplateSaveLoad
+  m_Name: TestGameTemplateLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3853,7 +3897,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1659743002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b53342c3f164e8cbfae7836c250c799, type: 3}
+  m_Script: {fileID: 11500000, guid: 766ece96c5de4f7292c0b944cfc4ffba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1755423970
@@ -4127,29 +4171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83291b7e131d47fa877c8cbc60ab792e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableGameInstanceManagerLogger: 0
-  EnableGameTemplateLoaderLogger: 0
-  EnableCardDisplayLogger: 0
-  EnableCardCollectionLogger: 0
-  EnableCardCollectionDisplayLogger: 0
-  EnableDeckLogger: 0
-  EnableDeckDisplayLogger: 0
-  EnableSpaceLogger: 0
-  EnableSpaceDisplayLogger: 0
-  EnableStackableLogger: 0
-  EnableStackableDisplayLogger: 0
-  EnableTableLogger: 0
-  EnableTableDisplayLogger: 0
-  EnableSimulatorNetworkManagerLogger: 0
-  EnablePlayerLogger: 0
-  EnablePlayerHandLogger: 0
-  EnablePlayerHandDisplayLogger: 0
-  EnablePlayerManagerLogger: 0
-  EnablePrefabExtensionsLogger: 0
-  EnableSelectionManagerLogger: 0
-  EnableInteractionMenuManagerLogger: 0
-  EnableInteractionMenuLogger: 0
-  EnableGameTemplateSaveLoadLogger: 1
 --- !u!4 &1909563609
 Transform:
   m_ObjectHideFlags: 0
@@ -4568,9 +4589,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 760928914}
   - {fileID: 611479456}
-  - {fileID: 457379762}
-  - {fileID: 819999998}
-  - {fileID: 1909563609}
   - {fileID: 907738364}
   - {fileID: 1541444753}
+  - {fileID: 457379762}
+  - {fileID: 172419786}
+  - {fileID: 181012369}
+  - {fileID: 1909563609}
   - {fileID: 767848145}

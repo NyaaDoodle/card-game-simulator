@@ -13,7 +13,6 @@ public class SelectionManager : MonoBehaviour
 
     public void SetupGameObjectEvents()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         subscribeToGameObjectsSelectionEvents();
         isGameObjectsSet = true;
         checkIfGameObjectsAndPlayerAreSet();
@@ -21,7 +20,6 @@ public class SelectionManager : MonoBehaviour
 
     public void SetupPlayerHandEvents()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         player = ManagerReferences.Instance.PlayerManager.LocalPlayer;
         subscribeToPlayerHandSelectionEvents(ManagerReferences.Instance.PlayerManager.LocalPlayerHandDisplay);
         isPlayerSet = true;
@@ -30,7 +28,6 @@ public class SelectionManager : MonoBehaviour
 
     private void checkIfGameObjectsAndPlayerAreSet()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (isGameObjectsSet && isPlayerSet)
         {
             subscribeToInteractionMenuSelectionEvents();
@@ -39,7 +36,6 @@ public class SelectionManager : MonoBehaviour
 
     private void subscribeToGameObjectsSelectionEvents()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         subscribeToDeckSelectionEvents(ManagerReferences.Instance.GameInstanceManager.DeckDisplays);
         subscribeToSpaceSelectionEvents(ManagerReferences.Instance.GameInstanceManager.SpaceDisplays);
     }
@@ -53,7 +49,6 @@ public class SelectionManager : MonoBehaviour
 
     private void subscribeToInteractionMenuSelectionEvents()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (interactionMenuManager == null) return;
         interactionMenuManager.Cancelled += onInteractiveMenuCancelled;
         interactionMenuManager.SelectedDrawCard += onInteractiveMenuSelectedDrawCard;
@@ -67,7 +62,6 @@ public class SelectionManager : MonoBehaviour
 
     private void unsubscribeFromInteractionMenuSelectionEvents()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (interactionMenuManager == null) return;interactionMenuManager.Cancelled += onInteractiveMenuCancelled;
         interactionMenuManager.SelectedDrawCard -= onInteractiveMenuSelectedDrawCard;
         interactionMenuManager.SelectedFlipCard -= onInteractiveMenuSelectedFlipCard;
@@ -80,7 +74,6 @@ public class SelectionManager : MonoBehaviour
 
     private void subscribeToDeckSelectionEvents(IEnumerable<DeckDisplay> deckDisplays)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (deckDisplays == null) return;
         foreach (DeckDisplay deckDisplay in deckDisplays)
         {
@@ -91,7 +84,6 @@ public class SelectionManager : MonoBehaviour
     
     private void unsubscribeFromDeckSelectionEvents(IEnumerable<DeckDisplay> deckDisplays)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (deckDisplays == null) return;
         foreach (DeckDisplay deckDisplay in deckDisplays)
         {
@@ -102,7 +94,6 @@ public class SelectionManager : MonoBehaviour
 
     private void subscribeToSpaceSelectionEvents(IEnumerable<SpaceDisplay> spaceDisplays)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (spaceDisplays == null) return;
         foreach (SpaceDisplay spaceDisplay in spaceDisplays)
         {
@@ -113,7 +104,6 @@ public class SelectionManager : MonoBehaviour
     
     private void unsubscribeFromSpaceSelectionEvents(IEnumerable<SpaceDisplay> spaceDisplays)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (spaceDisplays == null) return;
         foreach (SpaceDisplay spaceDisplay in spaceDisplays)
         {
@@ -124,13 +114,11 @@ public class SelectionManager : MonoBehaviour
 
     private void subscribeToPlayerHandSelectionEvents(PlayerHandDisplay localPlayerHandDisplay)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         localPlayerHandDisplay.CardSelected += onPlayerHandCardSelected;
     }
 
     private void onStackableCardSelected(CardCollection cardCollection, Card card)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (cardCollection is Stackable stackable)
         {
             onStackableSelected(stackable);
@@ -143,7 +131,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onStackableSelfSelected(CardCollection cardCollection)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (cardCollection is Stackable stackable)
         {
             onStackableSelected(stackable);
@@ -156,7 +143,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onStackableSelected(Stackable stackable)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.IsEmpty)
         { 
             sourceSelection.SelectedCardCollection = stackable;
@@ -171,7 +157,6 @@ public class SelectionManager : MonoBehaviour
 
     private void showStackableInteractionMenu(Stackable stackable)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (stackable is Deck deck)
         {
             interactionMenuManager.ShowDeckActionMenu(deck);
@@ -188,7 +173,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onPlayerHandCardSelected(CardCollection cardCollection, Card selectedCard)
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (cardCollection is PlayerHand playerHand)
         {
             if (sourceSelection.IsEmpty)
@@ -210,13 +194,11 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuCancelled()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         cancelSelections();
     }
 
     private void onInteractiveMenuSelectedDrawCard()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
         {
             player.CmdDrawCard(stackable);
@@ -226,7 +208,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedFlipCard()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
         {
             player.CmdFlipCard(stackable);
@@ -236,7 +217,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedShuffle()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
             player.CmdShuffleStackable(stackable);
@@ -246,7 +226,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedSearch()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
             Debug.Log("Deck search not implemented");
@@ -257,12 +236,10 @@ public class SelectionManager : MonoBehaviour
     private void onInteractiveMenuSelectedPlaceCard()
     {
         // TODO add popup message informing user that they need to select a deck/space to place the card
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
     }
 
     private void onInteractiveMenuSelectedFaceUp()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.SelectedCardCollection is PlayerHand playerHand && sourceSelection.SelectedCard != null
                                                                             && destinationSelection
                                                                                     .SelectedCardCollection is Stackable
@@ -275,7 +252,6 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedFaceDown()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         if (sourceSelection.SelectedCardCollection is PlayerHand playerHand && sourceSelection.SelectedCard != null
                                                                             && destinationSelection
                                                                                     .SelectedCardCollection is Stackable
@@ -288,7 +264,6 @@ public class SelectionManager : MonoBehaviour
 
     private void cancelSelections()
     {
-        LoggingManager.Instance.SelectionManagerLogger.LogMethod();
         sourceSelection.SetEmpty();
         destinationSelection.SetEmpty();
     }

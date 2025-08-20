@@ -9,7 +9,6 @@ public class Table : NetworkBehaviour
     [Server]
     public void Setup(TableData tableData)
     {
-        LoggingManager.Instance.TableLogger.LogMethod();
         this.tableData = tableData;
     }
 }

@@ -11,14 +11,12 @@ public class DeckMenu : InteractionMenu
 
     public void Setup(Deck deck)
     {
-        LoggingManager.Instance.InteractionMenuLogger.LogMethod();
         this.deck = deck;
         setupButtons();
     }
 
     private void setupButtons()
     {
-        LoggingManager.Instance.InteractionMenuLogger.LogMethod();
         DrawCardButton.gameObject.SetActive(isAbleToDrawCard());
         FlipCardButton.gameObject.SetActive(isAbleToFlipCard());
         ShuffleDeckButton.gameObject.SetActive(isAbleToShuffleDeck());

@@ -6,14 +6,14 @@ public static class TableDataSerialization
     {
         writer.WriteFloat(tableData.Width);
         writer.WriteFloat(tableData.Height);
-        writer.WriteString(tableData.SurfaceImagePath);
+        writer.WriteImageAssetReference(tableData.SurfaceImageReference);
     }
 
     public static TableData ReadTableData(this NetworkReader reader)
     {
         float width = reader.ReadFloat();
         float height = reader.ReadFloat();
-        string surfaceImagePath = reader.ReadString();
+        ImageAssetReference surfaceImagePath = reader.ReadImageAssetReference();
         return new TableData(width, height, surfaceImagePath);
     }
 }

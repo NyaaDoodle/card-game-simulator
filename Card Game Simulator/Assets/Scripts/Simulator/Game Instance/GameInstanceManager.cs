@@ -34,7 +34,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         base.OnStartServer();
         loadGameTemplate();
         spawnGameObjects();
@@ -49,28 +48,24 @@ public class GameInstanceManager : NetworkBehaviour
 
     public override void OnStopClient()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         despawnDisplayObjects();
         base.OnStopClient();
     }
 
     public override void OnStopServer()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         despawnGameObjects();
         base.OnStopServer();
     }
 
     private void loadGameTemplate()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
         GameTemplate = gameTemplateLoader.LoadGameTemplate();
     }
 
     private void spawnGameObjects()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         spawnTable();
         spawnDecks();
         spawnSpaces();
@@ -78,13 +73,11 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnTable()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         Table = PrefabExtensions.InstantiateTable(GameTemplate.TableData);
     }
     
     private void spawnTableDisplay()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         if (Table != null)
         {
             TableDisplay = PrefabExtensions.InstantiateTableDisplay(Table);
@@ -93,7 +86,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnDecks()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         foreach (DeckData deckData in GameTemplate.DecksData)
         {
             spawnDeck(deckData);
@@ -102,7 +94,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnDeckDisplays()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         foreach (Deck deck in Decks)
         {
             spawnDeckDisplay(deck);
@@ -111,21 +102,18 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnDeck(DeckData deckData)
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         Deck deck = PrefabExtensions.InstantiateDeck(deckData);
         Decks.Add(deck);
     }
 
     private void spawnDeckDisplay(Deck deck)
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         DeckDisplay deckDisplay = PrefabExtensions.InstantiateDeckDisplay(deck);
         DeckDisplays.Add(deckDisplay);
     }
 
     private void spawnSpaces()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         foreach (SpaceData spaceData in GameTemplate.SpacesData)
         {
             spawnSpace(spaceData);
@@ -134,7 +122,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnSpaceDisplays()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         foreach (Space space in Spaces)
         {
             spawnSpaceDisplay(space);
@@ -143,21 +130,18 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnSpace(SpaceData spaceData)
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         Space space = PrefabExtensions.InstantiateSpace(spaceData);
         Spaces.Add(space);
     }
 
     private void spawnSpaceDisplay(Space space)
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         SpaceDisplay spaceDisplay = PrefabExtensions.InstantiateSpaceDisplay(space);
         SpaceDisplays.Add(spaceDisplay);
     }
 
     private void despawnGameObjects()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         if (Table != null)
         {
             Destroy(Table.gameObject);
@@ -182,7 +166,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void spawnDisplayObjects()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         spawnTableDisplay();
         spawnDeckDisplays();
         spawnSpaceDisplays();
@@ -190,7 +173,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void despawnDisplayObjects()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         if (TableDisplay != null)
         {
             Destroy(TableDisplay.gameObject);
@@ -215,7 +197,6 @@ public class GameInstanceManager : NetworkBehaviour
 
     private void setupSelectionManager()
     {
-        LoggingManager.Instance.GameInstanceManagerLogger.LogMethod();
         ManagerReferences.Instance.SelectionManager.SetupGameObjectEvents();
     }
 }

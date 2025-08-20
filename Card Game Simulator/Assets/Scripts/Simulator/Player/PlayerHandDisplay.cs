@@ -13,28 +13,24 @@ public class PlayerHandDisplay : CardCollectionDisplay
 
     public virtual void Setup(PlayerHand playerHand)
     {
-        LoggingManager.Instance.PlayerHandDisplayLogger.LogMethod();
         base.Setup(playerHand);
         updateHandVisuals();
     }
 
     protected override void OnCardAdded(CardCollection _, Card cardState, int index)
     {
-        LoggingManager.Instance.PlayerHandDisplayLogger.LogMethod();
         base.OnCardAdded(_, cardState, index);
         updateHandVisuals();
     }
 
     protected override void OnCardRemoved(CardCollection _, Card card, int index)
     {
-        LoggingManager.Instance.PlayerHandDisplayLogger.LogMethod();
         base.OnCardRemoved(_, card, index);
         updateHandVisuals();
     }
 
     private void updateHandVisuals()
     {
-        LoggingManager.Instance.PlayerHandDisplayLogger.LogMethod();
         int cardCount = CardDisplays.Count;
         for (int i = 0; i < cardCount; i++)
         {

@@ -29,10 +29,17 @@ public class TraceLogger
         if (!IsEnabled) return;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine($"{listName}:");
-        foreach (T member in list)
+        if (list != null)
         {
-            stringBuilder.AppendLine(valueOrElseNullString(member));
-            stringBuilder.AppendLine();
+            foreach (T member in list)
+            {
+                stringBuilder.AppendLine(valueOrElseNullString(member));
+                stringBuilder.AppendLine();
+            }
+        }
+        else
+        {
+            stringBuilder.AppendLine("null");
         }
         Debug.Log(stringBuilder.ToString());
     }
@@ -42,10 +49,37 @@ public class TraceLogger
         if (!IsEnabled) return;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine($"{dictionaryName}:");
-        foreach (KeyValuePair<K, V> pair in dictionary)
+        if (dictionary != null)
         {
-            stringBuilder.AppendLine($"{valueOrElseNullString(pair.Key)} => {valueOrElseNullString(pair.Value)}");
-            stringBuilder.AppendLine();
+            foreach (KeyValuePair<K, V> pair in dictionary)
+            {
+                stringBuilder.AppendLine($"{valueOrElseNullString(pair.Key)} => {valueOrElseNullString(pair.Value)}");
+                stringBuilder.AppendLine();
+            }
+        }
+        else
+        {
+            stringBuilder.AppendLine("null");
+        }
+        Debug.Log(stringBuilder.ToString());
+    }
+
+    public void LogEnumerable<T>(string enumerableName, IEnumerable<T> enumerable)
+    {
+        if (!IsEnabled) return;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"{enumerableName}:");
+        if (enumerable != null)
+        {
+            foreach (T member in enumerable)
+            {
+                stringBuilder.AppendLine(valueOrElseNullString(member));
+                stringBuilder.AppendLine();
+            }
+        }
+        else
+        {
+            stringBuilder.AppendLine("null");
         }
         Debug.Log(stringBuilder.ToString());
     }

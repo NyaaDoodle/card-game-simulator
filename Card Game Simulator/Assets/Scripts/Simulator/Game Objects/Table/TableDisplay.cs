@@ -9,21 +9,18 @@ public class TableDisplay : MonoBehaviour
 
     public void Setup(Table table)
     {
-        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         Table = table;
         updateTableDisplay();
     }
 
     private void updateTableDisplay()
     {
-        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         resizeTable();
         loadSurfaceImage();
     }
 
     private void resizeTable()
     {
-        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         Vector2 tableSize = new Vector2(
             Table.TableData.Width,
             Table.TableData.Height
@@ -33,7 +30,6 @@ public class TableDisplay : MonoBehaviour
 
     private void loadSurfaceImage()
     {
-        LoggingManager.Instance.TableDisplayLogger.LogMethod();
         if (tableSurface == null)
         {
             Debug.LogError("Table surface object is null");
@@ -47,7 +43,7 @@ public class TableDisplay : MonoBehaviour
             return;
         }
 
-        string imagePath = Table.TableData.SurfaceImagePath;
+        string imagePath = Table.TableData.SurfaceImageReference.FilePath;
         if (string.IsNullOrEmpty(imagePath))
         {
             Debug.LogWarning("Surface image path is empty or null");

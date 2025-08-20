@@ -6,22 +6,22 @@ public readonly struct TableData : IEquatable<TableData>
 {
     public float Width { get; }
     public float Height { get; }
-    public string SurfaceImagePath { get; }
+    public ImageAssetReference SurfaceImageReference { get; }
 
     [JsonConstructor]
-    public TableData(float width, float height, string surfaceImagePath)
+    public TableData(float width, float height, ImageAssetReference surfaceImageReference)
     {
         Width = width;
         Height = height;
-        SurfaceImagePath = surfaceImagePath;
+        SurfaceImageReference = surfaceImageReference;
     }
 
     public bool Equals(TableData other) =>
-        other.Width == this.Width && other.Height == this.Height && other.SurfaceImagePath == this.SurfaceImagePath;
+        other.Width == this.Width && other.Height == this.Height && other.SurfaceImageReference == this.SurfaceImageReference;
 
     public override bool Equals(object obj) => obj is TableData tableData && Equals(tableData);
 
-    public override int GetHashCode() => HashCode.Combine(Width, Height, SurfaceImagePath);
+    public override int GetHashCode() => HashCode.Combine(Width, Height, SurfaceImageReference);
 
     public static bool operator ==(TableData tableData1, TableData tableData2)
     {
@@ -39,7 +39,7 @@ public readonly struct TableData : IEquatable<TableData>
         stringBuilder.AppendLine("TableData");
         stringBuilder.AppendLine($"Width {Width}");
         stringBuilder.AppendLine($"Height: {Height}");
-        stringBuilder.AppendLine($"SurfaceImagePath: {SurfaceImagePath}");
+        stringBuilder.AppendLine($"SurfaceImageReference: {SurfaceImageReference}");
         return stringBuilder.ToString();
     }
 }

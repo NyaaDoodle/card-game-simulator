@@ -174,7 +174,6 @@ public class SimulatorNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        LoggingManager.Instance.SimulatorNetworkManagerLogger.LogMethod();
         base.OnServerReady(conn);
         ManagerReferences.Instance.PlayerManager.AddPlayer(conn);
     }
