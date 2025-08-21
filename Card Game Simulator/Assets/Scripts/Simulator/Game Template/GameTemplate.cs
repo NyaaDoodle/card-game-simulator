@@ -30,21 +30,6 @@ public readonly struct GameTemplate : IEquatable<GameTemplate>
         SpacesData = spacesData.ToArray();
     }
 
-    public GameTemplate(
-        GameTemplateDetails gameTemplateDetails,
-        TableData tableData,
-        IEnumerable<CardData> cardPool,
-        IEnumerable<DeckData> decksData,
-        IEnumerable<SpaceData> spacesData)
-    {
-        Id = Guid.NewGuid().ToString();
-        GameTemplateDetails = gameTemplateDetails;
-        TableData = tableData;
-        CardPool = cardPool.ToArray();
-        DecksData = decksData.ToArray();
-        SpacesData = spacesData.ToArray();
-    }
-
     public bool Equals(GameTemplate other)
     {
         return other.Id == this.Id && other.GameTemplateDetails == this.GameTemplateDetails

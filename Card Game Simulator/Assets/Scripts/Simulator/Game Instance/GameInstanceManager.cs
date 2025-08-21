@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Mirror;
+using UnityEngine;
 
 public class GameInstanceManager : NetworkBehaviour
 {
-    public GameTemplate GameTemplate { get; private set; } // Not synchronized on the network
-    
     // Network-synced objects
     [SyncVar] private Table table;
     private readonly SyncList<Deck> decks = new SyncList<Deck>();
@@ -35,8 +34,15 @@ public class GameInstanceManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        loadGameTemplate();
-        spawnGameObjects();
+        GameTemplate? gameTemplate = loadGameTemplate();
+        if (gameTemplate != null)
+        {
+            spawnGameObjects(gameTemplate.Value);
+        }
+        else
+        {
+            Debug.LogError("Unable to load game template, game template is null");
+        }
     }
 
     void Start()
@@ -58,22 +64,22 @@ public class GameInstanceManager : NetworkBehaviour
         base.OnStopServer();
     }
 
-    private void loadGameTemplate()
+    private GameTemplate? loadGameTemplate()
     {
-        GameTemplateLoader gameTemplateLoader = new GameTemplateLoader();
-        GameTemplate = gameTemplateLoader.LoadGameTemplate();
+        const string magicString = "54cafadf-719a-4643-bfb5-ba94e43ee642";
+        return GameTemplateLoader.Instance.LoadGameTemplateFromId(magicString);
     }
 
-    private void spawnGameObjects()
+    private void spawnGameObjects(GameTemplate gameTemplate)
     {
-        spawnTable();
-        spawnDecks();
-        spawnSpaces();
+        spawnTable(gameTemplate.TableData);
+        spawnDecks(gameTemplate.DecksData);
+        spawnSpaces(gameTemplate.SpacesData);
     }
 
-    private void spawnTable()
+    private void spawnTable(TableData tableData)
     {
-        Table = PrefabExtensions.InstantiateTable(GameTemplate.TableData);
+        Table = PrefabExtensions.InstantiateTable(tableData);
     }
     
     private void spawnTableDisplay()
@@ -84,9 +90,9 @@ public class GameInstanceManager : NetworkBehaviour
         }
     }
 
-    private void spawnDecks()
+    private void spawnDecks(DeckData[] decksData)
     {
-        foreach (DeckData deckData in GameTemplate.DecksData)
+        foreach (DeckData deckData in decksData)
         {
             spawnDeck(deckData);
         }
@@ -112,9 +118,9 @@ public class GameInstanceManager : NetworkBehaviour
         DeckDisplays.Add(deckDisplay);
     }
 
-    private void spawnSpaces()
+    private void spawnSpaces(SpaceData[] spacesData)
     {
-        foreach (SpaceData spaceData in GameTemplate.SpacesData)
+        foreach (SpaceData spaceData in spacesData)
         {
             spawnSpace(spaceData);
         }

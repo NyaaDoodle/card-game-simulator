@@ -31,10 +31,9 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void loadBackSideSprite()
     {
-        // TODO allow loading outside of Resources folder
         if (isBackSideImageNotDefined()) return;
-        string backSideSpritePath = Card.CardData.BackSideImageReference.FilePath;
-        Sprite backSideSprite = Resources.Load<Sprite>(backSideSpritePath);
+        string backSideSpritePath = Card.CardData.BackSideImagePath;
+        Sprite backSideSprite = ImageLoader.LoadImageAsset(backSideSpritePath);
         if (backSideSprite != null)
         {
             backSideImage.sprite = backSideSprite;
@@ -47,10 +46,9 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void loadFrontSideSprite()
     {
-        // TODO allow loading outside of Resources folder
         if (isFrontSideImageNotDefined()) return;
-        string frontSideSpritePath = Card.CardData.FrontSideImageReference.FilePath;
-        Sprite frontSideSprite = Resources.Load<Sprite>(frontSideSpritePath);
+        string frontSideSpritePath = Card.CardData.FrontSideImagePath;
+        Sprite frontSideSprite = ImageLoader.LoadImageAsset(frontSideSpritePath);
         if (frontSideSprite != null)
         {
             frontSideImage.sprite = frontSideSprite;

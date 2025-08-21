@@ -9,8 +9,8 @@ public static class CardDataSerialization
         writer.WriteString(cardData.Description);
         writer.WriteFloat(cardData.Width);
         writer.WriteFloat(cardData.Height);
-        writer.WriteImageAssetReference(cardData.BackSideImageReference);
-        writer.WriteImageAssetReference(cardData.FrontSideImageReference);
+        writer.WriteString(cardData.BackSideImagePath);
+        writer.WriteString(cardData.FrontSideImagePath);
     }
 
     public static CardData ReadCardData(this NetworkReader reader)
@@ -20,8 +20,8 @@ public static class CardDataSerialization
         string description = reader.ReadString();
         float width = reader.ReadFloat();
         float height = reader.ReadFloat();
-        ImageAssetReference backSideSpritePath = reader.ReadImageAssetReference();
-        ImageAssetReference frontSideSpritePath = reader.ReadImageAssetReference();
+        string backSideSpritePath = reader.ReadString();
+        string frontSideSpritePath = reader.ReadString();
         return new CardData(id, name, description, width, height, backSideSpritePath, frontSideSpritePath);
     }
 }

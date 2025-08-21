@@ -29,21 +29,6 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         StartingCards = startingCards;
     }
 
-    public DeckData(
-        string name,
-        float tableXCoordinate,
-        float tableYCoordinate,
-        float rotation,
-        CardData[] startingCards)
-    {
-        Id = Guid.NewGuid().ToString();
-        Name = name;
-        TableXCoordinate = tableXCoordinate;
-        TableYCoordinate = tableYCoordinate;
-        Rotation = rotation;
-        StartingCards = startingCards;
-    }
-
     public bool Equals(DeckData other)
     {
         return other.Id == this.Id && other.Name == this.Name && other.TableXCoordinate == this.TableXCoordinate

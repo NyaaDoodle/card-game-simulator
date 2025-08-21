@@ -37,25 +37,15 @@ public class GameTemplateLoader : MonoBehaviour
 
     public List<GameTemplate> LoadGameTemplates()
     {
-        logger.LogMethod();
         List<GameTemplate> gameTemplates = new List<GameTemplate>();
-        logger.LogList("gameTemplates", gameTemplates);
         string templatesDirectoryPath = DataDirectoryManager.Instance.TemplatesDirectoryPath;
-        logger.LogVariable("templatesDirectoryPath", templatesDirectoryPath);
         string[] directories = Directory.GetDirectories(templatesDirectoryPath);
-        logger.LogEnumerable("directories", directories);
         foreach (string directory in directories)
         {
-            logger.LogVariable("directory", directory);
-            string templateFileInDirectory = Path.Combine(directory, TemplateFilename);
-            if (File.Exists(templateFileInDirectory))
+            GameTemplate? loadedTemplateFromDirectory = LoadGameTemplateFromPath(directory);
+            if (loadedTemplateFromDirectory != null)
             {
-                string gameTemplateJson = File.ReadAllText(templateFileInDirectory);
-                logger.LogVariable("gameTemplateJson", gameTemplateJson);
-                GameTemplate gameTemplate = DeserializeGameTemplate(gameTemplateJson);
-                logger.LogVariable("gameTemplate", gameTemplate);
-                gameTemplates.Add(gameTemplate);
-                logger.LogList("gameTemplates", gameTemplates);
+                gameTemplates.Add(loadedTemplateFromDirectory.Value);
             }
         }
         return gameTemplates;
@@ -71,8 +61,27 @@ public class GameTemplateLoader : MonoBehaviour
         return JsonConvert.DeserializeObject<GameTemplate>(json);
     }
 
-    public GameTemplate LoadGameTemplate()
+    public GameTemplate? LoadGameTemplateFromId(string templateId)
     {
-        throw new NotImplementedException();
+        string templatesDirectoryPath = DataDirectoryManager.Instance.TemplatesDirectoryPath;
+        string templateToLoadDirectoryPath = Path.Combine(templatesDirectoryPath, templateId);
+        return LoadGameTemplateFromPath(templateToLoadDirectoryPath);
+    }
+
+    public GameTemplate? LoadGameTemplateFromPath(string pathToTemplate)
+    {
+        if (!Directory.Exists(pathToTemplate))
+        {
+            Debug.LogWarning("Path to game template does not exist");
+            return null;
+        }
+        string templateFileInDirectory = Path.Combine(pathToTemplate, TemplateFilename);
+        if (!File.Exists(templateFileInDirectory))
+        {
+            Debug.LogWarning("Game template file (template.json) does not exist");
+            return null;
+        }
+        string gameTemplateJson = File.ReadAllText(templateFileInDirectory);
+        return DeserializeGameTemplate(gameTemplateJson);
     }
 }

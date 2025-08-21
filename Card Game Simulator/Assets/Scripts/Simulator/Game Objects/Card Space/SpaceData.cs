@@ -25,19 +25,6 @@ public readonly struct SpaceData : IStackableData, IEquatable<SpaceData>
         Rotation = rotation;
     }
 
-    public SpaceData(
-        string name,
-        float tableXCoordinate,
-        float tableYCoordinate,
-        float rotation)
-    {
-        Id = Guid.NewGuid().ToString();
-        Name = name;
-        TableXCoordinate = tableXCoordinate;
-        TableYCoordinate = tableYCoordinate;
-        Rotation = rotation;
-    }
-
     public bool Equals(SpaceData other)
     {
         return other.Id == this.Id && other.Name == this.Name && other.TableXCoordinate == this.TableXCoordinate

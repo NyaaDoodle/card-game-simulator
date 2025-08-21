@@ -12,6 +12,7 @@ public class TestGameTemplateLoader : MonoBehaviour
 
     private void testFunc()
     {
+        saveTestTemplate();
         readGameTemplates();
     }
 

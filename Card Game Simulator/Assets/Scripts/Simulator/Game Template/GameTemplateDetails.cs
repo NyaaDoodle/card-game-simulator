@@ -7,22 +7,22 @@ public readonly struct GameTemplateDetails : IEquatable<GameTemplateDetails>
     public string TemplateName { get; }
     public string CreatorName { get; }
     public string Description { get; }
-    public ImageAssetReference TemplateImageReference { get; }
+    public string TemplateImagePath { get; }
 
     [JsonConstructor]
-    public GameTemplateDetails(string templateName, string creatorName, string description, ImageAssetReference templateImageReference)
+    public GameTemplateDetails(string templateName, string creatorName, string description, string templateImagePath)
     {
         TemplateName = templateName;
         CreatorName = creatorName;
         Description = description;
-        TemplateImageReference = templateImageReference;
+        TemplateImagePath = templateImagePath;
     }
 
     public bool Equals(GameTemplateDetails other)
     {
         return other.TemplateName == this.TemplateName && other.CreatorName == this.CreatorName
                                                        && other.Description == this.Description
-                                                       && other.TemplateImageReference == this.TemplateImageReference;
+                                                       && other.TemplateImagePath == this.TemplateImagePath;
     }
 
     public override bool Equals(object obj)
@@ -32,7 +32,7 @@ public readonly struct GameTemplateDetails : IEquatable<GameTemplateDetails>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(TemplateName, CreatorName, Description, TemplateImageReference);
+        return HashCode.Combine(TemplateName, CreatorName, Description, TemplateImagePath);
     }
 
     public static bool operator==(GameTemplateDetails gameTemplateDetails1, GameTemplateDetails gameTemplateDetails2)
@@ -52,7 +52,7 @@ public readonly struct GameTemplateDetails : IEquatable<GameTemplateDetails>
         stringBuilder.AppendLine($"TemplateName: {TemplateName}");
         stringBuilder.AppendLine($"CreatorName: {CreatorName}");
         stringBuilder.AppendLine($"Description: {Description}");
-        stringBuilder.AppendLine($"TemplateImageReference: {TemplateImageReference}");
+        stringBuilder.AppendLine($"TemplateImagePath: {TemplateImagePath}");
         return stringBuilder.ToString();
     }
 }
