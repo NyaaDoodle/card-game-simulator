@@ -48,17 +48,7 @@ public class TableDisplay : MonoBehaviour
         {
             Debug.LogWarning("Surface image path is empty or null");
         }
-
-        // TODO implement loading images from the game template folder
-        Sprite surfaceSprite = ImageLoader.LoadImageAsset(imagePath);
-        if (surfaceSprite != null)
-        {
-            surfaceImage.sprite = surfaceSprite;
-        }
-        else
-        {
-            Debug.LogWarning($"Could not load table surface sprite in path: {imagePath}");
-            surfaceImage.color = Color.green;
-        }
+        
+        TempImageLoader.Instance.LoadImageAsset(imagePath, surfaceImage);
     }
 }

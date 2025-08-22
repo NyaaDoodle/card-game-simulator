@@ -33,30 +33,14 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     {
         if (isBackSideImageNotDefined()) return;
         string backSideSpritePath = Card.CardData.BackSideImagePath;
-        Sprite backSideSprite = ImageLoader.LoadImageAsset(backSideSpritePath);
-        if (backSideSprite != null)
-        {
-            backSideImage.sprite = backSideSprite;
-        }
-        else
-        {
-            Debug.LogError($"Failed to load sprite at {backSideSpritePath}");
-        }
+        TempImageLoader.Instance.LoadImageAsset(backSideSpritePath, backSideImage);
     }
 
     private void loadFrontSideSprite()
     {
         if (isFrontSideImageNotDefined()) return;
         string frontSideSpritePath = Card.CardData.FrontSideImagePath;
-        Sprite frontSideSprite = ImageLoader.LoadImageAsset(frontSideSpritePath);
-        if (frontSideSprite != null)
-        {
-            frontSideImage.sprite = frontSideSprite;
-        }
-        else
-        {
-            Debug.LogError($"Failed to load sprite at {frontSideSpritePath}");
-        }
+        TempImageLoader.Instance.LoadImageAsset(frontSideSpritePath, frontSideImage);
     }
 
     private void loadCardSprites()
