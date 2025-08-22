@@ -1,14 +1,12 @@
 using System.Collections;
-using System.IO;
-using Extensions.Unity.ImageLoader;
 using SimpleFileBrowser;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TestImageLoader : MonoBehaviour
 {
-    private const string path1 = @"C:\Users\bmroo\AppData\LocalLow\NyaaDoodle\Card Game Simulator\images\54cafadf-719a-4643-bfb5-ba94e43ee642\Gray_back.jpg";
-    private const string path2 = @"C:\Users\bmroo\Downloads\Cat03.jpg";
+	[SerializeField] private Sprite fallbackSprite;
+	
     void Start()
     {
         loadDialog();
@@ -68,16 +66,6 @@ public class TestImageLoader : MonoBehaviour
 	    // Get the file path of the first selected file
 	    string filePath = filePaths[0];
 
-	    // Read the bytes of the first file via FileBrowserHelpers
-	    // Contrary to File.ReadAllBytes, this function works on Android 10+, as well
-	    byte[] bytes = FileBrowserHelpers.ReadBytesFromFile( filePath );
-
-	    Texture2D texture = new Texture2D(2, 2);
-	    bool isLoaded = texture.LoadImage(bytes);
-	    Debug.Log($"{filePath} {isLoaded}");
-	    Rect spriteRect = new Rect(0, 0, texture.width, texture.height);
-	    Vector2 pivotVector = Vector2.one * 0.5f;
-	    Sprite sprite = Sprite.Create(texture, spriteRect, pivotVector);
-	    GetComponent<Image>().sprite = sprite;
+	    SimulatorImageLoader.Instance.LoadImage(filePath, GetComponent<Image>(), fallbackSprite);
     }
 }

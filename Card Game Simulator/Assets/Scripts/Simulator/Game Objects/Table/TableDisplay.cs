@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class TableDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject tableSurface;
+    [SerializeField] private Sprite fallbackTableSurfaceSprite;
     public Table Table { get; private set; }
 
     public void Setup(Table table)
@@ -49,6 +50,6 @@ public class TableDisplay : MonoBehaviour
             Debug.LogWarning("Surface image path is empty or null");
         }
         
-        TempImageLoader.Instance.LoadImageAsset(imagePath, surfaceImage);
+        SimulatorImageLoader.Instance.LoadImage(imagePath, surfaceImage, fallbackTableSurfaceSprite);
     }
 }

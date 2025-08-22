@@ -8,6 +8,8 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     [Header("Card Side Images")]
     [SerializeField] private Image backSideImage;
     [SerializeField] private Image frontSideImage;
+    [SerializeField] private Sprite fallbackBackSideSprite;
+    [SerializeField] private Sprite fallbackFrontSideSprite;
 
     public Card Card { get; private set; }
     public event Action<Card> Selected;
@@ -33,14 +35,15 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     {
         if (isBackSideImageNotDefined()) return;
         string backSideSpritePath = Card.CardData.BackSideImagePath;
-        TempImageLoader.Instance.LoadImageAsset(backSideSpritePath, backSideImage);
+        //SimulatorImageLoader.Instance.LoadImageAsset(backSideSpritePath, backSideImage);
+        SimulatorImageLoader.Instance.LoadImage(backSideSpritePath, backSideImage, fallbackBackSideSprite);
     }
 
     private void loadFrontSideSprite()
     {
         if (isFrontSideImageNotDefined()) return;
         string frontSideSpritePath = Card.CardData.FrontSideImagePath;
-        TempImageLoader.Instance.LoadImageAsset(frontSideSpritePath, frontSideImage);
+        SimulatorImageLoader.Instance.LoadImage(frontSideSpritePath, frontSideImage, fallbackFrontSideSprite);
     }
 
     private void loadCardSprites()

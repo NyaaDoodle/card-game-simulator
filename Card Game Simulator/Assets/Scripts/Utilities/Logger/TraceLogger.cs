@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -88,6 +89,12 @@ public class TraceLogger
     {
         if (!IsEnabled) return;
         Debug.Log(message);
+    }
+
+    public void LogException(Exception e)
+    {
+        if (!IsEnabled) return;
+        Debug.LogException(e);
     }
 
     private static string valueOrElseNullString<T>(T value)
