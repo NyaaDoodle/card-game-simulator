@@ -22,7 +22,7 @@ public class TestGameTemplateLoader : MonoBehaviour
         GameTemplate testGameTemplate = new TestGameTemplateInitialization().TestGameTemplate;
         string path = createTemplateDirectory(testGameTemplate);
         string filePath = Path.Combine(path, filename);
-        string json = GameTemplateLoader.Instance.SerializeGameTemplate(testGameTemplate, Formatting.Indented);
+        string json = GameTemplateLoader.SerializeGameTemplate(testGameTemplate, Formatting.Indented);
         File.WriteAllText(filePath, json);
         Debug.Log($"Wrote to {filePath}");
     }
@@ -40,7 +40,7 @@ public class TestGameTemplateLoader : MonoBehaviour
     private void readGameTemplates()
     {
         Debug.Log("Attempting to load game templates");
-        List<GameTemplate> loadedGameTemplates = GameTemplateLoader.Instance.LoadGameTemplates();
+        List<GameTemplate> loadedGameTemplates = GameTemplateLoader.LoadGameTemplates();
         foreach (GameTemplate loadedGameTemplate in loadedGameTemplates)
         {
             Debug.Log(loadedGameTemplate);

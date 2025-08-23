@@ -50,6 +50,6 @@ public class TableDisplay : MonoBehaviour
             Debug.LogWarning("Surface image path is empty or null");
         }
         
-        SimulatorImageLoader.Instance.LoadImage(imagePath, surfaceImage, fallbackTableSurfaceSprite);
+        SimulatorImageLoader.LoadImage(imagePath, surfaceImage, fallbackTableSurfaceSprite);
     }
 }

@@ -67,7 +67,7 @@ public class GameInstanceManager : NetworkBehaviour
     private GameTemplate? loadGameTemplate()
     {
         const string magicString = "54cafadf-719a-4643-bfb5-ba94e43ee642";
-        return GameTemplateLoader.Instance.LoadGameTemplateFromId(magicString);
+        return GameTemplateLoader.LoadGameTemplateFromId(magicString);
     }
 
     private void spawnGameObjects(GameTemplate gameTemplate)

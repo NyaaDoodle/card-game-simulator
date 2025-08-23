@@ -1,0 +1,77 @@
+﻿using System;
+using System.IO;
+using UnityEngine;
+
+public class DataDirectoryManager : MonoBehaviour
+{
+    public static DataDirectoryManager Instance { get; private set; }
+    
+    public string DataDirectoryPath { get; private set; }
+    public string TemplatesDirectoryPath { get; private set; }
+    public string ImagesDirectoryPath { get; private set; }
+    public string ThumbnailsDirectoryPath { get; private set; }
+
+    public bool IsReady { get; private set; } = false;
+
+    private void Awake()
+    {
+        initializeInstance();
+        setDirectoryPaths();
+        checkForDirectoriesExistence();
+        onReady();
+    }
+
+    private void initializeInstance()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    
+    private void setDirectoryPaths()
+    {
+        const string templatesDirectoryName = "templates";
+        const string imagesDirectoryName = "images";
+        const string thumbnailsDirectoryName = "thumbnails";
+        
+        DataDirectoryPath = Application.persistentDataPath;
+        TemplatesDirectoryPath = Path.Combine(DataDirectoryPath, templatesDirectoryName);
+        ImagesDirectoryPath = Path.Combine(DataDirectoryPath, imagesDirectoryName);
+        ThumbnailsDirectoryPath = Path.Combine(DataDirectoryPath, thumbnailsDirectoryName);
+    }
+    
+    private void checkForDirectoriesExistence()
+    {
+        if (!Directory.Exists(DataDirectoryPath))
+        {
+            Debug.LogError("Unity Persistent Data Directory does not exist");
+            return;
+        }
+
+        if (!Directory.Exists(TemplatesDirectoryPath))
+        {
+            Directory.CreateDirectory(TemplatesDirectoryPath);
+        }
+
+        if (!Directory.Exists(ImagesDirectoryPath))
+        {
+            Directory.CreateDirectory(ImagesDirectoryPath);
+        }
+
+        if (!Directory.Exists(ThumbnailsDirectoryPath))
+        {
+            Directory.CreateDirectory(ThumbnailsDirectoryPath);
+        }
+    }
+
+    private void onReady()
+    {
+        IsReady = true;
+    }
+}

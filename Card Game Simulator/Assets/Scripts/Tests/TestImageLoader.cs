@@ -66,6 +66,6 @@ public class TestImageLoader : MonoBehaviour
 	    // Get the file path of the first selected file
 	    string filePath = filePaths[0];
 
-	    SimulatorImageLoader.Instance.LoadImage(filePath, GetComponent<Image>(), fallbackSprite);
+	    SimulatorImageLoader.LoadImage(filePath, GetComponent<Image>(), fallbackSprite);
     }
 }
