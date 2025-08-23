@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566dfad7f9d896147b0b48d5d8e3a480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contentContainer: {fileID: 1700517632758781978}
+  gameTemplateSelectionEntryPrefab: {fileID: 0}
+  newGameTemplateButton: {fileID: 4141984375440237727}
 --- !u!1 &1515837068260085737
 GameObject:
   m_ObjectHideFlags: 0

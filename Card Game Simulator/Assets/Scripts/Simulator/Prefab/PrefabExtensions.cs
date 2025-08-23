@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using UnityEngine;
 
 public static class PrefabExtensions
@@ -118,5 +119,17 @@ public static class PrefabExtensions
         SpaceMenu spaceMenu = GameObject.Instantiate(prefab, parent).GetComponent<SpaceMenu>();
         spaceMenu.Setup(space);
         return spaceMenu;
+    }
+
+    public static GameTemplateSelectionEntity InstantiateGameTemplateSelectionEntity(
+        GameTemplate gameTemplate,
+        Action<GameTemplate> onSelectAction,
+        Transform parent)
+    {
+        GameTemplateSelectionEntity gameTemplateSelectionEntity = GameObject
+            .Instantiate(PrefabReferences.Instance.GameTemplateSelectionEntityPrefab, parent)
+            .GetComponent<GameTemplateSelectionEntity>();
+        gameTemplateSelectionEntity.Setup(gameTemplate, onSelectAction);
+        return gameTemplateSelectionEntity;
     }
 }

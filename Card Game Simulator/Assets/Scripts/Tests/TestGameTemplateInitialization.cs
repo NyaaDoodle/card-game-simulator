@@ -39,7 +39,7 @@ public class TestGameTemplateInitialization
             "Test Game Template",
             "Melanie Sverdlov",
             "Test Game Template",
-            Path.Combine(thumbnailDirectory, "thumbnail.jpg"));
+            Path.Combine(thumbnailDirectory, "thumbnail.png"));
     }
 
     private void makeTableData()

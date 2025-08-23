@@ -12,8 +12,14 @@ public class PrefabReferences : MonoBehaviour
     public GameObject SpaceDisplayPrefab;
     public GameObject PlayerPrefab;
     public GameObject PlayerHandDisplayPrefab;
+    public GameObject GameTemplateSelectionEntityPrefab;
 
     void Awake()
+    {
+        initializeInstance();
+    }
+
+    private void initializeInstance()
     {
         if (Instance != null && Instance != this)
         {
@@ -22,6 +28,7 @@ public class PrefabReferences : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

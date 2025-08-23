@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Template Selection Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 621424571478467749, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1195090507835918565, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -409,23 +413,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1576872082985823066, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1576872082985823066, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1576872082985823066, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1576872082985823066, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -237.56018
       objectReference: {fileID: 0}
     - target: {fileID: 1700517632758781978, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 334
       objectReference: {fileID: 0}
     - target: {fileID: 2244785839118222475, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -465,27 +469,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948312465552942995, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2948312465552942995, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2948312465552942995, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 2948312465552942995, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2948312465552942995, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 232
       objectReference: {fileID: 0}
     - target: {fileID: 2948312465552942995, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -182
       objectReference: {fileID: 0}
     - target: {fileID: 3307453827897614253, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -669,19 +673,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210256623061917887, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9210256623061917887, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9210256623061917887, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 9210256623061917887, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -87.56018
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -693,6 +697,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 371002431578463057, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
   m_PrefabInstance: {fileID: 122553988}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &122553990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5011145365778339750, guid: 68005fae1e27deb46908442bc1eece0d, type: 3}
+  m_PrefabInstance: {fileID: 122553988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566dfad7f9d896147b0b48d5d8e3a480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &179558611 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 948168857909045556, guid: dee37793eb9b9b7468230413c3ffdf27, type: 3}
@@ -1916,6 +1931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 536803658}
+  - component: {fileID: 536803659}
   m_Layer: 5
   m_Name: Card Game Creator Menu
   m_TagString: Untagged
@@ -1953,6 +1969,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &536803659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536803657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7ab34a419648c8b944bb4ad0cd79b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameTemplateSelectionGrid: {fileID: 122553990}
 --- !u!1 &553545847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,7 +2351,7 @@ PrefabInstance:
     - target: {fileID: 9211202920958539697, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 567169850}
+      objectReference: {fileID: 536803659}
     - target: {fileID: 9211202920958539697, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2333,7 +2362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9211202920958539697, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameTemplateSelectionManager, Assembly-CSharp
+      value: CardGameCreatorManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9211202920958539697, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2347,10 +2376,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5674772364712945586, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 122553989}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1266350287966684580, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 567169850}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
 --- !u!224 &567169847 stripped
 RectTransform:
@@ -2362,23 +2388,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5674772364712945586, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
   m_PrefabInstance: {fileID: 567169846}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &567169849 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1266350287966684580, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
-  m_PrefabInstance: {fileID: 567169846}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &567169850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567169849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46dc65aad2944f24487e82b6aa8ac827, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &701913573
 PrefabInstance:
   m_ObjectHideFlags: 0

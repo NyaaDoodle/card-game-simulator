@@ -323,58 +323,6 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!1 &377393396
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 377393397}
-  - component: {fileID: 377393398}
-  m_Layer: 0
-  m_Name: Prefab References
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &377393397
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377393396}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1624420142}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &377393398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377393396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8398681c931d3f42b47e76762457c71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TablePrefab: {fileID: 2094041045970034146, guid: 5af2b9aaa5886ec4f97dff635499ec04, type: 3}
-  TableDisplayPrefab: {fileID: 7520931499722847213, guid: 17941e4caa6e2e04c9e186730ef58115, type: 3}
-  DeckPrefab: {fileID: 3198235896548655149, guid: 79ef7bd296f81714fb19b47835e3fc76, type: 3}
-  DeckDisplayPrefab: {fileID: 7885917501349050372, guid: 7f44480be1e51d149907c4cb144a8c08, type: 3}
-  SpacePrefab: {fileID: 366122781818069114, guid: 252ce65aaba35d7479bff2b5d21253f2, type: 3}
-  SpaceDisplayPrefab: {fileID: 1754745812357246027, guid: 8ff412534808c4a498a1387d45df2317, type: 3}
-  PlayerPrefab: {fileID: 3841177835207225, guid: 4968831d5ae5eb44db21323c57b42d94, type: 3}
-  PlayerHandDisplayPrefab: {fileID: 9027250750548264014, guid: db7bdec84ee241a4fab2f7ac3379789f, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1199,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 377393397}
   - {fileID: 1527567249}
   - {fileID: 1218734495}
   m_Father: {fileID: 0}

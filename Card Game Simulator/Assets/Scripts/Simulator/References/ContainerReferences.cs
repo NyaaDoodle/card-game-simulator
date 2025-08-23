@@ -12,6 +12,11 @@ public class ContainerReferences : MonoBehaviour
 
     void Awake()
     {
+        initializeInstance();
+    }
+
+    private void initializeInstance()
+    {
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
