@@ -15,6 +15,15 @@ public static class SimulatorImageLoader
             .Forget();
     }
 
+    public static void LoadTexture(string localPath, Action<Texture> onSuccessAction, Action<Exception> onFailureAction)
+    {
+        string fullPath = GetFullImagePath(localPath);
+        ImageLoader.LoadTexture(fullPath)
+            .Consume(onSuccessAction)
+            .Failed(onFailureAction)
+            .Forget();
+    }
+
     public static void LoadImage(string localPath, Image imageComponent, Sprite fallbackSprite)
     {
         LoadImage(localPath,

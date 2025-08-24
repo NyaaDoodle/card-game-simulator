@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class WorkingGameTemplate
 {
@@ -9,6 +10,8 @@ public class WorkingGameTemplate
     public readonly Dictionary<string, CardData> CardPool = new Dictionary<string, CardData>();
     public readonly Dictionary<string, DeckData> DecksData = new Dictionary<string, DeckData>();
     public readonly Dictionary<string, SpaceData> SpacesData = new Dictionary<string, SpaceData>();
+    private readonly Dictionary<string, Texture> imagesToSave = new Dictionary<string, Texture>();
+    private readonly List<string> imagesToDelete = new List<string>();
 
     public WorkingGameTemplate()
     {
@@ -86,5 +89,41 @@ public class WorkingGameTemplate
         {
             SpacesData.Add(spaceData.Id, spaceData);
         }
+    }
+
+    public void SetTemplateName(string templateName)
+    {
+        GameTemplateDetails = new GameTemplateDetails(
+            templateName,
+            GameTemplateDetails.CreatorName,
+            GameTemplateDetails.Description,
+            GameTemplateDetails.TemplateImagePath);
+    }
+
+    public void SetTemplateCreatorName(string creatorName)
+    {
+        GameTemplateDetails = new GameTemplateDetails(
+            GameTemplateDetails.TemplateName,
+            creatorName,
+            GameTemplateDetails.Description,
+            GameTemplateDetails.TemplateImagePath);
+    }
+
+    public void SetTemplateDescription(string description)
+    {
+        GameTemplateDetails = new GameTemplateDetails(
+            GameTemplateDetails.TemplateName,
+            GameTemplateDetails.CreatorName,
+            description,
+            GameTemplateDetails.TemplateImagePath);
+    }
+
+    public void SetTemplateThumbnail(string thumbnailLocalPath)
+    {
+        GameTemplateDetails = new GameTemplateDetails(
+            GameTemplateDetails.TemplateName,
+            GameTemplateDetails.CreatorName,
+            GameTemplateDetails.Description,
+            thumbnailLocalPath);
     }
 }

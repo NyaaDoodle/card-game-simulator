@@ -1,15 +1,8 @@
 using UnityEngine;
 
-public class GameTemplateSaver : MonoBehaviour
+public static class GameTemplateSaver
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public static void SaveGameTemplate(WorkingGameTemplate workingGameTemplate)
     {
         
     }
