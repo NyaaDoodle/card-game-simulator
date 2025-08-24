@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EditCardScreen : MonoBehaviour
+public class EditCardScreen : GameTemplateEditorScreenBase
 {
     
 }

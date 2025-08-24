@@ -34,10 +34,11 @@ public class SimulatorNetworkManager : NetworkManager
         NetworkDiscovery = GetComponent<NetworkDiscovery>();
     }
     
-    public void HostGame()
+    public void HostGame(GameTemplate gameTemplate)
     {
         StartHost();
         NetworkDiscovery.AdvertiseServer();
+        CurrentPlayingGameTemplate.Instance.GameTemplate = gameTemplate;
     }
 
     public void JoinGame(ServerResponse info)

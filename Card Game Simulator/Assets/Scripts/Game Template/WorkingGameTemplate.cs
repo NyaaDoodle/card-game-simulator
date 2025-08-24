@@ -126,4 +126,19 @@ public class WorkingGameTemplate
             GameTemplateDetails.Description,
             thumbnailLocalPath);
     }
+
+    public void SetTableWidth(float width)
+    {
+        TableData = new TableData(width, TableData.Height, TableData.SurfaceImagePath);
+    }
+
+    public void SetTableHeight(float height)
+    {
+        TableData = new TableData(TableData.Width, height, TableData.SurfaceImagePath);
+    }
+
+    public void SetTableSurfaceImage(string imageLocalPath)
+    {
+        TableData = new TableData(TableData.Width, TableData.Height, imageLocalPath);
+    }
 }

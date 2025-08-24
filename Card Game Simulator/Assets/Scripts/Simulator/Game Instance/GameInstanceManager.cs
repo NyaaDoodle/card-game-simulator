@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Mirror;
-using UnityEngine;
 
 public class GameInstanceManager : NetworkBehaviour
 {
@@ -34,15 +33,8 @@ public class GameInstanceManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        GameTemplate? gameTemplate = loadGameTemplate();
-        if (gameTemplate != null)
-        {
-            spawnGameObjects(gameTemplate.Value);
-        }
-        else
-        {
-            Debug.LogError("Unable to load game template, game template is null");
-        }
+        GameTemplate gameTemplate = loadGameTemplate();
+        spawnGameObjects(gameTemplate);
     }
 
     void Start()
@@ -64,10 +56,9 @@ public class GameInstanceManager : NetworkBehaviour
         base.OnStopServer();
     }
 
-    private GameTemplate? loadGameTemplate()
+    private GameTemplate loadGameTemplate()
     {
-        const string magicString = "54cafadf-719a-4643-bfb5-ba94e43ee642";
-        return GameTemplateLoader.LoadGameTemplateFromId(magicString);
+        return CurrentPlayingGameTemplate.Instance.GameTemplate;
     }
 
     private void spawnGameObjects(GameTemplate gameTemplate)

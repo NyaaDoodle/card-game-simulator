@@ -1,10 +1,22 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class NewGameInstanceMenuManager : MonoBehaviour
 {
-    public void StartTestGameTemplateInstance()
+    [SerializeField] private GameTemplateSelectionGrid gameTemplateSelectionGrid;
+    
+    private void OnEnable()
     {
-        SimulatorNetworkManager.singleton.HostGame();
+        gameTemplateSelectionGrid.Show((gameTemplate) =>
+            {
+                SimulatorNetworkManager.singleton.HostGame(gameTemplate);
+            },
+            () => {},
+            false);
+    }
+
+    private void OnDisable()
+    {
+        gameTemplateSelectionGrid.Hide();
     }
 }

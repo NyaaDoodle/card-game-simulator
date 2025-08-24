@@ -11,16 +11,16 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
     [SerializeField] private ImageSelectionButton templateImageSelectionButton;
     [SerializeField] private Button deleteTemplateButton;
     
-    public void Show(WorkingGameTemplate workingGameTemplate, Action onBackButtonSelect)
+    public void Show(WorkingGameTemplate workingGameTemplate)
     {
-        SetupBaseButtons(onBackButtonSelect);
         gameObject.SetActive(true);
+        SetupBaseButtons(workingGameTemplate, () => goToGameTemplateSectionsScreen(workingGameTemplate));
         setInputFields(workingGameTemplate);
         setTemplateImageSelectionButton(workingGameTemplate);
         setDeleteTemplateButton(workingGameTemplate);
     }
 
-    public void Hide()
+    private void hide()
     {
         UnsetBaseButtons();
         unsetInputFieldsEvents();
@@ -65,16 +65,11 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
             (texture) =>
                 {
                     SimulatorImageSaver.SaveThumbnail(texture, workingGameTemplate.Id,
-                        (savedThumbnailLocalPath) =>
-                            {
-                                Debug.Log(savedThumbnailLocalPath);
-                                workingGameTemplate.SetTemplateThumbnail(savedThumbnailLocalPath);
-                            },
+                        workingGameTemplate.SetTemplateThumbnail,
                         Debug.LogException);
                 },
             (e) =>
                 {
-                    // PLACEHOLDER
                     Debug.Log("Failed to load image");
                     Debug.LogException(e);
                 });
@@ -82,8 +77,12 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
 
     private void setDeleteTemplateButton(WorkingGameTemplate workingGameTemplate)
     {
-        // PLACEHOLDER
-        deleteTemplateButton.onClick.AddListener(() => Debug.Log("Clicked delete template button!"));
+        deleteTemplateButton.onClick.AddListener(() =>
+            {
+                GameTemplateLoader.DeleteGameTemplate(workingGameTemplate.Id);
+                this.hide();
+                GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.Show();
+            });
     }
 
     private void unsetTemplateImageSelectionButton()
@@ -94,5 +93,11 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
     private void unsetDeleteTemplateButton()
     {
         deleteTemplateButton.onClick.RemoveAllListeners();
+    }
+
+    private void goToGameTemplateSectionsScreen(WorkingGameTemplate workingGameTemplate)
+    {
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show(workingGameTemplate);
     }
 } 

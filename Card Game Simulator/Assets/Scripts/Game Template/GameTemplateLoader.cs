@@ -5,8 +5,6 @@ using UnityEngine;
 
 public static class GameTemplateLoader
 {
-    public const string TemplateFilename = "template.json";
-
     public static List<GameTemplate> LoadGameTemplates()
     {
         List<GameTemplate> gameTemplates = new List<GameTemplate>();
@@ -21,11 +19,6 @@ public static class GameTemplateLoader
             }
         }
         return gameTemplates;
-    }
-
-    public static string SerializeGameTemplate(GameTemplate gameTemplate, Formatting formatting = Formatting.None)
-    {
-        return JsonConvert.SerializeObject(gameTemplate, formatting);
     }
 
     public static GameTemplate DeserializeGameTemplate(string json)
@@ -47,7 +40,7 @@ public static class GameTemplateLoader
             Debug.LogWarning("Path to game template does not exist");
             return null;
         }
-        string templateFileInDirectory = Path.Combine(pathToTemplate, TemplateFilename);
+        string templateFileInDirectory = Path.Combine(pathToTemplate, DataDirectoryManager.TemplateDataFilename);
         if (!File.Exists(templateFileInDirectory))
         {
             Debug.LogWarning("Game template file (template.json) does not exist");
@@ -55,5 +48,26 @@ public static class GameTemplateLoader
         }
         string gameTemplateJson = File.ReadAllText(templateFileInDirectory);
         return DeserializeGameTemplate(gameTemplateJson);
+    }
+
+    public static void DeleteGameTemplate(string templateId)
+    {
+        string templateDirectory = Path.Combine(DataDirectoryManager.Instance.TemplatesDirectoryPath, templateId);
+        string imagesDirectory = Path.Combine(DataDirectoryManager.Instance.ImagesDirectoryPath, templateId);
+        string thumbnailsDirectory = Path.Combine(DataDirectoryManager.Instance.ThumbnailsDirectoryPath, templateId);
+        if (Directory.Exists(templateDirectory))
+        {
+            Directory.Delete(templateDirectory);
+        }
+
+        if (Directory.Exists(imagesDirectory))
+        {
+            Directory.Delete(imagesDirectory);
+        }
+
+        if (Directory.Exists(thumbnailsDirectory))
+        {
+            Directory.Delete(thumbnailsDirectory);
+        }
     }
 }

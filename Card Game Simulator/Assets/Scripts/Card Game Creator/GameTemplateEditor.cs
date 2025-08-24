@@ -3,55 +3,29 @@ using UnityEngine.SceneManagement;
 
 public class GameTemplateEditor : MonoBehaviour
 {
-    [SerializeField] private GameTemplateSelectionScreen gameTemplateSelectionScreen;
-    [SerializeField] private GameTemplateSectionsScreen gameTemplateSectionsScreen;
-    
     private void Start()
     {
-        showGameTemplateSelectionScreen();
+        hideAllScreens();
+        showInitialScreen();
     }
 
-    private void showGameTemplateSelectionScreen()
+    private void hideAllScreens()
     {
-        gameTemplateSelectionScreen.Show(
-            onGameTemplateSelectionSelect,
-            onNewGameTemplateSelect,
-            returnFromGameTemplateSelectionScreen);
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.CardPoolScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.EditCardScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.DeckSelectionScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.EditDeckScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.CardSelectionScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.SpaceSelectionScreen.gameObject.SetActive(false);
+        GameTemplateEditorScreenReferences.Instance.EditSpaceScreen.gameObject.SetActive(false);
     }
 
-    private void showGameTemplateSectionsScreen(WorkingGameTemplate workingGameTemplate)
+    private void showInitialScreen()
     {
-        gameTemplateSectionsScreen.Show(workingGameTemplate, returnFromGameTemplateSectionsScreen);
-    }
-
-    private void onGameTemplateSelectionSelect(GameTemplate gameTemplate)
-    {
-        gameTemplateSelectionScreen.Hide();
-        WorkingGameTemplate workingGameTemplate = new WorkingGameTemplate(gameTemplate);
-        showGameTemplateSectionsScreen(workingGameTemplate);
-    }
-
-    private void onNewGameTemplateSelect()
-    {
-        gameTemplateSelectionScreen.Hide();
-        WorkingGameTemplate workingGameTemplate = new WorkingGameTemplate();
-        showGameTemplateSectionsScreen(workingGameTemplate);
-    }
-    
-    private void returnFromGameTemplateSelectionScreen()
-    {
-        gameTemplateSelectionScreen.Hide();
-        goToMainMenu();
-    }
-
-    private void returnFromGameTemplateSectionsScreen()
-    {
-        gameTemplateSectionsScreen.Hide();
-        showGameTemplateSelectionScreen();
-    }
-
-    private void goToMainMenu()
-    {
-        SceneManager.LoadScene("Main Menu Scene");
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.Show();
     }
 }

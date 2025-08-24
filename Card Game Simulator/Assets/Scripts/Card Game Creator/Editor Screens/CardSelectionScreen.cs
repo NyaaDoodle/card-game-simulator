@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CardSelectionScreen : MonoBehaviour
+public class CardSelectionScreen : GameTemplateEditorScreenBase
 {
     
 }

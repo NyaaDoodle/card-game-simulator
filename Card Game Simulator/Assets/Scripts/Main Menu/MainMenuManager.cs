@@ -27,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
     public void GoToCardGameCreator()
     {
         closeAllMenus();
-        SceneManager.LoadScene("Card Game Creator");
+        SceneManager.LoadScene("Card Game Creator Scene");
     }
 
     public void GoToOptionsMenu()

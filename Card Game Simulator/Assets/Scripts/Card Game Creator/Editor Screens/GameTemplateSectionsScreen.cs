@@ -4,29 +4,20 @@ using UnityEngine.UI;
 
 public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
 {
-    [SerializeField] private EditGameTemplateDetailsScreen editGameTemplateDetailsScreen;
     [SerializeField] private Button editGameTemplateDetailsButton;
-
-    [SerializeField] private EditTableSettingsScreen editTableSettingsScreen;
     [SerializeField] private Button editTableSettingsButton;
-
-    [SerializeField] private CardPoolScreen cardPoolScreen;
     [SerializeField] private Button cardPoolButton;
-
-    [SerializeField] private DeckSelectionScreen deckSelectionScreen;
     [SerializeField] private Button deckSelectionButton;
-
-    [SerializeField] private SpaceSelectionScreen spaceSelectionScreen;
     [SerializeField] private Button spaceSelectionButton;
     
-    public void Show(WorkingGameTemplate workingGameTemplate, Action onBackButtonSelect)
+    public void Show(WorkingGameTemplate workingGameTemplate)
     {
         gameObject.SetActive(true);
-        SetupBaseButtons(onBackButtonSelect);
+        SetupBaseButtons(workingGameTemplate, goToGameTemplateSelectionScreen);
         setupSectionButtons(workingGameTemplate);
     }
 
-    public void Hide()
+    private void hide()
     {
         UnsetBaseButtons();
         unsetSectionButtons();
@@ -53,56 +44,37 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
 
     private void goToEditGameTemplateDetails(WorkingGameTemplate workingGameTemplate)
     {
-        gameObject.SetActive(false);
-        editGameTemplateDetailsScreen.Show(workingGameTemplate,
-            () =>
-                {
-                    editGameTemplateDetailsScreen.Hide();
-                    gameObject.SetActive(true);
-                });
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Show(workingGameTemplate);
     }
 
     private void goToEditTableSettings(WorkingGameTemplate workingGameTemplate)
     {
-        gameObject.SetActive(false);
-        editTableSettingsScreen.Show(workingGameTemplate,
-            () =>
-                {
-                    editTableSettingsScreen.Hide();
-                    gameObject.SetActive(true);
-                });
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Show(workingGameTemplate);
     }
 
     private void goToCardPool(WorkingGameTemplate workingGameTemplate)
     {
-        gameObject.SetActive(false);
-        cardPoolScreen.Show(workingGameTemplate,
-            () =>
-                {
-                    cardPoolScreen.Hide();
-                    gameObject.SetActive(true);
-                });
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.CardPoolScreen.Show(workingGameTemplate);
     }
 
     private void goToDeckSelection(WorkingGameTemplate workingGameTemplate)
     {
-        gameObject.SetActive(false);
-        deckSelectionScreen.Show(workingGameTemplate,
-            () =>
-                {
-                    deckSelectionScreen.Hide();
-                    gameObject.SetActive(true);
-                });
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.DeckSelectionScreen.Show(workingGameTemplate);
     }
 
     private void goToSpaceSelection(WorkingGameTemplate workingGameTemplate)
     {
-        gameObject.SetActive(false);
-        spaceSelectionScreen.Show(workingGameTemplate,
-            () =>
-                {
-                    spaceSelectionScreen.Hide();
-                    gameObject.SetActive(true);
-                });
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.SpaceSelectionScreen.Show(workingGameTemplate);
+    }
+
+    private void goToGameTemplateSelectionScreen()
+    {
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.Show();
     }
 }

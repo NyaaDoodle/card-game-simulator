@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentContainer: {fileID: 1700517632758781978}
-  gameTemplateSelectionEntryPrefab: {fileID: 0}
   newGameTemplateButton: {fileID: 4141984375440237727}
 --- !u!1 &1515837068260085737
 GameObject:

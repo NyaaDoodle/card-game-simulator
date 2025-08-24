@@ -3,15 +3,21 @@ using UnityEngine;
 
 public class CardPoolScreen : GameTemplateEditorScreenBase
 {
-    public void Show(WorkingGameTemplate workingGameTemplate, Action onBackButtonSelect)
+    public void Show(WorkingGameTemplate workingGameTemplate)
     {
-        SetupBaseButtons(onBackButtonSelect);
+        SetupBaseButtons(workingGameTemplate, () => goToGameTemplateSectionsScreen(workingGameTemplate));
         gameObject.SetActive(true);
     }
 
-    public void Hide()
+    private void hide()
     {
         UnsetBaseButtons();
         gameObject.SetActive(false);
+    }
+    
+    private void goToGameTemplateSectionsScreen(WorkingGameTemplate workingGameTemplate)
+    {
+        this.hide();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show(workingGameTemplate);
     }
 }

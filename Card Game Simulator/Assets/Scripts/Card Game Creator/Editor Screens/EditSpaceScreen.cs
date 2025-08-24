@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EditSpaceScreen : MonoBehaviour
+public class EditSpaceScreen : GameTemplateEditorScreenBase
 {
         
 }

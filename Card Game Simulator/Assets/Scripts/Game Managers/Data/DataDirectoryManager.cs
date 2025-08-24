@@ -14,6 +14,8 @@ public class DataDirectoryManager : MonoBehaviour
     public const string TemplatesDirectoryName = "templates";
     public const string ImagesDirectoryName = "images";
     public const string ThumbnailsDirectoryName = "thumbnails";
+    
+    public const string TemplateDataFilename = "template.json";
 
     public bool IsReady { get; private set; } = false;
 
