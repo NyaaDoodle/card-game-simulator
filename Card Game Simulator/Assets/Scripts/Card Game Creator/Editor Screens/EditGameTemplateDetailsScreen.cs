@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,43 +10,42 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
     [SerializeField] private ImageSelectionButton templateImageSelectionButton;
     [SerializeField] private Button deleteTemplateButton;
     
-    public void Show(WorkingGameTemplate workingGameTemplate)
+    public void Show()
     {
         gameObject.SetActive(true);
-        SetupBaseButtons(workingGameTemplate, () => goToGameTemplateSectionsScreen(workingGameTemplate));
-        setInputFields(workingGameTemplate);
-        setTemplateImageSelectionButton(workingGameTemplate);
-        setDeleteTemplateButton(workingGameTemplate);
+        SetupBaseButtons(GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen);
+        setInputFields();
+        setTemplateImageSelectionButton();
+        setDeleteTemplateButton();
     }
 
-    private void hide()
+    public override void Hide()
     {
-        UnsetBaseButtons();
         unsetInputFieldsEvents();
         unsetTemplateImageSelectionButton();
         unsetDeleteTemplateButton();
-        gameObject.SetActive(false);
+        base.Hide();
     }
 
-    private void setInputFields(WorkingGameTemplate workingGameTemplate)
+    private void setInputFields()
     {
-        setInputFieldsText(workingGameTemplate);
-        setInputFieldsEvents(workingGameTemplate);
+        setInputFieldsText();
+        setInputFieldsEvents();
     }
 
-    private void setInputFieldsText(WorkingGameTemplate workingGameTemplate)
+    private void setInputFieldsText()
     {
-        GameTemplateDetails gameTemplateDetails = workingGameTemplate.GameTemplateDetails;
+        GameTemplateDetails gameTemplateDetails = WorkingGameTemplate.GameTemplateDetails;
         templateNameInputField.text = gameTemplateDetails.TemplateName;
         creatorNameInputField.text = gameTemplateDetails.CreatorName;
         descriptionInputField.text = gameTemplateDetails.Description;
     }
 
-    private void setInputFieldsEvents(WorkingGameTemplate workingGameTemplate)
+    private void setInputFieldsEvents()
     {
-        templateNameInputField.onEndEdit.AddListener(workingGameTemplate.SetTemplateName);
-        creatorNameInputField.onEndEdit.AddListener(workingGameTemplate.SetTemplateCreatorName);
-        descriptionInputField.onEndEdit.AddListener(workingGameTemplate.SetTemplateDescription);
+        templateNameInputField.onEndEdit.AddListener(WorkingGameTemplate.SetTemplateName);
+        creatorNameInputField.onEndEdit.AddListener(WorkingGameTemplate.SetTemplateCreatorName);
+        descriptionInputField.onEndEdit.AddListener(WorkingGameTemplate.SetTemplateDescription);
     }
 
     private void unsetInputFieldsEvents()
@@ -57,15 +55,15 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
         descriptionInputField.onEndEdit.RemoveAllListeners();
     }
 
-    private void setTemplateImageSelectionButton(WorkingGameTemplate workingGameTemplate)
+    private void setTemplateImageSelectionButton()
     {
-        string templateImagePath = workingGameTemplate.GameTemplateDetails.TemplateImagePath;
+        string templateImagePath = WorkingGameTemplate.GameTemplateDetails.TemplateImagePath;
         templateImageSelectionButton.Show(
             templateImagePath,
             (texture) =>
                 {
-                    SimulatorImageSaver.SaveThumbnail(texture, workingGameTemplate.Id,
-                        workingGameTemplate.SetTemplateThumbnail,
+                    SimulatorImageSaver.SaveThumbnail(texture, WorkingGameTemplate.Id,
+                        WorkingGameTemplate.SetTemplateThumbnail,
                         Debug.LogException);
                 },
             (e) =>
@@ -75,13 +73,12 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
                 });
     }
 
-    private void setDeleteTemplateButton(WorkingGameTemplate workingGameTemplate)
+    private void setDeleteTemplateButton()
     {
         deleteTemplateButton.onClick.AddListener(() =>
             {
-                GameTemplateLoader.DeleteGameTemplate(workingGameTemplate.Id);
-                this.hide();
-                GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.Show();
+                GameTemplateLoader.DeleteGameTemplate(WorkingGameTemplate.Id);
+                GameTemplateEditor.Instance.GoToInitialScreen();
             });
     }
 
@@ -93,11 +90,5 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
     private void unsetDeleteTemplateButton()
     {
         deleteTemplateButton.onClick.RemoveAllListeners();
-    }
-
-    private void goToGameTemplateSectionsScreen(WorkingGameTemplate workingGameTemplate)
-    {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show(workingGameTemplate);
     }
 } 

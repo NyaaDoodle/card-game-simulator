@@ -4,9 +4,6 @@ using Newtonsoft.Json;
 
 public readonly struct CardData : IEquatable<CardData>
 {
-    private const float defaultWidth = 2f;
-    private const float defaultHeight = 3f;
-    
     public string Id { get; }
     public string Name { get; }
     public string Description { get; }
@@ -30,22 +27,6 @@ public readonly struct CardData : IEquatable<CardData>
         Description = description;
         Width = width;
         Height = height;
-        BackSideImagePath = backSideImagePath;
-        FrontSideImagePath = frontSideImagePath;
-    }
-
-    public CardData(
-        string id,
-        string name,
-        string description,
-        string backSideImagePath,
-        string frontSideImagePath)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        Width = defaultWidth;
-        Height = defaultHeight;
         BackSideImagePath = backSideImagePath;
         FrontSideImagePath = frontSideImagePath;
     }

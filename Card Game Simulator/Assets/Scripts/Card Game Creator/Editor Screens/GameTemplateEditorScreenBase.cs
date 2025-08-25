@@ -7,11 +7,13 @@ public class GameTemplateEditorScreenBase : MonoBehaviour
     [SerializeField] protected Button BackButton;
     [SerializeField] protected Button SaveButton;
 
-    protected virtual void SetupBaseButtons(WorkingGameTemplate workingGameTemplate, Action onBackButtonSelect)
+    protected WorkingGameTemplate WorkingGameTemplate => GameTemplateEditor.Instance.CurrentWorkingGameTemplate;
+
+    protected virtual void SetupBaseButtons(Action onBackButtonSelect)
     {
         // Use this on every Show() method
         BackButton.onClick.AddListener(() => onBackButtonSelect());
-        SaveButton.onClick.AddListener(() => SaveGameTemplate(workingGameTemplate));
+        SaveButton.onClick.AddListener(SaveGameTemplate);
     }
 
     protected virtual void UnsetBaseButtons()
@@ -21,10 +23,19 @@ public class GameTemplateEditorScreenBase : MonoBehaviour
         SaveButton.onClick.RemoveAllListeners();
     }
 
-    protected virtual void SaveGameTemplate(WorkingGameTemplate workingGameTemplate)
+    protected virtual void SaveGameTemplate()
     {
-        Debug.Log("SaveGameTemplate");
-        Debug.Log(workingGameTemplate.ConvertToGameTemplate().ToString());
-        GameTemplateSaver.SaveGameTemplate(workingGameTemplate);
+        GameTemplateSaver.SaveGameTemplate(WorkingGameTemplate);
+    }
+
+    public virtual void Hide()
+    {
+        UnsetBaseButtons();
+        gameObject.SetActive(false);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        Hide();
     }
 }

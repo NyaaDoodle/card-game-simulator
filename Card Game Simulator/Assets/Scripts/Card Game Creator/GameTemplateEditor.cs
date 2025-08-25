@@ -3,29 +3,127 @@ using UnityEngine.SceneManagement;
 
 public class GameTemplateEditor : MonoBehaviour
 {
+    public static GameTemplateEditor Instance { get; private set; }
+    public WorkingGameTemplate CurrentWorkingGameTemplate { get; private set; } = null;
+    
+    [SerializeField] private GameTemplateSectionsScreen gameTemplateSectionsScreen;
+    [SerializeField] private EditGameTemplateDetailsScreen editGameTemplateDetailsScreen;
+    [SerializeField] private EditTableSettingsScreen editTableSettingsScreen;
+    [SerializeField] private EditCardScreen editCardScreen;
+    [SerializeField] private EditDeckScreen editDeckScreen;
+    [SerializeField] private EditSpaceScreen editSpaceScreen;
+    
+    private void Awake()
+    {
+        initializeInstance();
+    }
+
+    private void initializeInstance()
+    {
+        if (Instance != null && Instance == this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    
     private void Start()
     {
+        GoToInitialScreen();
+    }
+
+    public void GoToInitialScreen()
+    {
+        discardCurrentWorkingGameTemplate();
         hideAllScreens();
-        showInitialScreen();
+        showGameTemplateSelectionWindow();
     }
 
     private void hideAllScreens()
     {
-        GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.CardPoolScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.EditCardScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.DeckSelectionScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.EditDeckScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.CardSelectionScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.SpaceSelectionScreen.gameObject.SetActive(false);
-        GameTemplateEditorScreenReferences.Instance.EditSpaceScreen.gameObject.SetActive(false);
+        gameTemplateSectionsScreen.Hide();
+        editGameTemplateDetailsScreen.Hide();
+        editTableSettingsScreen.Hide();
+        editCardScreen.Hide();
+        editDeckScreen.Hide();
+        editSpaceScreen.Hide();
     }
 
-    private void showInitialScreen()
+    private void showGameTemplateSelectionWindow()
     {
-        GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.Show();
+        SelectionModalWindowManager.OpenGameTemplateSelectionModalWindow(
+            "Select Game Template to Edit:",
+            (gameTemplate) =>
+                {
+                    setCurrentWorkingGameTemplate(gameTemplate);
+                    SelectionModalWindowManager.CloseCurrentWindow();
+                    gameTemplateSectionsScreen.Show();
+                },
+            () =>
+                {
+                    createNewGameTemplate();
+                    SelectionModalWindowManager.CloseCurrentWindow();
+                    gameTemplateSectionsScreen.Show();
+                },
+            () =>
+                {
+                    SelectionModalWindowManager.CloseCurrentWindow();
+                    SceneManager.LoadScene("Main Menu Scene");
+                });
+    }
+
+    public void GoToGameTemplateSectionsScreen()
+    {
+        hideAllScreens();
+        gameTemplateSectionsScreen.Show();
+    }
+
+    public void GoToEditGameTemplateDetailsScreen()
+    {
+        hideAllScreens();
+        editGameTemplateDetailsScreen.Show();
+    }
+
+    public void GoToEditTableSettingsScreen()
+    {
+        hideAllScreens();
+        editTableSettingsScreen.Show();
+    }
+
+    public void GoToEditCardScreen(CardData cardData)
+    {
+        hideAllScreens();
+        
+    }
+
+    public void GoToEditDeckScreen(DeckData deckData)
+    {
+        hideAllScreens();
+        
+    }
+
+    public void GoToEditSpaceScreen(SpaceData spaceData)
+    {
+        hideAllScreens();
+        
+    }
+
+    private void createNewGameTemplate()
+    {
+        WorkingGameTemplate workingGameTemplate = new WorkingGameTemplate();
+    }
+
+    private void setCurrentWorkingGameTemplate(GameTemplate gameTemplate)
+    {
+        WorkingGameTemplate workingGameTemplate = new WorkingGameTemplate(gameTemplate);
+    }
+
+    private void discardCurrentWorkingGameTemplate()
+    {
+        CurrentWorkingGameTemplate = null;
     }
 }

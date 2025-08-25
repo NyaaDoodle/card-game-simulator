@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class WorkingGameTemplate
 {
-    public string Id { get; set; }
-    public GameTemplateDetails GameTemplateDetails { get; set; }
-    public TableData TableData { get; set; }
+    public string Id { get; private set; }
+    public GameTemplateDetails GameTemplateDetails { get; private set; }
+    public TableData TableData { get; private set; }
     public readonly Dictionary<string, CardData> CardPool = new Dictionary<string, CardData>();
     public readonly Dictionary<string, DeckData> DecksData = new Dictionary<string, DeckData>();
     public readonly Dictionary<string, SpaceData> SpacesData = new Dictionary<string, SpaceData>();
-    private readonly Dictionary<string, Texture> imagesToSave = new Dictionary<string, Texture>();
-    private readonly List<string> imagesToDelete = new List<string>();
 
     public WorkingGameTemplate()
     {
         // Creating a new game template on Card Game Creator
         Id = System.Guid.NewGuid().ToString();
-        GameTemplateDetails = getDefaultGameTemplateDetails();
-        TableData = getDefaultTableData();
+        createDefaultGameTemplateDetails();
+        createDefaultTableData();
     }
 
     public WorkingGameTemplate(GameTemplate gameTemplate)
@@ -34,34 +33,31 @@ public class WorkingGameTemplate
 
     public GameTemplate ConvertToGameTemplate()
     {
-        string id = Id;
-        GameTemplateDetails gameTemplateDetails = GameTemplateDetails;
-        TableData tableData = TableData;
-        CardData[] cardPool = CardPool.Values.ToArray();
-        DeckData[] decksData = DecksData.Values.ToArray();
-        SpaceData[] spacesData = SpacesData.Values.ToArray();
-        return new GameTemplate(id, gameTemplateDetails, tableData, cardPool, decksData, spacesData);
+        CardData[] cardPoolArray = this.CardPool.Values.ToArray();
+        DeckData[] decksDataArray = this.DecksData.Values.ToArray();
+        SpaceData[] spacesDataArray = this.SpacesData.Values.ToArray();
+        return new GameTemplate(Id, GameTemplateDetails, TableData, cardPoolArray, decksDataArray, spacesDataArray);
     }
 
-    private GameTemplateDetails getDefaultGameTemplateDetails()
+    private void createDefaultGameTemplateDetails()
     {
         const string defaultTemplateName = "";
         const string defaultCreatorName = "";
         const string defaultDescription = "";
         const string defaultTemplateImagePath = "";
-        return new GameTemplateDetails(
+        GameTemplateDetails = new GameTemplateDetails(
             defaultTemplateName,
             defaultCreatorName,
             defaultDescription,
             defaultTemplateImagePath);
     }
 
-    private TableData getDefaultTableData()
+    private void createDefaultTableData()
     {
-        const float defaultWidth = 15f;
+        const float defaultWidth = 25f;
         const float defaultHeight = 10f;
         const string defaultSurfaceImagePath = "";
-        return new TableData(defaultWidth, defaultHeight, defaultSurfaceImagePath);
+        TableData = new TableData(defaultWidth, defaultHeight, defaultSurfaceImagePath);
     }
 
     private void setCardPool(CardData[] cardDataArray)
@@ -140,5 +136,62 @@ public class WorkingGameTemplate
     public void SetTableSurfaceImage(string imageLocalPath)
     {
         TableData = new TableData(TableData.Width, TableData.Height, imageLocalPath);
+    }
+
+    public CardData CreateNewDefaultCardData()
+    {
+        const string defaultName = "";
+        const string defaultDescription = "";
+        const float defaultWidth = 2f;
+        const float defaultHeight = 3f;
+        const string defaultBackSideImagePath = "";
+        const string defaultFrontSideImagePath = "";
+        string cardId = Guid.NewGuid().ToString();
+        CardData cardData = new CardData(
+            cardId,
+            defaultName,
+            defaultDescription,
+            defaultWidth,
+            defaultHeight,
+            defaultBackSideImagePath,
+            defaultFrontSideImagePath);
+        CardPool.Add(cardData.Id, cardData);
+        return cardData;
+    }
+
+    public DeckData CreateNewDefaultDeckData()
+    {
+        const string defaultName = "";
+        const float defaultTableXCoordinate = 0;
+        const float defaultTableYCoordinate = 0;
+        const float defaultRotation = 0;
+        string deckId = Guid.NewGuid().ToString();
+        CardData[] startingCards = Array.Empty<CardData>();
+        DeckData deckData = new DeckData(
+            deckId,
+            defaultName,
+            defaultTableXCoordinate,
+            defaultTableYCoordinate,
+            defaultRotation,
+            startingCards);
+        DecksData.Add(deckData.Id, deckData);
+        return deckData;
+    }
+
+    public SpaceData CreateNewDefaultSpaceData()
+    {
+        const string defaultName = "";
+        const float defaultTableXCoordinate = 0;
+        const float defaultTableYCoordinate = 0;
+        const float defaultRotation = 0;
+        string spaceId = Guid.NewGuid().ToString();
+        SpaceData spaceData = new SpaceData(
+            spaceId,
+            defaultName,
+            defaultTableXCoordinate,
+            defaultTableYCoordinate,
+            defaultRotation);
+        SpacesData.Add(spaceData.Id, spaceData);
+        return spaceData;
     }
 }

@@ -81,6 +81,9 @@ public static class SelectionModalWindowManager
 
     public static void CloseCurrentWindow()
     {
-        GameObject.Destroy(currentlyShownWindow);
+        if (currentlyShownWindow != null)
+        {
+            GameObject.Destroy(currentlyShownWindow);
+        }
     }
 }

@@ -10,27 +10,26 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
     [SerializeField] private Button deckSelectionButton;
     [SerializeField] private Button spaceSelectionButton;
     
-    public void Show(WorkingGameTemplate workingGameTemplate)
+    public void Show()
     {
         gameObject.SetActive(true);
-        SetupBaseButtons(workingGameTemplate, goToGameTemplateSelectionScreen);
-        setupSectionButtons(workingGameTemplate);
+        SetupBaseButtons(GameTemplateEditor.Instance.GoToInitialScreen);
+        setupSectionButtons();
     }
 
-    private void hide()
+    public override void Hide()
     {
-        UnsetBaseButtons();
         unsetSectionButtons();
-        gameObject.SetActive(false);
+        base.Hide();
     }
 
-    private void setupSectionButtons(WorkingGameTemplate workingGameTemplate)
+    private void setupSectionButtons()
     {
-        editGameTemplateDetailsButton.onClick.AddListener(() => goToEditGameTemplateDetails(workingGameTemplate));
-        editTableSettingsButton.onClick.AddListener(() => goToEditTableSettings(workingGameTemplate));
-        cardPoolButton.onClick.AddListener(() => goToCardPool(workingGameTemplate));
-        deckSelectionButton.onClick.AddListener(() => goToDeckSelection(workingGameTemplate));
-        spaceSelectionButton.onClick.AddListener(() => goToSpaceSelection(workingGameTemplate));
+        editGameTemplateDetailsButton.onClick.AddListener(goToEditGameTemplateDetails);
+        editTableSettingsButton.onClick.AddListener(goToEditTableSettings);
+        cardPoolButton.onClick.AddListener(goToCardPool);
+        deckSelectionButton.onClick.AddListener(goToDeckSelection);
+        spaceSelectionButton.onClick.AddListener(goToSpaceSelection);
     }
 
     private void unsetSectionButtons()
@@ -42,39 +41,64 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
         spaceSelectionButton.onClick.RemoveAllListeners();
     }
 
-    private void goToEditGameTemplateDetails(WorkingGameTemplate workingGameTemplate)
+    private void goToEditGameTemplateDetails()
     {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Show(workingGameTemplate);
+        GameTemplateEditor.Instance.GoToEditGameTemplateDetailsScreen();
     }
 
-    private void goToEditTableSettings(WorkingGameTemplate workingGameTemplate)
+    private void goToEditTableSettings()
     {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Show(workingGameTemplate);
+        GameTemplateEditor.Instance.GoToEditTableSettingsScreen();
     }
 
-    private void goToCardPool(WorkingGameTemplate workingGameTemplate)
+    private void goToCardPool()
     {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.CardPoolScreen.Show(workingGameTemplate);
+        SelectionModalWindowManager.OpenCardSelectionModalWindow(
+            "Select Card to Edit",
+            WorkingGameTemplate.CardPool.Values,
+            (cardData) =>
+                {
+                    GameTemplateEditor.Instance.GoToEditCardScreen(cardData);
+                },
+            () =>
+                {
+                    CardData newCard = WorkingGameTemplate.CreateNewDefaultCardData();
+                    GameTemplateEditor.Instance.GoToEditCardScreen(newCard);
+                },
+            SelectionModalWindowManager.CloseCurrentWindow);
     }
 
-    private void goToDeckSelection(WorkingGameTemplate workingGameTemplate)
+    private void goToDeckSelection()
     {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.DeckSelectionScreen.Show(workingGameTemplate);
+        SelectionModalWindowManager.OpenDeckSelectionModalWindow(
+            "Select Deck to Edit",
+            WorkingGameTemplate.DecksData.Values,
+            (deckData) =>
+                {
+                    GameTemplateEditor.Instance.GoToEditDeckScreen(deckData);
+                },
+            () =>
+                {
+                    DeckData newDeck = WorkingGameTemplate.CreateNewDefaultDeckData();
+                    GameTemplateEditor.Instance.GoToEditDeckScreen(newDeck);
+                },
+            SelectionModalWindowManager.CloseCurrentWindow);
     }
 
-    private void goToSpaceSelection(WorkingGameTemplate workingGameTemplate)
+    private void goToSpaceSelection()
     {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.SpaceSelectionScreen.Show(workingGameTemplate);
-    }
-
-    private void goToGameTemplateSelectionScreen()
-    {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.GameTemplateSelectionScreen.Show();
+        SelectionModalWindowManager.OpenSpaceSelectionModalWindow(
+            "Select Space to Edit",
+            WorkingGameTemplate.SpacesData.Values,
+            (spaceData) =>
+                {
+                    GameTemplateEditor.Instance.GoToEditSpaceScreen(spaceData);
+                },
+            () =>
+                {
+                    SpaceData newSpace = WorkingGameTemplate.CreateNewDefaultSpaceData();
+                    GameTemplateEditor.Instance.GoToEditSpaceScreen(newSpace);
+                },
+            SelectionModalWindowManager.CloseCurrentWindow);
     }
 }

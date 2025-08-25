@@ -8,42 +8,35 @@ public class EditTableSettingsScreen : GameTemplateEditorScreenBase
     [SerializeField] private TMP_InputField heightInputField;
     [SerializeField] private ImageSelectionButton surfaceImageSelectionButton;
     
-    public void Show(WorkingGameTemplate workingGameTemplate)
+    public void Show()
     {
         gameObject.SetActive(true);
-        SetupBaseButtons(workingGameTemplate, () => goToGameTemplateSectionsScreen(workingGameTemplate));
-        setupInputFields(workingGameTemplate);
-        setupSurfaceImageSelectionButton(workingGameTemplate);
+        SetupBaseButtons(GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen);
+        setupInputFields();
+        setupSurfaceImageSelectionButton();
     }
 
-    private void hide()
+    public override void Hide()
     {
-        UnsetBaseButtons();
         unsetInputFields();
         unsetSurfaceImageSelectionButton();
-        gameObject.SetActive(false);
-    }
-    
-    private void goToGameTemplateSectionsScreen(WorkingGameTemplate workingGameTemplate)
-    {
-        this.hide();
-        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show(workingGameTemplate);
+        base.Hide();
     }
 
-    private void setupInputFields(WorkingGameTemplate workingGameTemplate)
+    private void setupInputFields()
     {
-        setupInputFieldsText(workingGameTemplate);
-        setupInputFieldsEvents(workingGameTemplate);
+        setupInputFieldsText();
+        setupInputFieldsEvents();
     }
 
-    private void setupInputFieldsText(WorkingGameTemplate workingGameTemplate)
+    private void setupInputFieldsText()
     {
-        TableData tableData = workingGameTemplate.TableData;
+        TableData tableData = WorkingGameTemplate.TableData;
         widthInputField.text = tableData.Width.ToString();
         heightInputField.text = tableData.Height.ToString();
     }
 
-    private void setupInputFieldsEvents(WorkingGameTemplate workingGameTemplate)
+    private void setupInputFieldsEvents()
     {
         widthInputField.onEndEdit.AddListener((text) =>
             {
@@ -52,7 +45,7 @@ public class EditTableSettingsScreen : GameTemplateEditorScreenBase
                 if (success && width >= 0)
                 {
                     inputFieldImage.color = Color.white;
-                    workingGameTemplate.SetTableWidth(width);
+                    WorkingGameTemplate.SetTableWidth(width);
                 }
                 else
                 {
@@ -66,7 +59,7 @@ public class EditTableSettingsScreen : GameTemplateEditorScreenBase
                 if (success && height >= 0)
                 {
                     inputFieldImage.color = Color.white;
-                    workingGameTemplate.SetTableHeight(height);
+                    WorkingGameTemplate.SetTableHeight(height);
                 }
                 else
                 {
@@ -81,17 +74,17 @@ public class EditTableSettingsScreen : GameTemplateEditorScreenBase
         heightInputField.onEndEdit.RemoveAllListeners();
     }
 
-    private void setupSurfaceImageSelectionButton(WorkingGameTemplate workingGameTemplate)
+    private void setupSurfaceImageSelectionButton()
     {
-        string surfaceImagePath = workingGameTemplate.TableData.SurfaceImagePath;
+        string surfaceImagePath = WorkingGameTemplate.TableData.SurfaceImagePath;
         surfaceImageSelectionButton.Show(
             surfaceImagePath,
             (texture) =>
                 {
                     SimulatorImageSaver.SaveImage(
                         texture,
-                        workingGameTemplate.Id,
-                        workingGameTemplate.SetTableSurfaceImage,
+                        WorkingGameTemplate.Id,
+                        WorkingGameTemplate.SetTableSurfaceImage,
                         Debug.LogException);
                 },
             (e) =>
