@@ -12,7 +12,7 @@ public class GameTemplateSelectionScreen : MonoBehaviour
     {
         gameObject.SetActive(true);
         backButton.onClick.AddListener(goToMainMenu);
-        gameTemplateSelectionGrid.Show(onGameTemplateSelectionSelect, onNewGameTemplateSelect, true);
+        gameTemplateSelectionGrid.Show(onGameTemplateSelectionSelect, onNewGameTemplateSelect);
     }
 
     private void hide()

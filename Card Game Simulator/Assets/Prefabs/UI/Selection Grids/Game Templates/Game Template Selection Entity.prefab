@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 3038263973810916626}
   - component: {fileID: 7577725881959050164}
   m_Layer: 5
-  m_Name: Game Template Selection Entry
+  m_Name: Game Template Selection Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

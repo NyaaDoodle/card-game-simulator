@@ -57,17 +57,17 @@ public static class GameTemplateLoader
         string thumbnailsDirectory = Path.Combine(DataDirectoryManager.Instance.ThumbnailsDirectoryPath, templateId);
         if (Directory.Exists(templateDirectory))
         {
-            Directory.Delete(templateDirectory);
+            Directory.Delete(templateDirectory, true);
         }
 
         if (Directory.Exists(imagesDirectory))
         {
-            Directory.Delete(imagesDirectory);
+            Directory.Delete(imagesDirectory, true);
         }
 
         if (Directory.Exists(thumbnailsDirectory))
         {
-            Directory.Delete(thumbnailsDirectory);
+            Directory.Delete(thumbnailsDirectory, true);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -131,5 +132,127 @@ public static class PrefabExtensions
             .GetComponent<GameTemplateSelectionEntity>();
         gameTemplateSelectionEntity.Setup(gameTemplate, onSelectAction);
         return gameTemplateSelectionEntity;
+    }
+
+    public static CardSelectionEntity InstantiateCardSelectionEntity(
+        CardData cardData,
+        Action<CardData> onSelectCard,
+        Transform parent)
+    {
+        CardSelectionEntity cardSelectionEntity = GameObject
+            .Instantiate(PrefabReferences.Instance.CardSelectionEntityPrefab, parent)
+            .GetComponent<CardSelectionEntity>();
+        cardSelectionEntity.Setup(cardData, onSelectCard);
+        return cardSelectionEntity;
+    }
+    
+    public static CardSelectionEntity InstantiateCardSelectionEntity(
+        Card card,
+        Action<Card> onSelectCard,
+        Transform parent)
+    {
+        CardSelectionEntity cardSelectionEntity = GameObject
+            .Instantiate(PrefabReferences.Instance.CardSelectionEntityPrefab, parent)
+            .GetComponent<CardSelectionEntity>();
+        cardSelectionEntity.Setup(card, onSelectCard);
+        return cardSelectionEntity;
+    }
+
+    public static DeckSelectionEntity InstantiateDeckSelectionEntity(
+        DeckData deckData,
+        Action<DeckData> onSelectAction,
+        Transform parent)
+    {
+        DeckSelectionEntity deckSelectionEntity = GameObject
+            .Instantiate(PrefabReferences.Instance.DeckSelectionEntityPrefab, parent)
+            .GetComponent<DeckSelectionEntity>();
+        deckSelectionEntity.Setup(deckData, onSelectAction);
+        return deckSelectionEntity;
+    }
+
+    public static SpaceSelectionEntity InstantiateSpaceSelectionEntity(
+        SpaceData spaceData,
+        Action<SpaceData> onSelectAction,
+        Transform parent)
+    {
+        SpaceSelectionEntity spaceSelectionEntity = GameObject
+            .Instantiate(PrefabReferences.Instance.SpaceSelectionEntityPrefab, parent)
+            .GetComponent<SpaceSelectionEntity>();
+        spaceSelectionEntity.Setup(spaceData, onSelectAction);
+        return spaceSelectionEntity;
+    }
+
+    public static CardSelectionModalWindow InstantiateCardSelectionModalWindow(
+        string titleText,
+        IEnumerable<CardData> cardsData,
+        Action<CardData> onSelectCard,
+        Action onAddButtonSelect,
+        Action onBackButtonSelect)
+    {
+        CardSelectionModalWindow cardSelectionModalWindow = GameObject
+            .Instantiate(PrefabReferences.Instance.CardSelectionModalWindowPrefab)
+            .GetComponent<CardSelectionModalWindow>();
+        cardSelectionModalWindow.transform.SetAsLastSibling();
+        cardSelectionModalWindow.Setup(titleText, cardsData, onSelectCard, onAddButtonSelect, onBackButtonSelect);
+        return cardSelectionModalWindow;
+    }
+    
+    public static CardSelectionModalWindow InstantiateCardSelectionModalWindow(
+        string titleText,
+        IEnumerable<Card> cards,
+        Action<Card> onSelectCard,
+        Action onAddButtonSelect,
+        Action onBackButtonSelect)
+    {
+        CardSelectionModalWindow cardSelectionModalWindow = GameObject
+            .Instantiate(PrefabReferences.Instance.CardSelectionModalWindowPrefab)
+            .GetComponent<CardSelectionModalWindow>();
+        cardSelectionModalWindow.transform.SetAsLastSibling();
+        cardSelectionModalWindow.Setup(titleText, cards, onSelectCard, onAddButtonSelect, onBackButtonSelect);
+        return cardSelectionModalWindow;
+    }
+
+    public static GameTemplateSelectionModalWindow InstantiateGameTemplateSelectionModalWindow(
+        string titleText,
+        Action<GameTemplate> onSelectGameTemplate,
+        Action onAddButtonSelect,
+        Action onBackButtonSelect)
+    {
+        GameTemplateSelectionModalWindow gameTemplateSelectionModalWindow = GameObject
+            .Instantiate(PrefabReferences.Instance.GameTemplateSelectionModalWindowPrefab)
+            .GetComponent<GameTemplateSelectionModalWindow>();
+        gameTemplateSelectionModalWindow.transform.SetAsLastSibling();
+        gameTemplateSelectionModalWindow.Setup(titleText, onSelectGameTemplate, onAddButtonSelect, onBackButtonSelect);
+        return gameTemplateSelectionModalWindow;
+    }
+
+    public static DeckSelectionModalWindow InstantiateDeckSelectionModalWindow(
+        string titleText,
+        IEnumerable<DeckData> decksData,
+        Action<DeckData> onSelectDeck,
+        Action onAddButtonSelect,
+        Action onBackButtonSelect)
+    {
+        DeckSelectionModalWindow deckSelectionModalWindow = GameObject
+            .Instantiate(PrefabReferences.Instance.DeckSelectionModalWindowPrefab)
+            .GetComponent<DeckSelectionModalWindow>();
+        deckSelectionModalWindow.transform.SetAsLastSibling();
+        //deckSelectionModalWindow.Setup(titleText, decksData, onSelectDeck, onAddButtonSelect, onBackButtonSelect);
+        return deckSelectionModalWindow;
+    }
+
+    public static SpaceSelectionModalWindow InstantiateSpaceSelectionModalWindow(
+        string titleText,
+        IEnumerable<SpaceData> spacesData,
+        Action<SpaceData> onSelectSpace,
+        Action onAddButtonSelect,
+        Action onBackButtonSelect)
+    {
+        SpaceSelectionModalWindow spaceSelectionModalWindow = GameObject
+            .Instantiate(PrefabReferences.Instance.SpaceSelectionModalWindowPrefab)
+            .GetComponent<SpaceSelectionModalWindow>();
+        spaceSelectionModalWindow.transform.SetAsLastSibling();
+        //spaceSelectionModalWindow.Setup(titleText, spacesData, onSelectSpace, onAddButtonSelect, onBackButtonSelect);
+        return spaceSelectionModalWindow;
     }
 }

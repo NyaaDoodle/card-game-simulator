@@ -7,12 +7,12 @@ public class NewGameInstanceMenuManager : MonoBehaviour
     
     private void OnEnable()
     {
-        gameTemplateSelectionGrid.Show((gameTemplate) =>
-            {
-                SimulatorNetworkManager.singleton.HostGame(gameTemplate);
-            },
-            () => {},
-            false);
+        gameTemplateSelectionGrid.Show(
+            (gameTemplate) =>
+                {
+                    SimulatorNetworkManager.singleton.HostGame(gameTemplate);
+                },
+            null);
     }
 
     private void OnDisable()

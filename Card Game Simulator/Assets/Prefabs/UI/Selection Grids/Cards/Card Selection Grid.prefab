@@ -297,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3741920964361692549}
   - component: {fileID: 1058313892698835705}
+  - component: {fileID: 3419144920364966640}
   - component: {fileID: 1105456136324756381}
   - component: {fileID: 3540094918710955597}
   m_Layer: 5
@@ -334,6 +335,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3491298665067691819}
   m_CullTransparentMesh: 1
+--- !u!114 &3419144920364966640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491298665067691819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd72e77ac511c1418a3187c6fac8bd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentContainer: {fileID: 948168857909045556}
+  newCardButton: {fileID: 5452453170120283065}
 --- !u!114 &1105456136324756381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,7 +568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -3976393721419512896, guid: e93a39f47c4e25a44945832a1293c586, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

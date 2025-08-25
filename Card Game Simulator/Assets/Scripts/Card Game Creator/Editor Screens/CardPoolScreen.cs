@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CardPoolScreen : GameTemplateEditorScreenBase
 {
+    [SerializeField] private CardSelectionGrid cardSelectionGrid;
+    
     public void Show(WorkingGameTemplate workingGameTemplate)
     {
         SetupBaseButtons(workingGameTemplate, () => goToGameTemplateSectionsScreen(workingGameTemplate));

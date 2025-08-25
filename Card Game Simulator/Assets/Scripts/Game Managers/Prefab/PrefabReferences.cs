@@ -14,7 +14,13 @@ public class PrefabReferences : MonoBehaviour
     public GameObject PlayerPrefab;
     public GameObject PlayerHandDisplayPrefab;
     public GameObject GameTemplateSelectionEntityPrefab;
-    
+    public GameObject CardSelectionEntityPrefab;
+    public GameObject DeckSelectionEntityPrefab;
+    public GameObject SpaceSelectionEntityPrefab;
+    public GameObject CardSelectionModalWindowPrefab;
+    public GameObject GameTemplateSelectionModalWindowPrefab;
+    public GameObject DeckSelectionModalWindowPrefab;
+    public GameObject SpaceSelectionModalWindowPrefab;
     public bool IsReady { get; private set; }
 
     void Awake()

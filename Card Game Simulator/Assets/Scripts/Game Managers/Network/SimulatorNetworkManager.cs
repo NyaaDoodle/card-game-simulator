@@ -38,7 +38,7 @@ public class SimulatorNetworkManager : NetworkManager
     {
         StartHost();
         NetworkDiscovery.AdvertiseServer();
-        CurrentPlayingGameTemplate.Instance.GameTemplate = gameTemplate;
+        CurrentPlayingGameTemplate.GameTemplate = gameTemplate;
     }
 
     public void JoinGame(ServerResponse info)

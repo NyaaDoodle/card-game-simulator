@@ -58,7 +58,7 @@ public class GameInstanceManager : NetworkBehaviour
 
     private GameTemplate loadGameTemplate()
     {
-        return CurrentPlayingGameTemplate.Instance.GameTemplate;
+        return CurrentPlayingGameTemplate.GameTemplate;
     }
 
     private void spawnGameObjects(GameTemplate gameTemplate)
