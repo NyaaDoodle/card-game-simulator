@@ -6,13 +6,6 @@ public class GameTemplateEditor : MonoBehaviour
     public static GameTemplateEditor Instance { get; private set; }
     public WorkingGameTemplate CurrentWorkingGameTemplate { get; private set; } = null;
     
-    [SerializeField] private GameTemplateSectionsScreen gameTemplateSectionsScreen;
-    [SerializeField] private EditGameTemplateDetailsScreen editGameTemplateDetailsScreen;
-    [SerializeField] private EditTableSettingsScreen editTableSettingsScreen;
-    [SerializeField] private EditCardScreen editCardScreen;
-    [SerializeField] private EditDeckScreen editDeckScreen;
-    [SerializeField] private EditSpaceScreen editSpaceScreen;
-    
     private void Awake()
     {
         initializeInstance();
@@ -20,7 +13,7 @@ public class GameTemplateEditor : MonoBehaviour
 
     private void initializeInstance()
     {
-        if (Instance != null && Instance == this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
@@ -29,11 +22,6 @@ public class GameTemplateEditor : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
-    
-    private void Start()
-    {
-        GoToInitialScreen();
     }
 
     public void GoToInitialScreen()
@@ -45,12 +33,12 @@ public class GameTemplateEditor : MonoBehaviour
 
     private void hideAllScreens()
     {
-        gameTemplateSectionsScreen.Hide();
-        editGameTemplateDetailsScreen.Hide();
-        editTableSettingsScreen.Hide();
-        editCardScreen.Hide();
-        editDeckScreen.Hide();
-        editSpaceScreen.Hide();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Hide();
+        GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Hide();
+        GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Hide();
+        GameTemplateEditorScreenReferences.Instance.EditCardScreen.Hide();
+        GameTemplateEditorScreenReferences.Instance.EditDeckScreen.Hide();
+        GameTemplateEditorScreenReferences.Instance.EditSpaceScreen.Hide();
     }
 
     private void showGameTemplateSelectionWindow()
@@ -61,13 +49,13 @@ public class GameTemplateEditor : MonoBehaviour
                 {
                     setCurrentWorkingGameTemplate(gameTemplate);
                     SelectionModalWindowManager.CloseCurrentWindow();
-                    gameTemplateSectionsScreen.Show();
+                    GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
                 },
             () =>
                 {
                     createNewGameTemplate();
                     SelectionModalWindowManager.CloseCurrentWindow();
-                    gameTemplateSectionsScreen.Show();
+                    GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
                 },
             () =>
                 {
@@ -79,37 +67,37 @@ public class GameTemplateEditor : MonoBehaviour
     public void GoToGameTemplateSectionsScreen()
     {
         hideAllScreens();
-        gameTemplateSectionsScreen.Show();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
     }
 
     public void GoToEditGameTemplateDetailsScreen()
     {
         hideAllScreens();
-        editGameTemplateDetailsScreen.Show();
+        GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Show();
     }
 
     public void GoToEditTableSettingsScreen()
     {
         hideAllScreens();
-        editTableSettingsScreen.Show();
+        GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Show();
     }
 
     public void GoToEditCardScreen(CardData cardData)
     {
         hideAllScreens();
-        
+        GameTemplateEditorScreenReferences.Instance.EditCardScreen.Show(cardData);
     }
 
     public void GoToEditDeckScreen(DeckData deckData)
     {
         hideAllScreens();
-        
+        GameTemplateEditorScreenReferences.Instance.EditDeckScreen.Show(deckData);
     }
 
     public void GoToEditSpaceScreen(SpaceData spaceData)
     {
         hideAllScreens();
-        
+        GameTemplateEditorScreenReferences.Instance.EditSpaceScreen.Show(spaceData);
     }
 
     private void createNewGameTemplate()

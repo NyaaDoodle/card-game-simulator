@@ -9,26 +9,44 @@ public class CardSelectionGrid : MonoBehaviour
     [SerializeField] private Button newCardButton;
 
     private readonly List<CardSelectionEntity> selectionEntities = new List<CardSelectionEntity>();
+    private Action<CardData> onSelectCardDataAction;
+    private Action<Card> onSelectCardAction;
 
     public void Show(
         IEnumerable<CardData> cardsData,
         Action<CardData> onSelectCard,
-        Action onSelectAddButton)
+        Action onSelectAddButton = null)
     {
         gameObject.SetActive(true);
         setupAddButton(onSelectAddButton);
-        spawnCardSelectionEntities(cardsData, onSelectCard);
+        onSelectCardDataAction = onSelectCard;
+        spawnCardSelectionEntities(cardsData);
     }
 
-    public void Show(IEnumerable<Card> cards, Action<Card> onSelectCard, Action onSelectAddButton)
+    public void Show(IEnumerable<Card> cards, Action<Card> onSelectCard, Action onSelectAddButton = null)
     {
         gameObject.SetActive(true);
         setupAddButton(onSelectAddButton);
-        spawnCardSelectionEntities(cards, onSelectCard);
+        onSelectCardAction = onSelectCard;
+        spawnCardSelectionEntities(cards);
+    }
+
+    public void UpdateCards(IEnumerable<CardData> cardsData)
+    {
+        despawnCardSelectionEntities();
+        spawnCardSelectionEntities(cardsData);
+    }
+
+    public void UpdateCards(IEnumerable<Card> cards)
+    {
+        despawnCardSelectionEntities();
+        spawnCardSelectionEntities(cards);
     }
 
     public void Hide()
     {
+        onSelectCardDataAction = null;
+        onSelectCardAction = null;
         despawnCardSelectionEntities();
         unsetAddButton();
         gameObject.SetActive(false);
@@ -46,20 +64,20 @@ public class CardSelectionGrid : MonoBehaviour
         newCardButton.onClick.RemoveAllListeners();
     }
 
-    private void spawnCardSelectionEntities(IEnumerable<CardData> cardsData, Action<CardData> onSelectCard)
+    private void spawnCardSelectionEntities(IEnumerable<CardData> cardsData)
     {
         foreach (CardData cardData in cardsData)
         {
-            spawnCardSelectionEntity(cardData, onSelectCard);    
+            spawnCardSelectionEntity(cardData, onSelectCardDataAction);    
         }
         setAddButtonAsLastContentSibling();
     }
     
-    private void spawnCardSelectionEntities(IEnumerable<Card> cards, Action<Card> onSelectCard)
+    private void spawnCardSelectionEntities(IEnumerable<Card> cards)
     {
         foreach (Card card in cards)
         {
-            spawnCardSelectionEntity(card, onSelectCard);    
+            spawnCardSelectionEntity(card, onSelectCardAction);    
         }
         setAddButtonAsLastContentSibling();
     }

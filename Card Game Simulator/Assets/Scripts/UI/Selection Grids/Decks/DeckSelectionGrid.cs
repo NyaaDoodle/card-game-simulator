@@ -10,7 +10,7 @@ public class DeckSelectionGrid : MonoBehaviour
 
     private readonly List<DeckSelectionEntity> selectionEntities = new List<DeckSelectionEntity>();
 
-    public void Show(IEnumerable<DeckData> decksData, Action<DeckData> onSelectDeck, Action onSelectAddButton)
+    public void Show(IEnumerable<DeckData> decksData, Action<DeckData> onSelectDeck, Action onSelectAddButton = null)
     {
         gameObject.SetActive(true);
         setupAddButton(onSelectAddButton);

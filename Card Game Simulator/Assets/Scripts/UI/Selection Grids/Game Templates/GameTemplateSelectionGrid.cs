@@ -10,7 +10,7 @@ public class GameTemplateSelectionGrid : MonoBehaviour
 
     private readonly List<GameTemplateSelectionEntity> selectionEntities = new List<GameTemplateSelectionEntity>();
 
-    public void Show(Action<GameTemplate> onSelectGameTemplate, Action onSelectAddButton)
+    public void Show(Action<GameTemplate> onSelectGameTemplate, Action onSelectAddButton = null)
     {
         gameObject.SetActive(true);
         setupAddButton(onSelectAddButton);

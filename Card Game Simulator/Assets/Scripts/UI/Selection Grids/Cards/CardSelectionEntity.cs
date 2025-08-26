@@ -27,12 +27,12 @@ public class CardSelectionEntity : MonoBehaviour
 
     private void setupSelectionButton(CardData cardData, Action<CardData> onSelectAction)
     {
-        selectionButton.onClick.AddListener(() => onSelectAction(cardData));
+        selectionButton.onClick.AddListener(() => onSelectAction?.Invoke(cardData));
     }
 
     private void setupSelectionButton(Card card, Action<Card> onSelectAction)
     {
-        selectionButton.onClick.AddListener(() => onSelectAction(card));
+        selectionButton.onClick.AddListener(() => onSelectAction?.Invoke(card));
     }
 
     private void setupCardFrontSideImage(CardData cardData)

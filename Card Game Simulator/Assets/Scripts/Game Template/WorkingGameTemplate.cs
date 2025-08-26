@@ -114,13 +114,13 @@ public class WorkingGameTemplate
             GameTemplateDetails.TemplateImagePath);
     }
 
-    public void SetTemplateThumbnail(string thumbnailLocalPath)
+    public void SetTemplateThumbnail(string templateThumbnailImagePath)
     {
         GameTemplateDetails = new GameTemplateDetails(
             GameTemplateDetails.TemplateName,
             GameTemplateDetails.CreatorName,
             GameTemplateDetails.Description,
-            thumbnailLocalPath);
+            templateThumbnailImagePath);
     }
 
     public void SetTableWidth(float width)
@@ -133,9 +133,9 @@ public class WorkingGameTemplate
         TableData = new TableData(TableData.Width, height, TableData.SurfaceImagePath);
     }
 
-    public void SetTableSurfaceImage(string imageLocalPath)
+    public void SetTableSurfaceImage(string tableSurfaceImagePath)
     {
-        TableData = new TableData(TableData.Width, TableData.Height, imageLocalPath);
+        TableData = new TableData(TableData.Width, TableData.Height, tableSurfaceImagePath);
     }
 
     public CardData CreateNewDefaultCardData()
@@ -193,5 +193,206 @@ public class WorkingGameTemplate
             defaultRotation);
         SpacesData.Add(spaceData.Id, spaceData);
         return spaceData;
+    }
+
+    public CardData SetCardName(CardData cardData, string name)
+    {
+        CardData updatedCardData = new CardData(
+            cardData.Id,
+            name,
+            cardData.Description,
+            cardData.Width,
+            cardData.Height,
+            cardData.BackSideImagePath,
+            cardData.FrontSideImagePath);
+        CardPool[cardData.Id] = updatedCardData;
+        return updatedCardData;
+    }
+
+    public CardData SetCardDescription(CardData cardData, string description)
+    {
+        CardData updatedCardData = new CardData(
+            cardData.Id,
+            cardData.Name,
+            description,
+            cardData.Width,
+            cardData.Height,
+            cardData.BackSideImagePath,
+            cardData.FrontSideImagePath);
+        CardPool[cardData.Id] = updatedCardData;
+        return updatedCardData;
+    }
+
+    public CardData SetCardBackSideImagePath(CardData cardData, string backSideImagePath)
+    {
+        CardData updatedCardData = new CardData(
+            cardData.Id,
+            cardData.Name,
+            cardData.Description,
+            cardData.Width,
+            cardData.Height,
+            backSideImagePath,
+            cardData.FrontSideImagePath);
+        CardPool[cardData.Id] = updatedCardData;
+        return updatedCardData;
+    }
+    
+    public CardData SetCardFrontSideImagePath(CardData cardData, string frontSideImagePath)
+    {
+        CardData updatedCardData = new CardData(
+            cardData.Id,
+            cardData.Name,
+            cardData.Description,
+            cardData.Width,
+            cardData.Height,
+            cardData.BackSideImagePath,
+            frontSideImagePath);
+        CardPool[cardData.Id] = updatedCardData;
+        return updatedCardData;
+    }
+
+    public void DeleteCardData(CardData cardData)
+    {
+        CardPool.Remove(cardData.Id);
+    }
+
+    public DeckData SetDeckName(DeckData deckData, string name)
+    {
+        DeckData updatedDeckData = new DeckData(
+            deckData.Id,
+            name,
+            deckData.TableXCoordinate,
+            deckData.TableYCoordinate,
+            deckData.Rotation,
+            deckData.StartingCards);
+        DecksData[deckData.Id] = updatedDeckData;
+        return updatedDeckData;
+    }
+
+    public DeckData SetDeckXCoordinate(DeckData deckData, float x)
+    {
+        DeckData updatedDeckData = new DeckData(
+            deckData.Id,
+            deckData.Name,
+            x,
+            deckData.TableYCoordinate,
+            deckData.Rotation,
+            deckData.StartingCards);
+        DecksData[deckData.Id] = updatedDeckData;
+        return updatedDeckData;
+    }
+
+    public DeckData SetDeckYCoordinate(DeckData deckData, float y)
+    {
+        DeckData updatedDeckData = new DeckData(
+            deckData.Id,
+            deckData.Name,
+            deckData.TableXCoordinate,
+            y,
+            deckData.Rotation,
+            deckData.StartingCards);
+        DecksData[deckData.Id] = updatedDeckData;
+        return updatedDeckData;
+    }
+
+    public DeckData SetDeckRotation(DeckData deckData, float rotation)
+    {
+        DeckData updatedDeckData = new DeckData(
+            deckData.Id,
+            deckData.Name,
+            deckData.TableXCoordinate,
+            deckData.TableYCoordinate,
+            rotation,
+            deckData.StartingCards);
+        DecksData[deckData.Id] = updatedDeckData;
+        return updatedDeckData;
+    }
+
+    public DeckData AddCardDataToDeckStartingCards(DeckData deckData, CardData cardData)
+    {
+        List<CardData> cardDataList = new List<CardData>(deckData.StartingCards);
+        cardDataList.Add(cardData);
+        DeckData updatedDeckData = new DeckData(
+            deckData.Id,
+            deckData.Name,
+            deckData.TableXCoordinate,
+            deckData.TableYCoordinate,
+            deckData.Rotation,
+            cardDataList.ToArray());
+        DecksData[deckData.Id] = updatedDeckData;
+        return updatedDeckData;
+    }
+
+    public DeckData RemoveCardDataFromDeckStartingCards(DeckData deckData, CardData cardData)
+    {
+        List<CardData> cardDataList = new List<CardData>(deckData.StartingCards);
+        cardDataList.Remove(cardData);
+        DeckData updatedDeckData = new DeckData(
+            deckData.Id,
+            deckData.Name,
+            deckData.TableXCoordinate,
+            deckData.TableYCoordinate,
+            deckData.Rotation,
+            cardDataList.ToArray());
+        DecksData[deckData.Id] = updatedDeckData;
+        return updatedDeckData;
+    }
+
+    public void DeleteDeckData(DeckData deckData)
+    {
+        DecksData.Remove(deckData.Id);
+    }
+
+    public SpaceData SetSpaceName(SpaceData spaceData, string name)
+    {
+        SpaceData updateSpaceData = new SpaceData(
+            spaceData.Id,
+            name,
+            spaceData.TableXCoordinate,
+            spaceData.TableYCoordinate,
+            spaceData.Rotation);
+        SpacesData[spaceData.Id] = updateSpaceData;
+        return updateSpaceData;
+    }
+
+    public SpaceData SetSpaceXCoordinate(SpaceData spaceData, float x)
+    {
+        SpaceData updatedSpaceData = new SpaceData(
+            spaceData.Id,
+            spaceData.Name,
+            x,
+            spaceData.TableYCoordinate,
+            spaceData.Rotation);
+        SpacesData[spaceData.Id] = updatedSpaceData;
+        return updatedSpaceData;
+    }
+
+    public SpaceData SetSpaceYCoordinate(SpaceData spaceData, float y)
+    {
+        SpaceData updatedSpaceData = new SpaceData(
+            spaceData.Id,
+            spaceData.Name,
+            spaceData.TableXCoordinate,
+            y,
+            spaceData.Rotation);
+        SpacesData[spaceData.Id] = updatedSpaceData;
+        return updatedSpaceData;
+    }
+
+    public SpaceData SetSpaceRotation(SpaceData spaceData, float rotation)
+    {
+        SpaceData updateSpaceData = new SpaceData(
+            spaceData.Id,
+            spaceData.Name,
+            spaceData.TableXCoordinate,
+            spaceData.TableYCoordinate,
+            rotation);
+        SpacesData[spaceData.Id] = updateSpaceData;
+        return updateSpaceData;
+    }
+
+    public void DeleteSpaceData(SpaceData spaceData)
+    {
+        SpacesData.Remove(spaceData.Id);
     }
 }

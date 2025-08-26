@@ -10,7 +10,7 @@ public class SpaceSelectionGrid : MonoBehaviour
 
     private readonly List<SpaceSelectionEntity> selectionEntities = new List<SpaceSelectionEntity>();
 
-    public void Show(IEnumerable<SpaceData> spacesData, Action<SpaceData> onSelectSpace, Action onSelectAddButton)
+    public void Show(IEnumerable<SpaceData> spacesData, Action<SpaceData> onSelectSpace, Action onSelectAddButton = null)
     {
         gameObject.SetActive(true);
         setupAddButton(onSelectAddButton);
