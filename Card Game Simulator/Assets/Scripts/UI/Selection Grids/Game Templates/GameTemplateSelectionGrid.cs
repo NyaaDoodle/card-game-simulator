@@ -26,7 +26,7 @@ public class GameTemplateSelectionGrid : MonoBehaviour
 
     private void setupAddButton(Action onSelectAddButton)
     {
-        bool showAddButton = onSelectAddButton == null;
+        bool showAddButton = onSelectAddButton != null;
         newGameTemplateButton.gameObject.SetActive(showAddButton);
         newGameTemplateButton.onClick.AddListener(() => onSelectAddButton?.Invoke());
     }

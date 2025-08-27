@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameTemplateEditor : MonoBehaviour
@@ -33,6 +34,7 @@ public class GameTemplateEditor : MonoBehaviour
 
     private void hideAllScreens()
     {
+        SelectionModalWindowManager.CloseCurrentWindow();
         GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Hide();
         GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Hide();
         GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Hide();
@@ -82,32 +84,34 @@ public class GameTemplateEditor : MonoBehaviour
         GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Show();
     }
 
-    public void GoToEditCardScreen(CardData cardData)
+    public void GoToEditCardScreen(CardData cardData, Action onBackButtonSelect)
     {
         hideAllScreens();
-        GameTemplateEditorScreenReferences.Instance.EditCardScreen.Show(cardData);
+        GameTemplateEditorScreenReferences.Instance.EditCardScreen.Show(cardData, onBackButtonSelect);
     }
 
-    public void GoToEditDeckScreen(DeckData deckData)
+    public void GoToEditDeckScreen(DeckData deckData, Action onBackButtonSelect)
     {
         hideAllScreens();
-        GameTemplateEditorScreenReferences.Instance.EditDeckScreen.Show(deckData);
+        GameTemplateEditorScreenReferences.Instance.EditDeckScreen.Show(deckData, onBackButtonSelect);
     }
 
-    public void GoToEditSpaceScreen(SpaceData spaceData)
+    public void GoToEditSpaceScreen(SpaceData spaceData, Action onBackButtonSelect)
     {
         hideAllScreens();
-        GameTemplateEditorScreenReferences.Instance.EditSpaceScreen.Show(spaceData);
+        GameTemplateEditorScreenReferences.Instance.EditSpaceScreen.Show(spaceData, onBackButtonSelect);
     }
 
     private void createNewGameTemplate()
     {
-        WorkingGameTemplate workingGameTemplate = new WorkingGameTemplate();
+        CurrentWorkingGameTemplate = new WorkingGameTemplate();
+        Debug.Log($"Created new game template {CurrentWorkingGameTemplate.Id}");
     }
 
     private void setCurrentWorkingGameTemplate(GameTemplate gameTemplate)
     {
-        WorkingGameTemplate workingGameTemplate = new WorkingGameTemplate(gameTemplate);
+        CurrentWorkingGameTemplate = new WorkingGameTemplate(gameTemplate);
+        Debug.Log($"Selected game template {CurrentWorkingGameTemplate.Id}");
     }
 
     private void discardCurrentWorkingGameTemplate()

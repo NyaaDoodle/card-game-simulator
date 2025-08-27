@@ -131,4 +131,30 @@ public readonly struct GameTemplate : IEquatable<GameTemplate>
 
         return stringBuilder.ToString();
     }
+    
+    public Dictionary<string, CardData> GetCardDataDictionaryFromCardIds(IEnumerable<string> cardIds)
+    {
+        // Returns a dictionary (Card ID to corresponding Card Data) for the specified card IDs.
+        // If a card ID is not found on CardPool, the function proceeds to the next card ID.
+        Dictionary<string, CardData> cardPoolAsDictionary = GetCardPoolAsDictionary();
+        Dictionary<string, CardData> resultDictionary = new Dictionary<string, CardData>();
+        foreach (string cardId in cardIds)
+        {
+            if (cardPoolAsDictionary.TryGetValue(cardId, out CardData cardData))
+            {
+                resultDictionary.Add(cardId, cardData);
+            }
+        }
+        return resultDictionary;
+    }
+
+    public Dictionary<string, CardData> GetCardPoolAsDictionary()
+    {
+        Dictionary<string, CardData> cardPoolAsDictionary = new Dictionary<string, CardData>();
+        foreach (CardData cardData in CardPool)
+        {
+            cardPoolAsDictionary.Add(cardData.Id, cardData);
+        }
+        return cardPoolAsDictionary;
+    }
 }

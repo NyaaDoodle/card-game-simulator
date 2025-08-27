@@ -15,7 +15,7 @@ public static class StackableDataSerialization
             writer.WriteFloat(deckData.TableXCoordinate);
             writer.WriteFloat(deckData.TableYCoordinate);
             writer.WriteFloat(deckData.Rotation);
-            writer.WriteArray(deckData.StartingCards);
+            writer.WriteArray(deckData.StartingCardIds);
         }
         else if (StackableData is SpaceData spaceData)
         {
@@ -39,8 +39,8 @@ public static class StackableDataSerialization
         switch (type)
         {
             case DECK_DATA:
-                CardData[] startingCards = reader.ReadArray<CardData>();
-                return new DeckData(id, name, x, y, rotation, startingCards);
+                string[] startingCardIds = reader.ReadArray<string>();
+                return new DeckData(id, name, x, y, rotation, startingCardIds);
             case SPACE_DATA:
                 return new SpaceData(id, name, x, y, rotation);
             default:

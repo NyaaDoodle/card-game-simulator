@@ -3,16 +3,18 @@ using System.Collections.Generic;
 public class Deck : Stackable
 {
     public DeckData DeckData => (DeckData)StackableData;
-    public void Setup(DeckData deckData)
+    public void Setup(DeckData deckData, GameTemplate gameTemplate)
     {
         base.Setup(deckData);
-        addStartingCards();
+        IEnumerable<CardData> startingCardsData =
+            gameTemplate.GetCardDataDictionaryFromCardIds(deckData.StartingCardIds).Values;
+        addStartingCards(startingCardsData);
     }
 
-    private void addStartingCards()
+    private void addStartingCards(IEnumerable<CardData> startingCardsData)
     {
         List<Card> startingCards = new List<Card>();
-        foreach (CardData cardData in DeckData.StartingCards)
+        foreach (CardData cardData in startingCardsData)
         {
             startingCards.Add(new Card(cardData));
         }

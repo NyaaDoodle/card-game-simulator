@@ -26,7 +26,7 @@ public class DeckSelectionGrid : MonoBehaviour
 
     private void setupAddButton(Action onSelectAddButton)
     {
-        bool showAddButton = onSelectAddButton == null;
+        bool showAddButton = onSelectAddButton != null;
         newDeckButton.gameObject.SetActive(showAddButton);
         newDeckButton.onClick.AddListener(() => onSelectAddButton?.Invoke());
     }

@@ -166,14 +166,14 @@ public class WorkingGameTemplate
         const float defaultTableYCoordinate = 0;
         const float defaultRotation = 0;
         string deckId = Guid.NewGuid().ToString();
-        CardData[] startingCards = Array.Empty<CardData>();
+        string[] startingCardIds = Array.Empty<string>();
         DeckData deckData = new DeckData(
             deckId,
             defaultName,
             defaultTableXCoordinate,
             defaultTableYCoordinate,
             defaultRotation,
-            startingCards);
+            startingCardIds);
         DecksData.Add(deckData.Id, deckData);
         return deckData;
     }
@@ -264,7 +264,7 @@ public class WorkingGameTemplate
             deckData.TableXCoordinate,
             deckData.TableYCoordinate,
             deckData.Rotation,
-            deckData.StartingCards);
+            deckData.StartingCardIds);
         DecksData[deckData.Id] = updatedDeckData;
         return updatedDeckData;
     }
@@ -277,7 +277,7 @@ public class WorkingGameTemplate
             x,
             deckData.TableYCoordinate,
             deckData.Rotation,
-            deckData.StartingCards);
+            deckData.StartingCardIds);
         DecksData[deckData.Id] = updatedDeckData;
         return updatedDeckData;
     }
@@ -290,7 +290,7 @@ public class WorkingGameTemplate
             deckData.TableXCoordinate,
             y,
             deckData.Rotation,
-            deckData.StartingCards);
+            deckData.StartingCardIds);
         DecksData[deckData.Id] = updatedDeckData;
         return updatedDeckData;
     }
@@ -303,37 +303,37 @@ public class WorkingGameTemplate
             deckData.TableXCoordinate,
             deckData.TableYCoordinate,
             rotation,
-            deckData.StartingCards);
+            deckData.StartingCardIds);
         DecksData[deckData.Id] = updatedDeckData;
         return updatedDeckData;
     }
 
     public DeckData AddCardDataToDeckStartingCards(DeckData deckData, CardData cardData)
     {
-        List<CardData> cardDataList = new List<CardData>(deckData.StartingCards);
-        cardDataList.Add(cardData);
+        List<string> cardDataIdList = new List<string>(deckData.StartingCardIds);
+        cardDataIdList.Add(cardData.Id);
         DeckData updatedDeckData = new DeckData(
             deckData.Id,
             deckData.Name,
             deckData.TableXCoordinate,
             deckData.TableYCoordinate,
             deckData.Rotation,
-            cardDataList.ToArray());
+            cardDataIdList.ToArray());
         DecksData[deckData.Id] = updatedDeckData;
         return updatedDeckData;
     }
 
     public DeckData RemoveCardDataFromDeckStartingCards(DeckData deckData, CardData cardData)
     {
-        List<CardData> cardDataList = new List<CardData>(deckData.StartingCards);
-        cardDataList.Remove(cardData);
+        List<string> cardDataIdList = new List<string>(deckData.StartingCardIds);
+        cardDataIdList.Remove(cardData.Id);
         DeckData updatedDeckData = new DeckData(
             deckData.Id,
             deckData.Name,
             deckData.TableXCoordinate,
             deckData.TableYCoordinate,
             deckData.Rotation,
-            cardDataList.ToArray());
+            cardDataIdList.ToArray());
         DecksData[deckData.Id] = updatedDeckData;
         return updatedDeckData;
     }
@@ -394,5 +394,20 @@ public class WorkingGameTemplate
     public void DeleteSpaceData(SpaceData spaceData)
     {
         SpacesData.Remove(spaceData.Id);
+    }
+
+    public Dictionary<string, CardData> GetCardDataDictionaryFromCardIds(IEnumerable<string> cardIds)
+    {
+        // Returns a dictionary (Card ID to corresponding Card Data) for the specified card IDs.
+        // If a card ID is not found on CardPool, the function proceeds to the next card ID.
+        Dictionary<string, CardData> dictionary = new Dictionary<string, CardData>();
+        foreach (string cardId in cardIds)
+        {
+            if (CardPool.TryGetValue(cardId, out CardData cardData))
+            {
+                dictionary.Add(cardId, cardData);
+            }
+        }
+        return dictionary;
     }
 }

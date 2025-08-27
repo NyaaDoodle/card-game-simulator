@@ -348,8 +348,8 @@ MonoBehaviour:
   PlayerHandDisplayPrefab: {fileID: 9027250750548264014, guid: db7bdec84ee241a4fab2f7ac3379789f, type: 3}
   GameTemplateSelectionEntityPrefab: {fileID: 9010213250016505079, guid: 3bfbf68bda22eb44c982fa80e0dfe057, type: 3}
   CardSelectionEntityPrefab: {fileID: 1516585798712562006, guid: 9c3195f31166456448f4e67210e7eaef, type: 3}
-  DeckSelectionEntityPrefab: {fileID: 7922896812282282262, guid: 83f359d67d76b07428971806648a986e, type: 3}
-  SpaceSelectionEntityPrefab: {fileID: 2849973361294576370, guid: 9b6fb0e9b2be11847932216382e8dc73, type: 3}
+  DeckSelectionEntityPrefab: {fileID: 489654966046213860, guid: 031b056cd15850a4cbd350851ba07389, type: 3}
+  SpaceSelectionEntityPrefab: {fileID: 4848255008097520681, guid: ab1aa797de95f334bb0c4bef28f538ce, type: 3}
   CardSelectionModalWindowPrefab: {fileID: 1068268538023688244, guid: e925032db91f5234c924991119837b14, type: 3}
   GameTemplateSelectionModalWindowPrefab: {fileID: 9121166601427940843, guid: ef5acb9389a5a404d90f54ff090ce03e, type: 3}
   DeckSelectionModalWindowPrefab: {fileID: 2195036719963495668, guid: 1ef93586faca730438b2e5bf047b4023, type: 3}

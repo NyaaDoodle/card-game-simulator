@@ -64,7 +64,7 @@ public class GameInstanceManager : NetworkBehaviour
     private void spawnGameObjects(GameTemplate gameTemplate)
     {
         spawnTable(gameTemplate.TableData);
-        spawnDecks(gameTemplate.DecksData);
+        spawnDecks(gameTemplate.DecksData, gameTemplate);
         spawnSpaces(gameTemplate.SpacesData);
     }
 
@@ -81,11 +81,11 @@ public class GameInstanceManager : NetworkBehaviour
         }
     }
 
-    private void spawnDecks(DeckData[] decksData)
+    private void spawnDecks(DeckData[] decksData, GameTemplate gameTemplate)
     {
         foreach (DeckData deckData in decksData)
         {
-            spawnDeck(deckData);
+            spawnDeck(deckData, gameTemplate);
         }
     }
 
@@ -97,9 +97,9 @@ public class GameInstanceManager : NetworkBehaviour
         }
     }
 
-    private void spawnDeck(DeckData deckData)
+    private void spawnDeck(DeckData deckData, GameTemplate gameTemplate)
     {
-        Deck deck = PrefabExtensions.InstantiateDeck(deckData);
+        Deck deck = PrefabExtensions.InstantiateDeck(deckData, gameTemplate);
         Decks.Add(deck);
     }
 

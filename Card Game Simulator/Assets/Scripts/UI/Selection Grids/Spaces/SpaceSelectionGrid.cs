@@ -26,7 +26,7 @@ public class SpaceSelectionGrid : MonoBehaviour
 
     private void setupAddButton(Action onSelectAddButton)
     {
-        bool showAddButton = onSelectAddButton == null;
+        bool showAddButton = onSelectAddButton != null;
         newSpaceButton.gameObject.SetActive(showAddButton);
         newSpaceButton.onClick.AddListener(() => onSelectAddButton?.Invoke());
     }

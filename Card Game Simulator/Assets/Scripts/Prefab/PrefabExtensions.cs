@@ -30,12 +30,12 @@ public static class PrefabExtensions
         return tableDisplay;
     }
 
-    public static Deck InstantiateDeck(DeckData deckData)
+    public static Deck InstantiateDeck(DeckData deckData, GameTemplate gameTemplate)
     {
         GameObject deckGameObject = GameObject.Instantiate(PrefabReferences.Instance.DeckPrefab);
         NetworkServer.Spawn(deckGameObject);
         Deck deck = deckGameObject.GetComponent<Deck>();
-        deck.Setup(deckData);
+        deck.Setup(deckData, gameTemplate);
         return deck;
     }
 
@@ -237,7 +237,7 @@ public static class PrefabExtensions
             .Instantiate(PrefabReferences.Instance.DeckSelectionModalWindowPrefab)
             .GetComponent<DeckSelectionModalWindow>();
         deckSelectionModalWindow.transform.SetAsLastSibling();
-        //deckSelectionModalWindow.Setup(titleText, decksData, onSelectDeck, onAddButtonSelect, onBackButtonSelect);
+        deckSelectionModalWindow.Setup(titleText, decksData, onSelectDeck, onAddButtonSelect, onBackButtonSelect);
         return deckSelectionModalWindow;
     }
 
@@ -252,7 +252,7 @@ public static class PrefabExtensions
             .Instantiate(PrefabReferences.Instance.SpaceSelectionModalWindowPrefab)
             .GetComponent<SpaceSelectionModalWindow>();
         spaceSelectionModalWindow.transform.SetAsLastSibling();
-        //spaceSelectionModalWindow.Setup(titleText, spacesData, onSelectSpace, onAddButtonSelect, onBackButtonSelect);
+        spaceSelectionModalWindow.Setup(titleText, spacesData, onSelectSpace, onAddButtonSelect, onBackButtonSelect);
         return spaceSelectionModalWindow;
     }
 }

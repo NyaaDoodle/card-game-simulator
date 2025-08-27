@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 3764435151258929901}
   titleText: {fileID: 1831028764389598051}
+  deckSelectionGrid: {fileID: 1370555853095063484}
 --- !u!1 &3995572882604773773
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -276,7 +277,7 @@ MonoBehaviour:
   m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 1
+  m_isRichText: 0
   m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
@@ -648,6 +649,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f359d67d76b07428971806648a986e, type: 3}
+--- !u!114 &1370555853095063484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5491776005042152479, guid: 83f359d67d76b07428971806648a986e, type: 3}
+  m_PrefabInstance: {fileID: 6859972237447752611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bdfc2c4a7a71c148a564affc745b3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7736262573693345366 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3778306464217134581, guid: 83f359d67d76b07428971806648a986e, type: 3}

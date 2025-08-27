@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +14,10 @@ public class EditSpaceScreen : GameTemplateEditorScreenBase
     private string currentSpaceId;
     private SpaceData currentSpaceData => WorkingGameTemplate.SpacesData[currentSpaceId];
 
-    public void Show(SpaceData spaceData)
+    public void Show(SpaceData spaceData, Action onBackButtonSelect)
     {
         gameObject.SetActive(true);
-        SetupBaseButtons(GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen);
+        SetupBaseButtons(onBackButtonSelect);
         currentSpaceId = spaceData.Id;
         setupInputFields();
         setupDeleteButton();

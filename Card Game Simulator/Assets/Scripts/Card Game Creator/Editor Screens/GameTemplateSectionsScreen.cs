@@ -58,14 +58,15 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
             WorkingGameTemplate.CardPool.Values,
             (cardData) =>
                 {
-                    GameTemplateEditor.Instance.GoToEditCardScreen(cardData);
+                    GameTemplateEditor.Instance.GoToEditCardScreen(cardData, returnFromCardEditScreen);
                 },
             () =>
                 {
                     CardData newCard = WorkingGameTemplate.CreateNewDefaultCardData();
-                    GameTemplateEditor.Instance.GoToEditCardScreen(newCard);
+                    GameTemplateEditor.Instance.GoToEditCardScreen(newCard, returnFromCardEditScreen);
                 },
-            SelectionModalWindowManager.CloseCurrentWindow);
+            SelectionModalWindowManager.CloseCurrentWindow
+            );
     }
 
     private void goToDeckSelection()
@@ -75,12 +76,12 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
             WorkingGameTemplate.DecksData.Values,
             (deckData) =>
                 {
-                    GameTemplateEditor.Instance.GoToEditDeckScreen(deckData);
+                    GameTemplateEditor.Instance.GoToEditDeckScreen(deckData, returnFromDeckEditScreen);
                 },
             () =>
                 {
                     DeckData newDeck = WorkingGameTemplate.CreateNewDefaultDeckData();
-                    GameTemplateEditor.Instance.GoToEditDeckScreen(newDeck);
+                    GameTemplateEditor.Instance.GoToEditDeckScreen(newDeck, returnFromDeckEditScreen);
                 },
             SelectionModalWindowManager.CloseCurrentWindow);
     }
@@ -92,13 +93,31 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
             WorkingGameTemplate.SpacesData.Values,
             (spaceData) =>
                 {
-                    GameTemplateEditor.Instance.GoToEditSpaceScreen(spaceData);
+                    GameTemplateEditor.Instance.GoToEditSpaceScreen(spaceData, returnFromSpaceEditScreen);
                 },
             () =>
                 {
                     SpaceData newSpace = WorkingGameTemplate.CreateNewDefaultSpaceData();
-                    GameTemplateEditor.Instance.GoToEditSpaceScreen(newSpace);
+                    GameTemplateEditor.Instance.GoToEditSpaceScreen(newSpace, returnFromSpaceEditScreen);
                 },
             SelectionModalWindowManager.CloseCurrentWindow);
+    }
+
+    private void returnFromCardEditScreen()
+    {
+        GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
+        goToCardPool();
+    }
+
+    private void returnFromDeckEditScreen()
+    {
+        GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
+        goToDeckSelection();
+    }
+
+    private void returnFromSpaceEditScreen()
+    {
+        GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
+        goToSpaceSelection();
     }
 }

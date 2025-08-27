@@ -31,6 +31,16 @@ public class CardSelectionGrid : MonoBehaviour
         spawnCardSelectionEntities(cards);
     }
 
+    public void Show(
+        IEnumerable<string> cardIds,
+        WorkingGameTemplate workingGameTemplate,
+        Action<CardData> onSelectCard,
+        Action onSelectAddButton = null)
+    {
+        IEnumerable<CardData> cardsData = workingGameTemplate.GetCardDataDictionaryFromCardIds(cardIds).Values;
+        this.Show(cardsData, onSelectCard, onSelectAddButton);
+    }
+
     public void UpdateCards(IEnumerable<CardData> cardsData)
     {
         despawnCardSelectionEntities();
@@ -41,6 +51,12 @@ public class CardSelectionGrid : MonoBehaviour
     {
         despawnCardSelectionEntities();
         spawnCardSelectionEntities(cards);
+    }
+
+    public void UpdateCards(IEnumerable<string> cardIds, WorkingGameTemplate workingGameTemplate)
+    {
+        IEnumerable<CardData> cardsData = workingGameTemplate.GetCardDataDictionaryFromCardIds(cardIds).Values;
+        UpdateCards(cardsData);
     }
 
     public void Hide()
@@ -54,7 +70,7 @@ public class CardSelectionGrid : MonoBehaviour
 
     private void setupAddButton(Action onSelectAddButton)
     {
-        bool showAddButton = onSelectAddButton == null;
+        bool showAddButton = onSelectAddButton != null;
         newCardButton.gameObject.SetActive(showAddButton);
         newCardButton.onClick.AddListener(() => onSelectAddButton?.Invoke());
     }

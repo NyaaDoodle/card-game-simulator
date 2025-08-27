@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,11 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
     private string currentDeckId;
     private DeckData currentDeckData => WorkingGameTemplate.DecksData[currentDeckId];
 
-    public void Show(DeckData deckData)
+    public void Show(DeckData deckData, Action onBackButtonSelect)
     {
         gameObject.SetActive(true);
         currentDeckId = deckData.Id;
-        SetupBaseButtons(GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen);
+        SetupBaseButtons(onBackButtonSelect);
         setupInputFields();
         setupDeleteDeckButton();
         setupCardsInDeckSelectionGrid();
@@ -92,18 +93,23 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
 
     private void setupCardsInDeckSelectionGrid()
     {
-        cardsInDeckSelectionGrid.Show(currentDeckData.StartingCards,
+        cardsInDeckSelectionGrid.Show(currentDeckData.StartingCardIds, WorkingGameTemplate,
             showRemoveCardButton,
             () =>
                 {
                     hideRemoveCardButton();
-                    SelectionModalWindowManager.OpenCardSelectionModalWindow("Select a Card to Add to Deck", WorkingGameTemplate.CardPool.Values,
+                    SelectionModalWindowManager.OpenCardSelectionModalWindow(
+                        "Select a Card to Add to Deck",
+                        WorkingGameTemplate.CardPool.Values,
                         (cardData) =>
                             {
                                 WorkingGameTemplate.AddCardDataToDeckStartingCards(currentDeckData, cardData);
                                 SelectionModalWindowManager.CloseCurrentWindow();
-                                cardsInDeckSelectionGrid.UpdateCards(currentDeckData.StartingCards);
-                            }, null,
+                                cardsInDeckSelectionGrid.UpdateCards(
+                                    currentDeckData.StartingCardIds,
+                                    WorkingGameTemplate);
+                            },
+                        null,
                         SelectionModalWindowManager.CloseCurrentWindow);
                 });
     }
@@ -116,7 +122,7 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
             {
                 WorkingGameTemplate.RemoveCardDataFromDeckStartingCards(currentDeckData, cardData);
                 hideRemoveCardButton();
-                cardsInDeckSelectionGrid.UpdateCards(currentDeckData.StartingCards);
+                cardsInDeckSelectionGrid.UpdateCards(currentDeckData.StartingCardIds, WorkingGameTemplate);
             });
     }
 

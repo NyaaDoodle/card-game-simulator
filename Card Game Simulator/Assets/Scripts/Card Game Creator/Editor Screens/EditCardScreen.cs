@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +14,10 @@ public class EditCardScreen : GameTemplateEditorScreenBase
     private string currentCardId;
     private CardData currentCardData => WorkingGameTemplate.CardPool[currentCardId];
 
-    public void Show(CardData cardData)
+    public void Show(CardData cardData, Action onBackButtonSelect)
     {
         gameObject.SetActive(true);
-        SetupBaseButtons(GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen);
+        SetupBaseButtons(onBackButtonSelect);
         currentCardId = cardData.Id;
         setInputFields();
         setImageSelectionButtons();

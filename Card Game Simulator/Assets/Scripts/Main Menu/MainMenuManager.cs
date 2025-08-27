@@ -71,7 +71,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void closeJoinGameInstanceMenu()
     {
-        joinGameInstanceMenu.StopGameInstanceSearch();
         joinGameInstanceMenu.gameObject.SetActive(false);
     }
 

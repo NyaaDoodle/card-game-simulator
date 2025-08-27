@@ -10,7 +10,7 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
     public float TableXCoordinate { get; }
     public float TableYCoordinate { get; }
     public float Rotation { get; }
-    public CardData[] StartingCards { get; }
+    public string[] StartingCardIds { get; }
 
     [JsonConstructor]
     public DeckData(
@@ -19,22 +19,22 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         float tableXCoordinate,
         float tableYCoordinate,
         float rotation,
-        CardData[] startingCards)
+        string[] startingCardIds)
     {
         Id = id;
         Name = name;
         TableXCoordinate = tableXCoordinate;
         TableYCoordinate = tableYCoordinate;
         Rotation = rotation;
-        StartingCards = startingCards;
+        StartingCardIds = startingCardIds;
     }
 
     public bool Equals(DeckData other)
     {
         return other.Id == this.Id && other.Name == this.Name && other.TableXCoordinate == this.TableXCoordinate
                && other.TableYCoordinate == this.TableYCoordinate && other.Rotation == this.Rotation
-               && other.StartingCards != null && this.StartingCards != null
-               && other.StartingCards.SequenceEqual(this.StartingCards);
+               && other.StartingCardIds != null && this.StartingCardIds != null
+               && other.StartingCardIds.SequenceEqual(this.StartingCardIds);
     }
 
     public override bool Equals(object obj)
@@ -51,11 +51,11 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         hashCode.Add(TableYCoordinate);
         hashCode.Add(Rotation);
         
-        if (StartingCards != null)
+        if (StartingCardIds != null)
         {
-            foreach (CardData cardData in StartingCards)
+            foreach (string cardId in StartingCardIds)
             {
-                hashCode.Add(cardData);
+                hashCode.Add(cardId);
             }
         }
         
@@ -80,12 +80,12 @@ public readonly struct DeckData : IStackableData, IEquatable<DeckData>
         stringBuilder.AppendLine($"TableXCoordinate: {TableXCoordinate}");
         stringBuilder.AppendLine($"TableYCoordinate: {TableYCoordinate}");
         stringBuilder.AppendLine($"Rotation: {Rotation}");
-        stringBuilder.AppendLine($"StartingCards:");
-        if (StartingCards != null)
+        stringBuilder.AppendLine($"StartingCardIds:");
+        if (StartingCardIds != null)
         {
-            foreach (CardData cardData in StartingCards)
+            foreach (string cardId in StartingCardIds)
             {
-                stringBuilder.AppendLine(cardData.ToString());
+                stringBuilder.AppendLine(cardId.ToString());
             }
         }
         else

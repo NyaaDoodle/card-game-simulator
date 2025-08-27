@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class SimulatorImageSaver
 {
+    private const int imageExportQuality = 95;
     public static void SaveThumbnail(
         Texture2D texture,
         string gameTemplateId,
@@ -13,7 +14,7 @@ public static class SimulatorImageSaver
         checkGameTemplateThumbnailsDirectoryExists(gameTemplateId);
         try
         {
-            byte[] textureJpgBytes = texture.EncodeToJPG();
+            byte[] textureJpgBytes = texture.EncodeToJPG(imageExportQuality);
             string thumbnailId = Guid.NewGuid().ToString();
             string thumbnailFilename = $"{thumbnailId}.jpg";
             string thumbnailPath = Path.Combine(getGameTemplateThumbnailsDirectory(gameTemplateId), thumbnailFilename);
@@ -36,7 +37,7 @@ public static class SimulatorImageSaver
         checkGameTemplateImagesDirectoryExists(gameTemplateId);
         try
         {
-            byte[] textureJpgBytes = texture.EncodeToJPG();
+            byte[] textureJpgBytes = texture.EncodeToJPG(imageExportQuality);
             string imageId = Guid.NewGuid().ToString();
             string imageFilename = $"{imageId}.jpg";
             string imagePath = Path.Combine(getGameTemplateImagesDirectory(gameTemplateId), imageFilename);
