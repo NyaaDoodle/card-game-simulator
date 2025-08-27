@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Mirror;
 using Mirror.Discovery;
+using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -36,9 +39,9 @@ public class SimulatorNetworkManager : NetworkManager
     
     public void HostGame(GameTemplate gameTemplate)
     {
+        CurrentPlayingGameTemplate.GameTemplate = gameTemplate;
         StartHost();
         NetworkDiscovery.AdvertiseServer();
-        CurrentPlayingGameTemplate.GameTemplate = gameTemplate;
     }
 
     public void JoinGame(ServerResponse info)
@@ -49,6 +52,7 @@ public class SimulatorNetworkManager : NetworkManager
 
     public void StopGame()
     {
+        CurrentPlayingGameTemplate.GameTemplate = null;
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             StopHost();
@@ -289,17 +293,32 @@ public class SimulatorNetworkManager : NetworkManager
     /// <summary>
     /// This is called when a host is stopped.
     /// </summary>
-    public override void OnStopHost() { }
+    public override void OnStopHost()
+    {
+        StartCoroutine(returnToMainMenuCoroutine());
+    }
 
     /// <summary>
     /// This is called when a server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer()
+    {
+        StartCoroutine(returnToMainMenuCoroutine());
+    }
 
     /// <summary>
     /// This is called when a client is stopped.
     /// </summary>
-    public override void OnStopClient() { }
+    public override void OnStopClient()
+    {
+        StartCoroutine(returnToMainMenuCoroutine());
+    }
 
     #endregion
+
+    private IEnumerator returnToMainMenuCoroutine()
+    {
+        yield return null;
+        SceneManager.LoadScene("Main Menu Scene");
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Mirror;
 
@@ -58,7 +59,8 @@ public class GameInstanceManager : NetworkBehaviour
 
     private GameTemplate loadGameTemplate()
     {
-        return CurrentPlayingGameTemplate.GameTemplate;
+        GameTemplate? currentPlayingGameTemplate = CurrentPlayingGameTemplate.GameTemplate;
+        return currentPlayingGameTemplate == null ? throw new Exception("Current playing game template is null") : currentPlayingGameTemplate.Value;
     }
 
     private void spawnGameObjects(GameTemplate gameTemplate)

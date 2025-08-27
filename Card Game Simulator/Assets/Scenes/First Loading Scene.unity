@@ -217,7 +217,7 @@ MonoBehaviour:
   headlessStartMode: 0
   editorAutoStart: 0
   sendRate: 60
-  offlineScene: Assets/Scenes/Main Menu Scene.unity
+  offlineScene: 
   onlineScene: Assets/Scenes/Game Instance Scene.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 129841637}

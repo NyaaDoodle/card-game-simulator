@@ -2,5 +2,5 @@
 
 public static class CurrentPlayingGameTemplate
 {
-    public static GameTemplate GameTemplate;
+    public static GameTemplate? GameTemplate;
 }
