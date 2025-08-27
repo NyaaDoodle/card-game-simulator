@@ -35,14 +35,14 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     {
         if (isBackSideImageNotDefined()) return;
         string backSideSpritePath = Card.CardData.BackSideImagePath;
-        SimulatorImageLoader.LoadImage(backSideSpritePath, backSideImage, fallbackBackSideSprite);
+        SimulatorImageLoader.LoadImageLocalPath(backSideSpritePath, backSideImage, fallbackBackSideSprite);
     }
 
     private void loadFrontSideSprite()
     {
         if (isFrontSideImageNotDefined()) return;
         string frontSideSpritePath = Card.CardData.FrontSideImagePath;
-        SimulatorImageLoader.LoadImage(frontSideSpritePath, frontSideImage, fallbackFrontSideSprite);
+        SimulatorImageLoader.LoadImageLocalPath(frontSideSpritePath, frontSideImage, fallbackFrontSideSprite);
     }
 
     private void loadCardSprites()

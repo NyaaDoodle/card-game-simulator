@@ -35,7 +35,7 @@ public class GameTemplateSelectionEntity : MonoBehaviour
     private void setupGameTemplateImage(GameTemplate gameTemplate)
     {
         string templateImagePath = gameTemplate.GameTemplateDetails.TemplateImagePath;
-        SimulatorImageLoader.LoadImage(templateImagePath, gameTemplateImage, fallbackSprite);
+        SimulatorImageLoader.LoadImageLocalPath(templateImagePath, gameTemplateImage, fallbackSprite);
     }
 
     private void setupGameTemplateTitle(GameTemplate gameTemplate)

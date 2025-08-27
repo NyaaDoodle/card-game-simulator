@@ -26,7 +26,7 @@ public class ImageSelectionButton : MonoBehaviour
         gameObject.SetActive(true);
         this.onImageSelected = onImageSelectedAction;
         this.onFailedImageLoad = onFailedImageLoadAction;
-        tryLoadImage(pathToImage);
+        tryInitialLoadImage(pathToImage);
     }
 
     public void Hide()
@@ -40,7 +40,7 @@ public class ImageSelectionButton : MonoBehaviour
         displayImage.sprite = defaultSprite;
     }
 
-    private void tryLoadImage(string pathToImage)
+    private void tryInitialLoadImage(string pathToImage)
     {
         if (pathToImage == noImagePath)
         {
@@ -48,7 +48,7 @@ public class ImageSelectionButton : MonoBehaviour
         }
         else
         {
-            SimulatorImageLoader.LoadImage(pathToImage,
+            SimulatorImageLoader.LoadImageLocalPath(pathToImage,
                 (sprite) =>
                     {
                         displayImage.sprite = sprite;
@@ -74,7 +74,67 @@ public class ImageSelectionButton : MonoBehaviour
 
     private void onButtonSelect()
     {
+        #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+        showNativeImageFilePicker();
+        #else
         showImagesFileBrowser();
+        #endif
+    }
+
+    private void showNativeImageFilePicker()
+    {
+        bool havePermissions = NativeFilePicker.CheckPermission();
+        Debug.Log($"Have permissions? {havePermissions}");
+        if (!havePermissions)
+        {
+            NativeFilePicker.RequestPermissionAsync((callback) =>
+                {
+                    Debug.Log($"Permission: {callback.ToString()}");
+                    if (callback == NativeFilePicker.Permission.Denied)
+                    {
+                        Debug.Log("Permissions denied");
+                        NativeFilePicker.OpenSettings();
+                    }
+                    else if (callback == NativeFilePicker.Permission.Granted)
+                    {
+                        Debug.Log("Permissions granted");
+                        mobilePickAndLoadImageFile();
+                    }
+                });
+        }
+        else
+        {
+            mobilePickAndLoadImageFile();
+        }
+    }
+
+    private void mobilePickAndLoadImageFile()
+    {
+        NativeFilePicker.PickFile(
+            loadSelectedImage,
+            new string[]
+                {
+                    NativeFilePicker.ConvertExtensionToFileType("jpg"),
+                    NativeFilePicker.ConvertExtensionToFileType("png")
+                });
+    }
+
+    private void loadSelectedImage(string path)
+    {
+        if (path == null)
+        {
+            Debug.Log("Selecting image path failed/cancelled");
+        }
+        else
+        {
+            SimulatorImageLoader.LoadImageAbsolutePath(
+                path,
+                onSpriteLoaded,
+                (e) =>
+                    {
+                        onFailedImageLoad(e);
+                    });
+        }
     }
 
     private void showImagesFileBrowser()
@@ -90,16 +150,15 @@ public class ImageSelectionButton : MonoBehaviour
         if (FileBrowser.Success)
         {
             string imagePath = FileBrowser.Result[0];
-            SimulatorImageLoader.LoadImage(imagePath,
-                onTextureLoaded,
-                (e) =>
-                    {
-                        onFailedImageLoad(e);
-                    });
+            loadSelectedImage(imagePath);
+        }
+		else {
+			Debug.Log("Failed to get filenames from load dialog");
+            Debug.Log($"Have permissions? {FileBrowser.CheckPermission().ToString()}");
         }
     }
 
-    private void onTextureLoaded(Sprite sprite)
+    private void onSpriteLoaded(Sprite sprite)
     {
         displayImage.sprite = sprite;
         hideOverlay();
