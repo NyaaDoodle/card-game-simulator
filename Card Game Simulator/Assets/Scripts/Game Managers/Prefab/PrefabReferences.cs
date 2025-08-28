@@ -21,6 +21,8 @@ public class PrefabReferences : MonoBehaviour
     public GameObject GameTemplateSelectionModalWindowPrefab;
     public GameObject DeckSelectionModalWindowPrefab;
     public GameObject SpaceSelectionModalWindowPrefab;
+    public GameObject MobileImageMethodModalWindowPrefab;
+    
     public bool IsReady { get; private set; }
 
     void Awake()

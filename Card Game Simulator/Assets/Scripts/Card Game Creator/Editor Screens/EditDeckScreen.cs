@@ -98,19 +98,19 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
             () =>
                 {
                     hideRemoveCardButton();
-                    SelectionModalWindowManager.OpenCardSelectionModalWindow(
+                    ModalWindowManager.OpenCardSelectionModalWindow(
                         "Select a Card to Add to Deck",
                         WorkingGameTemplate.CardPool.Values,
                         (cardData) =>
                             {
                                 WorkingGameTemplate.AddCardDataToDeckStartingCards(currentDeckData, cardData);
-                                SelectionModalWindowManager.CloseCurrentWindow();
+                                ModalWindowManager.CloseCurrentWindow();
                                 cardsInDeckSelectionGrid.UpdateCards(
                                     currentDeckData.StartingCardIds,
                                     WorkingGameTemplate);
                             },
                         null,
-                        SelectionModalWindowManager.CloseCurrentWindow);
+                        ModalWindowManager.CloseCurrentWindow);
                 });
     }
 

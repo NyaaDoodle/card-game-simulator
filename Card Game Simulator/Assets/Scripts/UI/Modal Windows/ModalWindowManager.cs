@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class SelectionModalWindowManager
+public static class ModalWindowManager
 {
-    private static SelectionModalWindowBase currentlyShownWindow;
+    private static ModalWindowBase currentlyShownWindow;
 
     public static void OpenCardSelectionModalWindow(
         string titleText,
@@ -77,6 +77,12 @@ public static class SelectionModalWindowManager
             onSelectSpace,
             onAddButtonSelect,
             onBackButtonSelect);
+    }
+
+    public static void OpenMobileImageMethodModalWindow(Action<Texture2D> onImageLoaded, Action onCancel, Action onBackButtonSelect)
+    {
+        currentlyShownWindow =
+            PrefabExtensions.InstantiateMobileImageMethodModalWindow(onImageLoaded, onCancel, onBackButtonSelect);
     }
 
     public static void CloseCurrentWindow()

@@ -48,7 +48,7 @@ public class ImageSelectionButton : MonoBehaviour
         }
         else
         {
-            SimulatorImageLoader.LoadImageLocalPath(pathToImage,
+            SimulatorImageLoader.LoadSpriteLocalPath(pathToImage,
                 (sprite) =>
                     {
                         displayImage.sprite = sprite;
@@ -75,48 +75,21 @@ public class ImageSelectionButton : MonoBehaviour
     private void onButtonSelect()
     {
         #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
-        showNativeImageFilePicker();
+        ModalWindowManager.OpenMobileImageMethodModalWindow(
+            (texture) =>
+                {
+                    ModalWindowManager.CloseCurrentWindow();
+                    onTextureLoaded(texture);
+                },
+            () =>
+                {
+                    ModalWindowManager.CloseCurrentWindow();
+                    Debug.Log("Mobile image selection action failed/cancelled");
+                },
+            ModalWindowManager.CloseCurrentWindow);
         #else
         showImagesFileBrowser();
         #endif
-    }
-
-    private void showNativeImageFilePicker()
-    {
-        bool havePermissions = NativeFilePicker.CheckPermission();
-        Debug.Log($"Have permissions? {havePermissions}");
-        if (!havePermissions)
-        {
-            NativeFilePicker.RequestPermissionAsync((callback) =>
-                {
-                    Debug.Log($"Permission: {callback.ToString()}");
-                    if (callback == NativeFilePicker.Permission.Denied)
-                    {
-                        Debug.Log("Permissions denied");
-                        NativeFilePicker.OpenSettings();
-                    }
-                    else if (callback == NativeFilePicker.Permission.Granted)
-                    {
-                        Debug.Log("Permissions granted");
-                        mobilePickAndLoadImageFile();
-                    }
-                });
-        }
-        else
-        {
-            mobilePickAndLoadImageFile();
-        }
-    }
-
-    private void mobilePickAndLoadImageFile()
-    {
-        NativeFilePicker.PickFile(
-            loadSelectedImage,
-            new string[]
-                {
-                    NativeFilePicker.ConvertExtensionToFileType("jpg"),
-                    NativeFilePicker.ConvertExtensionToFileType("png")
-                });
     }
 
     private void loadSelectedImage(string path)
@@ -127,7 +100,7 @@ public class ImageSelectionButton : MonoBehaviour
         }
         else
         {
-            SimulatorImageLoader.LoadImageAbsolutePath(
+            SimulatorImageLoader.LoadSpriteAbsolutePath(
                 path,
                 onSpriteLoaded,
                 (e) =>
@@ -163,6 +136,14 @@ public class ImageSelectionButton : MonoBehaviour
         displayImage.sprite = sprite;
         hideOverlay();
         onImageSelected(sprite.texture);
+    }
+
+    private void onTextureLoaded(Texture2D texture)
+    {
+        Sprite sprite = Sprite.Create(texture, 
+            new Rect(0, 0, texture.width, texture.height), 
+            new Vector2(0.5f, 0.5f));
+        onSpriteLoaded(sprite);
     }
 }
     

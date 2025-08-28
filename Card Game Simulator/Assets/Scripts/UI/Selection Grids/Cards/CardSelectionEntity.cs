@@ -38,13 +38,13 @@ public class CardSelectionEntity : MonoBehaviour
     private void setupCardFrontSideImage(CardData cardData)
     {
         string frontImagePath = cardData.FrontSideImagePath;
-        SimulatorImageLoader.LoadImageLocalPath(frontImagePath, cardFrontSideImage, fallbackSprite);
+        SimulatorImageLoader.LoadSpriteLocalPath(frontImagePath, cardFrontSideImage, fallbackSprite);
     }
 
     private void setupCardFrontSideImage(Card card)
     {
         string frontImagePath = card.CardData.FrontSideImagePath;
-        SimulatorImageLoader.LoadImageLocalPath(frontImagePath, cardFrontSideImage, fallbackSprite);
+        SimulatorImageLoader.LoadSpriteLocalPath(frontImagePath, cardFrontSideImage, fallbackSprite);
     }
 
     private void removeSelectionButtonListeners()

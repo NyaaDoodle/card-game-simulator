@@ -255,4 +255,17 @@ public static class PrefabExtensions
         spaceSelectionModalWindow.Setup(titleText, spacesData, onSelectSpace, onAddButtonSelect, onBackButtonSelect);
         return spaceSelectionModalWindow;
     }
+
+    public static MobileImageMethodModalWindow InstantiateMobileImageMethodModalWindow(
+        Action<Texture2D> onImageLoaded,
+        Action onCancel,
+        Action onBackButtonSelect)
+    {
+        MobileImageMethodModalWindow mobileImageMethodModalWindow = GameObject
+            .Instantiate(PrefabReferences.Instance.MobileImageMethodModalWindowPrefab)
+            .GetComponent<MobileImageMethodModalWindow>();
+        mobileImageMethodModalWindow.transform.SetAsLastSibling();
+        mobileImageMethodModalWindow.Setup(onImageLoaded, onCancel, onBackButtonSelect);
+        return mobileImageMethodModalWindow;
+    }
 }

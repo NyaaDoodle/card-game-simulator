@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class SimulatorImageSaver
 {
-    private const int imageExportQuality = 95;
+    private const int imageExportQuality = 85;
     public static void SaveThumbnail(
         Texture2D texture,
         string gameTemplateId,

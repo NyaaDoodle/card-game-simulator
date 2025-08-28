@@ -5,24 +5,48 @@ using UnityEngine.UI;
 
 public static class SimulatorImageLoader
 {
-    public static void LoadImageLocalPath(string localPath, Action<Sprite> onSuccessAction, Action<Exception> onFailureAction)
+    public static void LoadTextureLocalPath(
+        string localPath,
+        Action<Texture2D> onSuccessAction,
+        Action<Exception> onFailureAction)
     {
-        LoadImageAbsolutePath(GetFullImagePath(localPath), onSuccessAction, onFailureAction);
+        LoadTextureAbsolutePath(GetFullFilePath(localPath), onSuccessAction, onFailureAction);
     }
 
-    public static void LoadImageAbsolutePath(
+    public static void LoadTextureAbsolutePath(
+        string path,
+        Action<Texture2D> onSuccessAction,
+        Action<Exception> onFailureAction)
+    {
+        Debug.Log($"Attempting to load texture from: {path}");
+        Texture2D texture = loadTexture(path, onFailureAction);
+        if (texture != null)
+        {
+            onSuccessAction?.Invoke(texture);
+        }
+    }
+    
+    public static void LoadSpriteLocalPath(string localPath, Action<Sprite> onSuccessAction, Action<Exception> onFailureAction)
+    {
+        LoadSpriteAbsolutePath(GetFullFilePath(localPath), onSuccessAction, onFailureAction);
+    }
+
+    public static void LoadSpriteAbsolutePath(
         string path,
         Action<Sprite> onSuccessAction,
         Action<Exception> onFailureAction)
     {
-        Debug.Log($"Attempting to load image from: {path}");
-        Sprite sprite = loadImage(path, onFailureAction);
-        onSuccessAction?.Invoke(sprite);
+        Debug.Log($"Attempting to load sprite from: {path}");
+        Sprite sprite = loadSprite(path, onFailureAction);
+        if (sprite != null)
+        {
+            onSuccessAction?.Invoke(sprite);
+        }
     }
 
-    public static void LoadImageLocalPath(string localPath, Image imageComponent, Sprite fallbackSprite)
+    public static void LoadSpriteLocalPath(string localPath, Image imageComponent, Sprite fallbackSprite)
     {
-        LoadImageLocalPath(localPath,
+        LoadSpriteLocalPath(localPath,
             (sprite) => imageComponent.sprite = sprite,
             (_) =>
                 {
@@ -30,9 +54,9 @@ public static class SimulatorImageLoader
                 });
     }
 
-    public static void LoadImageAbsolutePath(string path, Image imageComponent, Sprite fallbackSprite)
+    public static void LoadSpriteAbsolutePath(string path, Image imageComponent, Sprite fallbackSprite)
     {
-        LoadImageAbsolutePath(path,
+        LoadSpriteAbsolutePath(path,
             (sprite) => imageComponent.sprite = sprite,
             (_) =>
                 {
@@ -40,13 +64,13 @@ public static class SimulatorImageLoader
                 });
     }
 
-    public static string GetFullImagePath(string localPath)
+    public static string GetFullFilePath(string localPath)
     {
         // localPath needs to be local from the point of the persistent data directory
         return Path.Combine(DataDirectoryManager.Instance.DataDirectoryPath, localPath);
     }
-    
-    private static Sprite loadImage(string filePath, Action<Exception> onFailureAction)
+
+    private static Texture2D loadTexture(string filePath, Action<Exception> onFailureAction)
     {
         if (!File.Exists(filePath))
         {
@@ -56,17 +80,32 @@ public static class SimulatorImageLoader
 
         byte[] fileData = File.ReadAllBytes(filePath);
         Texture2D texture = new Texture2D(1, 1);
-        
         if (texture.LoadImage(fileData))
+        {
+            return texture;
+        }
+        else
+        {
+            UnityEngine.Object.DestroyImmediate(texture);
+            onFailureAction?.Invoke(new Exception("Failed to texture.LoadImage(fileData)"));
+            return null;
+        }
+        
+    }
+    
+    private static Sprite loadSprite(string filePath, Action<Exception> onFailureAction)
+    {
+        Texture2D texture = loadTexture(filePath, onFailureAction);
+        
+        if (texture != null)
         {
             return Sprite.Create(texture, 
                 new Rect(0, 0, texture.width, texture.height), 
                 new Vector2(0.5f, 0.5f));
         }
-        
-        UnityEngine.Object.DestroyImmediate(texture);
-        onFailureAction?.Invoke(new Exception("Failed to texture.LoadImage(fileData)"));
-        return null;
+        else
+        {
+            return null;
+        }
     }
-
 }

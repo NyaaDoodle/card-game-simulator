@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectionModalWindowBase : MonoBehaviour
+public class SelectionModalWindowBase : ModalWindowBase
 {
     [SerializeField] private Button backButton;
     [SerializeField] private TMP_Text titleText;

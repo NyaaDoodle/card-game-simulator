@@ -354,6 +354,7 @@ MonoBehaviour:
   GameTemplateSelectionModalWindowPrefab: {fileID: 9121166601427940843, guid: ef5acb9389a5a404d90f54ff090ce03e, type: 3}
   DeckSelectionModalWindowPrefab: {fileID: 2195036719963495668, guid: 1ef93586faca730438b2e5bf047b4023, type: 3}
   SpaceSelectionModalWindowPrefab: {fileID: 1132424548870921222, guid: ffd915347b0055443876a6bb563a5b0a, type: 3}
+  MobileImageMethodModalWindowPrefab: {fileID: 7129026175298875675, guid: f8727101ce06d8b4680e30f1b95647aa, type: 3}
 --- !u!4 &467609699
 Transform:
   m_ObjectHideFlags: 0

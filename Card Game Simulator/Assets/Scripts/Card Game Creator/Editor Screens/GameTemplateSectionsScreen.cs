@@ -53,7 +53,7 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
 
     private void goToCardPool()
     {
-        SelectionModalWindowManager.OpenCardSelectionModalWindow(
+        ModalWindowManager.OpenCardSelectionModalWindow(
             "Select Card to Edit",
             WorkingGameTemplate.CardPool.Values,
             (cardData) =>
@@ -65,13 +65,13 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
                     CardData newCard = WorkingGameTemplate.CreateNewDefaultCardData();
                     GameTemplateEditor.Instance.GoToEditCardScreen(newCard, returnFromCardEditScreen);
                 },
-            SelectionModalWindowManager.CloseCurrentWindow
+            ModalWindowManager.CloseCurrentWindow
             );
     }
 
     private void goToDeckSelection()
     {
-        SelectionModalWindowManager.OpenDeckSelectionModalWindow(
+        ModalWindowManager.OpenDeckSelectionModalWindow(
             "Select Deck to Edit",
             WorkingGameTemplate.DecksData.Values,
             (deckData) =>
@@ -83,12 +83,12 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
                     DeckData newDeck = WorkingGameTemplate.CreateNewDefaultDeckData();
                     GameTemplateEditor.Instance.GoToEditDeckScreen(newDeck, returnFromDeckEditScreen);
                 },
-            SelectionModalWindowManager.CloseCurrentWindow);
+            ModalWindowManager.CloseCurrentWindow);
     }
 
     private void goToSpaceSelection()
     {
-        SelectionModalWindowManager.OpenSpaceSelectionModalWindow(
+        ModalWindowManager.OpenSpaceSelectionModalWindow(
             "Select Space to Edit",
             WorkingGameTemplate.SpacesData.Values,
             (spaceData) =>
@@ -100,7 +100,7 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
                     SpaceData newSpace = WorkingGameTemplate.CreateNewDefaultSpaceData();
                     GameTemplateEditor.Instance.GoToEditSpaceScreen(newSpace, returnFromSpaceEditScreen);
                 },
-            SelectionModalWindowManager.CloseCurrentWindow);
+            ModalWindowManager.CloseCurrentWindow);
     }
 
     private void returnFromCardEditScreen()

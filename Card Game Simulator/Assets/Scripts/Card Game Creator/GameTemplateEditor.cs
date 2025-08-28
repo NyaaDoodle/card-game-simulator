@@ -6,10 +6,12 @@ public class GameTemplateEditor : MonoBehaviour
 {
     public static GameTemplateEditor Instance { get; private set; }
     public WorkingGameTemplate CurrentWorkingGameTemplate { get; private set; } = null;
+    public bool IsReady { get; private set; }
     
     private void Awake()
     {
         initializeInstance();
+        onReady();
     }
 
     private void initializeInstance()
@@ -34,7 +36,7 @@ public class GameTemplateEditor : MonoBehaviour
 
     private void hideAllScreens()
     {
-        SelectionModalWindowManager.CloseCurrentWindow();
+        ModalWindowManager.CloseCurrentWindow();
         GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Hide();
         GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Hide();
         GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Hide();
@@ -45,23 +47,23 @@ public class GameTemplateEditor : MonoBehaviour
 
     private void showGameTemplateSelectionWindow()
     {
-        SelectionModalWindowManager.OpenGameTemplateSelectionModalWindow(
+        ModalWindowManager.OpenGameTemplateSelectionModalWindow(
             "Select Game Template to Edit:",
             (gameTemplate) =>
                 {
                     setCurrentWorkingGameTemplate(gameTemplate);
-                    SelectionModalWindowManager.CloseCurrentWindow();
+                    ModalWindowManager.CloseCurrentWindow();
                     GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
                 },
             () =>
                 {
                     createNewGameTemplate();
-                    SelectionModalWindowManager.CloseCurrentWindow();
+                    ModalWindowManager.CloseCurrentWindow();
                     GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
                 },
             () =>
                 {
-                    SelectionModalWindowManager.CloseCurrentWindow();
+                    ModalWindowManager.CloseCurrentWindow();
                     SceneManager.LoadScene("Main Menu Scene");
                 });
     }
@@ -117,5 +119,10 @@ public class GameTemplateEditor : MonoBehaviour
     private void discardCurrentWorkingGameTemplate()
     {
         CurrentWorkingGameTemplate = null;
+    }
+
+    private void onReady()
+    {
+        IsReady = true;
     }
 }
