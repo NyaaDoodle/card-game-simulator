@@ -5,28 +5,6 @@ using UnityEngine;
 public static class SimulatorImageSaver
 {
     private const int imageExportQuality = 85;
-    public static void SaveThumbnail(
-        Texture2D texture,
-        string gameTemplateId,
-        Action<string> onSaveSuccess,
-        Action<Exception> onSaveFailed)
-    {
-        checkGameTemplateThumbnailsDirectoryExists(gameTemplateId);
-        try
-        {
-            byte[] textureJpgBytes = texture.EncodeToJPG(imageExportQuality);
-            string thumbnailId = Guid.NewGuid().ToString();
-            string thumbnailFilename = $"{thumbnailId}.jpg";
-            string thumbnailPath = Path.Combine(getGameTemplateThumbnailsDirectory(gameTemplateId), thumbnailFilename);
-            File.WriteAllBytes(thumbnailPath, textureJpgBytes);
-            Debug.Log($"Written thumbnail image to {thumbnailPath}");
-            onSaveSuccess(getPersistentDataLocalThumbnailImagePath(thumbnailFilename, gameTemplateId));
-        }
-        catch (Exception e)
-        {
-            onSaveFailed(e);
-        }
-    }
 
     public static void SaveImage(
         Texture2D texture,
@@ -34,20 +12,30 @@ public static class SimulatorImageSaver
         Action<string> onSaveSuccess,
         Action<Exception> onSaveFailed)
     {
+        string imageId = Guid.NewGuid().ToString();
+        string imageFilename = $"{imageId}.jpg";
+        SaveImageWithFilename(texture, imageFilename, gameTemplateId, onSaveSuccess, onSaveFailed);
+    }
+    
+    public static void SaveImageWithFilename(
+        Texture2D texture,
+        string filename,
+        string gameTemplateId,
+        Action<string> onSaveSuccess,
+        Action<Exception> onSaveFailed)
+    {
         checkGameTemplateImagesDirectoryExists(gameTemplateId);
         try
         {
+            string imagePath = Path.Combine(getGameTemplateImagesDirectory(gameTemplateId), filename);
             byte[] textureJpgBytes = texture.EncodeToJPG(imageExportQuality);
-            string imageId = Guid.NewGuid().ToString();
-            string imageFilename = $"{imageId}.jpg";
-            string imagePath = Path.Combine(getGameTemplateImagesDirectory(gameTemplateId), imageFilename);
             File.WriteAllBytes(imagePath, textureJpgBytes);
             Debug.Log($"Written image to {imagePath}");
-            onSaveSuccess(getPersistentDataLocalImagePath(imageFilename, gameTemplateId));
+            onSaveSuccess?.Invoke(getPersistentDataLocalImagePath(filename, gameTemplateId));
         }
         catch (Exception e)
         {
-            onSaveFailed(e);
+            onSaveFailed?.Invoke(e);
         }
     }
 
@@ -60,32 +48,13 @@ public static class SimulatorImageSaver
         }
     }
 
-    private static void checkGameTemplateThumbnailsDirectoryExists(string gameTemplateId)
-    {
-        string gameTemplateThumbnailsDirectoryPath = getGameTemplateThumbnailsDirectory(gameTemplateId);
-        if (!Directory.Exists(gameTemplateThumbnailsDirectoryPath))
-        {
-            Directory.CreateDirectory(gameTemplateThumbnailsDirectoryPath);
-        }
-    }
-
     private static string getGameTemplateImagesDirectory(string gameTemplateId)
     {
         return Path.Combine(DataDirectoryManager.Instance.ImagesDirectoryPath, gameTemplateId);
     }
 
-    private static string getGameTemplateThumbnailsDirectory(string gameTemplateId)
-    {
-        return Path.Combine(DataDirectoryManager.Instance.ThumbnailsDirectoryPath, gameTemplateId);
-    }
-
     private static string getPersistentDataLocalImagePath(string imageFilename, string gameTemplateId)
     {
         return Path.Combine(DataDirectoryManager.ImagesDirectoryName, gameTemplateId, imageFilename);
-    }
-
-    private static string getPersistentDataLocalThumbnailImagePath(string thumbnailFilename, string gameTemplateId)
-    {
-        return Path.Combine(DataDirectoryManager.ThumbnailsDirectoryName, gameTemplateId, thumbnailFilename);
     }
 }

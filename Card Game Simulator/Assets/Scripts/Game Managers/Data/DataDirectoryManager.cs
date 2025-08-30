@@ -9,11 +9,9 @@ public class DataDirectoryManager : MonoBehaviour
     public string DataDirectoryPath { get; private set; }
     public string TemplatesDirectoryPath { get; private set; }
     public string ImagesDirectoryPath { get; private set; }
-    public string ThumbnailsDirectoryPath { get; private set; }
     
     public const string TemplatesDirectoryName = "templates";
     public const string ImagesDirectoryName = "images";
-    public const string ThumbnailsDirectoryName = "thumbnails";
     
     public const string TemplateDataFilename = "template.json";
 
@@ -45,7 +43,6 @@ public class DataDirectoryManager : MonoBehaviour
         DataDirectoryPath = Application.persistentDataPath;
         TemplatesDirectoryPath = Path.Combine(DataDirectoryPath, TemplatesDirectoryName);
         ImagesDirectoryPath = Path.Combine(DataDirectoryPath, ImagesDirectoryName);
-        ThumbnailsDirectoryPath = Path.Combine(DataDirectoryPath, ThumbnailsDirectoryName);
     }
     
     private void checkForDirectoriesExistence()
@@ -64,11 +61,6 @@ public class DataDirectoryManager : MonoBehaviour
         if (!Directory.Exists(ImagesDirectoryPath))
         {
             Directory.CreateDirectory(ImagesDirectoryPath);
-        }
-
-        if (!Directory.Exists(ThumbnailsDirectoryPath))
-        {
-            Directory.CreateDirectory(ThumbnailsDirectoryPath);
         }
     }
 

@@ -7,16 +7,20 @@ public static class GameTemplateSaver
 {
     public static void SaveGameTemplate(WorkingGameTemplate workingGameTemplate)
     {
+        SaveGameTemplate(workingGameTemplate.ConvertToGameTemplate());
+    }
+    
+    public static void SaveGameTemplate(GameTemplate gameTemplate)
+    {
         const string templateDataFilename = DataDirectoryManager.TemplateDataFilename;
-        checkGameTemplateDirectoryExists(workingGameTemplate.Id);
+        checkGameTemplateDirectoryExists(gameTemplate.Id);
         string templateFilePath = Path.Combine(
-            getGameTemplateDirectory(workingGameTemplate.Id),
+            getGameTemplateDirectory(gameTemplate.Id),
             templateDataFilename);
-        GameTemplate gameTemplate = workingGameTemplate.ConvertToGameTemplate();
         try
         {
             string gameTemplateJson = SerializeGameTemplate(gameTemplate);
-            checkGameTemplateFileExists(workingGameTemplate.Id);
+            checkGameTemplateFileExists(gameTemplate.Id);
             File.WriteAllText(templateFilePath, gameTemplateJson);
             Debug.Log($"Wrote game template file of {gameTemplate.Id} at {templateFilePath}");
             Debug.Log(gameTemplateJson);
@@ -26,7 +30,6 @@ public static class GameTemplateSaver
             Debug.Log($"Failed to save game template file at {templateFilePath}");
             Debug.LogException(e);
         }
-        
     }
     
     public static string SerializeGameTemplate(GameTemplate gameTemplate, Formatting formatting = Formatting.None)

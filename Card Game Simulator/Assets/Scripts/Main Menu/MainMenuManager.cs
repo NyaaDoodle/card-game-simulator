@@ -6,6 +6,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private RectTransform startMenu;
     [SerializeField] private NewGameInstanceMenuManager newGameInstanceMenu;
     [SerializeField] private JoinGameInstanceMenuManager joinGameInstanceMenu;
+    [SerializeField] private OptionsMenuManager optionsMenu;
 
     void Start()
     {
@@ -24,15 +25,16 @@ public class MainMenuManager : MonoBehaviour
         openJoinGameInstanceMenu();
     }
 
+    public void GoToOptionsMenu()
+    {
+        closeAllMenus();
+        openOptionsMenu();
+    }
+
     public void GoToCardGameCreator()
     {
         closeAllMenus();
         SceneManager.LoadScene("Card Game Creator Scene");
-    }
-
-    public void GoToOptionsMenu()
-    {
-        Debug.Log("Options menu not implemented");
     }
 
     public void GoToStartMenu()
@@ -56,6 +58,7 @@ public class MainMenuManager : MonoBehaviour
     {
         closeNewGameInstanceMenu();
         closeJoinGameInstanceMenu();
+        closeOptionsMenu();
     }
 
     private void closeAllMenus()
@@ -74,6 +77,11 @@ public class MainMenuManager : MonoBehaviour
         joinGameInstanceMenu.gameObject.SetActive(false);
     }
 
+    private void closeOptionsMenu()
+    {
+        optionsMenu.gameObject.SetActive(false);
+    }
+
     private void openStartMenu()
     {
         startMenu.gameObject.SetActive(true);
@@ -87,6 +95,11 @@ public class MainMenuManager : MonoBehaviour
     private void openJoinGameInstanceMenu()
     {
         joinGameInstanceMenu.gameObject.SetActive(true);
+    }
+
+    private void openOptionsMenu()
+    {
+        optionsMenu.gameObject.SetActive(true);
     }
 
     private void closeStartMenu()

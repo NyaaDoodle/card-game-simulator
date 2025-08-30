@@ -62,7 +62,7 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
             templateImagePath,
             (texture) =>
                 {
-                    SimulatorImageSaver.SaveThumbnail(texture, WorkingGameTemplate.Id,
+                    SimulatorImageSaver.SaveImage(texture, WorkingGameTemplate.Id,
                         WorkingGameTemplate.SetTemplateThumbnail,
                         Debug.LogException);
                 },

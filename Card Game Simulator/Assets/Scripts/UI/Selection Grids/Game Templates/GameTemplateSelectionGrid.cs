@@ -7,20 +7,26 @@ public class GameTemplateSelectionGrid : MonoBehaviour
 {
     [SerializeField] private RectTransform contentContainer;
     [SerializeField] private Button newGameTemplateButton;
+    [SerializeField] private Button downloadGameTemplatesButton;
 
     private readonly List<GameTemplateSelectionEntity> selectionEntities = new List<GameTemplateSelectionEntity>();
+    private Action<GameTemplate> onSelectGameTemplateAction;
 
-    public void Show(Action<GameTemplate> onSelectGameTemplate, Action onSelectAddButton = null)
+    public void Show(Action<GameTemplate> onSelectGameTemplate, Action onSelectAddButton = null, bool showDownloadGameTemplatesButton = true)
     {
         gameObject.SetActive(true);
+        onSelectGameTemplateAction = onSelectGameTemplate;
         setupAddButton(onSelectAddButton);
-        spawnGameTemplateSelectionEntities(onSelectGameTemplate);
+        setupDownloadGameTemplatesButton(showDownloadGameTemplatesButton);
+        spawnGameTemplateSelectionEntities();
     }
 
     public void Hide()
     {
         despawnGameTemplateSelectionEntities();
+        onSelectGameTemplateAction = null;
         unsetAddButton();
+        unsetDownloadGameTemplatesButton();
         gameObject.SetActive(false);
     }
 
@@ -31,17 +37,57 @@ public class GameTemplateSelectionGrid : MonoBehaviour
         newGameTemplateButton.onClick.AddListener(() => onSelectAddButton?.Invoke());
     }
 
+    private void setupDownloadGameTemplatesButton(bool showDownloadGameTemplatesButton)
+    {
+        downloadGameTemplatesButton.onClick.RemoveAllListeners();
+        if (showDownloadGameTemplatesButton)
+        {
+            downloadGameTemplatesButton.gameObject.SetActive(true);
+            downloadGameTemplatesButton.onClick.AddListener(() =>
+                {
+                    ContentDownloader.SetServerToCloudBackendServer();
+                    ContentDownloader.GetCompleteAvailableGameTemplates(
+                        () =>
+                            {
+                                // PLACEHOLDER
+                                Debug.Log("Successfully downloaded game templates!");
+                                
+                                updateGameTemplates();
+                            },
+                        (error) =>
+                            {
+                                Debug.LogError($"Failed to download game templates: {error}");
+                            });
+                });
+        }
+        else
+        {
+            downloadGameTemplatesButton.gameObject.SetActive(false);
+        }
+    }
+
     private void unsetAddButton()
     {
         newGameTemplateButton.onClick.RemoveAllListeners();
     }
 
-    private void spawnGameTemplateSelectionEntities(Action<GameTemplate> onSelectGameTemplate)
+    private void unsetDownloadGameTemplatesButton()
+    {
+        downloadGameTemplatesButton.onClick.RemoveAllListeners();
+    }
+
+    private void updateGameTemplates()
+    {
+        despawnGameTemplateSelectionEntities();
+        spawnGameTemplateSelectionEntities();
+    }
+
+    private void spawnGameTemplateSelectionEntities()
     {
         List<GameTemplate> gameTemplates = GameTemplateLoader.LoadGameTemplates();
         foreach (GameTemplate gameTemplate in gameTemplates)
         {
-            spawnGameTemplateSelectionEntity(gameTemplate, onSelectGameTemplate);    
+            spawnGameTemplateSelectionEntity(gameTemplate, onSelectGameTemplateAction);    
         }
         setAddButtonAsLastContentSibling();
     }

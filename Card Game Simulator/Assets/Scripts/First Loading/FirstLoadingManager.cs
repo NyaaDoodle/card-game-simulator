@@ -15,7 +15,9 @@ public class FirstLoadingManager : MonoBehaviour
     {
         if (SimulatorNetworkManager.singleton.IsReady && DataDirectoryManager.Instance.IsReady
                                                       && PrefabReferences.Instance.IsReady
-                                                      && GameTemplateEditor.Instance.IsReady)
+                                                      && GameTemplateEditor.Instance.IsReady
+                                                      && ContentServerAPIManager.Instance.IsReady
+                                                      && InGameDebugWindowManager.Instance.IsReady)
         {
             loadNextScene();
         }

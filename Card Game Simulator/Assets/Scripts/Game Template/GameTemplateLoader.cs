@@ -54,7 +54,6 @@ public static class GameTemplateLoader
     {
         string templateDirectory = Path.Combine(DataDirectoryManager.Instance.TemplatesDirectoryPath, templateId);
         string imagesDirectory = Path.Combine(DataDirectoryManager.Instance.ImagesDirectoryPath, templateId);
-        string thumbnailsDirectory = Path.Combine(DataDirectoryManager.Instance.ThumbnailsDirectoryPath, templateId);
         if (Directory.Exists(templateDirectory))
         {
             Directory.Delete(templateDirectory, true);
@@ -64,10 +63,14 @@ public static class GameTemplateLoader
         {
             Directory.Delete(imagesDirectory, true);
         }
+    }
 
-        if (Directory.Exists(thumbnailsDirectory))
-        {
-            Directory.Delete(thumbnailsDirectory, true);
-        }
+    public static bool isGameTemplateDataFileStored(string templateId)
+    {
+        string templateDataFilePath = Path.Combine(
+            DataDirectoryManager.Instance.TemplatesDirectoryPath,
+            templateId,
+            DataDirectoryManager.TemplateDataFilename);
+        return File.Exists(templateDataFilePath);
     }
 }

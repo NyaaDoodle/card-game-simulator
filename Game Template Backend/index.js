@@ -6,7 +6,6 @@ const path = require('path');
 const SERVER_PORT = 80;
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const IMAGES_DIR = path.join(__dirname, 'images');
-const THUMBNAILS_DIR = path.join(__dirname, 'thumbnails');
 
 const app = express();
 
@@ -15,7 +14,6 @@ app.use(cors());
 
 // Images and thumbnails serving
 app.use('/images', express.static(IMAGES_DIR));
-app.use('/thumbnails', express.static(THUMBNAILS_DIR));
 
 const TEMPLATE_JSON_FILENAME = 'template.json';
 
@@ -40,7 +38,6 @@ function getAvailableTemplates(templateIds) {
 function printBaseDirectories() {
     console.log(`Templates directory: ${TEMPLATES_DIR}`);
     console.log(`Images directory: ${IMAGES_DIR}`);
-    console.log(`Thumbnails directory: ${TEMPLATES_DIR}`);
 }
 
 // Endpoints
