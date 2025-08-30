@@ -15,15 +15,15 @@ public static class ContentDownloader
         ContentServerAPIManager.Instance.SetServerURL(serverIP, serverPort);
     }
     
-    public static void GetCompleteAvailableGameTemplates(Action onSuccess, Action<string> onError)
+    public static void GetCompleteAvailableGameTemplates(Action onSuccess, Action<string, string> onError)
     {
         Debug.Log("Attempting to download game templates");
         ContentServerAPIManager.Instance.GetAvailableGameTemplates(
             (list) => onGetAvailableGameTemplatesList(list, onSuccess, onError),
-            (error) => onError?.Invoke(error));
+            (error) => onError?.Invoke(error, null));
     }
 
-    private static void onGetAvailableGameTemplatesList(List<string> gameTemplateIdList, Action onSuccess, Action<string> onError)
+    private static void onGetAvailableGameTemplatesList(List<string> gameTemplateIdList, Action onSuccess, Action<string, string> onError)
     {
         if (gameTemplateIdList.Count == 0)
         {
@@ -59,7 +59,7 @@ public static class ContentDownloader
         ContentServerAPIManager.Instance.GetGameTemplateData(
             templateId,
             (gameTemplate) => onGetGameTemplate(gameTemplate, downloadSession),
-            downloadSession.ReportError);
+            (error) => downloadSession.ReportError(error, null));
     }
 
     private static void onGetGameTemplate(GameTemplate gameTemplate, DownloadSession downloadSession)
@@ -70,7 +70,9 @@ public static class ContentDownloader
         }
         catch (Exception e)
         {
-            downloadSession.ReportError($"Failed to save game template {gameTemplate.Id}: {e.Message}");
+            downloadSession.ReportError(
+                $"Failed to save game template {gameTemplate.Id}: {e.Message}",
+                gameTemplate.Id);
             return;
         }
         List<string> requiredImagesToDownload = getRequiredImagesToDownloadList(gameTemplate);
@@ -131,7 +133,7 @@ public static class ContentDownloader
             imageFilename,
             gameTemplate.Id,
             (texture) => onGetImage(texture, imageFilename, gameTemplate, downloadSession),
-            downloadSession.ReportError);
+            (error) => downloadSession.ReportError(error, gameTemplate.Id));
     }
 
     private static void onGetImage(Texture2D texture, string imageFilename, GameTemplate gameTemplate, DownloadSession downloadSession)
@@ -141,7 +143,7 @@ public static class ContentDownloader
             imageFilename,
             gameTemplate.Id,
             (_) => downloadSession.CompleteOneOperation(),
-            (e) => downloadSession.ReportError(e.Message));
+            (e) => downloadSession.ReportError(e.Message, gameTemplate.Id));
     }
 
     private static string getTemplateThumbnailFilename(GameTemplateDetails gameTemplateDetails)

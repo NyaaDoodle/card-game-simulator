@@ -19,7 +19,7 @@ public static class GameTemplateSaver
             templateDataFilename);
         try
         {
-            string gameTemplateJson = SerializeGameTemplate(gameTemplate);
+            string gameTemplateJson = SerializeGameTemplate(gameTemplate, Formatting.Indented);
             checkGameTemplateFileExists(gameTemplate.Id);
             File.WriteAllText(templateFilePath, gameTemplateJson);
             Debug.Log($"Wrote game template file of {gameTemplate.Id} at {templateFilePath}");

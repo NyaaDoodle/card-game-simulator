@@ -36,7 +36,6 @@ public static class SimulatorImageLoader
         Action<Sprite> onSuccessAction,
         Action<Exception> onFailureAction)
     {
-        Debug.Log($"Attempting to load sprite from: {path}");
         Sprite sprite = loadSprite(path, onFailureAction);
         if (sprite != null)
         {

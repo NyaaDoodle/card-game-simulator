@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0bc5ef0a6cd764aadcf0fd23dd0203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloudBackendServerIp: http://localhost
+  cloudBackendServerIp: http://34.165.254.126
   cloudBackendServerPort: 80
 --- !u!1 &1491189000
 GameObject:

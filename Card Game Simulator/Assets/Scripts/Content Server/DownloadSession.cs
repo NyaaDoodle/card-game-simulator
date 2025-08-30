@@ -6,7 +6,7 @@ public class DownloadSession
     public int CompletedOperations { get; set; }
     public bool HasError { get; set; }
     public Action OnSuccess { get; set; }
-    public Action<string> OnError { get; set; }
+    public Action<string, string> OnError { get; set; }
 
     public void CompleteOneOperation()
     {
@@ -17,12 +17,12 @@ public class DownloadSession
         }
     }
 
-    public void ReportError(string errorMessage)
+    public void ReportError(string errorMessage, string gameTemplateId)
     {
         if (!HasError)
         {
             HasError = true;
-            OnError?.Invoke(errorMessage);
+            OnError?.Invoke(errorMessage, gameTemplateId);
         }
     }
 }

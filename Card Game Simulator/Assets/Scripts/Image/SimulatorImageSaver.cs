@@ -55,6 +55,6 @@ public static class SimulatorImageSaver
 
     private static string getPersistentDataLocalImagePath(string imageFilename, string gameTemplateId)
     {
-        return Path.Combine(DataDirectoryManager.ImagesDirectoryName, gameTemplateId, imageFilename);
+        return $"{DataDirectoryManager.ImagesDirectoryName}/{gameTemplateId}/{imageFilename}";
     }
 }

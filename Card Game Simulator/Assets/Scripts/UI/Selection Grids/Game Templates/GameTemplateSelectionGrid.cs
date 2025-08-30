@@ -54,9 +54,13 @@ public class GameTemplateSelectionGrid : MonoBehaviour
                                 
                                 updateGameTemplates();
                             },
-                        (error) =>
+                        (error, gameTemplateId) =>
                             {
                                 Debug.LogError($"Failed to download game templates: {error}");
+                                if (gameTemplateId != null)
+                                {
+                                    GameTemplateLoader.DeleteGameTemplate(gameTemplateId);
+                                }
                             });
                 });
         }
