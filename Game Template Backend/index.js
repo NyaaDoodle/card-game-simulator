@@ -3,7 +3,7 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
-const SERVER_PORT = 80;
+const SERVER_PORT = 8080;
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const IMAGES_DIR = path.join(__dirname, 'images');
 
