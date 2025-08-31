@@ -26,6 +26,8 @@ public class InteractionMenuManager : MonoBehaviour
     public event Action SelectedPlaceCard;
     public event Action SelectedFaceUp;
     public event Action SelectedFaceDown;
+    public event Action SelectedTakeAllCards;
+    public event Action SelectedTransferCards;
 
     void Start()
     {
@@ -141,6 +143,20 @@ public class InteractionMenuManager : MonoBehaviour
         CloseMenu();
     }
 
+    protected virtual void OnSelectedTakeAllCards()
+    {
+        if (currentMenuItemsObject == null) return;
+        SelectedTakeAllCards?.Invoke();
+        CloseMenu();
+    }
+
+    protected virtual void OnSelectedTransferCards()
+    {
+        if (currentMenuItemsObject == null) return;
+        SelectedTransferCards?.Invoke();
+        CloseMenu();
+    }
+
     private void addInstanceMenuItemListeners(InstanceMenu instanceMenu)
     {
         instanceMenu.ManageScoresButton.onClick.AddListener(() => Debug.Log("Score management not implemented"));
@@ -170,6 +186,8 @@ public class InteractionMenuManager : MonoBehaviour
     {
         spaceMenu.DrawCardButton.onClick.AddListener(OnSelectedDrawCard);
         spaceMenu.FlipCardButton.onClick.AddListener(OnSelectedFlipCard);
+        spaceMenu.TakeAllCardsButton.onClick.AddListener(OnSelectedTakeAllCards);
+        spaceMenu.TransferCardsButton.onClick.AddListener(OnSelectedTransferCards);
         setCancelSelectionButton(spaceMenu.CancelSelectionButton);
     }
 

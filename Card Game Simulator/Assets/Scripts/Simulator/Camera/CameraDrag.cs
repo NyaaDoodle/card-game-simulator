@@ -16,13 +16,27 @@ public class CameraDrag : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    public void OnDrag(InputAction.CallbackContext callbackContext)
+    private void Start()
     {
-        if (callbackContext.started)
-        {
-            originPoint = CurrentMousePosition;
-        }
-        isDragging = callbackContext.started || callbackContext.performed;
+        InputActionsController.Instance.GameInstanceCameraInputActions.Camera.Drag.started += onDragStarted;
+        InputActionsController.Instance.GameInstanceCameraInputActions.Camera.Drag.canceled += onDragCancelled;
+    }
+
+    private void OnDisable()
+    {
+        InputActionsController.Instance.GameInstanceCameraInputActions.Camera.Drag.started -= onDragStarted;
+        InputActionsController.Instance.GameInstanceCameraInputActions.Camera.Drag.canceled -= onDragCancelled;
+    }
+
+    private void onDragStarted(InputAction.CallbackContext callbackContext)
+    {
+        originPoint = CurrentMousePosition;
+        isDragging = true;
+    }
+    
+    private void onDragCancelled(InputAction.CallbackContext callbackContext)
+    {
+        isDragging = false;
     }
 
     private void LateUpdate()

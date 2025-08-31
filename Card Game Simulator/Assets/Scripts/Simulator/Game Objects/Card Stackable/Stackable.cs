@@ -13,12 +13,6 @@ public class Stackable : CardCollection
         this.stackableData = stackableData;
     }
 
-    public override void AddCard(Card card, int index)
-    {
-        card = card.FaceDown();
-        base.AddCard(card, index);
-    }
-
     public override string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder();

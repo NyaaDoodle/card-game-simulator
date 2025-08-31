@@ -7,6 +7,7 @@ public class SelectionManager : MonoBehaviour
 
     private SelectionItem sourceSelection = new SelectionItem();
     private SelectionItem destinationSelection = new SelectionItem();
+    private PlayerAction? currentPlayerAction;
     private Player player;
     private bool isGameObjectsSet;
     private bool isPlayerSet;
@@ -58,11 +59,14 @@ public class SelectionManager : MonoBehaviour
         interactionMenuManager.SelectedPlaceCard += onInteractiveMenuSelectedPlaceCard;
         interactionMenuManager.SelectedFaceUp += onInteractiveMenuSelectedFaceUp;
         interactionMenuManager.SelectedFaceDown += onInteractiveMenuSelectedFaceDown;
+        interactionMenuManager.SelectedTakeAllCards += onInteractiveMenuSelectedTakeAllCards;
+        interactionMenuManager.SelectedTransferCards += onInteractiveMenuSelectedTransferCards;
     }
 
     private void unsubscribeFromInteractionMenuSelectionEvents()
     {
-        if (interactionMenuManager == null) return;interactionMenuManager.Cancelled += onInteractiveMenuCancelled;
+        if (interactionMenuManager == null) return;
+        interactionMenuManager.Cancelled += onInteractiveMenuCancelled;
         interactionMenuManager.SelectedDrawCard -= onInteractiveMenuSelectedDrawCard;
         interactionMenuManager.SelectedFlipCard -= onInteractiveMenuSelectedFlipCard;
         interactionMenuManager.SelectedSearch -= onInteractiveMenuSelectedSearch;
@@ -70,6 +74,8 @@ public class SelectionManager : MonoBehaviour
         interactionMenuManager.SelectedPlaceCard -= onInteractiveMenuSelectedPlaceCard;
         interactionMenuManager.SelectedFaceUp -= onInteractiveMenuSelectedFaceUp;
         interactionMenuManager.SelectedFaceDown -= onInteractiveMenuSelectedFaceDown;
+        interactionMenuManager.SelectedTakeAllCards -= onInteractiveMenuSelectedTakeAllCards;
+        interactionMenuManager.SelectedTransferCards -= onInteractiveMenuSelectedTransferCards;
     }
 
     private void subscribeToDeckSelectionEvents(IEnumerable<DeckDisplay> deckDisplays)
@@ -148,10 +154,17 @@ public class SelectionManager : MonoBehaviour
             sourceSelection.SelectedCardCollection = stackable;
             showStackableInteractionMenu(stackable);
         }
-        else if (sourceSelection.SelectedCardCollection is PlayerHand && sourceSelection.SelectedCard != null)
+        else if (currentPlayerAction == PlayerAction.PlaceCard && sourceSelection.SelectedCardCollection is PlayerHand
+                                                               && sourceSelection.SelectedCard != null)
         {
             destinationSelection.SelectedCardCollection = stackable;
             interactionMenuManager.ShowPlacingCardMenuItems();
+        }
+        else if (currentPlayerAction == PlayerAction.TransferCards && sourceSelection.SelectedCardCollection is Stackable origin)
+        {
+            destinationSelection.SelectedCardCollection = stackable;
+            player.CmdTransferCards(origin, stackable);
+            cancelSelections();
         }
     }
 
@@ -199,6 +212,7 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedDrawCard()
     {
+        currentPlayerAction = PlayerAction.DrawCard;
         if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
         {
             player.CmdDrawCard(stackable);
@@ -208,6 +222,7 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedFlipCard()
     {
+        currentPlayerAction = PlayerAction.FlipCard;
         if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
         {
             player.CmdFlipCard(stackable);
@@ -217,6 +232,7 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedShuffle()
     {
+        currentPlayerAction = PlayerAction.Shuffle;
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
             player.CmdShuffleStackable(stackable);
@@ -226,15 +242,31 @@ public class SelectionManager : MonoBehaviour
 
     private void onInteractiveMenuSelectedSearch()
     {
+        currentPlayerAction = PlayerAction.Search;
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
-            Debug.Log("Deck search not implemented");
+            InputActionsController.Instance.IsDragInputActionActive = false;
+            ModalWindowManager.OpenCardSelectionModalWindow("Select a Card to Take:", stackable.Cards,
+                (card) =>
+                    {
+                        ModalWindowManager.CloseCurrentWindow();
+                        InputActionsController.Instance.IsDragInputActionActive = true;
+                        player.CmdTakeCard(stackable, card);
+                        cancelSelections();
+                    },
+                null,
+                () =>
+                    {
+                        ModalWindowManager.CloseCurrentWindow();
+                        InputActionsController.Instance.IsDragInputActionActive = true;
+                        cancelSelections();
+                    });
         }
-        cancelSelections();
     }
 
     private void onInteractiveMenuSelectedPlaceCard()
     {
+        currentPlayerAction = PlayerAction.PlaceCard;
         // TODO add popup message informing user that they need to select a deck/space to place the card
     }
 
@@ -262,14 +294,32 @@ public class SelectionManager : MonoBehaviour
         cancelSelections();
     }
 
+    private void onInteractiveMenuSelectedTakeAllCards()
+    {
+        currentPlayerAction = PlayerAction.TakeAllCards;
+        if (sourceSelection.SelectedCardCollection is Stackable stackable && !stackable.IsEmpty)
+        {
+            player.CmdTakeAllCards(stackable);
+        }
+        cancelSelections();
+    }
+
+    private void onInteractiveMenuSelectedTransferCards()
+    {
+        currentPlayerAction = PlayerAction.TransferCards;
+        // TODO add popup message informing user that they need to select a deck/space to place the card
+    }
+
     private void cancelSelections()
     {
         sourceSelection.SetEmpty();
         destinationSelection.SetEmpty();
+        currentPlayerAction = null;
     }
 
     private void OnDestroy()
     {
+        cancelSelections();
         unsubscribeFromGameObjectsSelectionEvents();
         unsubscribeFromInteractionMenuSelectionEvents();
         isGameObjectsSet = false;

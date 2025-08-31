@@ -4,6 +4,8 @@ public class SpaceMenu : InteractionMenu
 {
     public Button DrawCardButton;
     public Button FlipCardButton;
+    public Button TakeAllCardsButton;
+    public Button TransferCardsButton;
 
     private Space space;
 
@@ -17,6 +19,8 @@ public class SpaceMenu : InteractionMenu
     {
         DrawCardButton.gameObject.SetActive(isAbleToDrawCard());
         FlipCardButton.gameObject.SetActive(isAbleToFlipCard());
+        TakeAllCardsButton.gameObject.SetActive(isAbleToTakeAllCards());
+        TransferCardsButton.gameObject.SetActive(isAbleToTransferCards());
     }
 
     private bool isAbleToDrawCard()
@@ -25,6 +29,16 @@ public class SpaceMenu : InteractionMenu
     }
 
     private bool isAbleToFlipCard()
+    {
+        return !space.IsEmpty;
+    }
+
+    private bool isAbleToTakeAllCards()
+    {
+        return !space.IsEmpty;
+    }
+
+    private bool isAbleToTransferCards()
     {
         return !space.IsEmpty;
     }

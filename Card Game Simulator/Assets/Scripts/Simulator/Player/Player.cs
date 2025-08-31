@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Mirror;
+using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
@@ -94,7 +95,7 @@ public class Player : NetworkBehaviour
     public void CmdDrawCard(Stackable stackable)
     {
         Card drawnCard = stackable.RemoveCardAtStart();
-        GetComponent<PlayerHand>().AddCardAtStart(drawnCard);
+        GetComponent<PlayerHand>().AddCardAtEnd(drawnCard);
     }
 
     [Command]
@@ -110,7 +111,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSearchDeck(Deck deck) {}
+    public void CmdTakeCard(Stackable stackable, Card selectedCard)
+    {
+        if (stackable.RemoveCard(selectedCard))
+        {
+            GetComponent<PlayerHand>().AddCardAtEnd(selectedCard);
+        }
+    }
 
     [Command]
     public void CmdPlaceCardFaceUp(Card cardToPlace, Stackable destinationStackable)
@@ -131,6 +138,28 @@ public class Player : NetworkBehaviour
         {
             destinationStackable.AddCardAtStart(cardToPlace);
             destinationStackable.FlipFirstCardFaceDown();
+        }
+    }
+
+    [Command]
+    public void CmdTakeAllCards(Stackable stackable)
+    {
+        Debug.Log("Take all on server");
+        PlayerHand playerHand = GetComponent<PlayerHand>();
+        while (stackable.Cards.Count > 0)
+        {
+            Card takenCard = stackable.RemoveCardAtStart();
+            playerHand.AddCardAtEnd(takenCard);
+        }
+    }
+
+    [Command]
+    public void CmdTransferCards(Stackable origin, Stackable destination)
+    {
+        Debug.Log("Transfer on server");
+        while (origin.Cards.Count > 0)
+        {
+            destination.AddCardAtStart(origin.RemoveCardAtEnd());
         }
     }
 }
