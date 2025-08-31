@@ -11,13 +11,13 @@ using Debug = UnityEngine.Debug;
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
 */
 
-[RequireComponent(typeof(NetworkDiscovery))]
+[RequireComponent(typeof(SimulatorNetworkDiscovery))]
 public class SimulatorNetworkManager : NetworkManager
 {
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
     public static new SimulatorNetworkManager singleton => (SimulatorNetworkManager)NetworkManager.singleton;
-    public NetworkDiscovery NetworkDiscovery { get; private set; }
+    public SimulatorNetworkDiscovery SimulatorNetworkDiscovery { get; private set; }
 
     public bool IsReady { get; private set; } = false;
 
@@ -28,25 +28,24 @@ public class SimulatorNetworkManager : NetworkManager
     public override void Awake()
     {
         base.Awake();
-        initializeNetworkDiscovery();
-        onReady();
+        initializeSimulatorNetworkDiscovery();
     }
     
-    private void initializeNetworkDiscovery()
+    private void initializeSimulatorNetworkDiscovery()
     {
-        NetworkDiscovery = GetComponent<NetworkDiscovery>();
+        SimulatorNetworkDiscovery = GetComponent<SimulatorNetworkDiscovery>();
     }
     
     public void HostGame(GameTemplate gameTemplate)
     {
         CurrentPlayingGameTemplate.GameTemplate = gameTemplate;
         StartHost();
-        NetworkDiscovery.AdvertiseServer();
+        SimulatorNetworkDiscovery.AdvertiseServer();
     }
 
-    public void JoinGame(ServerResponse info)
+    public void JoinGame(DiscoveryResponse info)
     {
-        NetworkDiscovery.StopDiscovery();
+        SimulatorNetworkDiscovery.StopDiscovery();
         StartClient(info.uri);
     }
 
@@ -65,12 +64,12 @@ public class SimulatorNetworkManager : NetworkManager
 
     public void ActivateGameDiscovery()
     {
-        NetworkDiscovery.StartDiscovery();
+        SimulatorNetworkDiscovery.StartDiscovery();
     }
 
     public void DeactivateGameDiscovery()
     {
-        NetworkDiscovery.StopDiscovery();
+        SimulatorNetworkDiscovery.StopDiscovery();
     }
 
     private void onReady()
@@ -92,6 +91,8 @@ public class SimulatorNetworkManager : NetworkManager
     public override void Start()
     {
         base.Start();
+        SimulatorNetworkDiscovery.BroadcastAddress = PlayerPrefsManager.Instance.LANBroadcastAddress;
+        onReady();
     }
 
     /// <summary>

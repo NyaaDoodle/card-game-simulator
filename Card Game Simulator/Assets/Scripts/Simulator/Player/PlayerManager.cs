@@ -3,8 +3,26 @@ using UnityEngine;
 
 public class PlayerManager : NetworkBehaviour
 {
+    public static PlayerManager Instance { get; private set; }
     public Player LocalPlayer { get; private set; }
     public PlayerHandDisplay LocalPlayerHandDisplay { get; private set; }
+
+    private void Awake()
+    {
+        initializeInstance();
+    }
+
+    private void initializeInstance()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     public override void OnStopClient()
     {

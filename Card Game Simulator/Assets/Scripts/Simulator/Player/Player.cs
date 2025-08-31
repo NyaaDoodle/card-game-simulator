@@ -6,6 +6,7 @@ public class Player : NetworkBehaviour
     [SyncVar] private int id;
     [SyncVar] private new string name;
     [SyncVar] private int score;
+    [SyncVar] private bool isSpectating;
     
     public int Id
     {
@@ -43,11 +44,32 @@ public class Player : NetworkBehaviour
         }
     }
 
+    public bool IsSpectating
+    {
+        get
+        {
+            return isSpectating;
+        }
+        set
+        {
+            isSpectating = value;
+        }
+    }
+
+    public void Setup(int id, string name, int startingScore, bool isSpectating)
+    {
+        this.id = id;
+        this.name = name;
+        this.score = startingScore;
+        this.isSpectating = isSpectating;
+    }
+
     public void Setup(int id, string name, int startingScore)
     {
         this.id = id;
         this.name = name;
         this.score = startingScore;
+        this.isSpectating = false;
     }
 
     public void Setup(int id, string name)
@@ -55,6 +77,7 @@ public class Player : NetworkBehaviour
         this.id = id;
         this.name = name;
         this.score = 0;
+        this.isSpectating = false;
     }
 
     public override string ToString()

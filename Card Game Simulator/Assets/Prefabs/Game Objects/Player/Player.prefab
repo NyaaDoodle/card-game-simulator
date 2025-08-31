@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
-  syncMode: 1
+  syncMode: 0
   syncInterval: 0
 --- !u!114 &2975897367823669188
 MonoBehaviour:

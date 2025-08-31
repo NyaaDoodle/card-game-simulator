@@ -9,10 +9,7 @@ public class InGameDebugWindowManager : MonoBehaviour
 
     public bool IsActive
     {
-        get
-        {
-            return isActive;
-        }
+        get => isActive;
         set
         {
             isActive = value;
@@ -23,7 +20,11 @@ public class InGameDebugWindowManager : MonoBehaviour
     private void Awake()
     {
         initializeInstance();
-        gameObject.SetActive(isActive);
+    }
+
+    private void Start()
+    {
+        IsActive = PlayerPrefsManager.Instance.DebugWindowToggle;
         onReady();
     }
 

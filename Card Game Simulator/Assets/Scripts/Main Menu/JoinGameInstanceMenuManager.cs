@@ -24,24 +24,24 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
     public void StartGameInstanceSearch()
     {
         SimulatorNetworkManager.singleton.ActivateGameDiscovery();
-        SimulatorNetworkManager.singleton.NetworkDiscovery.OnServerFound.AddListener(onServerFound);
+        SimulatorNetworkManager.singleton.SimulatorNetworkDiscovery.OnServerFound.AddListener(onServerFound);
     }
 
     public void StopGameInstanceSearch()
     {
         SimulatorNetworkManager.singleton.DeactivateGameDiscovery();
-        SimulatorNetworkManager.singleton.NetworkDiscovery.OnServerFound.RemoveListener(onServerFound);
+        SimulatorNetworkManager.singleton.SimulatorNetworkDiscovery.OnServerFound.RemoveListener(onServerFound);
         serverIdList.Clear();
         clearJoinGameInstanceButtons();
     }
 
-    private void onServerFound(ServerResponse info)
+    private void onServerFound(DiscoveryResponse info)
     {
         Debug.Log($"Found server {info.serverId} at {info.uri}");
         spawnJoinGameInstanceButton(info);
     }
 
-    private void spawnJoinGameInstanceButton(ServerResponse info)
+    private void spawnJoinGameInstanceButton(DiscoveryResponse info)
     {
         if (!serverIdList.Contains(info.serverId))
         {
@@ -49,7 +49,7 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
             Button joinGameInstanceButton = Instantiate(joinGameInstanceButtonPrefab, buttonContentContainer).GetComponent<Button>();
             joinGameInstanceButtonInstances.Add(joinGameInstanceButton);
             TMP_Text joinGameInstanceButtonText = joinGameInstanceButton.GetComponentInChildren<TMP_Text>();
-            joinGameInstanceButtonText.text = info.uri.ToString();
+            joinGameInstanceButtonText.text = info.gameTemplateName;
             joinGameInstanceButton.onClick.AddListener(() =>
                 {
                     StopGameInstanceSearch();

@@ -144,6 +144,11 @@ public class InteractionMenuManager : MonoBehaviour
     private void addInstanceMenuItemListeners(InstanceMenu instanceMenu)
     {
         instanceMenu.ManageScoresButton.onClick.AddListener(() => Debug.Log("Score management not implemented"));
+        instanceMenu.SpectatorModeButton.onClick.AddListener(() =>
+            {
+                SpectatorModeManager.Instance.ToggleActive();
+                CloseMenu();
+            });
         instanceMenu.LeaveGameButton.onClick.AddListener(returnToMainMenu);
         setCancelSelectionButton(instanceMenu.CancelSelectionButton);
     }

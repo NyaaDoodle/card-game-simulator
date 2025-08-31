@@ -10,8 +10,8 @@ public class ContentServerAPIManager : MonoBehaviour
     public static ContentServerAPIManager Instance { get; private set; }
     public bool IsReady { get; private set; }
 
-    [SerializeField] private string cloudBackendServerIp;
-    [SerializeField] private int cloudBackendServerPort;
+    private string cloudBackendServerIp;
+    private int cloudBackendServerPort;
     private string serverURL;
 
     public string CloudBackendServerIp
@@ -43,8 +43,18 @@ public class ContentServerAPIManager : MonoBehaviour
     private void Awake()
     {
         initializeInstance();
-        SetServerToCloudBackendServer();
+    }
+
+    private void Start()
+    {
+        initializeValues();
         onReady();
+    }
+
+    private void initializeValues()
+    {
+        CloudBackendServerIp = PlayerPrefsManager.Instance.CloudBackendIP;
+        CloudBackendServerPort = PlayerPrefsManager.Instance.CloudBackendPort;
     }
 
     private void initializeInstance()
@@ -67,7 +77,7 @@ public class ContentServerAPIManager : MonoBehaviour
 
     public void SetServerURL(string serverIP, int serverPort)
     {
-        serverURL = $"{serverIP}:{serverPort}";
+        serverURL = $"http://{serverIP}:{serverPort}";
     }
 
     public void GetAvailableGameTemplates(Action<List<string>> onSuccessAction, Action<string> onErrorAction)
