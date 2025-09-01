@@ -5,38 +5,28 @@ using UnityEngine;
 
 public static class ContentDownloader
 {
-    public static void SetServerToCloudBackendServer()
+    public static void GetCompleteAvailableGameTemplates(DownloadSession downloadSession)
     {
-        ContentServerAPIManager.Instance.SetServerToCloudBackendServer();
-    }
-
-    public static void SetServerURL(string serverIP, int serverPort)
-    {
-        ContentServerAPIManager.Instance.SetServerURL(serverIP, serverPort);
-    }
-    
-    public static void GetCompleteAvailableGameTemplates(Action onSuccess, Action<string, string> onError)
-    {
-        Debug.Log("Attempting to download game templates");
+        Debug.Log($"Attempting to download game templates from {downloadSession.ServerIP} at port {downloadSession.ServerPort}");
         ContentServerAPIManager.Instance.GetAvailableGameTemplates(
-            (list) => onGetAvailableGameTemplatesList(list, onSuccess, onError),
-            (error) => onError?.Invoke(error, null));
+            downloadSession.ServerIP,
+            downloadSession.ServerPort,
+            (list) => onGetAvailableGameTemplatesList(list, downloadSession),
+            (error) => downloadSession.OnError?.Invoke(error, null));
     }
 
-    private static void onGetAvailableGameTemplatesList(List<string> gameTemplateIdList, Action onSuccess, Action<string, string> onError)
+    private static void onGetAvailableGameTemplatesList(List<string> gameTemplateIdList, DownloadSession downloadSession)
     {
         if (gameTemplateIdList.Count == 0)
         {
-            onSuccess?.Invoke();
+            downloadSession.OnSuccess?.Invoke();
             return;
         }
-        DownloadSession downloadSession = new DownloadSession() { OnSuccess = onSuccess, OnError = onError };
         List<string> requiredGameTemplatesToDownload = getRequiredGameTemplatesToDownloadList(gameTemplateIdList);
         Debug.Log($"{requiredGameTemplatesToDownload.Count} game templates are required to be downloaded");
-        downloadSession.TotalOperations += requiredGameTemplatesToDownload.Count;
         foreach (string templateId in requiredGameTemplatesToDownload)
         {
-            getGameTemplateData(templateId, downloadSession);
+            GetGameTemplate(templateId, downloadSession);
         }
     }
 
@@ -45,18 +35,22 @@ public static class ContentDownloader
         List<string> requiredGameTemplatesToDownload = new List<string>();
         foreach (string templateId in availableGameTemplateIdList)
         {
-            if (!GameTemplateLoader.isGameTemplateDataFileStored(templateId))
+            if (!GameTemplateLoader.IsGameTemplateDataFileStored(templateId))
             {
                 requiredGameTemplatesToDownload.Add(templateId);
             }
         }
         return requiredGameTemplatesToDownload;
     }
-    
-    private static void getGameTemplateData(string templateId, DownloadSession downloadSession)
+
+    public static void GetGameTemplate(string templateId, DownloadSession downloadSession)
     {
-        Debug.Log($"Attempting to download game template {templateId}");
+        downloadSession.IncreaseTotalOperations(1);
+        Debug.Log(
+            $"Attempting to download game template {templateId} from {downloadSession.ServerIP} at port {downloadSession.ServerPort}");
         ContentServerAPIManager.Instance.GetGameTemplateData(
+            downloadSession.ServerIP,
+            downloadSession.ServerPort,
             templateId,
             (gameTemplate) => onGetGameTemplate(gameTemplate, downloadSession),
             (error) => downloadSession.ReportError(error, null));
@@ -76,10 +70,9 @@ public static class ContentDownloader
             return;
         }
         List<string> requiredImagesToDownload = getRequiredImagesToDownloadList(gameTemplate);
-        downloadSession.TotalOperations += requiredImagesToDownload.Count;
         foreach (string imageFilename in requiredImagesToDownload)
         {
-            getImage(imageFilename, gameTemplate, downloadSession);
+            GetImage(imageFilename, gameTemplate.Id, downloadSession);
         }
         downloadSession.CompleteOneOperation();
     }
@@ -126,24 +119,28 @@ public static class ContentDownloader
         return requiredImagesToDownload;
     }
 
-    private static void getImage(string imageFilename, GameTemplate gameTemplate, DownloadSession downloadSession)
+    public static void GetImage(string imageFilename, string templateId, DownloadSession downloadSession)
     {
-        Debug.Log($"Attempting to download image {imageFilename} of game template {gameTemplate.Id}");
+        downloadSession.IncreaseTotalOperations(1);
+        Debug.Log(
+            $"Attempting to download image {imageFilename} of game template {templateId} from {downloadSession.ServerIP} at port {downloadSession.ServerPort}");
         ContentServerAPIManager.Instance.GetImageTexture(
+            downloadSession.ServerIP,
+            downloadSession.ServerPort,
             imageFilename,
-            gameTemplate.Id,
-            (texture) => onGetImage(texture, imageFilename, gameTemplate, downloadSession),
-            (error) => downloadSession.ReportError(error, gameTemplate.Id));
+            templateId,
+            (texture) => onGetImage(texture, imageFilename, templateId, downloadSession),
+            (error) => downloadSession.ReportError(error, templateId));
     }
 
-    private static void onGetImage(Texture2D texture, string imageFilename, GameTemplate gameTemplate, DownloadSession downloadSession)
+    private static void onGetImage(Texture2D texture, string imageFilename, string templateId, DownloadSession downloadSession)
     {
         SimulatorImageSaver.SaveImageWithFilename(
             texture,
             imageFilename,
-            gameTemplate.Id,
+            templateId,
             (_) => downloadSession.CompleteOneOperation(),
-            (e) => downloadSession.ReportError(e.Message, gameTemplate.Id));
+            (e) => downloadSession.ReportError(e.Message, templateId));
     }
 
     private static string getTemplateThumbnailFilename(GameTemplateDetails gameTemplateDetails)

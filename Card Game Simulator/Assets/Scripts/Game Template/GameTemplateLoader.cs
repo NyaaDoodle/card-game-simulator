@@ -65,7 +65,7 @@ public static class GameTemplateLoader
         }
     }
 
-    public static bool isGameTemplateDataFileStored(string templateId)
+    public static bool IsGameTemplateDataFileStored(string templateId)
     {
         string templateDataFilePath = Path.Combine(
             DataDirectoryManager.Instance.TemplatesDirectoryPath,

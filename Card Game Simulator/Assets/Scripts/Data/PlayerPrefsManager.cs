@@ -9,12 +9,14 @@ public class PlayerPrefsManager : MonoBehaviour
     [SerializeField] private string defaultCloudBackendIP;
     [SerializeField] private int defaultCloudBackendPort;
     [SerializeField] private bool defaultDebugWindowToggle;
+    [SerializeField] private int defaultLocalContentServerPort;
 
     private const string playerNameKey = "PlayerName";
     private const string lanBroadcastAddressKey = "LANBroadcastAddress";
     private const string cloudBackendIPKey = "CloudBackendIP";
     private const string cloudBackendPortKey = "CloudBackendPort";
     private const string debugWindowToggleKey = "DebugWindowToggle";
+    private const string localContentServerPortKey = "LocalContentServerPort";
     
     public bool IsReady { get; private set; }
 
@@ -64,6 +66,16 @@ public class PlayerPrefsManager : MonoBehaviour
         {
             int intValue = value ? 1 : 0;
             PlayerPrefs.SetInt(debugWindowToggleKey, intValue);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public int LocalContentServerPort
+    {
+        get => PlayerPrefs.GetInt(localContentServerPortKey, defaultLocalContentServerPort);
+        set
+        {
+            PlayerPrefs.SetInt(localContentServerPortKey, value);
             PlayerPrefs.Save();
         }
     }

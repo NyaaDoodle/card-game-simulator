@@ -41,6 +41,7 @@ public class SimulatorNetworkManager : NetworkManager
         SimulatorGlobalData.Instance.CurrentPlayingGameTemplate = gameTemplate;
         StartHost();
         SimulatorNetworkDiscovery.AdvertiseServer();
+        LocalContentServer.Instance.StartServer();
     }
 
     public void JoinGame(DiscoveryResponse info)
@@ -55,6 +56,7 @@ public class SimulatorNetworkManager : NetworkManager
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             StopHost();
+            LocalContentServer.Instance.StopServer();
         }
         else if (NetworkClient.isConnected)
         {

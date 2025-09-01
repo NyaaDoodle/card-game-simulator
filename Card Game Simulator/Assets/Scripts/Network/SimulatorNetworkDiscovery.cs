@@ -22,6 +22,7 @@ public struct DiscoveryResponse : NetworkMessage
     public Uri uri;
     public string gameTemplateName;
     public string gameTemplateId;
+    public int localContentServerPort;
 }
 
 public class SimulatorNetworkDiscovery : NetworkDiscoveryBase<DiscoveryRequest, DiscoveryResponse>
@@ -78,7 +79,8 @@ public class SimulatorNetworkDiscovery : NetworkDiscoveryBase<DiscoveryRequest, 
                            serverId = ServerId,
                            uri = transport.ServerUri(),
                            gameTemplateName = gameTemplate.Value.GameTemplateDetails.TemplateName,
-                           gameTemplateId = gameTemplate.Value.Id
+                           gameTemplateId = gameTemplate.Value.Id,
+                           localContentServerPort = PlayerPrefsManager.Instance.LocalContentServerPort
                        };
         }
         else

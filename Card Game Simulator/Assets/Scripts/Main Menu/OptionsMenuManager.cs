@@ -9,6 +9,7 @@ public class OptionsMenuManager : MonoBehaviour
     [SerializeField] private TMP_InputField cloudBackendIpInputField;
     [SerializeField] private TMP_InputField cloudBackendPortInputField;
     [SerializeField] private Toggle debugWindowToggle;
+    [SerializeField] private TMP_InputField localContentServerPortInputField;
     
     private void OnEnable()
     {
@@ -17,6 +18,7 @@ public class OptionsMenuManager : MonoBehaviour
         cloudBackendIpInputField.text = PlayerPrefsManager.Instance.CloudBackendIP;
         cloudBackendPortInputField.text = PlayerPrefsManager.Instance.CloudBackendPort.ToString();
         debugWindowToggle.isOn = PlayerPrefsManager.Instance.DebugWindowToggle;
+        localContentServerPortInputField.text = PlayerPrefsManager.Instance.LocalContentServerPort.ToString();
         playerNameInputField.onEndEdit.AddListener((text) => PlayerPrefsManager.Instance.PlayerName = text);
         lanBroadcastAddressInputField.onEndEdit.AddListener((text) =>
             {
@@ -25,7 +27,6 @@ public class OptionsMenuManager : MonoBehaviour
             });
         cloudBackendIpInputField.onEndEdit.AddListener((text) =>
             {
-                ContentServerAPIManager.Instance.CloudBackendServerIp = text;
                 PlayerPrefsManager.Instance.CloudBackendIP = text;
             });
         cloudBackendPortInputField.onEndEdit.AddListener((text) =>
@@ -33,7 +34,6 @@ public class OptionsMenuManager : MonoBehaviour
                 bool success = int.TryParse(text, out int portNumber);
                 if (success && portNumber >= 1 && portNumber <= 65535)
                 {
-                    ContentServerAPIManager.Instance.CloudBackendServerPort = portNumber;
                     PlayerPrefsManager.Instance.CloudBackendPort = portNumber;
                 }
             });
@@ -41,6 +41,14 @@ public class OptionsMenuManager : MonoBehaviour
             {
                 InGameDebugWindowManager.Instance.IsActive = isOn;
                 PlayerPrefsManager.Instance.DebugWindowToggle = isOn;
+            });
+        localContentServerPortInputField.onEndEdit.AddListener((text) =>
+            {
+                bool success = int.TryParse(text, out int portNumber);
+                if (success && portNumber >= 1 && portNumber <= 65535)
+                {
+                    PlayerPrefsManager.Instance.LocalContentServerPort = portNumber;
+                }
             });
     }
 
@@ -50,5 +58,6 @@ public class OptionsMenuManager : MonoBehaviour
         cloudBackendIpInputField.onEndEdit.RemoveAllListeners();
         cloudBackendPortInputField.onEndEdit.RemoveAllListeners();
         debugWindowToggle.onValueChanged.RemoveAllListeners();
+        localContentServerPortInputField.onEndEdit.RemoveAllListeners();
     }
 }

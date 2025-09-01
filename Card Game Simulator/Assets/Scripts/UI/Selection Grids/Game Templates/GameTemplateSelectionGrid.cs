@@ -45,13 +45,12 @@ public class GameTemplateSelectionGrid : MonoBehaviour
             downloadGameTemplatesButton.gameObject.SetActive(true);
             downloadGameTemplatesButton.onClick.AddListener(() =>
                 {
-                    ContentDownloader.SetServerToCloudBackendServer();
-                    ContentDownloader.GetCompleteAvailableGameTemplates(
+                    DownloadSession cloudServerDownloadSession = new DownloadSession(
+                        PlayerPrefsManager.Instance.CloudBackendIP,
+                        PlayerPrefsManager.Instance.CloudBackendPort,
                         () =>
                             {
-                                // PLACEHOLDER
                                 Debug.Log("Successfully downloaded game templates!");
-                                
                                 updateGameTemplates();
                             },
                         (error, gameTemplateId) =>
@@ -62,6 +61,7 @@ public class GameTemplateSelectionGrid : MonoBehaviour
                                     GameTemplateLoader.DeleteGameTemplate(gameTemplateId);
                                 }
                             });
+                    ContentDownloader.GetCompleteAvailableGameTemplates(cloudServerDownloadSession);
                 });
         }
         else

@@ -19,7 +19,8 @@ public class FirstLoadingManager : MonoBehaviour
                                                       && ContentServerAPIManager.Instance.IsReady
                                                       && InGameDebugWindowManager.Instance.IsReady
                                                       && PlayerPrefsManager.Instance.IsReady
-                                                      && SimulatorGlobalData.Instance.IsReady)
+                                                      && SimulatorGlobalData.Instance.IsReady
+                                                      && LocalContentServer.Instance.IsReady)
         {
             loadNextScene();
         }

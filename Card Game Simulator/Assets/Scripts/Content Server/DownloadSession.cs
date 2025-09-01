@@ -2,16 +2,32 @@
 
 public class DownloadSession
 {
-    public int TotalOperations { get; set; }
-    public int CompletedOperations { get; set; }
-    public bool HasError { get; set; }
-    public Action OnSuccess { get; set; }
-    public Action<string, string> OnError { get; set; }
+    public string ServerIP { get; }
+    public int ServerPort { get; }
+    public Action OnSuccess { get; }
+    public Action<string, string> OnError { get; }
+    
+    private int totalOperations;
+    private int completedOperations;
+    private bool hasError;
+
+    public DownloadSession(string serverIP, int serverPort, Action onSuccess, Action<string, string> onError)
+    {
+        ServerIP = serverIP;
+        ServerPort = serverPort;
+        OnSuccess = onSuccess;
+        OnError = onError;
+    }
+
+    public void IncreaseTotalOperations(int amount)
+    {
+        totalOperations += amount;
+    }
 
     public void CompleteOneOperation()
     {
-        CompletedOperations++;
-        if (CompletedOperations >= TotalOperations && !HasError)
+        completedOperations++;
+        if (completedOperations >= totalOperations && !hasError)
         {
             OnSuccess?.Invoke();
         }
@@ -19,9 +35,9 @@ public class DownloadSession
 
     public void ReportError(string errorMessage, string gameTemplateId)
     {
-        if (!HasError)
+        if (!hasError)
         {
-            HasError = true;
+            hasError = true;
             OnError?.Invoke(errorMessage, gameTemplateId);
         }
     }

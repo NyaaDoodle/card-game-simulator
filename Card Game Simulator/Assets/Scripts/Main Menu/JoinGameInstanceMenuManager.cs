@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Mirror.Discovery;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,8 +28,11 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
 
     public void StopGameInstanceSearch()
     {
-        SimulatorNetworkManager.singleton.DeactivateGameDiscovery();
-        SimulatorNetworkManager.singleton.SimulatorNetworkDiscovery.OnServerFound.RemoveListener(onServerFound);
+        if (SimulatorNetworkManager.singleton != null)
+        {
+            SimulatorNetworkManager.singleton.DeactivateGameDiscovery();
+            SimulatorNetworkManager.singleton.SimulatorNetworkDiscovery.OnServerFound.RemoveListener(onServerFound);
+        }
         serverIdList.Clear();
         clearJoinGameInstanceButtons();
     }
@@ -52,8 +54,30 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
             joinGameInstanceButtonText.text = info.gameTemplateName;
             joinGameInstanceButton.onClick.AddListener(() =>
                 {
-                    StopGameInstanceSearch();
-                    SimulatorNetworkManager.singleton.JoinGame(info);
+                    string templateId = info.gameTemplateId;
+                    if (GameTemplateLoader.IsGameTemplateDataFileStored(templateId))
+                    {
+                        StopGameInstanceSearch();
+                        SimulatorNetworkManager.singleton.JoinGame(info);
+                    }
+                    else
+                    {
+                        DownloadSession localContentServerDownloadSession = new DownloadSession(
+                            info.EndPoint.Address.ToString(),
+                            info.localContentServerPort,
+                            () =>
+                                {
+                                    Debug.Log("Successfully downloaded game template from host's local content server");
+                                    StopGameInstanceSearch();
+                                    SimulatorNetworkManager.singleton.JoinGame(info);
+                                },
+                            (error, _) =>
+                                {
+                                    Debug.LogError($"Failed to download game template from local content server: {error}");
+                                    GameTemplateLoader.DeleteGameTemplate(templateId);
+                                });
+                        ContentDownloader.GetGameTemplate(templateId, localContentServerDownloadSession);
+                    }
                 });
         }
     }

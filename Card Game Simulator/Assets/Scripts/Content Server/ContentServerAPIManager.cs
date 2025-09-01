@@ -10,51 +10,10 @@ public class ContentServerAPIManager : MonoBehaviour
     public static ContentServerAPIManager Instance { get; private set; }
     public bool IsReady { get; private set; }
 
-    private string cloudBackendServerIp;
-    private int cloudBackendServerPort;
-    private string serverURL;
-
-    public string CloudBackendServerIp
-    {
-        get
-        {
-            return cloudBackendServerIp;
-        }
-        set
-        {
-            cloudBackendServerIp = value;
-            SetServerToCloudBackendServer();
-        }
-    }
-
-    public int CloudBackendServerPort
-    {
-        get
-        {
-            return cloudBackendServerPort;
-        }
-        set
-        {
-            cloudBackendServerPort = value;
-            SetServerToCloudBackendServer();
-        }
-    }
-
     private void Awake()
     {
         initializeInstance();
-    }
-
-    private void Start()
-    {
-        initializeValues();
         onReady();
-    }
-
-    private void initializeValues()
-    {
-        CloudBackendServerIp = PlayerPrefsManager.Instance.CloudBackendIP;
-        CloudBackendServerPort = PlayerPrefsManager.Instance.CloudBackendPort;
     }
 
     private void initializeInstance()
@@ -70,26 +29,23 @@ public class ContentServerAPIManager : MonoBehaviour
         }
     }
 
-    public void SetServerToCloudBackendServer()
+    private string getServerURL(string serverIP, int serverPort)
     {
-        SetServerURL(CloudBackendServerIp, CloudBackendServerPort);
+        return $"http://{serverIP}:{serverPort}";
     }
 
-    public void SetServerURL(string serverIP, int serverPort)
+    public void GetAvailableGameTemplates(string serverIP, int serverPort, Action<List<string>> onSuccessAction, Action<string> onErrorAction)
     {
-        serverURL = $"http://{serverIP}:{serverPort}";
-    }
-
-    public void GetAvailableGameTemplates(Action<List<string>> onSuccessAction, Action<string> onErrorAction)
-    {
-        StartCoroutine(getAvailableGameTemplatesCoroutine(onSuccessAction, onErrorAction));
+        StartCoroutine(getAvailableGameTemplatesCoroutine(serverIP, serverPort, onSuccessAction, onErrorAction));
     }
 
     private IEnumerator getAvailableGameTemplatesCoroutine(
+        string serverIP,
+        int serverPort,
         Action<List<string>> onSuccessAction,
         Action<string> onErrorAction)
     {
-        string requestURL = $"{serverURL}/templates";
+        string requestURL = $"{getServerURL(serverIP, serverPort)}/templates";
         Debug.Log($"Requesting available game templates from {requestURL}");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(requestURL))
         {
@@ -118,19 +74,23 @@ public class ContentServerAPIManager : MonoBehaviour
     }
 
     public void GetGameTemplateData(
+        string serverIP,
+        int serverPort,
         string templateId,
         Action<GameTemplate> onSuccessAction,
         Action<string> onErrorAction)
     {
-        StartCoroutine(getGameTemplateDataCoroutine(templateId, onSuccessAction, onErrorAction));
+        StartCoroutine(getGameTemplateDataCoroutine(serverIP, serverPort, templateId, onSuccessAction, onErrorAction));
     }
-
+    
     private IEnumerator getGameTemplateDataCoroutine(
+        string serverIP,
+        int serverPort,
         string templateId,
         Action<GameTemplate> onSuccessAction,
         Action<string> onErrorAction)
     {
-        string requestURL = $"{serverURL}/templates/{templateId}";
+        string requestURL = $"{getServerURL(serverIP, serverPort)}/templates/{templateId}";
         Debug.Log($"Requesting game template {templateId} data file from {requestURL}");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(requestURL))
         {
@@ -160,21 +120,25 @@ public class ContentServerAPIManager : MonoBehaviour
     }
 
     public void GetImageTexture(
+        string serverIP,
+        int serverPort,
         string imageFilename,
         string templateId,
         Action<Texture2D> onSuccessAction,
         Action<string> onErrorAction)
     {
         string imagePath = $"images/{templateId}/{imageFilename}";
-        StartCoroutine(getTextureCoroutine(imagePath, onSuccessAction, onErrorAction));
+        StartCoroutine(getTextureCoroutine(serverIP, serverPort, imagePath, onSuccessAction, onErrorAction));
     }
 
     private IEnumerator getTextureCoroutine(
+        string serverIP,
+        int serverPort,
         string imagePath,
         Action<Texture2D> onSuccessAction,
         Action<string> onErrorAction)
     {
-        string requestURL = $"{serverURL}/{imagePath}";
+        string requestURL = $"{getServerURL(serverIP, serverPort)}/{imagePath}";
         Debug.Log($"Requesting texture from {requestURL}");
         using (UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(requestURL))
         {
