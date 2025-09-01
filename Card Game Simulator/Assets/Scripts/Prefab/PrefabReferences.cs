@@ -22,6 +22,7 @@ public class PrefabReferences : MonoBehaviour
     public GameObject DeckSelectionModalWindowPrefab;
     public GameObject SpaceSelectionModalWindowPrefab;
     public GameObject MobileImageMethodModalWindowPrefab;
+    public GameObject PlayerScoreEntityPrefab;
     
     public bool IsReady { get; private set; }
 

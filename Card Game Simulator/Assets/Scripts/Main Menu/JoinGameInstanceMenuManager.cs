@@ -62,7 +62,8 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
     {
         foreach (Button button in joinGameInstanceButtonInstances)
         {
-            Destroy(button);
+            Destroy(button.gameObject);
         }
+        joinGameInstanceButtonInstances.Clear();
     }
 }

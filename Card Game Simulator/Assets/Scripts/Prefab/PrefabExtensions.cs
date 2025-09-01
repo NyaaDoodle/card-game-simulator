@@ -66,12 +66,28 @@ public static class PrefabExtensions
         return spaceDisplay;
     }
 
-    public static Player InstantiatePlayer(NetworkConnectionToClient clientConnection)
+    public static Player InstantiatePlayer(
+        NetworkConnectionToClient clientConnection,
+        string playerID,
+        string playerName)
     {
-        const string defaultPlayerName = "Player";
         Player player = GameObject.Instantiate(PrefabReferences.Instance.PlayerPrefab).GetComponent<Player>();
-        player.Setup(clientConnection.connectionId, defaultPlayerName);
         NetworkServer.AddPlayerForConnection(clientConnection, player.gameObject);
+        player.Setup(playerID, playerName);
+        return player;
+    }
+
+    public static Player InstantiatePreviousPlayer(
+        NetworkConnectionToClient clientConnection,
+        PlayerData previousPlayerData)
+    {
+        Player player = GameObject.Instantiate(PrefabReferences.Instance.PlayerPrefab).GetComponent<Player>();
+        NetworkServer.AddPlayerForConnection(clientConnection, player.gameObject);
+        player.Setup(previousPlayerData);
+        foreach (Card card in previousPlayerData.CardsInHand)
+        {
+            player.GetComponent<PlayerHand>().Cards.Add(card);
+        }
         return player;
     }
 
@@ -267,5 +283,13 @@ public static class PrefabExtensions
         mobileImageMethodModalWindow.transform.SetAsLastSibling();
         mobileImageMethodModalWindow.Setup(onImageLoaded, onCancel, onBackButtonSelect);
         return mobileImageMethodModalWindow;
+    }
+
+    public static PlayerScoreEntity InstantiatePlayerScoreEntity(Player player, Transform parent)
+    {
+        PlayerScoreEntity playerScoreEntity = GameObject.Instantiate(PrefabReferences.Instance.PlayerScoreEntityPrefab, parent)
+            .GetComponent<PlayerScoreEntity>();
+        playerScoreEntity.Setup(player);
+        return playerScoreEntity;
     }
 }

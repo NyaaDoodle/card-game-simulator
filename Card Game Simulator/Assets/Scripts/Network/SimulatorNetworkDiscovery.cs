@@ -70,7 +70,7 @@ public class SimulatorNetworkDiscovery : NetworkDiscoveryBase<DiscoveryRequest, 
     /// <returns>A message containing information about this server</returns>
     protected override DiscoveryResponse ProcessRequest(DiscoveryRequest request, IPEndPoint endpoint)
     {
-        GameTemplate? gameTemplate = CurrentPlayingGameTemplate.GameTemplate;
+        GameTemplate? gameTemplate = SimulatorGlobalData.Instance.CurrentPlayingGameTemplate;
         if (gameTemplate != null)
         {
             return new DiscoveryResponse

@@ -59,7 +59,7 @@ public class GameInstanceManager : NetworkBehaviour
 
     private GameTemplate loadGameTemplate()
     {
-        GameTemplate? currentPlayingGameTemplate = CurrentPlayingGameTemplate.GameTemplate;
+        GameTemplate? currentPlayingGameTemplate = SimulatorGlobalData.Instance.CurrentPlayingGameTemplate;
         return currentPlayingGameTemplate == null ? throw new Exception("Current playing game template is null") : currentPlayingGameTemplate.Value;
     }
 

@@ -38,7 +38,7 @@ public class SimulatorNetworkManager : NetworkManager
     
     public void HostGame(GameTemplate gameTemplate)
     {
-        CurrentPlayingGameTemplate.GameTemplate = gameTemplate;
+        SimulatorGlobalData.Instance.CurrentPlayingGameTemplate = gameTemplate;
         StartHost();
         SimulatorNetworkDiscovery.AdvertiseServer();
     }
@@ -51,7 +51,7 @@ public class SimulatorNetworkManager : NetworkManager
 
     public void StopGame()
     {
-        CurrentPlayingGameTemplate.GameTemplate = null;
+        SimulatorGlobalData.Instance.CurrentPlayingGameTemplate = null;
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             StopHost();
@@ -188,7 +188,6 @@ public class SimulatorNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
-        ManagerReferences.Instance.PlayerManager.AddPlayer(conn);
     }
 
     /// <summary>
@@ -208,6 +207,7 @@ public class SimulatorNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
+		PlayerManager.Instance.AddDisconnectingPlayerData(conn);
         base.OnServerDisconnect(conn);
     }
 
@@ -239,6 +239,12 @@ public class SimulatorNetworkManager : NetworkManager
     public override void OnClientConnect()
     {
         base.OnClientConnect();
+        JoiningPlayerMessage message = new JoiningPlayerMessage()
+                                           {
+                                               playerId = SimulatorGlobalData.Instance.ApplicationInstanceId,
+                                               playerName = PlayerPrefsManager.Instance.PlayerName
+                                           };
+        NetworkClient.Send(message);
     }
 
     /// <summary>
@@ -284,7 +290,16 @@ public class SimulatorNetworkManager : NetworkManager
     /// This is invoked when a server is started - including when a host is started.
     /// <para>StartServer has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        NetworkServer.RegisterHandler<JoiningPlayerMessage>(onReceiveJoiningPlayerMessage);
+    }
+
+    private void onReceiveJoiningPlayerMessage(NetworkConnectionToClient conn, JoiningPlayerMessage message)
+    {
+        PlayerManager.Instance.AddPlayer(conn, message.playerId, message.playerName);
+    }
 
     /// <summary>
     /// This is invoked when the client is started.
@@ -304,6 +319,7 @@ public class SimulatorNetworkManager : NetworkManager
     /// </summary>
     public override void OnStopServer()
     {
+        NetworkServer.ClearHandlers();
         StartCoroutine(returnToMainMenuCoroutine());
     }
 

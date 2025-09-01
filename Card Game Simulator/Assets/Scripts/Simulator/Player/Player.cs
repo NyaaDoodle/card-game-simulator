@@ -1,84 +1,56 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Mirror;
 using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
-    [SyncVar] private int id;
+    [SyncVar] private string id;
     [SyncVar] private new string name;
-    [SyncVar] private int score;
-    [SyncVar] private bool isSpectating;
+    [SyncVar(hook = nameof(OnScoreChanged))] private int score;
+    [SyncVar(hook = nameof(OnIsSpectatingChanged))] private bool isSpectating;
+
+    public event Action<int, int> ScoreChanged;
+    public event Action<bool> IsSpectatingChanged;
     
-    public int Id
+    public string Id
     {
-        get
-        {
-            return id;
-        }
-        set
-        {
-            id = value;
-        }
+        get => id;
+        set => CmdUpdateId(value);
     }
 
     public string Name
     {
-        get
-        {
-            return name;
-        }
-        set
-        {
-            name = value;
-        }
+        get => name;
+        set => CmdUpdateName(value);
     }
 
     public int Score
     {
-        get
-        {
-            return score;
-        }
-        set
-        {
-            score = value;
-        }
+        get => score;
+        set => CmdUpdateScore(value);
     }
 
     public bool IsSpectating
     {
-        get
-        {
-            return isSpectating;
-        }
-        set
-        {
-            isSpectating = value;
-        }
+        get => isSpectating;
+        set => CmdUpdateIsSpectating(value);
     }
 
-    public void Setup(int id, string name, int startingScore, bool isSpectating)
-    {
-        this.id = id;
-        this.name = name;
-        this.score = startingScore;
-        this.isSpectating = isSpectating;
-    }
-
-    public void Setup(int id, string name, int startingScore)
-    {
-        this.id = id;
-        this.name = name;
-        this.score = startingScore;
-        this.isSpectating = false;
-    }
-
-    public void Setup(int id, string name)
+    public void Setup(string id, string name)
     {
         this.id = id;
         this.name = name;
         this.score = 0;
         this.isSpectating = false;
+    }
+
+    public void Setup(PlayerData playerData)
+    {
+        this.id = playerData.Id;
+        this.name = playerData.Name;
+        this.score = playerData.Score;
+        this.isSpectating = playerData.IsSpectating;
     }
 
     public override string ToString()
@@ -89,6 +61,30 @@ public class Player : NetworkBehaviour
         stringBuilder.AppendLine($"Name: {Name}");
         stringBuilder.AppendLine($"Score: {Score}");
         return stringBuilder.ToString();
+    }
+
+    [Command]
+    public void CmdUpdateId(string newValue)
+    {
+        id = newValue;
+    }
+
+    [Command]
+    public void CmdUpdateName(string newValue)
+    {
+        name = newValue;
+    }
+
+    [Command]
+    public void CmdUpdateScore(int newValue)
+    {
+        score = newValue;
+    }
+
+    [Command]
+    public void CmdUpdateIsSpectating(bool newValue)
+    {
+        isSpectating = newValue;
     }
 
     [Command]
@@ -161,5 +157,15 @@ public class Player : NetworkBehaviour
         {
             destination.AddCardAtStart(origin.RemoveCardAtEnd());
         }
+    }
+
+    protected virtual void OnScoreChanged(int oldValue, int newValue)
+    {
+        ScoreChanged?.Invoke(oldValue, newValue);
+    }
+
+    protected virtual void OnIsSpectatingChanged(bool oldValue, bool newValue)
+    {
+        IsSpectatingChanged?.Invoke(newValue);
     }
 }

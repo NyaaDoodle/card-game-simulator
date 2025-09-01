@@ -18,7 +18,8 @@ public class FirstLoadingManager : MonoBehaviour
                                                       && GameTemplateEditor.Instance.IsReady
                                                       && ContentServerAPIManager.Instance.IsReady
                                                       && InGameDebugWindowManager.Instance.IsReady
-                                                      && PlayerPrefsManager.Instance.IsReady)
+                                                      && PlayerPrefsManager.Instance.IsReady
+                                                      && SimulatorGlobalData.Instance.IsReady)
         {
             loadNextScene();
         }

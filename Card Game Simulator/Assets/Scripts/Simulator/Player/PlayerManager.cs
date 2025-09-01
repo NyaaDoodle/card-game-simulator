@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 public class PlayerManager : NetworkBehaviour
@@ -6,6 +7,11 @@ public class PlayerManager : NetworkBehaviour
     public static PlayerManager Instance { get; private set; }
     public Player LocalPlayer { get; private set; }
     public PlayerHandDisplay LocalPlayerHandDisplay { get; private set; }
+
+    public readonly SyncList<GameObject> ConnectedPlayers = new SyncList<GameObject>();
+    
+    private readonly Dictionary<string, PlayerData> disconnectedPlayerData = new Dictionary<string, PlayerData>();
+    
 
     private void Awake()
     {
@@ -32,15 +38,31 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Server]
-    public void AddPlayer(NetworkConnectionToClient clientConnection)
+    public void AddPlayer(NetworkConnectionToClient clientConnection, string playerID, string playerName)
     {
-        spawnPlayer(clientConnection);
+        if (!disconnectedPlayerData.ContainsKey(playerID))
+        {
+            spawnPlayer(clientConnection, playerID, playerName);
+        }
+        else
+        {
+            spawnPreviousPlayer(clientConnection, disconnectedPlayerData[playerID]);
+        }
     }
 
     [Server]
-    private void spawnPlayer(NetworkConnectionToClient clientConnection)
+    private void spawnPlayer(NetworkConnectionToClient clientConnection, string playerID, string playerName)
     {
-        Player player = PrefabExtensions.InstantiatePlayer(clientConnection);
+        Player player = PrefabExtensions.InstantiatePlayer(clientConnection, playerID, playerName);
+        ConnectedPlayers.Add(player.gameObject);
+        TargetPostPlayerSpawn(clientConnection, player.gameObject);
+    }
+
+    [Server]
+    private void spawnPreviousPlayer(NetworkConnectionToClient clientConnection, PlayerData playerData)
+    {
+        Player player = PrefabExtensions.InstantiatePreviousPlayer(clientConnection, playerData);
+        ConnectedPlayers.Add(player.gameObject);
         TargetPostPlayerSpawn(clientConnection, player.gameObject);
     }
 
@@ -73,5 +95,15 @@ public class PlayerManager : NetworkBehaviour
     private void setupSelectionManager()
     {
         ManagerReferences.Instance.SelectionManager.SetupPlayerHandEvents();
+    }
+
+    [Server]
+    public void AddDisconnectingPlayerData(NetworkConnectionToClient conn)
+    {
+        Player player = conn.identity.GetComponent<Player>();
+        PlayerHand playerHand = conn.identity.GetComponent<PlayerHand>();
+        PlayerData disconnectingPlayerData = new PlayerData(player, playerHand);
+        disconnectedPlayerData[disconnectingPlayerData.Id] = disconnectingPlayerData;
+        ConnectedPlayers.Remove(player.gameObject);
     }
 }
