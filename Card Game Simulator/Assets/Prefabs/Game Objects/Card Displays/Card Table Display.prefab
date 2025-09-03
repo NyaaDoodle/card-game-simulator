@@ -127,6 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backSideImage: {fileID: 6341038760081194673}
   frontSideImage: {fileID: 18300351641016649}
+  fallbackBackSideSprite: {fileID: 3483392643517320554, guid: 6638a3d68ce417e42a2c3b0ae05d0b40, type: 3}
+  fallbackFrontSideSprite: {fileID: -2991482758580532171, guid: bccb776a860e90e41a416b04ca01f114, type: 3}
 --- !u!1 &7977386926118989980
 GameObject:
   m_ObjectHideFlags: 0

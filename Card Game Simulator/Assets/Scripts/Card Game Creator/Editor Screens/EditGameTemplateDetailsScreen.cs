@@ -9,6 +9,7 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
     [SerializeField] private TMP_InputField descriptionInputField;
     [SerializeField] private ImageSelectionButton templateImageSelectionButton;
     [SerializeField] private Button deleteTemplateButton;
+    [SerializeField] private Button continueButton;
     
     public void Show()
     {
@@ -17,6 +18,7 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
         setInputFields();
         setTemplateImageSelectionButton();
         setDeleteTemplateButton();
+        continueButton.onClick.AddListener(() => GameTemplateEditor.Instance.GoToEditTableSettingsScreen());
     }
 
     public override void Hide()
@@ -24,6 +26,7 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
         unsetInputFieldsEvents();
         unsetTemplateImageSelectionButton();
         unsetDeleteTemplateButton();
+        continueButton.onClick.RemoveAllListeners();
         base.Hide();
     }
 

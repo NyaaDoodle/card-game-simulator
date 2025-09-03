@@ -204,13 +204,20 @@ public static class PrefabExtensions
         IEnumerable<CardData> cardsData,
         Action<CardData> onSelectCard,
         Action onAddButtonSelect,
-        Action onBackButtonSelect)
+        Action onBackButtonSelect,
+        Action onContinueButtonSelect)
     {
         CardSelectionModalWindow cardSelectionModalWindow = GameObject
             .Instantiate(PrefabReferences.Instance.CardSelectionModalWindowPrefab)
             .GetComponent<CardSelectionModalWindow>();
         cardSelectionModalWindow.transform.SetAsLastSibling();
-        cardSelectionModalWindow.Setup(titleText, cardsData, onSelectCard, onAddButtonSelect, onBackButtonSelect);
+        cardSelectionModalWindow.Setup(
+            titleText,
+            cardsData,
+            onSelectCard,
+            onAddButtonSelect,
+            onBackButtonSelect,
+            onContinueButtonSelect);
         return cardSelectionModalWindow;
     }
     
@@ -219,13 +226,20 @@ public static class PrefabExtensions
         IEnumerable<Card> cards,
         Action<Card> onSelectCard,
         Action onAddButtonSelect,
-        Action onBackButtonSelect)
+        Action onBackButtonSelect,
+        Action onContinueButtonSelect)
     {
         CardSelectionModalWindow cardSelectionModalWindow = GameObject
             .Instantiate(PrefabReferences.Instance.CardSelectionModalWindowPrefab)
             .GetComponent<CardSelectionModalWindow>();
         cardSelectionModalWindow.transform.SetAsLastSibling();
-        cardSelectionModalWindow.Setup(titleText, cards, onSelectCard, onAddButtonSelect, onBackButtonSelect);
+        cardSelectionModalWindow.Setup(
+            titleText,
+            cards,
+            onSelectCard,
+            onAddButtonSelect,
+            onBackButtonSelect,
+            onContinueButtonSelect);
         return cardSelectionModalWindow;
     }
 
@@ -248,13 +262,20 @@ public static class PrefabExtensions
         IEnumerable<DeckData> decksData,
         Action<DeckData> onSelectDeck,
         Action onAddButtonSelect,
-        Action onBackButtonSelect)
+        Action onBackButtonSelect,
+        Action onContinueButtonSelect)
     {
         DeckSelectionModalWindow deckSelectionModalWindow = GameObject
             .Instantiate(PrefabReferences.Instance.DeckSelectionModalWindowPrefab)
             .GetComponent<DeckSelectionModalWindow>();
         deckSelectionModalWindow.transform.SetAsLastSibling();
-        deckSelectionModalWindow.Setup(titleText, decksData, onSelectDeck, onAddButtonSelect, onBackButtonSelect);
+        deckSelectionModalWindow.Setup(
+            titleText,
+            decksData,
+            onSelectDeck,
+            onAddButtonSelect,
+            onBackButtonSelect,
+            onContinueButtonSelect);
         return deckSelectionModalWindow;
     }
 

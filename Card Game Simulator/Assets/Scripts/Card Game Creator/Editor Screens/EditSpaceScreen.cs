@@ -79,7 +79,7 @@ public class EditSpaceScreen : GameTemplateEditorScreenBase
         deleteSpaceButton.onClick.AddListener(() =>
             {
                 WorkingGameTemplate.DeleteSpaceData(currentSpaceData);
-                GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
+                BackButton.onClick.Invoke();
             });
     }
     

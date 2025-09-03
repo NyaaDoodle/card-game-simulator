@@ -87,7 +87,7 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
         deleteDeckButton.onClick.AddListener(() =>
             {
                 WorkingGameTemplate.DeleteDeckData(currentDeckData);
-                GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
+                BackButton.onClick.Invoke();
             });
     }
 
@@ -110,7 +110,8 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
                                     WorkingGameTemplate);
                             },
                         null,
-                        ModalWindowManager.CloseCurrentWindow);
+                        ModalWindowManager.CloseCurrentWindow,
+                        null);
                 });
     }
 

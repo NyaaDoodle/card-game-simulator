@@ -493,4 +493,4 @@ MonoBehaviour:
   selectionButton: {fileID: 3565353481488899933}
   gameTemplateImage: {fileID: 8251225108093700672}
   gameTemplateTitle: {fileID: 6127554874938342850}
-  fallbackSprite: {fileID: -5678528668059506840, guid: 39c6dff9766f28040a9552556693dbd9, type: 3}
+  fallbackSprite: {fileID: 21300000, guid: d7774071205b03b42bc283c2758dda0d, type: 3}

@@ -246,7 +246,9 @@ public class SelectionManager : MonoBehaviour
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
             InputActionsController.Instance.IsDragInputActionActive = false;
-            ModalWindowManager.OpenCardSelectionModalWindow("Select a Card to Take:", stackable.Cards,
+            ModalWindowManager.OpenCardSelectionModalWindow(
+                "Select a Card to Take:",
+                stackable.Cards,
                 (card) =>
                     {
                         ModalWindowManager.CloseCurrentWindow();
@@ -260,7 +262,8 @@ public class SelectionManager : MonoBehaviour
                         ModalWindowManager.CloseCurrentWindow();
                         InputActionsController.Instance.IsDragInputActionActive = true;
                         cancelSelections();
-                    });
+                    },
+                null);
         }
     }
 

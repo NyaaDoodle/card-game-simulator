@@ -7,6 +7,7 @@ public class EditTableSettingsScreen : GameTemplateEditorScreenBase
     [SerializeField] private TMP_InputField widthInputField;
     [SerializeField] private TMP_InputField heightInputField;
     [SerializeField] private ImageSelectionButton surfaceImageSelectionButton;
+    [SerializeField] private Button continueButton;
     
     public void Show()
     {
@@ -14,12 +15,17 @@ public class EditTableSettingsScreen : GameTemplateEditorScreenBase
         SetupBaseButtons(GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen);
         setupInputFields();
         setupSurfaceImageSelectionButton();
+        continueButton.onClick.AddListener(() =>
+            {
+                GameTemplateEditor.Instance.GoToCardPoolScreen();
+            });
     }
 
     public override void Hide()
     {
         unsetInputFields();
         unsetSurfaceImageSelectionButton();
+        continueButton.onClick.RemoveAllListeners();
         base.Hide();
     }
 

@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableSurface: {fileID: 5246306112798557155}
+  fallbackTableSurfaceSprite: {fileID: -3251499517012523666, guid: b5274226ea100cd43b9118f31e252d11, type: 3}
 --- !u!1 &8270621292320662446
 GameObject:
   m_ObjectHideFlags: 0

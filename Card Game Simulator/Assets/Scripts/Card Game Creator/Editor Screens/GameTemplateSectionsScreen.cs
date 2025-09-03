@@ -25,11 +25,11 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
 
     private void setupSectionButtons()
     {
-        editGameTemplateDetailsButton.onClick.AddListener(goToEditGameTemplateDetails);
-        editTableSettingsButton.onClick.AddListener(goToEditTableSettings);
-        cardPoolButton.onClick.AddListener(goToCardPool);
-        deckSelectionButton.onClick.AddListener(goToDeckSelection);
-        spaceSelectionButton.onClick.AddListener(goToSpaceSelection);
+        editGameTemplateDetailsButton.onClick.AddListener(GoToEditGameTemplateDetails);
+        editTableSettingsButton.onClick.AddListener(GoToEditTableSettings);
+        cardPoolButton.onClick.AddListener(GoToCardPool);
+        deckSelectionButton.onClick.AddListener(GoToDeckSelection);
+        spaceSelectionButton.onClick.AddListener(GoToSpaceSelection);
     }
 
     private void unsetSectionButtons()
@@ -41,17 +41,17 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
         spaceSelectionButton.onClick.RemoveAllListeners();
     }
 
-    private void goToEditGameTemplateDetails()
+    public void GoToEditGameTemplateDetails()
     {
         GameTemplateEditor.Instance.GoToEditGameTemplateDetailsScreen();
     }
 
-    private void goToEditTableSettings()
+    public void GoToEditTableSettings()
     {
         GameTemplateEditor.Instance.GoToEditTableSettingsScreen();
     }
 
-    private void goToCardPool()
+    public void GoToCardPool()
     {
         ModalWindowManager.OpenCardSelectionModalWindow(
             "Select Card to Edit",
@@ -65,11 +65,16 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
                     CardData newCard = WorkingGameTemplate.CreateNewDefaultCardData();
                     GameTemplateEditor.Instance.GoToEditCardScreen(newCard, returnFromCardEditScreen);
                 },
-            ModalWindowManager.CloseCurrentWindow
+            ModalWindowManager.CloseCurrentWindow,
+            () =>
+                {
+                    ModalWindowManager.CloseCurrentWindow();
+                    GoToDeckSelection();
+                }
             );
     }
 
-    private void goToDeckSelection()
+    public void GoToDeckSelection()
     {
         ModalWindowManager.OpenDeckSelectionModalWindow(
             "Select Deck to Edit",
@@ -83,10 +88,15 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
                     DeckData newDeck = WorkingGameTemplate.CreateNewDefaultDeckData();
                     GameTemplateEditor.Instance.GoToEditDeckScreen(newDeck, returnFromDeckEditScreen);
                 },
-            ModalWindowManager.CloseCurrentWindow);
+            ModalWindowManager.CloseCurrentWindow,
+            () =>
+                {
+                    ModalWindowManager.CloseCurrentWindow();
+                    GoToSpaceSelection();
+                });
     }
 
-    private void goToSpaceSelection()
+    public void GoToSpaceSelection()
     {
         ModalWindowManager.OpenSpaceSelectionModalWindow(
             "Select Space to Edit",
@@ -106,18 +116,18 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
     private void returnFromCardEditScreen()
     {
         GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
-        goToCardPool();
+        GoToCardPool();
     }
 
     private void returnFromDeckEditScreen()
     {
         GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
-        goToDeckSelection();
+        GoToDeckSelection();
     }
 
     private void returnFromSpaceEditScreen()
     {
         GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
-        goToSpaceSelection();
+        GoToSpaceSelection();
     }
 }

@@ -12,8 +12,12 @@ public class GameTemplateEditorScreenBase : MonoBehaviour
     protected virtual void SetupBaseButtons(Action onBackButtonSelect)
     {
         // Use this on every Show() method
-        BackButton.onClick.AddListener(() => onBackButtonSelect());
-        SaveButton.onClick.AddListener(SaveGameTemplate);
+        BackButton.onClick.AddListener(() => onBackButtonSelect?.Invoke());
+        SaveButton.onClick.AddListener(() =>
+            {
+                SaveGameTemplate();
+                onBackButtonSelect?.Invoke();
+            });
     }
 
     protected virtual void UnsetBaseButtons()

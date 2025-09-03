@@ -11,14 +11,16 @@ public static class ModalWindowManager
         IEnumerable<CardData> cardsData,
         Action<CardData> onSelectCard,
         Action onAddButtonSelect,
-        Action onBackButtonSelect)
+        Action onBackButtonSelect,
+        Action onContinueButtonSelect)
     {
         currentlyShownWindow = PrefabExtensions.InstantiateCardSelectionModalWindow(
             titleText,
             cardsData,
             onSelectCard,
             onAddButtonSelect,
-            onBackButtonSelect);
+            onBackButtonSelect,
+            onContinueButtonSelect);
     }
     
     public static void OpenCardSelectionModalWindow(
@@ -26,14 +28,16 @@ public static class ModalWindowManager
         IEnumerable<Card> cards,
         Action<Card> onSelectCard,
         Action onAddButtonSelect,
-        Action onBackButtonSelect)
+        Action onBackButtonSelect,
+        Action onContinueButtonSelect)
     {
         currentlyShownWindow = PrefabExtensions.InstantiateCardSelectionModalWindow(
             titleText,
             cards,
             onSelectCard,
             onAddButtonSelect,
-            onBackButtonSelect);
+            onBackButtonSelect,
+            onContinueButtonSelect);
     }
     
     public static void OpenGameTemplateSelectionModalWindow(
@@ -54,14 +58,16 @@ public static class ModalWindowManager
         IEnumerable<DeckData> decksData,
         Action<DeckData> onSelectDeck,
         Action onAddButtonSelect,
-        Action onBackButtonSelect)
+        Action onBackButtonSelect,
+        Action onContinueButtonSelect)
     {
         currentlyShownWindow = PrefabExtensions.InstantiateDeckSelectionModalWindow(
             titleText,
             decksData,
             onSelectDeck,
             onAddButtonSelect,
-            onBackButtonSelect);
+            onBackButtonSelect,
+            onContinueButtonSelect);
     }
     
     public static void OpenSpaceSelectionModalWindow(

@@ -59,7 +59,7 @@ public class GameTemplateEditor : MonoBehaviour
                 {
                     createNewGameTemplate();
                     ModalWindowManager.CloseCurrentWindow();
-                    GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
+                    GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Show();
                 },
             () =>
                 {
@@ -84,6 +84,27 @@ public class GameTemplateEditor : MonoBehaviour
     {
         hideAllScreens();
         GameTemplateEditorScreenReferences.Instance.EditTableSettingsScreen.Show();
+    }
+
+    public void GoToCardPoolScreen()
+    {
+        hideAllScreens();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.GoToCardPool();
+    }
+
+    public void GoToDeckSelection()
+    {
+        hideAllScreens();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.GoToDeckSelection();
+    }
+
+    public void GoToSpaceSelection()
+    {
+        hideAllScreens();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
+        GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.GoToSpaceSelection();
     }
 
     public void GoToEditCardScreen(CardData cardData, Action onBackButtonSelect)

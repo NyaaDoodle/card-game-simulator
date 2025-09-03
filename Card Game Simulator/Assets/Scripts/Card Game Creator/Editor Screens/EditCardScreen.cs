@@ -105,7 +105,7 @@ public class EditCardScreen : GameTemplateEditorScreenBase
         deleteCardButton.onClick.AddListener(() =>
             {
                 WorkingGameTemplate.DeleteCardData(currentCardData);
-                GameTemplateEditor.Instance.GoToGameTemplateSectionsScreen();
+                BackButton.onClick.Invoke();
             });
     }
     
