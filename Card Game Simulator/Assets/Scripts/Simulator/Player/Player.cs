@@ -36,6 +36,14 @@ public class Player : NetworkBehaviour
         get => isSpectating;
         set => CmdUpdateIsSpectating(value);
     }
+    
+    public void Setup(string id, string name, int score, bool isSpectating)
+    {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+        this.isSpectating = isSpectating;
+    }
 
     public void Setup(string id, string name)
     {
@@ -43,14 +51,6 @@ public class Player : NetworkBehaviour
         this.name = name;
         this.score = 0;
         this.isSpectating = false;
-    }
-
-    public void Setup(PlayerData playerData)
-    {
-        this.id = playerData.Id;
-        this.name = playerData.Name;
-        this.score = playerData.Score;
-        this.isSpectating = playerData.IsSpectating;
     }
 
     public override string ToString()

@@ -79,11 +79,12 @@ public static class PrefabExtensions
 
     public static Player InstantiatePreviousPlayer(
         NetworkConnectionToClient clientConnection,
-        PlayerData previousPlayerData)
+        PlayerData previousPlayerData,
+        string playerName)
     {
         Player player = GameObject.Instantiate(PrefabReferences.Instance.PlayerPrefab).GetComponent<Player>();
         NetworkServer.AddPlayerForConnection(clientConnection, player.gameObject);
-        player.Setup(previousPlayerData);
+        player.Setup(previousPlayerData.Id, playerName, previousPlayerData.Score, false);
         foreach (Card card in previousPlayerData.CardsInHand)
         {
             player.GetComponent<PlayerHand>().Cards.Add(card);

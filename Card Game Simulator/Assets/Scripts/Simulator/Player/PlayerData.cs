@@ -23,7 +23,7 @@ public readonly struct PlayerData
         Id = player.Id;
         Name = player.Name;
         Score = player.Score;
-        IsSpectating = false;
+        IsSpectating = player.IsSpectating;
         CardsInHand = playerHand.Cards.ToArray();
     }
 }

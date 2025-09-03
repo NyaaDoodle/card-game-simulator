@@ -46,7 +46,7 @@ public class PlayerManager : NetworkBehaviour
         }
         else
         {
-            spawnPreviousPlayer(clientConnection, disconnectedPlayerData[playerID]);
+            spawnPreviousPlayer(clientConnection, disconnectedPlayerData[playerID], playerName);
         }
     }
 
@@ -59,9 +59,9 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Server]
-    private void spawnPreviousPlayer(NetworkConnectionToClient clientConnection, PlayerData playerData)
+    private void spawnPreviousPlayer(NetworkConnectionToClient clientConnection, PlayerData playerData, string playerName)
     {
-        Player player = PrefabExtensions.InstantiatePreviousPlayer(clientConnection, playerData);
+        Player player = PrefabExtensions.InstantiatePreviousPlayer(clientConnection, playerData, playerName);
         ConnectedPlayers.Add(player.gameObject);
         TargetPostPlayerSpawn(clientConnection, player.gameObject);
     }
