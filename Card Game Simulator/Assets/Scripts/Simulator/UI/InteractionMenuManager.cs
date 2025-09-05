@@ -169,6 +169,11 @@ public class InteractionMenuManager : MonoBehaviour
                 SpectatorModeManager.Instance.ToggleActive();
                 CloseMenu();
             });
+        instanceMenu.CenterCameraButton.onClick.AddListener(() =>
+            {
+                centerMainCamera();
+                CloseMenu();
+            });
         instanceMenu.LeaveGameButton.onClick.AddListener(returnToMainMenu);
         setCancelSelectionButton(instanceMenu.CancelSelectionButton);
     }
@@ -226,6 +231,18 @@ public class InteractionMenuManager : MonoBehaviour
     private void setCancelSelectionButton(Button cancelSelectionButton)
     {
         cancelSelectionButton.onClick.AddListener(OnCancelled);
+    }
+
+    private void centerMainCamera()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            mainCamera.orthographicSize = 5f;
+            Transform cameraTransform = mainCamera.transform;
+            cameraTransform.localPosition = new Vector3(0, 0, -10);
+            cameraTransform.localRotation = Quaternion.identity;
+        }
     }
 
     private void returnToMainMenu()
