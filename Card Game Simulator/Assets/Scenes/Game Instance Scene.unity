@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe81e0b1a9744232bebdab0a33ff12b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchZoomSpeed: 0.05
+  touchZoomSpeed: 0.03
   mouseZoomSpeed: 0.5
   minZoom: 3
   maxZoom: 10

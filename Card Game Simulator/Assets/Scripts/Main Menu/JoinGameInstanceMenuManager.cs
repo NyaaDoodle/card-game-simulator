@@ -74,6 +74,10 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
                                 },
                             (error, _) =>
                                 {
+                                    PopupMessageManager.NewPopupMessage(
+                                        "Failed to download game template from local content server, check logs for details",
+                                        3f,
+                                        Color.red);
                                     Debug.LogError($"Failed to download game template from local content server: {error}");
                                     GameTemplateLoader.DeleteGameTemplate(templateId);
                                 });

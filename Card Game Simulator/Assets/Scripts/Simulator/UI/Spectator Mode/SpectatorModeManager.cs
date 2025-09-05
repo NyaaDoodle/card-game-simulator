@@ -51,5 +51,7 @@ public class SpectatorModeManager : MonoBehaviour
             playerHandDisplay.gameObject.SetActive(!IsActive);
         }
         PlayerManager.Instance.LocalPlayer.IsSpectating = IsActive;
+        string statusText = IsActive ? "on" : "off";
+        PopupMessageManager.NewPopupMessage($"Spectator mode {statusText}", 2f);
     }
 }
