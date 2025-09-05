@@ -10,6 +10,7 @@ public class PlayerPrefsManager : MonoBehaviour
     [SerializeField] private int defaultCloudBackendPort;
     [SerializeField] private bool defaultDebugWindowToggle;
     [SerializeField] private int defaultLocalContentServerPort;
+    [SerializeField] private bool defaultIsFullscreen;
 
     private const string playerNameKey = "PlayerName";
     private const string lanBroadcastAddressKey = "LANBroadcastAddress";
@@ -17,6 +18,7 @@ public class PlayerPrefsManager : MonoBehaviour
     private const string cloudBackendPortKey = "CloudBackendPort";
     private const string debugWindowToggleKey = "DebugWindowToggle";
     private const string localContentServerPortKey = "LocalContentServerPort";
+    private const string isFullscreenKey = "IsFullscreen";
     
     public bool IsReady { get; private set; }
 
@@ -76,6 +78,17 @@ public class PlayerPrefsManager : MonoBehaviour
         set
         {
             PlayerPrefs.SetInt(localContentServerPortKey, value);
+            PlayerPrefs.Save();
+        }
+    }
+    
+    public bool IsFullscreen
+    {
+        get => PlayerPrefs.GetInt(isFullscreenKey, (defaultIsFullscreen ? 1 : 0)) > 0;
+        set
+        {
+            int intValue = value ? 1 : 0;
+            PlayerPrefs.SetInt(isFullscreenKey, intValue);
             PlayerPrefs.Save();
         }
     }

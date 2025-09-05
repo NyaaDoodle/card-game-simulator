@@ -1186,6 +1186,7 @@ MonoBehaviour:
   defaultCloudBackendPort: 80
   defaultDebugWindowToggle: 0
   defaultLocalContentServerPort: 8080
+  defaultIsFullscreen: 0
 --- !u!4 &1468067882
 Transform:
   m_ObjectHideFlags: 0

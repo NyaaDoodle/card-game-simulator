@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class FirstLoadingManager : MonoBehaviour
 {
     [SerializeField] private string postLoadSceneName;
+    private bool initialFullscreenSet = false;
 
     void Awake()
     {
@@ -22,6 +23,9 @@ public class FirstLoadingManager : MonoBehaviour
                                                       && SimulatorGlobalData.Instance.IsReady
                                                       && LocalContentServer.Instance.IsReady)
         {
+            #if !UNITY_IOS && !UNITY_ANDROID
+            setFullScreen();
+            #endif
             loadNextScene();
         }
     }
@@ -34,5 +38,14 @@ public class FirstLoadingManager : MonoBehaviour
     private void loadNextScene()
     {
         SceneManager.LoadScene(postLoadSceneName);
+    }
+
+    private void setFullScreen()
+    {
+        if (!initialFullscreenSet)
+        {
+            Screen.fullScreen = PlayerPrefsManager.Instance.IsFullscreen;
+            initialFullscreenSet = true;
+        }
     }
 }

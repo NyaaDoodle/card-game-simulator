@@ -10,6 +10,8 @@ public class OptionsMenuManager : MonoBehaviour
     [SerializeField] private TMP_InputField cloudBackendPortInputField;
     [SerializeField] private Toggle debugWindowToggle;
     [SerializeField] private TMP_InputField localContentServerPortInputField;
+    [SerializeField] private Toggle fullScreenToggle;
+    [SerializeField] private GameObject fullScreenToggleParent;
     
     private void OnEnable()
     {
@@ -50,6 +52,16 @@ public class OptionsMenuManager : MonoBehaviour
                     PlayerPrefsManager.Instance.LocalContentServerPort = portNumber;
                 }
             });
+        #if !UNITY_IOS && !UNITY_ANDROID
+        fullScreenToggleParent.SetActive(true);
+        fullScreenToggle.onValueChanged.AddListener((isOn) =>
+            {
+                Screen.fullScreen = isOn;
+                PlayerPrefsManager.Instance.IsFullscreen = isOn;
+            });
+        #else
+        fullScreenToggleParent.SetActive(false);
+        #endif
     }
 
     private void OnDisable()
@@ -59,5 +71,6 @@ public class OptionsMenuManager : MonoBehaviour
         cloudBackendPortInputField.onEndEdit.RemoveAllListeners();
         debugWindowToggle.onValueChanged.RemoveAllListeners();
         localContentServerPortInputField.onEndEdit.RemoveAllListeners();
+        fullScreenToggle.onValueChanged.RemoveAllListeners();
     }
 }
