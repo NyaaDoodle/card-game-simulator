@@ -245,14 +245,14 @@ public class SelectionManager : MonoBehaviour
         currentPlayerAction = PlayerAction.Search;
         if (sourceSelection.SelectedCardCollection is Stackable stackable && stackable.Cards.Count > 1)
         {
-            InputActionsController.Instance.IsDragInputActionActive = false;
+            CameraControlsManager.Instance.IsCameraControlsEnabled = false;
             ModalWindowManager.OpenCardSelectionModalWindow(
                 "Select a Card to Take:",
                 stackable.Cards,
                 (card) =>
                     {
                         ModalWindowManager.CloseCurrentWindow();
-                        InputActionsController.Instance.IsDragInputActionActive = true;
+                        CameraControlsManager.Instance.IsCameraControlsEnabled = true;
                         player.CmdTakeCard(stackable, card);
                         cancelSelections();
                     },
@@ -260,7 +260,7 @@ public class SelectionManager : MonoBehaviour
                 () =>
                     {
                         ModalWindowManager.CloseCurrentWindow();
-                        InputActionsController.Instance.IsDragInputActionActive = true;
+                        CameraControlsManager.Instance.IsCameraControlsEnabled = true;
                         cancelSelections();
                     },
                 null);
