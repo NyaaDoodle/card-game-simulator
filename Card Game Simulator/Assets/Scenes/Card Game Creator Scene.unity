@@ -596,7 +596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888145836365787365, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45.657
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1855,7 +1855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888145836365787365, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45.657
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2264,7 +2264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888145836365787365, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45.657013
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -6569,7 +6569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888145836365787365, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45.657013
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -6939,7 +6939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888145836365787365, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -51.028564
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -7258,7 +7258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888145836365787365, guid: 9f9916edd0fa33c43826ef4560b029e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45.657013
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
