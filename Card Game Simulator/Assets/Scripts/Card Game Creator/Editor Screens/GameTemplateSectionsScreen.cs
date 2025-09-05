@@ -9,17 +9,24 @@ public class GameTemplateSectionsScreen : GameTemplateEditorScreenBase
     [SerializeField] private Button cardPoolButton;
     [SerializeField] private Button deckSelectionButton;
     [SerializeField] private Button spaceSelectionButton;
+    [SerializeField] private Button tryOutGameButton;
     
     public void Show()
     {
         gameObject.SetActive(true);
         SetupBaseButtons(GameTemplateEditor.Instance.GoToInitialScreen);
         setupSectionButtons();
+        tryOutGameButton.onClick.AddListener(() =>
+            {
+                Hide();
+                SimulatorNetworkManager.singleton.HostGame(WorkingGameTemplate.ConvertToGameTemplate());
+            });
     }
 
     public override void Hide()
     {
         unsetSectionButtons();
+        tryOutGameButton.onClick.RemoveAllListeners();
         base.Hide();
     }
 

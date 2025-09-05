@@ -31,6 +31,7 @@ public class DeckSelectionEntity : MonoBehaviour
 
     private void setupDeckName(DeckData deckData)
     {
-        deckName.text = deckData.Name;
+        string displayText = !deckData.Name.Equals(string.Empty) ? deckData.Name : "(no name)";
+        deckName.text = displayText;
     }
 }

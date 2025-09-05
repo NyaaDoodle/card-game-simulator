@@ -28,7 +28,8 @@ public class PlayerScoreEntity : MonoBehaviour
 
     private void setupTexts()
     {
-        playerNameText.text = player.Name;
+        string playerNameDisplayText = !player.Name.Equals(string.Empty) ? player.Name : "(no name)";
+        playerNameText.text = playerNameDisplayText;
         playerScoreText.text = player.Score.ToString();
     }
 

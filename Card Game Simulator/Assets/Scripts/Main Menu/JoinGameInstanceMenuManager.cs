@@ -51,7 +51,8 @@ public class JoinGameInstanceMenuManager : MonoBehaviour
             Button joinGameInstanceButton = Instantiate(joinGameInstanceButtonPrefab, buttonContentContainer).GetComponent<Button>();
             joinGameInstanceButtonInstances.Add(joinGameInstanceButton);
             TMP_Text joinGameInstanceButtonText = joinGameInstanceButton.GetComponentInChildren<TMP_Text>();
-            joinGameInstanceButtonText.text = info.gameTemplateName;
+            joinGameInstanceButtonText.text =
+                !info.gameTemplateName.Equals(string.Empty) ? info.gameTemplateName : "(no name)";
             joinGameInstanceButton.onClick.AddListener(() =>
                 {
                     string templateId = info.gameTemplateId;

@@ -313,7 +313,7 @@ public class SimulatorNetworkManager : NetworkManager
     /// </summary>
     public override void OnStopHost()
     {
-        StartCoroutine(returnToMainMenuCoroutine());
+        StartCoroutine(returnFromGameInstance());
     }
 
     /// <summary>
@@ -322,7 +322,7 @@ public class SimulatorNetworkManager : NetworkManager
     public override void OnStopServer()
     {
         NetworkServer.ClearHandlers();
-        StartCoroutine(returnToMainMenuCoroutine());
+        StartCoroutine(returnFromGameInstance());
     }
 
     /// <summary>
@@ -330,14 +330,21 @@ public class SimulatorNetworkManager : NetworkManager
     /// </summary>
     public override void OnStopClient()
     {
-        StartCoroutine(returnToMainMenuCoroutine());
+        StartCoroutine(returnFromGameInstance());
     }
 
     #endregion
 
-    private IEnumerator returnToMainMenuCoroutine()
+    private IEnumerator returnFromGameInstance()
     {
         yield return null;
-        SceneManager.LoadScene("Main Menu Scene");
+        if (GameTemplateEditor.Instance.CurrentWorkingGameTemplate != null)
+        {
+            SceneManager.LoadScene("Card Game Creator Scene");
+        }
+        else
+        {
+            SceneManager.LoadScene("Main Menu Scene");
+        }
     }
 }

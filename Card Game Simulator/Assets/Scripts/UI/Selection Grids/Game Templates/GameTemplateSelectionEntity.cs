@@ -40,6 +40,8 @@ public class GameTemplateSelectionEntity : MonoBehaviour
 
     private void setupGameTemplateTitle(GameTemplate gameTemplate)
     {
-        gameTemplateTitle.text = gameTemplate.GameTemplateDetails.TemplateName;
+        string gameTemplateName = gameTemplate.GameTemplateDetails.TemplateName;
+        string displayText = !gameTemplateName.Equals(string.Empty) ? gameTemplateName : "(no name)";
+        gameTemplateTitle.text = displayText;
     }
 }

@@ -128,7 +128,8 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     private void rpcAnnouncePlayerJoin(string playerName)
     {
-        PopupMessageManager.NewPopupMessage($"{playerName} has joined", 2f);
+        string displayText = !playerName.Equals(string.Empty) ? playerName : "(no name)";
+        PopupMessageManager.NewPopupMessage($"{displayText} has joined", 2f);
     }
 
     private void onPlayerLeft(int _, GameObject removedPlayerObject)
@@ -140,6 +141,7 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     private void rpcAnnouncePlayerLeave(string playerName)
     {
-        PopupMessageManager.NewPopupMessage($"{playerName} has left", 2f);
+        string displayText = !playerName.Equals(string.Empty) ? playerName : "(no name)";
+        PopupMessageManager.NewPopupMessage($"{displayText} has left", 2f);
     }
 }

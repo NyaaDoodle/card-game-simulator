@@ -31,6 +31,7 @@ public class SpaceSelectionEntity : MonoBehaviour
 
     private void setupDeckName(SpaceData spaceData)
     {
-        spaceName.text = spaceData.Name;
+        string displayText = !spaceData.Name.Equals(string.Empty) ? spaceData.Name : "(no name)";
+        spaceName.text = displayText;
     }
 }

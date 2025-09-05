@@ -34,6 +34,18 @@ public class GameTemplateEditor : MonoBehaviour
         showGameTemplateSelectionWindow();
     }
 
+    public void ContinueFromWorkingGameTemplate()
+    {
+        if (CurrentWorkingGameTemplate != null)
+        {
+            GoToGameTemplateSectionsScreen();
+        }
+        else
+        {
+            GoToInitialScreen();
+        }
+    }
+
     private void hideAllScreens()
     {
         ModalWindowManager.CloseCurrentWindow();
@@ -52,20 +64,14 @@ public class GameTemplateEditor : MonoBehaviour
             (gameTemplate) =>
                 {
                     setCurrentWorkingGameTemplate(gameTemplate);
-                    ModalWindowManager.CloseCurrentWindow();
-                    GameTemplateEditorScreenReferences.Instance.GameTemplateSectionsScreen.Show();
+                    ContinueFromWorkingGameTemplate();
                 },
             () =>
                 {
                     createNewGameTemplate();
-                    ModalWindowManager.CloseCurrentWindow();
-                    GameTemplateEditorScreenReferences.Instance.EditGameTemplateDetailsScreen.Show();
+                    GoToEditGameTemplateDetailsScreen();
                 },
-            () =>
-                {
-                    ModalWindowManager.CloseCurrentWindow();
-                    SceneManager.LoadScene("Main Menu Scene");
-                });
+            closeGameTemplateEditor);
     }
 
     public void GoToGameTemplateSectionsScreen()
@@ -140,6 +146,13 @@ public class GameTemplateEditor : MonoBehaviour
     private void discardCurrentWorkingGameTemplate()
     {
         CurrentWorkingGameTemplate = null;
+    }
+
+    private void closeGameTemplateEditor()
+    {
+        hideAllScreens();
+        discardCurrentWorkingGameTemplate();
+        SceneManager.LoadScene("Main Menu Scene");
     }
 
     private void onReady()
