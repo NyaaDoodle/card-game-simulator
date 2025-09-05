@@ -79,6 +79,7 @@ public class EditSpaceScreen : GameTemplateEditorScreenBase
         deleteSpaceButton.onClick.AddListener(() =>
             {
                 WorkingGameTemplate.DeleteSpaceData(currentSpaceData);
+                PopupMessageManager.NewPopupMessage("Space has been deleted", 2f);
                 BackButton.onClick.Invoke();
             });
     }

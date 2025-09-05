@@ -50,11 +50,15 @@ public class GameTemplateSelectionGrid : MonoBehaviour
                         PlayerPrefsManager.Instance.CloudBackendPort,
                         () =>
                             {
-                                Debug.Log("Successfully downloaded game templates!");
+                                PopupMessageManager.NewPopupMessage("Successfully downloaded game templates!", 2f);
                                 updateGameTemplates();
                             },
                         (error, gameTemplateId) =>
                             {
+                                PopupMessageManager.NewPopupMessage(
+                                    "Failed to download game templates, check logs for details",
+                                    3f,
+                                    Color.red);
                                 Debug.LogError($"Failed to download game templates: {error}");
                                 if (gameTemplateId != null)
                                 {

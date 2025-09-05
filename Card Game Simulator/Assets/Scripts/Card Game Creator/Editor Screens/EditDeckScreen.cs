@@ -87,6 +87,7 @@ public class EditDeckScreen : GameTemplateEditorScreenBase
         deleteDeckButton.onClick.AddListener(() =>
             {
                 WorkingGameTemplate.DeleteDeckData(currentDeckData);
+                PopupMessageManager.NewPopupMessage("Deck has been deleted", 2f);
                 BackButton.onClick.Invoke();
             });
     }

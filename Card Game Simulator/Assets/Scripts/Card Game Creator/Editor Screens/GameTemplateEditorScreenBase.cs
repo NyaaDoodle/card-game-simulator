@@ -16,6 +16,7 @@ public class GameTemplateEditorScreenBase : MonoBehaviour
         SaveButton.onClick.AddListener(() =>
             {
                 SaveGameTemplate();
+                PopupMessageManager.NewPopupMessage("Game template saved", 2f);
                 onBackButtonSelect?.Invoke();
             });
     }

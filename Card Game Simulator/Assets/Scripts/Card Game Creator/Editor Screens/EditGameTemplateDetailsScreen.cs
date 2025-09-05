@@ -81,6 +81,7 @@ public class EditGameTemplateDetailsScreen : GameTemplateEditorScreenBase
         deleteTemplateButton.onClick.AddListener(() =>
             {
                 GameTemplateLoader.DeleteGameTemplate(WorkingGameTemplate.Id);
+                PopupMessageManager.NewPopupMessage("Game template has been deleted", 2f);
                 GameTemplateEditor.Instance.GoToInitialScreen();
             });
     }

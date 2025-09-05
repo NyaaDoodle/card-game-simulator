@@ -23,6 +23,7 @@ public class PrefabReferences : MonoBehaviour
     public GameObject SpaceSelectionModalWindowPrefab;
     public GameObject MobileImageMethodModalWindowPrefab;
     public GameObject PlayerScoreEntityPrefab;
+    public GameObject PopupMessagePrefab;
     
     public bool IsReady { get; private set; }
 

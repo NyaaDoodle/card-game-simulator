@@ -11,7 +11,6 @@ public class PlayerManager : NetworkBehaviour
     public readonly SyncList<GameObject> ConnectedPlayers = new SyncList<GameObject>();
     
     private readonly Dictionary<string, PlayerData> disconnectedPlayerData = new Dictionary<string, PlayerData>();
-    
 
     private void Awake()
     {
@@ -28,6 +27,19 @@ public class PlayerManager : NetworkBehaviour
         {
             Instance = this;
         }
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        ConnectedPlayers.OnAdd += onPlayerJoined;
+        ConnectedPlayers.OnRemove += onPlayerLeft;
+    }
+
+    public override void OnStopServer()
+    {
+        ConnectedPlayers.OnAdd -= onPlayerJoined;
+        ConnectedPlayers.OnRemove -= onPlayerLeft;
     }
 
     public override void OnStopClient()
@@ -105,5 +117,29 @@ public class PlayerManager : NetworkBehaviour
         PlayerData disconnectingPlayerData = new PlayerData(player, playerHand);
         disconnectedPlayerData[disconnectingPlayerData.Id] = disconnectingPlayerData;
         ConnectedPlayers.Remove(player.gameObject);
+    }
+
+    private void onPlayerJoined(int index)
+    {
+        string joinedPlayerName = ConnectedPlayers[index].GetComponent<Player>().Name;
+        rpcAnnouncePlayerJoin(joinedPlayerName);
+    }
+
+    [ClientRpc]
+    private void rpcAnnouncePlayerJoin(string playerName)
+    {
+        PopupMessageManager.NewPopupMessage($"{playerName} has joined", 2f);
+    }
+
+    private void onPlayerLeft(int _, GameObject removedPlayerObject)
+    {
+        string removedPlayerName = removedPlayerObject.GetComponent<Player>().Name;
+        rpcAnnouncePlayerLeave(removedPlayerName);
+    }
+
+    [ClientRpc]
+    private void rpcAnnouncePlayerLeave(string playerName)
+    {
+        PopupMessageManager.NewPopupMessage($"{playerName} has left", 2f);
     }
 }

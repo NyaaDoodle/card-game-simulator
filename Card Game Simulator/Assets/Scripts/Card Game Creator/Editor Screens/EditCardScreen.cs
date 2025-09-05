@@ -105,6 +105,7 @@ public class EditCardScreen : GameTemplateEditorScreenBase
         deleteCardButton.onClick.AddListener(() =>
             {
                 WorkingGameTemplate.DeleteCardData(currentCardData);
+                PopupMessageManager.NewPopupMessage("Card has been deleted", 2f);
                 BackButton.onClick.Invoke();
             });
     }

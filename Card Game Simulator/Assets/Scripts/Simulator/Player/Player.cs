@@ -104,6 +104,13 @@ public class Player : NetworkBehaviour
     public void CmdShuffleStackable(Stackable stackable)
     {
         stackable.ShuffleCards();
+        targetPostShuffle(connectionToClient);
+    }
+
+    [TargetRpc]
+    private void targetPostShuffle(NetworkConnectionToClient target)
+    {
+        PopupMessageManager.NewPopupMessage("Cards have been shuffled", 2f);
     }
 
     [Command]
