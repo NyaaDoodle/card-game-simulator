@@ -54,8 +54,8 @@ public class WorkingGameTemplate
 
     private void createDefaultTableData()
     {
-        const float defaultWidth = 25f;
-        const float defaultHeight = 10f;
+        const float defaultWidth = 20f;
+        const float defaultHeight = 20f;
         const string defaultSurfaceImagePath = "";
         TableData = new TableData(defaultWidth, defaultHeight, defaultSurfaceImagePath);
     }
