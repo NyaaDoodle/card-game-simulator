@@ -7,7 +7,7 @@ public class Deck : Stackable
     {
         base.Setup(deckData);
         IEnumerable<CardData> startingCardsData =
-            gameTemplate.GetCardDataDictionaryFromCardIds(deckData.StartingCardIds).Values;
+            gameTemplate.GetCardDataListFromCardIds(deckData.StartingCardIds);
         addStartingCards(startingCardsData);
     }
 

@@ -37,7 +37,7 @@ public class CardSelectionGrid : MonoBehaviour
         Action<CardData> onSelectCard,
         Action onSelectAddButton = null)
     {
-        IEnumerable<CardData> cardsData = workingGameTemplate.GetCardDataDictionaryFromCardIds(cardIds).Values;
+        IEnumerable<CardData> cardsData = workingGameTemplate.GetCardDataListFromCardIds(cardIds);
         this.Show(cardsData, onSelectCard, onSelectAddButton);
     }
 
@@ -55,7 +55,7 @@ public class CardSelectionGrid : MonoBehaviour
 
     public void UpdateCards(IEnumerable<string> cardIds, WorkingGameTemplate workingGameTemplate)
     {
-        IEnumerable<CardData> cardsData = workingGameTemplate.GetCardDataDictionaryFromCardIds(cardIds).Values;
+        IEnumerable<CardData> cardsData = workingGameTemplate.GetCardDataListFromCardIds(cardIds);
         UpdateCards(cardsData);
     }
 

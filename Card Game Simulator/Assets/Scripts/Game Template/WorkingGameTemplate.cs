@@ -410,4 +410,17 @@ public class WorkingGameTemplate
         }
         return dictionary;
     }
+
+    public List<CardData> GetCardDataListFromCardIds(IEnumerable<string> cardIds)
+    {
+        List<CardData> list = new List<CardData>();
+        foreach (string cardId in cardIds)
+        {
+            if (CardPool.TryGetValue(cardId, out CardData cardData))
+            {
+                list.Add(cardData);
+            }
+        }
+        return list;
+    }
 }

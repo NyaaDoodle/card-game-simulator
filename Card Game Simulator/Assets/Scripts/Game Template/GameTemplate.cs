@@ -157,4 +157,30 @@ public readonly struct GameTemplate : IEquatable<GameTemplate>
         }
         return cardPoolAsDictionary;
     }
+
+    public List<CardData> GetCardDataListFromCardIds(IEnumerable<string> cardIds)
+    {
+        List<CardData> list = new List<CardData>();
+        foreach (string cardId in cardIds)
+        {
+            CardData? cardDataMaybe = findCardById(cardId);
+            if (cardDataMaybe != null)
+            {
+                list.Add(cardDataMaybe.Value);
+            }
+        }
+        return list;
+    }
+
+    private CardData? findCardById(string cardId)
+    {
+        foreach (CardData cardData in CardPool)
+        {
+            if (cardData.Id == cardId)
+            {
+                return cardData;
+            }
+        }
+        return null;
+    }
 }
