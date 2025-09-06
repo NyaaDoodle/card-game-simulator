@@ -1,0 +1,584 @@
+{
+  "Id": "b15f809f-b660-4f92-bf14-096b8680122b",
+  "GameTemplateDetails": {
+    "TemplateName": "Poker Texas Hold 'Em",
+    "CreatorName": "Template created by Melanie Sverdlov",
+    "Description": "",
+    "TemplateImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/954dbd6a-b59d-4ad8-969a-def3037ec8af.jpg"
+  },
+  "TableData": {
+    "Width": 20.0,
+    "Height": 20.0,
+    "SurfaceImagePath": ""
+  },
+  "CardPool": [
+    {
+      "Id": "0cfac945-b89d-43c2-8f9e-3a6aa25c2e68",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/5f70ba5b-a986-4e0a-9992-a3a7a6d442dc.jpg"
+    },
+    {
+      "Id": "1924b599-b742-417a-ab3d-84dad51f4c47",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/7aee0155-7019-45b9-b0bf-d9e1ffac1d23.jpg"
+    },
+    {
+      "Id": "5445209d-2017-46be-86c8-3559941c8575",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/862a2333-41c3-42b7-bcba-549255a25f26.jpg"
+    },
+    {
+      "Id": "55757c4d-fbe6-49c7-b269-d6172408c4ca",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/0fcb9a9b-f802-4856-98d2-50ab7a514db4.jpg"
+    },
+    {
+      "Id": "5af71c24-99cf-4777-993a-6cc7f6469b90",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/7c9c4555-5eb6-4726-ac3d-2d0f085627f9.jpg"
+    },
+    {
+      "Id": "79d3d87f-cb3f-43d6-a88b-f369715871ac",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/09538b1e-61ba-4987-a4d2-219eaa32a404.jpg"
+    },
+    {
+      "Id": "97d2806a-5844-4340-9052-0298d5853b29",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/d5db3b72-02dc-4a8b-9a57-c011fc879a37.jpg"
+    },
+    {
+      "Id": "30c1b3db-a613-447e-980e-adf7d30242fe",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/4dea7956-fce1-4b3b-a7f4-1c3402b833d7.jpg"
+    },
+    {
+      "Id": "3fc4fae5-854b-4291-b05c-10eed483284e",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/f7aedaee-25a3-4f78-8745-02d6a5f10c19.jpg"
+    },
+    {
+      "Id": "db60dd78-1871-4f0b-b413-b5b9e2413313",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/a57409fc-7a49-4228-9e3f-1baf75fef71d.jpg"
+    },
+    {
+      "Id": "658fd6b5-7cbb-4b66-921a-a0bb4ecd1bd1",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/692a0ea5-42e4-43c7-b809-bbb2b678ef90.jpg"
+    },
+    {
+      "Id": "a7696552-5a7b-4070-8ae9-15a8db48393c",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/134180af-14b7-4570-b659-56647304a89b.jpg"
+    },
+    {
+      "Id": "2fba0c91-fa05-4ce6-a5d3-36b4e7863cac",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/8a9d5b8d-bb95-4f81-9bd5-358b80cbfa05.jpg"
+    },
+    {
+      "Id": "c9d60924-324c-4f23-a96c-d9d4f2b876e5",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/bd6d5a98-21e5-469d-9fbf-9af0bc13ab46.jpg"
+    },
+    {
+      "Id": "a82fa844-0b24-4795-95c0-ab9c452a77ff",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/c914a427-43a2-42a1-a3b5-3cdfeb003776.jpg"
+    },
+    {
+      "Id": "5dfdb26f-d106-4d73-943b-8a65bcde90f6",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/a55ed78c-cb1d-42fc-ad61-a1a4af209415.jpg"
+    },
+    {
+      "Id": "501319e4-8889-46a3-9984-c9b265ebc14e",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/05140a8f-4822-41c8-b48a-0fecaf141f37.jpg"
+    },
+    {
+      "Id": "4ed6f164-c124-4f57-a6da-f675b8a339b4",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/11db59fe-d4c0-44d1-ac6f-bd67f892bab3.jpg"
+    },
+    {
+      "Id": "2e62f318-119f-48b9-b03f-9ff8c5c04091",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/f093d6ee-910a-469b-9fe6-1a57b6b4d847.jpg"
+    },
+    {
+      "Id": "19f45b2f-e81f-4c26-bb6e-c956d52529c1",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/5d79d377-0934-4c3e-9afc-0f7ccfda06a4.jpg"
+    },
+    {
+      "Id": "4cb17236-f5eb-4c79-81ba-3e23be4413c9",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/4ab77954-96f8-4b9c-a5e4-cc5bf7e658ca.jpg"
+    },
+    {
+      "Id": "ffebb0b5-4244-4531-b0d2-a9cea5aa6fa8",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/6ed76e53-5683-4347-b2ed-e59907706983.jpg"
+    },
+    {
+      "Id": "bd8688c4-9b35-47fc-b67a-8cc63871d5d4",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/4bd6f0b8-70c5-4b93-b8cc-574f46786b8d.jpg"
+    },
+    {
+      "Id": "176bfe93-843b-4d90-a78a-f7617a180a94",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/b9d60626-d1f6-4b8b-bbf5-d6062983ec0f.jpg"
+    },
+    {
+      "Id": "9616d3c6-40ae-417d-8c6e-bbbe916c7aa8",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/1d5b959b-8c03-41c2-ba88-bb962866ab15.jpg"
+    },
+    {
+      "Id": "33e7b231-c9e9-4e8a-ab5e-ade7cbfba1a5",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/4bce826c-dd61-4245-921b-522415ad82e8.jpg"
+    },
+    {
+      "Id": "98eb132b-3c10-4ecf-97fa-c0557b904aac",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/cbbdf681-1b2e-4402-83c7-5fd4bfd5435a.jpg"
+    },
+    {
+      "Id": "5cee3f61-1569-43a8-9636-bc582d01f34f",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/250bfb5f-6712-415c-af9f-fea06e8449cb.jpg"
+    },
+    {
+      "Id": "62b84b5c-cb66-4538-b400-17c1650a514b",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/c890490f-9651-4824-b982-6683dc14c92d.jpg"
+    },
+    {
+      "Id": "f6e343be-9fbd-46d6-be34-157a9a8cef56",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/d1de7692-3d42-40f5-9f88-4015ba1945d8.jpg"
+    },
+    {
+      "Id": "bbda002e-146a-4de6-a45e-3aee19625591",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/70544490-5054-40f1-8aff-329a77a7d272.jpg"
+    },
+    {
+      "Id": "f0a3e5ff-e53c-480f-8867-c7ef569268a5",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/29ed9ca2-7b3d-4283-8bdb-409be51d5583.jpg"
+    },
+    {
+      "Id": "fde8c99f-fd67-4b8e-b023-94a9bb3a9c51",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/090ba95d-e177-4ca9-a42a-906bd4d9f02f.jpg"
+    },
+    {
+      "Id": "a93ece70-0973-40e2-b27c-eb05a3ceac9a",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/bab3ba63-592b-4821-adf0-6817a327c91b.jpg"
+    },
+    {
+      "Id": "25f42144-3105-4ed5-84c5-66246a25b86d",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/fb4e5894-8835-4138-9c77-fffe24ff8f77.jpg"
+    },
+    {
+      "Id": "b8caad14-8e43-470f-b121-8d3a840a3083",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/b82e3338-00ca-40bb-b074-a25d5d5d4127.jpg"
+    },
+    {
+      "Id": "5564dc83-125d-47f3-9d78-1a5f5ad72a16",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/d26eb098-3900-4888-b5fb-f8180f42446c.jpg"
+    },
+    {
+      "Id": "7de859d4-4aaa-468e-b3dd-6a9933e2c38c",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/22916f53-1a90-48ef-b54a-76dd8cb82cfd.jpg"
+    },
+    {
+      "Id": "6c11beda-2840-425a-9f65-be8c09eaa5fa",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/217c9a3d-36b6-4cef-8abc-394ead291718.jpg"
+    },
+    {
+      "Id": "66b9243f-2342-4500-b704-cf1e8f4befce",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/f12ddae1-39ca-41e2-887c-6d98ab95345c.jpg"
+    },
+    {
+      "Id": "4c70a503-6dc9-455b-8b41-c8c87c66ac43",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/28da9210-0209-42a4-bdea-048d57b490db.jpg"
+    },
+    {
+      "Id": "ebd54497-adcb-4158-b786-1e19e67fa314",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/69be8f19-df12-4d61-bb3b-d4db30bf7ab2.jpg"
+    },
+    {
+      "Id": "022b447a-bd73-419d-a9f6-0144027fa9eb",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/215998c4-4229-4486-9d2a-901af5fa7ab7.jpg"
+    },
+    {
+      "Id": "c37e702e-91cd-460a-9649-c64bcf15f316",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/40694caf-a7ea-4566-8f79-3d1288f1ce79.jpg"
+    },
+    {
+      "Id": "08f7e22c-b9d3-4589-a9e7-78343c364069",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/69314ff2-6ecf-44e9-a2c3-98a8756cc756.jpg"
+    },
+    {
+      "Id": "6ccc7a74-a98e-4a5b-b75b-a25b238c9086",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/0f31cff7-21b0-4f05-89dd-132fed689412.jpg"
+    },
+    {
+      "Id": "f0d1471c-3770-4466-b49c-e2f4b186a1d5",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/381528d6-0eef-4a7f-af8d-4c9999d9277a.jpg"
+    },
+    {
+      "Id": "8583548a-e2c4-4b25-8405-c1377ee12168",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/e94d872b-d5c4-4b71-a2e0-3ee338dc310f.jpg"
+    },
+    {
+      "Id": "acf65c4f-0115-4e1a-81e7-86869820803c",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/84ad7329-b594-4ad9-ad1f-f337afa616d3.jpg"
+    },
+    {
+      "Id": "eeb828f8-ebc1-410c-bcbb-21e2e1f69b42",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/912d0828-7b55-4182-86f0-37327c7298af.jpg"
+    },
+    {
+      "Id": "c6d764f0-915d-4a46-b0ef-c169947736e2",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/b3c2aee0-b030-4456-b900-067328c38df9.jpg"
+    },
+    {
+      "Id": "624d871e-bba0-489d-9f83-bd4d389d5324",
+      "Name": "",
+      "Description": "",
+      "Width": 2.0,
+      "Height": 3.0,
+      "BackSideImagePath": "",
+      "FrontSideImagePath": "images/b15f809f-b660-4f92-bf14-096b8680122b/9b6c2a1b-b4ae-40ce-b07f-a337887fa060.jpg"
+    }
+  ],
+  "DecksData": [
+    {
+      "Id": "8d20ac88-1d0d-4ab7-849c-b1fdffcc05b5",
+      "Name": "Deck",
+      "TableXCoordinate": -8.0,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0,
+      "StartingCardIds": [
+        "0cfac945-b89d-43c2-8f9e-3a6aa25c2e68",
+        "1924b599-b742-417a-ab3d-84dad51f4c47",
+        "5445209d-2017-46be-86c8-3559941c8575",
+        "55757c4d-fbe6-49c7-b269-d6172408c4ca",
+        "5af71c24-99cf-4777-993a-6cc7f6469b90",
+        "79d3d87f-cb3f-43d6-a88b-f369715871ac",
+        "97d2806a-5844-4340-9052-0298d5853b29",
+        "30c1b3db-a613-447e-980e-adf7d30242fe",
+        "3fc4fae5-854b-4291-b05c-10eed483284e",
+        "db60dd78-1871-4f0b-b413-b5b9e2413313",
+        "658fd6b5-7cbb-4b66-921a-a0bb4ecd1bd1",
+        "a7696552-5a7b-4070-8ae9-15a8db48393c",
+        "2fba0c91-fa05-4ce6-a5d3-36b4e7863cac",
+        "c9d60924-324c-4f23-a96c-d9d4f2b876e5",
+        "a82fa844-0b24-4795-95c0-ab9c452a77ff",
+        "5dfdb26f-d106-4d73-943b-8a65bcde90f6",
+        "501319e4-8889-46a3-9984-c9b265ebc14e",
+        "4ed6f164-c124-4f57-a6da-f675b8a339b4",
+        "2e62f318-119f-48b9-b03f-9ff8c5c04091",
+        "19f45b2f-e81f-4c26-bb6e-c956d52529c1",
+        "4cb17236-f5eb-4c79-81ba-3e23be4413c9",
+        "ffebb0b5-4244-4531-b0d2-a9cea5aa6fa8",
+        "bd8688c4-9b35-47fc-b67a-8cc63871d5d4",
+        "176bfe93-843b-4d90-a78a-f7617a180a94",
+        "9616d3c6-40ae-417d-8c6e-bbbe916c7aa8",
+        "33e7b231-c9e9-4e8a-ab5e-ade7cbfba1a5",
+        "98eb132b-3c10-4ecf-97fa-c0557b904aac",
+        "5cee3f61-1569-43a8-9636-bc582d01f34f",
+        "62b84b5c-cb66-4538-b400-17c1650a514b",
+        "f6e343be-9fbd-46d6-be34-157a9a8cef56",
+        "bbda002e-146a-4de6-a45e-3aee19625591",
+        "f0a3e5ff-e53c-480f-8867-c7ef569268a5",
+        "25f42144-3105-4ed5-84c5-66246a25b86d",
+        "fde8c99f-fd67-4b8e-b023-94a9bb3a9c51",
+        "a93ece70-0973-40e2-b27c-eb05a3ceac9a",
+        "b8caad14-8e43-470f-b121-8d3a840a3083",
+        "5564dc83-125d-47f3-9d78-1a5f5ad72a16",
+        "7de859d4-4aaa-468e-b3dd-6a9933e2c38c",
+        "6c11beda-2840-425a-9f65-be8c09eaa5fa",
+        "66b9243f-2342-4500-b704-cf1e8f4befce",
+        "4c70a503-6dc9-455b-8b41-c8c87c66ac43",
+        "ebd54497-adcb-4158-b786-1e19e67fa314",
+        "022b447a-bd73-419d-a9f6-0144027fa9eb",
+        "c37e702e-91cd-460a-9649-c64bcf15f316",
+        "6ccc7a74-a98e-4a5b-b75b-a25b238c9086",
+        "08f7e22c-b9d3-4589-a9e7-78343c364069",
+        "f0d1471c-3770-4466-b49c-e2f4b186a1d5",
+        "8583548a-e2c4-4b25-8405-c1377ee12168",
+        "acf65c4f-0115-4e1a-81e7-86869820803c",
+        "eeb828f8-ebc1-410c-bcbb-21e2e1f69b42",
+        "c6d764f0-915d-4a46-b0ef-c169947736e2",
+        "624d871e-bba0-489d-9f83-bd4d389d5324"
+      ]
+    }
+  ],
+  "SpacesData": [
+    {
+      "Id": "cea36998-6884-4c9b-bbd1-5d78981aa1eb",
+      "Name": "Space 1",
+      "TableXCoordinate": -5.0,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0
+    },
+    {
+      "Id": "ddbc82d1-0c3a-4654-9a43-ae3ebfd40aa4",
+      "Name": "Space 2",
+      "TableXCoordinate": -2.5,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0
+    },
+    {
+      "Id": "74d86fa2-b85b-4c16-b6ab-fafb9f4e67a8",
+      "Name": "Space 3",
+      "TableXCoordinate": 0.0,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0
+    },
+    {
+      "Id": "961e6022-9bf2-49bc-9efd-64a6304d797b",
+      "Name": "Space 4",
+      "TableXCoordinate": 2.5,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0
+    },
+    {
+      "Id": "417f9b61-4004-4846-be21-eb1bfef10894",
+      "Name": "Space 5",
+      "TableXCoordinate": 5.0,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0
+    }
+  ]
+}
