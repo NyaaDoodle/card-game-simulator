@@ -426,6 +426,13 @@
       "TableXCoordinate": -5.0,
       "TableYCoordinate": 3.5,
       "Rotation": 0.0
+    },
+    {
+      "Id": "1537c73b-1c7a-4d9c-87ed-bdc0c5339649",
+      "Name": "Discard Pile",
+      "TableXCoordinate": -3.0,
+      "TableYCoordinate": 0.0,
+      "Rotation": 0.0
     }
   ]
 }
