@@ -38,6 +38,10 @@ public class ScoreManager : MonoBehaviour
         PlayerManager.Instance.ConnectedPlayers.OnAdd += onConnectedPlayersAdded;
         PlayerManager.Instance.ConnectedPlayers.OnRemove += onConnectedPlayersRemoved;
         spawnPlayerScoreEntities();
+        if (CameraControlsManager.Instance.IsCameraControlsEnabled == true)
+        {
+            CameraControlsManager.Instance.IsCameraControlsEnabled = false;
+        }
     }
 
     public void Hide()
@@ -48,6 +52,10 @@ public class ScoreManager : MonoBehaviour
         if (scoreManagerScreen != null)
         {
             scoreManagerScreen.gameObject.SetActive(false);
+        }
+        if (CameraControlsManager.Instance.IsCameraControlsEnabled == false)
+        {
+            CameraControlsManager.Instance.IsCameraControlsEnabled = true;
         }
     }
 
